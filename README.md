@@ -1,4 +1,4 @@
-# 🏛️ Recursos Educativos · Constitución Española 2026
+﻿# 🏛️ Recursos Educativos · Constitución Española 2026
 ### **Comunidad de Madrid**
 **Consejería de Educación, Ciencia y Universidades · Comunidad de Madrid**
 
@@ -7,21 +7,6 @@
 Bienvenido al repositorio central de **Recursos Educativos Gamificados y Multimedia** para la conmemoración del **Día de la Constitución Española 2026** en los centros educativos de la Comunidad de Madrid.
 
 Este repositorio reúne las versiones web interactivas, los tableros visuales interactivos adaptados para **Canva (16:9 / PDI)**, las versiones gamificadas para **Genially**, así como los cuadernos de actividades imprimibles en PDF para las aulas.
-
----
-
-
----
-
-## 🧬 Espacio Destacado: Atlas Anatómico y Biomecánico (Ejercicios con Gomas)
-**Educación Física, Biomecánica y Salud Activa**
-
-Accede a la suite interactiva de movimiento humano con 24 ejercicios técnicos con bandas elásticas y 11 módulos de biomecánica, osteopatía y control motor:
-- 🌐 **Acceso Web Interactivo (GitHub Pages)**: [https://elenabenitocases.github.io/Ejercicios-gomas/](https://elenabenitocases.github.io/Ejercicios-gomas/)
-- 📂 **Repositorio del Proyecto**: [https://github.com/elenabenitocases/Ejercicios-gomas](https://github.com/elenabenitocases/Ejercicios-gomas)
-- 🎬 **Vídeos Biomecánicos 60 FPS**: Modelos anatómicos de Atleta Mujer 👩 y Hombre 👨 con mapas de calor muscular dinámico, HUD articular y exportación WebM.
-- 📐 **Láminas Técnicas SVG**: Ilustraciones vectoriales de dos fases con click-to-zoom.
-- 🖨️ **Fichas Técnicas Imprimibles en PDF**: Descarga de fichas individuales de cada ejercicio o del Atlas completo para el aula.
 
 ---
 
