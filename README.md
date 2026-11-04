@@ -1,4 +1,4 @@
-﻿# 🏛️ Recursos Educativos · Constitución Española 2026
+# 🏛️ Recursos Educativos · Constitución Española 2026
 ### **Comunidad de Madrid**
 **Consejería de Educación, Ciencia y Universidades · Comunidad de Madrid**
 
@@ -73,8 +73,8 @@ Accede a la suite interactiva de movimiento humano con 24 ejercicios técnicos c
 
 ### 📚 Reto 3 · Nuestra Constitución, Cuento a Cuento
 * **Fundamento Constitucional:** Art. 10 (Dignidad de la persona), Art. 14 (Igualdad ante la ley) y Art. 27 (Derecho a la educación).
-* **Dinámica:** Propuesta dual con 5 cuentos de asamblea para Infantil/Primaria (*El cazo de Lorenzo*, *Por cuatro esquinitas de nada*, *El ovillo azul*, etc.) y dilemas éticos literarios para 1º/2º ESO con conmutador bilingüe completo (Español / Inglés).
-* **Materiales:** Tablero de asamblea 16:9, fichas curriculares y diploma de honor.
+* **Dinámica:** Propuesta dual con 5 cuentos de asamblea para Infantil/Primaria (*El cazo de Lorenzo*, *Por cuatro esquinitas de nada*, *¿Qué hace falta?*, *El enemigo*, *La vaca que puso un huevo*) y 5 obras literarias con dilemas éticos para 1º/2º ESO (*Omelas*, *El arenque rojo*, Borges, *La Rosa Blanca*, *Fahrenheit 451*), integrando 10 pasatiempos interactivos (Memory, sopas de letras, crucigramas, descifradores y anagramas) y conmutador bilingüe completo (Español / Inglés).
+* **Materiales:** Tablero Canva 16:9, portal web interactivo bilingüe, cuadernos curriculares en PDF y diplomas oficiales imprimibles.
 
 ### 🏛️ Reto 4 · El Archipiélago de la Memoria (Patrimonio, Memoria y Folclore)
 * **Fundamento Constitucional:** Art. 46 (Patrimonio histórico y artístico), Art. 44 (Acceso a la cultura) y Art. 2 (Solidaridad interterritorial).

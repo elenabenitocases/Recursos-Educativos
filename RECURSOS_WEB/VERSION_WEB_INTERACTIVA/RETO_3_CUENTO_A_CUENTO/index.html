@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -341,28 +341,36 @@
       max-width: 1200px;
       margin: 0 auto;
       display: flex;
+      flex-wrap: wrap;
+      align-items: center;
       gap: 8px;
-      padding: 8px 24px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .tabs-container::-webkit-scrollbar {
-      display: none;
+      padding: 8px 16px;
     }
     .tab-btn {
       background: transparent;
-      border: none;
-      padding: 10px 18px;
+      border: 1px solid transparent;
+      padding: 8px 14px;
       border-radius: var(--radius-md);
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 700;
       color: var(--text-muted);
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       white-space: nowrap;
       transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    @media (max-width: 960px) {
+      .tabs-container {
+        padding: 6px 10px;
+        gap: 6px;
+      }
+      .tab-btn {
+        padding: 6px 10px;
+        font-size: 0.80rem;
+      }
     }
     .tab-btn:hover {
       background: #F1F5F9;
@@ -1419,7 +1427,647 @@
         visibility: visible !important;
       }
     }
-  </style>
+  
+    /* ========================================================
+       ESTILOS EXCLUSIVOS: PASATIEMPOS INTERACTIVOS RETO 3
+       ======================================================== */
+    .story-pasatiempo-wrapper {
+      margin-top: 28px;
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+      border: 2px solid #BFDBFE;
+      border-radius: 18px;
+      padding: 22px 26px;
+      box-shadow: 0 8px 24px rgba(30, 58, 138, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .sec-pasatiempo-wrapper {
+      background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%);
+      border: 2px solid #6366F1;
+      color: #F8FAFC;
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.25);
+    }
+    .pasatiempo-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(191, 219, 254, 0.5);
+    }
+    .sec-pasatiempo-wrapper .pasatiempo-top-bar {
+      border-bottom-color: rgba(99, 102, 241, 0.35);
+    }
+    .pasatiempo-pill {
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: #DBEAFE;
+      color: #1E40AF;
+      border: 1px solid #93C5FD;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sec-pasatiempo-wrapper .pasatiempo-pill {
+      background: rgba(99, 102, 241, 0.25);
+      color: #C7D2FE;
+      border-color: #818CF8;
+    }
+    .pasatiempo-heading {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #1E3A8A;
+      margin: 4px 0 2px 0;
+    }
+    .sec-pasatiempo-wrapper .pasatiempo-heading {
+      color: #FFE600;
+    }
+    .pasatiempo-instruction {
+      font-size: 0.92rem;
+      color: #475569;
+      line-height: 1.45;
+    }
+    .sec-pasatiempo-wrapper .pasatiempo-instruction {
+      color: #CBD5E1;
+    }
+    .pasatiempo-badge-status {
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 12px;
+      background: #F1F5F9;
+      color: #64748B;
+      border: 1px solid #CBD5E1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pasatiempo-badge-status.solved {
+      background: #DCFCE7;
+      color: #166534;
+      border-color: #86EFAC;
+    }
+
+    /* 1. MEMORY GAME */
+    .memory-container {
+      margin-top: 14px;
+    }
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      max-width: 650px;
+      margin: 0 auto 16px auto;
+    }
+    .memory-card {
+      aspect-ratio: 1 / 1;
+      background: #FFFFFF;
+      border: 2px solid #93C5FD;
+      border-radius: 14px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      text-align: center;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      user-select: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    .memory-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(59, 130, 246, 0.2);
+      border-color: #3B82F6;
+    }
+    .memory-card.face-down {
+      background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+      color: white;
+      border-color: #1E3A8A;
+    }
+    .memory-card.face-down .card-icon {
+      font-size: 2rem;
+    }
+    .memory-card.flipped {
+      background: #FEF3C7;
+      border-color: #F59E0B;
+      transform: scale(1.02);
+    }
+    .memory-card.matched {
+      background: #DCFCE7 !important;
+      border-color: #16A34A !important;
+      cursor: default;
+      animation: pulseMatch 0.4s ease-out;
+    }
+    @keyframes pulseMatch {
+      0% { transform: scale(0.95); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+    .card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 4px;
+    }
+    .card-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #1E293B;
+      line-height: 1.2;
+    }
+
+    /* 2. SOPA DE LETRAS */
+    .ws-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+    }
+    .ws-grid {
+      display: grid;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 12px;
+      border-radius: 14px;
+      border: 2px solid #CBD5E1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .sec-pasatiempo-wrapper .ws-grid {
+      background: rgba(30, 41, 59, 0.95);
+      border-color: #6366F1;
+    }
+    .ws-cell {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.05rem;
+      border-radius: 8px;
+      background: #F8FAFC;
+      color: #1E293B;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      border: 1px solid #E2E8F0;
+    }
+    .sec-pasatiempo-wrapper .ws-cell {
+      background: #0F172A;
+      color: #F8FAFC;
+      border-color: #334155;
+    }
+    .ws-cell:hover {
+      background: #DBEAFE;
+      border-color: #3B82F6;
+      transform: scale(1.06);
+    }
+    .ws-cell.highlight-1 { background: #FDE047 !important; color: #713F12 !important; font-weight: 900; }
+    .ws-cell.highlight-2 { background: #86EFAC !important; color: #14532D !important; font-weight: 900; }
+    .ws-cell.highlight-3 { background: #93C5FD !important; color: #1E3A8A !important; font-weight: 900; }
+    .ws-cell.highlight-4 { background: #F472B6 !important; color: #831843 !important; font-weight: 900; }
+    .ws-cell.highlight-5 { background: #C084FC !important; color: #581C87 !important; font-weight: 900; }
+    .ws-cell.highlight-6 { background: #FDBA74 !important; color: #7C2D12 !important; font-weight: 900; }
+    .ws-words-panel {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .ws-word-btn {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1.5px solid #CBD5E1;
+      background: #FFFFFF;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #334155;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    .sec-pasatiempo-wrapper .ws-word-btn {
+      background: rgba(30, 41, 59, 0.8);
+      color: #E2E8F0;
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+    .ws-word-btn:hover {
+      transform: translateX(4px);
+      border-color: #3B82F6;
+    }
+    .ws-word-btn.found {
+      background: #DCFCE7 !important;
+      border-color: #86EFAC !important;
+      color: #166534 !important;
+      text-decoration: line-through;
+    }
+
+    /* 3. CRUCIGRAMA */
+    .cw-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 14px;
+    }
+    .cw-grid-box {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 14px;
+      padding: 12px;
+      border: 2px solid #CBD5E1;
+      display: grid;
+      gap: 4px;
+    }
+    .sec-pasatiempo-wrapper .cw-grid-box {
+      background: rgba(30, 41, 59, 0.95);
+      border-color: #6366F1;
+    }
+    .cw-cell {
+      width: 38px;
+      height: 38px;
+      border: 1.5px solid #94A3B8;
+      border-radius: 6px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #1E293B;
+      position: relative;
+    }
+    .sec-pasatiempo-wrapper .cw-cell {
+      background: #0F172A;
+      color: #F8FAFC;
+      border-color: #475569;
+    }
+    .cw-cell.empty {
+      background: #E2E8F0;
+      border-color: transparent;
+    }
+    .sec-pasatiempo-wrapper .cw-cell.empty {
+      background: #1E293B;
+      border-color: transparent;
+    }
+    .cw-cell-num {
+      position: absolute;
+      top: 1px;
+      left: 3px;
+      font-size: 9px;
+      font-weight: 800;
+      color: #64748B;
+    }
+    .cw-cell.solved-cell {
+      background: #FEF08A !important;
+      color: #713F12 !important;
+    }
+    .cw-clues-box {
+      flex: 1;
+      min-width: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .cw-clue-card {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .sec-pasatiempo-wrapper .cw-clue-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-color: rgba(99, 102, 241, 0.3);
+      color: #F8FAFC;
+    }
+    .cw-clue-card:hover {
+      border-color: #3B82F6;
+      transform: translateX(4px);
+    }
+    .cw-clue-card.solved-clue {
+      background: #DCFCE7;
+      border-color: #86EFAC;
+      color: #166534;
+    }
+
+    /* 4. CRIPTOGRAMA / DESCIFRADOR */
+    .cipher-container {
+      margin-top: 14px;
+    }
+    .cipher-sentence-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .cipher-word-block {
+      display: flex;
+      gap: 6px;
+    }
+    .cipher-token {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .cipher-symbol-tag {
+      font-size: 1.25rem;
+      min-height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cipher-slot {
+      width: 34px;
+      height: 38px;
+      border: 2px solid #3B82F6;
+      border-radius: 8px;
+      background: #FFFFFF;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #1E3A8A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .sec-pasatiempo-wrapper .cipher-slot {
+      background: #0F172A;
+      color: #FFE600;
+      border-color: #818CF8;
+    }
+    .cipher-slot.revealed {
+      background: #DCFCE7;
+      border-color: #22C55E;
+      color: #15803D;
+    }
+    .cipher-keys-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #CBD5E1;
+    }
+    .sec-pasatiempo-wrapper .cipher-keys-panel {
+      background: rgba(15, 23, 42, 0.6);
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+    .cipher-key-chip {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .sec-pasatiempo-wrapper .cipher-key-chip {
+      background: #1E293B;
+      color: #E2E8F0;
+      border-color: #475569;
+    }
+    .cipher-key-chip:hover {
+      border-color: #3B82F6;
+      transform: scale(1.05);
+    }
+
+    /* 5. SPOT DIFFERENCES */
+    .spot-diff-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 14px;
+    }
+    @media (max-width: 700px) {
+      .spot-diff-wrap { grid-template-columns: 1fr; }
+    }
+    .spot-panel {
+      background: #FFFFFF;
+      border: 2px solid #CBD5E1;
+      border-radius: 14px;
+      padding: 14px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .sec-pasatiempo-wrapper .spot-panel {
+      background: #1E293B;
+      border-color: #6366F1;
+    }
+    .spot-panel h5 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #1E3A8A;
+    }
+    .sec-pasatiempo-wrapper .spot-panel h5 {
+      color: #FFE600;
+    }
+    .spot-items-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .spot-item-card {
+      border: 2px dashed #94A3B8;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #F8FAFC;
+    }
+    .sec-pasatiempo-wrapper .spot-item-card {
+      background: #0F172A;
+      border-color: #475569;
+    }
+    .spot-item-card:hover {
+      border-color: #EC4899;
+      transform: scale(1.03);
+    }
+    .spot-item-card.discovered {
+      border: 2px solid #22C55E !important;
+      background: #DCFCE7 !important;
+      color: #166534 !important;
+    }
+    .sec-pasatiempo-wrapper .spot-item-card.discovered {
+      background: rgba(34, 197, 94, 0.2) !important;
+      color: #86EFAC !important;
+    }
+
+    /* 6. CAESAR CIPHER WHEEL / SLIDER */
+    .caesar-dial-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-top: 14px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+    }
+    .caesar-cipher-text {
+      font-family: monospace;
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #F87171;
+      text-align: center;
+      background: #0F172A;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 1px dashed #EF4444;
+      max-width: 100%;
+      word-break: break-all;
+    }
+    .caesar-slider-control {
+      width: 100%;
+      max-width: 450px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .caesar-slider-control input[type=range] {
+      flex: 1;
+      height: 8px;
+      accent-color: #6366F1;
+      cursor: pointer;
+    }
+    .caesar-shift-badge {
+      font-size: 1.1rem;
+      font-weight: 900;
+      background: #6366F1;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 8px;
+      min-width: 60px;
+      text-align: center;
+    }
+    .caesar-decoded-preview {
+      font-family: monospace;
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #FFE600;
+      background: #0B1120;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 1.5px solid #38BDF8;
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .caesar-decoded-preview.success {
+      color: #4ADE80 !important;
+      border-color: #22C55E !important;
+      background: rgba(34, 197, 94, 0.15) !important;
+    }
+
+    /* 7. ANAGRAM / RESCUE BOOKS */
+    .anagram-rack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .anagram-book-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 12px 16px;
+      border-radius: 12px;
+    }
+    .anagram-scrambled {
+      font-family: monospace;
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #FB923C;
+      background: #1E293B;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+    .anagram-input {
+      background: #0F172A;
+      border: 1.5px solid #6366F1;
+      color: #FFFFFF;
+      font-size: 1.05rem;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      width: 180px;
+    }
+    .anagram-book-row.solved-book {
+      border-color: #22C55E;
+      background: rgba(34, 197, 94, 0.12);
+    }
+    .anagram-book-row.solved-book .anagram-scrambled {
+      color: #4ADE80;
+      text-decoration: line-through;
+    }
+
+    /* BANNER DE ÉXITO */
+    .pasatiempo-victory-banner {
+      display: none;
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: #DCFCE7;
+      border: 2px solid #86EFAC;
+      color: #14532D;
+      animation: popIn 0.3s ease-out;
+    }
+    .sec-pasatiempo-wrapper .pasatiempo-victory-banner {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: #4ADE80;
+      color: #A7F3D0;
+    }
+    .victory-title {
+      font-size: 1rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .victory-text {
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+
+</style>
 </head>
 <body>
 
@@ -1449,14 +2097,14 @@
   <div class="stage-nav-bar">
     <div class="stage-nav-inner">
       <span class="stage-nav-title" id="stage-nav-title">
-        <span>🎯</span> Selecciona la Etapa Educativa:
+        <span>🎯</span> Selecciona la etapa educativa:
       </span>
       <div class="stage-nav-buttons">
         <button class="stage-btn active" id="btn-stage-infantil" onclick="switchTrack('infantil')">
-          👶 <span id="btn-text-infantil">Infantil y 1.º Ciclo Primaria</span>
+          👶 <span id="btn-text-infantil">Infantil y 1.º ciclo de primaria</span>
         </button>
         <button class="stage-btn" id="btn-stage-secundaria" onclick="switchTrack('secundaria')">
-          🎓 <span id="btn-text-secundaria">Educación Secundaria (1.º y 2.º ESO)</span>
+          🎓 <span id="btn-text-secundaria">Educación secundaria (1.º y 2.º de ESO)</span>
         </button>
       </div>
     </div>
@@ -1474,14 +2122,14 @@
           Descubre el gran cofre de la convivencia. Cinco cuentos, cinco objetos mágicos y cinco valores esenciales para aprender a cuidarnos y vivir en paz.
         </p>
         <div class="hero-meta" id="hero-meta">
-          <span class="meta-tag" id="meta-dest">👶 Infantil (5 años) y 1.º Ciclo Primaria (6-7 años)</span>
+          <span class="meta-tag" id="meta-dest">👶 Infantil (5 años) y 1.º ciclo de primaria (6-7 años)</span>
           <span class="meta-tag" id="meta-cuentos">📚 5 cuentos y objetos simbólicos</span>
           <span class="meta-tag" id="meta-mural">🎨 Creación de «La gran constitución» de aula</span>
         </div>
       </div>
       <div class="hero-badge-preview">
-        <img src="Artefactos/insignia_reto3.png" alt="Insignia Reto 3" class="hero-badge-img" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'85\' height=\'85\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%230284C7\' stroke=\'%23D4AF37\' stroke-width=\'4\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>⚙️</text></svg>';">
-        <div class="hero-badge-title" id="badge-title-top">Insignia oficial</div>
+        <img src="Artefactos/insignia_reto3.png" alt="Insignia Reto 3" class="hero-badge-img" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'85\' height=\'85\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'46\' fill=\'%230284C7\' stroke=\'%23D4AF37\' stroke-width=\'4\'/><circle cx=\'50\' cy=\'50\' r=\'38\' fill=\'none\' stroke=\'rgba(212,175,55,0.45)\' stroke-width=\'1.5\' stroke-dasharray=\'3,2\'/><text x=\'50\' y=\'46\' font-size=\'24\' text-anchor=\'middle\'>📖</text><text x=\'50\' y=\'66\' font-family=\'Segoe UI,sans-serif\' font-size=\'9\' font-weight=\'900\' fill=\'%23FFFFFF\' text-anchor=\'middle\'>RETO 3</text><text x=\'50\' y=\'79\' font-size=\'9\' text-anchor=\'middle\'>⭐✨⭐</text></svg>';">
+        <div class="hero-badge-title" id="badge-title-top">Insignia a conseguir</div>
         <div class="hero-badge-status" id="badge-status-top">Reto 3: en proceso</div>
       </div>
     </div>
@@ -1519,7 +2167,7 @@
           <span class="tab-badge" id="badge-tab-3">Mural</span>
         </button>
         <button class="tab-btn" id="tab-4" onclick="switchPhase(4)">
-          <span id="tab-label-4">🏅 4. Insignia y diploma infantil</span>
+          <span id="tab-label-4">🏅 4. Insignia y diploma</span>
           <span class="tab-badge" id="badge-tab-4">Premio</span>
         </button>
       </div>
@@ -1535,7 +2183,7 @@
             <p class="chest-sub" id="chest-sub-text">Haz clic aquí para abrirlo y descubrir los 5 objetos secretos del Preámbulo</p>
           </div>
 
-          <h3 class="card-title" id="chest-sec-title">✨ Los 5 Objetos Mágicos del Preámbulo Constitucional</h3>
+          <h3 class="card-title" id="chest-sec-title">✨ Los 5 objetos mágicos del preámbulo constitucional</h3>
           <p class="card-subtitle" id="chest-sec-desc">
             Cada objeto del cofre representa una historia y una regla de oro de nuestra convivencia:
           </p>
@@ -1546,7 +2194,7 @@
 
           <div style="text-align: center; margin-top: 28px;">
             <button class="btn-action btn-action-story" onclick="switchPhase(2)">
-              <span id="btn-next-stories">Ir a las Estaciones de los 5 Cuentos 👉</span>
+              <span id="btn-next-stories">Ir a las estaciones de los 5 cuentos 👉</span>
             </button>
           </div>
         </div>
@@ -1570,7 +2218,7 @@
 
           <div style="text-align: center; margin-top: 24px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
             <button class="btn-action btn-action-story" id="btn-to-mural" onclick="switchPhase(3)">
-              📜 Ir al Gran Libro de Aula 👉
+              📜 Ir al gran libro de aula 👉
             </button>
             <button class="btn-action" id="btn-back-chest" style="background:#F1F5F9; color:var(--text-dark);" onclick="switchPhase(1)">
               🎁 Volver al cofre
@@ -1600,7 +2248,7 @@
 
           <div style="text-align: center; margin-top: 24px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
             <button class="btn-action btn-action-primary" id="btn-to-cert" onclick="switchPhase(4)">
-              🏅 Expedir Diploma Infantil Oficial 👉
+              🏅 Expedir diploma infantil oficial 👉
             </button>
             <button class="btn-action" id="btn-complete-all" style="background:#F1F5F9; color:var(--text-dark);" onclick="completeAllStoriesAndUnlock()">
               ✨ Completar todos los sellos de aula
@@ -1659,7 +2307,7 @@
 
             <!-- Cabecera institucional -->
             <div class="cert-header-badge-row">
-              <img src="Artefactos/insignia_reto3.png" alt="Insignia Reto 3" class="cert-infantil-badge" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%230284C7\' stroke=\'%23D4AF37\' stroke-width=\'4\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>⚙️</text></svg>';">
+              <img src="Artefactos/insignia_reto3.png" alt="Insignia Reto 3" class="cert-infantil-badge" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'46\' fill=\'%230284C7\' stroke=\'%23D4AF37\' stroke-width=\'4\'/><circle cx=\'50\' cy=\'50\' r=\'38\' fill=\'none\' stroke=\'rgba(212,175,55,0.45)\' stroke-width=\'1.5\' stroke-dasharray=\'3,2\'/><text x=\'50\' y=\'46\' font-size=\'22\' text-anchor=\'middle\'>📖</text><text x=\'50\' y=\'66\' font-family=\'Segoe UI,sans-serif\' font-size=\'9\' font-weight=\'900\' fill=\'%23FFFFFF\' text-anchor=\'middle\'>RETO 3</text><text x=\'50\' y=\'79\' font-size=\'9\' text-anchor=\'middle\'>⭐✨⭐</text></svg>';">
               <div class="cert-header-text">
                 <div class="cert-gov-sub" id="cert-gov-sub">Comunidad de Madrid</div>
                 <h2 class="cert-infantil-title" id="cert-infantil-title">DIPLOMA DE SUPERGUARDIÁN/A</h2>
@@ -1763,7 +2411,7 @@
           <span class="tab-badge" id="badge-sec-tab-1">5 Objetos</span>
         </button>
         <button class="tab-btn" id="tab-sec-2" onclick="switchSecPhase(2)">
-          <span id="tab-sec-label-2">⚖️ 2. Estaciones y dilemas del Preámbulo</span>
+          <span id="tab-sec-label-2">⚖️ 2. Estaciones y dilemas del preámbulo</span>
           <span class="tab-badge" id="badge-sec-tab-2">5 Obras</span>
         </button>
         <button class="tab-btn" id="tab-sec-3" onclick="switchSecPhase(3)">
@@ -1771,7 +2419,7 @@
           <span class="tab-badge" id="badge-sec-tab-3">Resolución</span>
         </button>
         <button class="tab-btn" id="tab-sec-4" onclick="switchSecPhase(4)">
-          <span id="tab-sec-label-4">🏅 4. Certificación oficial Secundaria</span>
+          <span id="tab-sec-label-4">🏅 4. Certificación oficial</span>
           <span class="tab-badge" id="badge-sec-tab-4">Oficial</span>
         </button>
       </div>
@@ -1792,7 +2440,7 @@
 
           <div style="text-align: center; margin-top: 28px;">
             <button class="btn-action btn-action-sec" onclick="switchSecPhase(2)">
-              <span id="btn-next-sec-stories">Explorar las 5 Estaciones Literarias y Dilemas 👉</span>
+              <span id="btn-next-sec-stories">Explorar las 5 estaciones literarias y dilemas 👉</span>
             </button>
           </div>
         </div>
@@ -1801,7 +2449,7 @@
       <!-- FASE 2 SECUNDARIA: ESTACIONES Y DILEMAS DEL PREÁMBULO -->
       <section class="phase-section" id="sec-sec-2">
         <div class="card">
-          <h2 class="card-title" id="sec-stations-title">⚖️ Estaciones del Preámbulo y Dilemas Morales</h2>
+          <h2 class="card-title" id="sec-stations-title">⚖️ Estaciones del preámbulo y dilemas morales</h2>
           <p class="card-subtitle" id="sec-stations-desc">
             Selecciona una obra literaria para examinar su dilema moral, reflexionar con las preguntas de debate y posicionarte en el tribunal ético:
           </p>
@@ -1816,7 +2464,7 @@
 
           <div style="text-align: center; margin-top: 24px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
             <button class="btn-action btn-action-sec" id="btn-to-workshop" onclick="switchSecPhase(3)">
-              ✍️ Ir al Taller de Manifiesto Cívico 👉
+              ✍️ Ir al taller de manifiesto cívico 👉
             </button>
             <button class="btn-action" id="btn-back-sec-chest" style="background:#F1F5F9; color:var(--text-dark);" onclick="switchSecPhase(1)">
               📦 Volver al cofre
@@ -1828,7 +2476,7 @@
       <!-- FASE 3 SECUNDARIA: TALLER COMPETENCIAL DE AULA -->
       <section class="phase-section" id="sec-sec-3">
         <div class="card">
-          <h2 class="card-title" id="sec-workshop-title">✍️ Taller Competencial: Manifiesto Cívico y Editorial de Aula</h2>
+          <h2 class="card-title" id="sec-workshop-title">✍️ Taller competencial: Manifiesto cívico y editorial de aula</h2>
           <p class="card-subtitle" id="sec-workshop-desc">
             Aplica el pensamiento crítico redactando la resolución democrática de tu grupo sobre los dilemas de dignidad, información veraz y estado de derecho:
           </p>
@@ -1881,11 +2529,11 @@
             <div>
               <div class="manifesto-preview-box">
                 <div class="manifesto-preview-title" id="prev-manifesto-title">Dignidad sin excepciones: La voz frente a la injusticia</div>
-                <div class="manifesto-preview-meta" id="prev-manifesto-meta">Comisión Ética de 1.º y 2.º ESO &bull; Art. 10 CE</div>
+                <div class="manifesto-preview-meta" id="prev-manifesto-meta">Comisión ética de 1.º y 2.º de ESO &bull; Art. 10 CE</div>
                 <div class="manifesto-preview-content" id="prev-manifesto-body">
                   En una sociedad verdaderamente democrática no cabe el sacrificio de ningún ser humano por la comodidad o bienestar de la mayoría. La dignidad y los derechos humanos son innegociables.
                 </div>
-                <strong style="font-size:0.85rem; color:#78350F; display:block; margin-bottom:6px;" id="prev-comp-heading">Compromisos de Acción Democrática:</strong>
+                <strong style="font-size:0.85rem; color:#78350F; display:block; margin-bottom:6px;" id="prev-comp-heading">Compromisos de acción democrática:</strong>
                 <ol class="manifesto-preview-commitments" id="prev-manifesto-commitments">
                   <li>Romper el silencio ante cualquier trato indigno o acoso.</li>
                   <li>Contrastar siempre las fuentes antes de difundir mensajes o rumores.</li>
@@ -1895,7 +2543,7 @@
 
               <div style="margin-top: 18px; text-align: center;">
                 <button class="btn-action btn-action-sec" id="btn-to-sec-cert" onclick="switchSecPhase(4)" style="width:100%; justify-content:center;">
-                  🏅 Proceder a la Certificación Oficial 👉
+                  🏅 Proceder a la certificación oficial 👉
                 </button>
               </div>
             </div>
@@ -1912,7 +2560,7 @@
             <div class="cert-sec-header">
               <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" class="cert-sec-logo" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'48\' viewBox=\'0 0 180 48\'><rect width=\'48\' height=\'48\' fill=\'%23C7082A\'/><text x=\'56\' y=\'20\' font-family=\'sans-serif\' font-size=\'11\' font-weight=\'bold\' fill=\'%23000\'>Comunidad</text><text x=\'56\' y=\'34\' font-family=\'sans-serif\' font-size=\'11\' font-weight=\'bold\' fill=\'%23000\'>de Madrid</text></svg>';">
               <div class="cert-sec-institution" id="cert-sec-inst">Comunidad de Madrid</div>
-              <img src="Artefactos/insignia_reto3.png" alt="Insignia Reto 3" style="height:48px; width:auto;" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%230284C7\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>⚙️</text></svg>';">
+              <img src="Artefactos/insignia_reto3.png" alt="Insignia Reto 3" style="height:48px; width:auto;" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'46\' fill=\'%230284C7\' stroke=\'%23D4AF37\' stroke-width=\'4\'/><text x=\'50\' y=\'52\' font-size=\'24\' text-anchor=\'middle\'>📖</text><text x=\'50\' y=\'74\' font-family=\'Segoe UI,sans-serif\' font-size=\'10\' font-weight=\'900\' fill=\'%23FFF\' text-anchor=\'middle\'>RETO 3</text></svg>';">
             </div>
 
             <h2 class="cert-sec-maintitle" id="cert-sec-title">CERTIFICADO OFICIAL DE CIUDADANÍA ACTIVA Y GARANTÍAS DEMOCRÁTICAS</h2>
@@ -1958,7 +2606,7 @@
               <div class="cert-signature-box">
                 <div class="cert-sig-line"></div>
                 <div class="cert-sig-title" id="sec-sig-1">Profesorado / Coordinación</div>
-                <div class="cert-sig-sub" id="sec-sig-sub-1">Programa Bilingüe y Convivencia</div>
+                <div class="cert-sig-sub" id="sec-sig-sub-1">Programa bilingüe y convivencia</div>
               </div>
               <div class="cert-sec-seal">
                 <span>MADRID</span>
@@ -1967,8 +2615,8 @@
               </div>
               <div class="cert-signature-box">
                 <div class="cert-sig-line"></div>
-                <div class="cert-sig-title" id="sec-sig-2">Representante Estudiantil</div>
-                <div class="cert-sig-sub" id="sec-sig-sub-2">Tribunal de Garantías Cívicas</div>
+                <div class="cert-sig-title" id="sec-sig-2">Representante estudiantil</div>
+                <div class="cert-sig-sub" id="sec-sig-sub-2">Tribunal de garantías cívicas</div>
               </div>
             </div>
 
@@ -1976,7 +2624,7 @@
 
           <div style="text-align: center; margin-top: 24px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
             <button class="btn-action btn-action-primary" id="btn-print-sec" onclick="printDiplomaSecundaria()">
-              🖨️ Imprimir certificado oficial de Secundaria (A4)
+              🖨️ Imprimir certificado oficial de secundaria (A4)
             </button>
             <button class="btn-action btn-action-sec" id="btn-back-sec-workshop" onclick="switchSecPhase(3)">
               ✍️ Volver al taller de manifiesto
@@ -2327,6 +2975,8 @@
             `).join('')}
           </div>
         </div>
+      
+        ${getPasatiempoInfantilHTML(s.id, isEn)}
       `;
     }
 
@@ -2382,6 +3032,7 @@
       document.getElementById('progress-percent').innerText = `${count} / 5`;
       const t = TRANSLATIONS_R3[currentLang];
       if (count === 5) {
+        document.getElementById('badge-title-top').innerText = t.badgeTitleCompleted;
         document.getElementById('badge-status-top').innerText = t.badgeStatusSuperado;
       }
     }
@@ -2663,7 +3314,10 @@
           <div class="sec-feedback-box" id="sec-fb-${s.id}"></div>
         </div>
 
-        <div style="text-align:right;">
+        
+        ${getPasatiempoSecundariaHTML(s.id, isEn)}
+
+<div style="text-align:right;">
           <button class="btn-action btn-action-sec" onclick="markSecComplete(${s.id})">
             ${t.btnValidateSec}
           </button>
@@ -2709,6 +3363,11 @@
       const pct = (count / 5) * 100;
       document.getElementById('sec-progress-fill').style.width = pct + '%';
       document.getElementById('sec-progress-percent').innerText = `${count} / 5`;
+      if (count === 5) {
+        const t = TRANSLATIONS_R3[currentLang];
+        document.getElementById('badge-title-top').innerText = t.badgeTitleCompleted;
+        document.getElementById('badge-status-top').innerText = t.badgeStatusSuperado;
+      }
     }
 
     function switchSecPhase(num) {
@@ -2812,13 +3471,14 @@
         govSub: "Semana de la Constitución 2026 | Recursos Digitales Interactivos",
         govFooterInst: "<strong>Comunidad de Madrid</strong> &mdash; Dirección General de Bilingüismo y Calidad de la Enseñanza.",
         govFooterSub: "Recursos educativos para las Semanas Temáticas — Celebración del Día de la Constitución Española 2026.",
-        stageNavTitle: "Selecciona la Etapa Educativa:",
-        btnTextInfantil: "Infantil y 1.º Ciclo Primaria",
-        btnTextSecundaria: "Educación Secundaria (1.º y 2.º ESO)",
+        stageNavTitle: "Selecciona la etapa educativa:",
+        btnTextInfantil: "Infantil y 1.º ciclo de primaria",
+        btnTextSecundaria: "Educación secundaria (1.º y 2.º de ESO)",
         labelSoundOn: "Sonido: ON",
         labelSoundOff: "Sonido: OFF",
         labelPrintTop: "Imprimir",
-        badgeTitleTop: "Insignia oficial",
+        badgeTitleTop: "Insignia a conseguir",
+        badgeTitleCompleted: "¡Insignia conseguida!",
         badgeStatusProcess: "Reto 3: en proceso",
         badgeStatusSuperado: "¡RETO 3 SUPERADO! 🏅",
 
@@ -2826,15 +3486,15 @@
         heroBadgePillInf: "✨ Preámbulo y Art. 10 CE • El Valle de las Voces",
         heroTitleInf: "Reto 3: Nuestra Constitución, cuento a cuento",
         heroSubInf: "Descubre el gran cofre de la convivencia. Cinco cuentos, cinco objetos mágicos y cinco valores esenciales para aprender a cuidarnos y vivir en paz.",
-        metaDestInf: "👶 Infantil (5 años) y 1.º Ciclo Primaria (6-7 años)",
+        metaDestInf: "👶 Infantil (5 años) y 1.º ciclo de primaria (6-7 años)",
         metaCuentosInf: "📚 5 cuentos y objetos simbólicos",
         metaMuralInf: "🎨 Creación de «La gran constitución» de aula",
 
         // Hero Secundaria
         heroBadgePillSec: "⚖️ Preámbulo y Arts. 9, 10, 14, 20 y 44 CE • El Foro de la Ciudadanía",
-        heroTitleSec: "Reto 3: El Foro de la Ciudadanía y los Dilemas Éticos",
+        heroTitleSec: "Reto 3: El foro de la ciudadanía y los dilemas éticos",
         heroSubSec: "Analiza 5 obras maestras y dilemas morales que interpelan la justicia social, la dignidad, la verdad y la libertad en el Estado de derecho.",
-        metaDestSec: "🎓 Educación Secundaria Obligatoria (1.º y 2.º ESO)",
+        metaDestSec: "🎓 Educación secundaria obligatoria (1.º y 2.º de ESO)",
         metaCuentosSec: "⚖️ 5 dilemas literarios del Preámbulo",
         metaMuralSec: "✍️ Taller de resoluciones y manifiesto cívico",
 
@@ -2846,24 +3506,24 @@
         badgeTab2: "5 valores",
         tabLabel3: "📜 3. La gran constitución de aula",
         badgeTab3: "Mural",
-        tabLabel4: "🏅 4. Insignia y diploma infantil",
+        tabLabel4: "🏅 4. Insignia y diploma",
         badgeTab4: "Premio",
 
         chestClosedStatus: "¡El cofre mágico de la convivencia está cerrado!",
         chestClosedSub: "Haz clic aquí para abrirlo y descubrir los 5 objetos secretos del Preámbulo",
         chestOpenedStatus: "¡El cofre de la convivencia está ABIERTO!",
         chestOpenedSub: "Descubre los 5 objetos secretos y pulsa en cualquiera para leer su historia",
-        chestSecTitle: "✨ Los 5 Objetos Mágicos del Preámbulo Constitucional",
+        chestSecTitle: "✨ Los 5 objetos mágicos del preámbulo constitucional",
         chestSecDesc: "Cada objeto del cofre representa una historia y una regla de oro de nuestra convivencia:",
-        btnNextStories: "Ir a las Estaciones de los 5 Cuentos 👉",
+        btnNextStories: "Ir a las estaciones de los 5 cuentos 👉",
 
         storiesTitle: "📖 Estación del cuento y actividad vivencial",
         storiesDesc: "Selecciona un cuento para descubrir su enseñanza y superar el minijuego de aula:",
-        stepMoment: "📖 1. El Momento del Cuento",
-        stepObj: "✨ 2. Objeto Simbólico",
+        stepMoment: "📖 1. El momento del cuento",
+        stepObj: "✨ 2. Objeto simbólico",
         stepObjDesc: "Nos recuerda que la Constitución cuida a todas y todos sin dejar a nadie atrás.",
         minigameQPrefix: "❓ Minijuego de convivencia:",
-        btnToMural: "📜 Ir al Gran Libro de Aula 👉",
+        btnToMural: "📜 Ir al gran libro de aula 👉",
         btnBackChest: "🎁 Volver al cofre",
 
         bookTitleTop: "📜 El gran libro abierto de nuestra convivencia",
@@ -2872,7 +3532,7 @@
         muralBookSub: "Valores acordados por todas y todos para vivir con alegría y respeto",
         stampAchieved: "SELLO CONSEGUIDO",
         stampPending: "POR DESCUBRIR",
-        btnToCert: "🏅 Expedir Diploma Infantil Oficial 👉",
+        btnToCert: "🏅 Expedir diploma infantil oficial 👉",
         btnCompleteAll: "✨ Completar todos los sellos de aula",
 
         certInfantilTitle: "DIPLOMA DE SUPERGUARDIÁN/A",
@@ -2885,7 +3545,7 @@
         certCharTitle3: "Rodari", certCharVal3: "Naturaleza",
         certCharTitle4: "Soldados", certCharVal4: "Paz",
         certCharTitle5: "Macarena", certCharVal5: "Libertad",
-        certSigTitle1: "Maestro/a o Tutor/a", certSigSub1: "Coordinación de Convivencia",
+        certSigTitle1: "Maestro/a o Tutor/a", certSigSub1: "Coordinación de convivencia",
         certMedalText: "¡MISIÓN<br>CUMPLIDA!",
         certSigTitle2: "Día de la Constitución", certSigSub2: "Diciembre 2026",
         btnPrintDiploma: "🖨️ Imprimir diploma infantil de aula",
@@ -2895,26 +3555,26 @@
         secProgressLabel: "Dilemas y valores éticos analizados:",
         tabSecLabel1: "📦 1. El cofre de la ciudadanía",
         badgeSecTab1: "5 Objetos",
-        tabSecLabel2: "⚖️ 2. Estaciones y dilemas del Preámbulo",
+        tabSecLabel2: "⚖️ 2. Estaciones y dilemas del preámbulo",
         badgeSecTab2: "5 Obras",
         tabSecLabel3: "✍️ 3. Taller: Manifiesto cívico",
         badgeSecTab3: "Resolución",
-        tabSecLabel4: "🏅 4. Certificación oficial Secundaria",
+        tabSecLabel4: "🏅 4. Certificación oficial",
         badgeSecTab4: "Oficial",
 
         secChestTitle: "📦 El cofre de los 5 objetos detonantes de la ciudadanía",
         secChestDesc: "Cada objeto del cofre representa una obra literaria clave y abre una pregunta ética fundamental sobre los derechos y principios de nuestra Constitución:",
-        btnNextSecStories: "Explorar las 5 Estaciones Literarias y Dilemas 👉",
+        btnNextSecStories: "Explorar las 5 estaciones literarias y dilemas 👉",
 
-        secStationsTitle: "⚖️ Estaciones del Preámbulo y Dilemas Morales",
+        secStationsTitle: "⚖️ Estaciones del preámbulo y dilemas morales",
         secStationsDesc: "Selecciona una obra literaria para examinar su dilema moral, reflexionar con las preguntas de debate y posicionarte en el tribunal ético:",
-        dilemmaBadge: "⚖️ Dilema Moral para el Tribunal Ético",
-        debateHeading: "💬 Preguntas Socráticas para el Debate de Aula:",
-        btnValidateSec: "✨ Validar Análisis y Registrar Principio",
-        btnToWorkshop: "✍️ Ir al Taller de Manifiesto Cívico 👉",
+        dilemmaBadge: "⚖️ Dilema moral para el tribunal ético",
+        debateHeading: "💬 Preguntas socráticas para el debate de aula:",
+        btnValidateSec: "✨ Validar análisis y registrar principio",
+        btnToWorkshop: "✍️ Ir al taller de manifiesto cívico 👉",
         btnBackSecChest: "📦 Volver al cofre",
 
-        secWorkshopTitle: "✍️ Taller Competencial: Manifiesto Cívico y Editorial de Aula",
+        secWorkshopTitle: "✍️ Taller competencial: Manifiesto cívico y editorial de aula",
         secWorkshopDesc: "Aplica el pensamiento crítico redactando la resolución democrática de tu grupo sobre los dilemas de dignidad, información veraz y estado de derecho:",
         lblManifestoType: "Modalidad de Proyecto:",
         optTypeEditorial: "📰 Editorial periodístico: «Dignidad sin condiciones» (Omelas)",
@@ -2925,8 +3585,8 @@
         lblManifestoArt: "Artículo Constitucional Eje:",
         lblManifestoBody: "Tesis Democrática / Justificación Ética:",
         lblManifestoCommitments: "Compromisos de Aula (3 Principios):",
-        prevCompHeading: "Compromisos de Acción Democrática:",
-        btnToSecCert: "🏅 Proceder a la Certificación Oficial 👉",
+        prevCompHeading: "Compromisos de acción democrática:",
+        btnToSecCert: "🏅 Proceder a la certificación oficial 👉",
 
         certSecTitle: "CERTIFICADO OFICIAL DE CIUDADANÍA ACTIVA Y GARANTÍAS DEMOCRÁTICAS",
         certSecSub: "Día de la Constitución Española 2026 • Reto 3: El Foro de la Ciudadanía (1.º y 2.º ESO)",
@@ -2935,9 +3595,9 @@
         certSecSchoolName: "IES COMUNIDAD DE MADRID",
         certSecBodyText: "Ha superado con rigor crítico y compromiso cívico las deliberaciones éticas del <strong>Reto 3: Nuestra Constitución, cuento a cuento (Secundaria)</strong>, habiendo analizado el <strong>Preámbulo</strong> y los <strong>Artículos 9, 10, 14, 20 y 44 de la Constitución Española</strong> a través de las obras maestras de Ursula K. Le Guin, Gonzalo Moure, Jorge Luis Borges, Roberto Innocenti y Ray Bradbury, acreditando su capacidad para argumentar, defender la dignidad humana inalienable, rechazar la desinformación y proteger los valores democráticos.",
         pillTitle1: "Omelas", pillTitle2: "Arenque Rojo", pillTitle3: "San Marcos", pillTitle4: "Rosa Blanca", pillTitle5: "Fahrenheit 451",
-        secSig1: "Profesorado / Coordinación", secSigSub1: "Programa Bilingüe y Convivencia",
-        secSig2: "Representante Estudiantil", secSigSub2: "Tribunal de Garantías Cívicas",
-        btnPrintSec: "🖨️ Imprimir certificado oficial de Secundaria (A4)",
+        secSig1: "Profesorado / Coordinación", secSigSub1: "Programa bilingüe y convivencia",
+        secSig2: "Representante estudiantil", secSigSub2: "Tribunal de garantías cívicas",
+        btnPrintSec: "🖨️ Imprimir certificado oficial de secundaria (A4)",
         btnBackSecWorkshop: "✍️ Volver al taller de manifiesto"
       },
       en: {
@@ -2951,7 +3611,8 @@
         labelSoundOn: "Sound: ON",
         labelSoundOff: "Sound: OFF",
         labelPrintTop: "Print",
-        badgeTitleTop: "Official Badge",
+        badgeTitleTop: "Badge to earn",
+        badgeTitleCompleted: "Badge earned!",
         badgeStatusProcess: "Challenge 3: in progress",
         badgeStatusSuperado: "CHALLENGE 3 COMPLETED! 🏅",
 
@@ -3099,8 +3760,9 @@
       const labelSound = document.getElementById('label-sound');
       if (labelSound) labelSound.innerText = soundEnabled ? t.labelSoundOn : t.labelSoundOff;
       document.getElementById('label-print-top').innerText = t.labelPrintTop;
-      document.getElementById('badge-title-top').innerText = t.badgeTitleTop;
-      document.getElementById('badge-status-top').innerText = (unlockedInfantilValues.length >= 5 || unlockedSecValues.length >= 5) ? t.badgeStatusSuperado : t.badgeStatusProcess;
+      const isCompleted = (unlockedInfantilValues.length >= 5 || unlockedSecValues.length >= 5);
+      document.getElementById('badge-title-top').innerText = isCompleted ? t.badgeTitleCompleted : t.badgeTitleTop;
+      document.getElementById('badge-status-top').innerText = isCompleted ? t.badgeStatusSuperado : t.badgeStatusProcess;
 
       // 2. Hero
       applyTrackTexts();
@@ -3230,6 +3892,940 @@
       updateSecProgress();
       updateManifestoPreview();
     });
-  </script>
+  
+/* ========================================================
+   MOTOR DE PASATIEMPOS INTERACTIVOS - RETO 3 (ES & EN)
+   10 PASATIEMPOS PEDAGÓGICOS: 5 INFANTIL / 5 SECUNDARIA
+   ======================================================== */
+
+const solvedPasatiempos = {
+  infantil: {},
+  secundaria: {}
+};
+
+// ESTADO EN TIEMPO REAL DE CADA JUEGO
+let memoryState = { cards: [], flipped: [], matchedCount: 0 };
+let spotDiffState = { found: [] };
+let anagramState = { solved: [] };
+
+/* ----------------------------------------------------
+   1. PASATIEMPOS INFANTIL Y 1.º CICLO PRIMARIA
+   ---------------------------------------------------- */
+function getPasatiempoInfantilHTML(storyId, isEn) {
+  const isSolved = !!solvedPasatiempos.infantil[storyId];
+
+  let gameHTML = '';
+  let title = '';
+  let tag = isEn ? '🎮 Interactive Activity' : '🎮 Pasatiempo del Cuento';
+  let desc = '';
+
+  if (storyId === 1) {
+    // 1. EL CAZO DE LORENZO: MEMORY DE LA EMPATÍA
+    title = isEn ? '🧠 Lorenzo\'s Empathy Memory: Find the 4 Pairs' : '🧠 Memory de la Empatía: Encuentra las 4 Parejas de Lorenzo';
+    desc = isEn 
+      ? 'Flip the cards to match Lorenzo\'s saucepan, affection, friends, and unique talents (Art. 14 CE).'
+      : 'Gira las cartas para emparejar el cazo de Lorenzo, el cariño, los amigos y los talentos únicos (Art. 14 CE).';
+
+    const pairs = [
+      { id: 1, icon: '🥄', label: isEn ? "Lorenzo's Saucepan" : 'El Cazo de Lorenzo' },
+      { id: 2, icon: '❤️', label: isEn ? 'Affection & Patience' : 'Cariño y Paciencia' },
+      { id: 3, icon: '🤝', label: isEn ? 'Helping Friend' : 'Amigo que Ayuda' },
+      { id: 4, icon: '🌟', label: isEn ? 'Unique Talent' : 'Talento Único' }
+    ];
+
+    // Duplicar y mezclar
+    if (!memoryState.cards || memoryState.cards.length === 0 || memoryState.storyId !== 1) {
+      const deck = [];
+      pairs.forEach(p => {
+        deck.push({ ...p, uid: p.id + '_a' });
+        deck.push({ ...p, uid: p.id + '_b' });
+      });
+      deck.sort(() => Math.random() - 0.5);
+      memoryState = { storyId: 1, cards: deck, flipped: [], matchedCount: 0 };
+    }
+
+    gameHTML = `
+      <div class="memory-container">
+        <div class="memory-grid">
+          ${memoryState.cards.map((c, idx) => `
+            <div class="memory-card face-down" id="mcard-${idx}" onclick="flipMemoryCard(${idx}, ${c.id}, 1)">
+              <div class="card-icon">❓</div>
+              <div class="card-label">${isEn ? 'Flip' : 'Descubre'}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div style="text-align:center;">
+          <button class="btn-subtle" onclick="resetMemoryGame(1)" style="font-size:0.82rem; padding:6px 14px; background:#EFF6FF; border:1px solid #BFDBFE; color:#1E40AF; border-radius:8px; font-weight:800; cursor:pointer;">
+            🔄 ${isEn ? 'Reset Memory Game' : 'Reiniciar Tablero de Parejas'}
+          </button>
+        </div>
+      </div>
+    `;
+  } else if (storyId === 2) {
+    // 2. POR CUATRO ESQUINITAS: SOPA DE LETRAS INCLUSIVA
+    title = isEn ? '🔍 Cuadradito\'s Inclusive Word Search' : '🔍 Sopa de Letras Inclusiva de Cuadradito';
+    desc = isEn
+      ? 'Find 4 key words about inclusion and adapting the doorway (Art. 14 CE). Click the words or letters!'
+      : 'Encuentra las 4 palabras de inclusión para adaptar la puerta (Art. 14 CE). ¡Pulsa las palabras o las letras!';
+
+    const words = isEn 
+      ? [
+          { word: 'DOOR', color: 'highlight-1', clue: 'Where everyone enters together' },
+          { word: 'FRIEND', color: 'highlight-2', clue: 'Little Squares and Circles together' },
+          { word: 'EQUAL', color: 'highlight-3', clue: 'Art. 14 CE guarantee' },
+          { word: 'SHARE', color: 'highlight-4', clue: 'Playing together at school' }
+        ]
+      : [
+          { word: 'PUERTA', color: 'highlight-1', clue: 'La entrada que adaptamos para todos' },
+          { word: 'AMIGOS', color: 'highlight-2', clue: 'Redonditos y Cuadradito jugando juntos' },
+          { word: 'IGUAL', color: 'highlight-3', clue: 'Mismos derechos sin discriminación' },
+          { word: 'JUNTOS', color: 'highlight-4', clue: 'Convivir sin recortar a nadie' }
+        ];
+
+    // Grid 6x6
+    const gridLetters = isEn ? [
+      ['D','O','O','R','K','S'],
+      ['E','Q','U','A','L','H'],
+      ['F','R','I','E','N','D'],
+      ['S','H','A','R','E','P'],
+      ['L','I','V','I','N','G'],
+      ['S','C','H','O','O','L']
+    ] : [
+      ['P','U','E','R','T','A'],
+      ['S','I','G','U','A','L'],
+      ['A','M','I','G','O','S'],
+      ['R','E','S','P','E','T'],
+      ['A','U','L','A','C','E'],
+      ['J','U','N','T','O','S']
+    ];
+
+    gameHTML = `
+      <div class="ws-container">
+        <div class="ws-grid" id="ws-grid-2">
+          ${gridLetters.map((row, r) => `
+            <div style="display:flex; gap:6px;">
+              ${row.map((char, c) => `
+                <div class="ws-cell" id="wsc-2-${r}-${c}" onclick="toggleWSCell(2, ${r}, ${c}, '${char}')">${char}</div>
+              `).join('')}
+            </div>
+          `).join('')}
+        </div>
+        <div class="ws-words-panel">
+          <p style="font-size:0.85rem; font-weight:800; color:#1E3A8A; margin-bottom:4px;">
+            ${isEn ? 'Words to find (click to solve):' : 'Palabras a buscar (pulsa para resolver):'}
+          </p>
+          ${words.map((w, idx) => `
+            <button class="ws-word-btn" id="wsb-2-${idx}" onclick="revealWSWord(2, '${w.word}', '${w.color}', ${idx})">
+              <span>🎯 ${w.word}</span>
+              <span style="font-size:0.75rem; color:#64748B;">${w.clue}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  } else if (storyId === 3) {
+    // 3. ¿QUÉ HACE FALTA? - CRUCIGRAMA DE RODARI
+    title = isEn ? '🧩 Gianni Rodari\'s Nature Crossword' : '🧩 Crucigrama de la Flor y la Naturaleza de Rodari';
+    desc = isEn
+      ? 'Complete the chain of life from wood to flower (Art. 45 CE - Environment).'
+      : 'Completa la cadena de la vida desde la mesa hasta la flor (Art. 45 CE - Medio Ambiente).';
+
+    const clues = isEn ? [
+      { id: 1, word: 'TABLE', hint: '1. What we use to draw and study in class (5 letters)' },
+      { id: 2, word: 'WOOD', hint: '2. Material that makes the table (4 letters)' },
+      { id: 3, word: 'TREE', hint: '3. Gives wood, shade and fresh air (4 letters)' },
+      { id: 4, word: 'SEED', hint: '4. Planted in the soil to grow a tree (4 letters)' },
+      { id: 5, word: 'FLOWER', hint: '5. To have everything, we need a... (6 letters)' }
+    ] : [
+      { id: 1, word: 'MESA', hint: '1. Mueble donde apoyamos libros y dibujos (4 letras)' },
+      { id: 2, word: 'MADERA', hint: '2. Material que obtenemos del árbol para la mesa (6 letras)' },
+      { id: 3, word: 'ARBOL', hint: '3. Crece en el bosque, da sombra y oxígeno (5 letras)' },
+      { id: 4, word: 'SEMILLA', hint: '4. Se planta en la tierra fértil (7 letras)' },
+      { id: 5, word: 'FLOR', hint: '5. Llena de color el campo y ¡para todo hace falta una...! (4 letras)' }
+    ];
+
+    gameHTML = `
+      <div class="cw-container">
+        <div class="cw-clues-box" style="flex:1;">
+          ${clues.map(c => `
+            <div class="cw-clue-card" id="cw-clue-3-${c.id}" onclick="fillCWClue(3, ${c.id}, '${c.word}')">
+              <div style="font-size:0.9rem; font-weight:800; color:#1E3A8A; margin-bottom:2px;">
+                ${c.hint}
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+                <span style="font-size:0.78rem; color:#64748B;">${c.word.length} ${isEn ? 'letters' : 'letras'}</span>
+                <span id="cw-status-3-${c.id}" style="font-size:0.78rem; font-weight:800; color:#2563EB;">👉 ${isEn ? 'Click to resolve' : 'Pulsar para completar'}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  } else if (storyId === 4) {
+    // 4. EL ENEMIGO: DESCIFRADOR DE LA CARTA DE PAZ
+    title = isEn ? '🕊️ Secret Peace Letter Decoder' : '🕊️ Descifrador de la Carta Secreta de la Paz';
+    desc = isEn
+      ? 'Decode the secret message between both soldiers using the symbol decoder (Preambulo & Art. 10 CE).'
+      : 'Descifra el mensaje secreto entre ambos soldados usando el traductor de símbolos (Preámbulo y Art. 10 CE).';
+
+    const secretWords = isEn ? ['PEACE', 'AND', 'RESPECT'] : ['DIALOGO', 'Y', 'PAZ'];
+    const symbolMap = {
+      'D': '🕊️', 'I': '☀️', 'A': '🌿', 'L': '💬', 'O': '🌈', 'G': '⭐', 'Y': '❤️', 'P': '🌻', 'Z': '🤝',
+      'E': '🕊️', 'C': '⭐', 'N': '🌿', 'R': '💬', 'S': '🌈', 'T': '❤️'
+    };
+
+    gameHTML = `
+      <div class="cipher-container">
+        <div class="cipher-sentence-wrap">
+          ${secretWords.map(w => `
+            <div class="cipher-word-block">
+              ${w.split('').map((char, i) => `
+                <div class="cipher-token">
+                  <div class="cipher-symbol-tag">${symbolMap[char] || '⭐'}</div>
+                  <div class="cipher-slot" id="cslot-4-${char}-${i}" onclick="revealCipherChar(4, '${char}')">?</div>
+                </div>
+              `).join('')}
+            </div>
+          `).join('')}
+        </div>
+        <div style="text-align:center; margin-bottom:12px;">
+          <button class="btn-subtle" onclick="revealAllCipher(4)" style="font-size:0.85rem; padding:8px 18px; background:#EFF6FF; border:1.5px solid #3B82F6; color:#1D4ED8; border-radius:10px; font-weight:800; cursor:pointer;">
+            🔍 ${isEn ? 'Decode Full Peace Message' : 'Descifrar Mensaje Completo de Paz'}
+          </button>
+        </div>
+      </div>
+    `;
+  } else if (storyId === 5) {
+    // 5. LA VACA QUE PUSO UN HUEVO: ENCUENTRA LAS DIFERENCIAS DE MACARENA
+    title = isEn ? '🎯 Spot the 4 Differences in Macarena' : '🎯 Encuentra las 4 Diferencias de Macarena';
+    desc = isEn
+      ? 'Spot what makes Macarena\'s egg and talent unique in the farm (Art. 10.1 CE - Free development of personality).'
+      : 'Descubre qué hace único y especial el huevo y el talento de Macarena en la granja (Art. 10.1 CE).';
+
+    const diffs = isEn ? [
+      { id: 1, title: 'Spot 1: The Magic Polka Dot Egg', desc: 'A special egg full of colors' },
+      { id: 2, title: 'Spot 2: The Smiling Daisy', desc: 'A flower behind Macarena\'s ear' },
+      { id: 3, title: 'Spot 3: The Golden Star', desc: 'Art. 10 CE star shining above' },
+      { id: 4, title: 'Spot 4: The Hero Cape', desc: 'Baby chick wearing a bravery cape' }
+    ] : [
+      { id: 1, title: 'Diferencia 1: El Huevo Mágico Moteado', desc: 'Un huevo con manchas de colores vivos' },
+      { id: 2, title: 'Diferencia 2: La Margarita Sonriente', desc: 'Una flor en la oreja de Macarena' },
+      { id: 3, title: 'Diferencia 3: La Estrella Constitucional', desc: 'Estrella dorada del Art. 10 CE en el cielo' },
+      { id: 4, title: 'Diferencia 4: La Capa de Superhéroe', desc: 'El pollito Turuletas con capa de valentía' }
+    ];
+
+    gameHTML = `
+      <div class="spot-diff-wrap">
+        <div class="spot-panel">
+          <h5>🏡 ${isEn ? 'Standard Farm Scene' : 'Escena Habitual de la Granja'}</h5>
+          <p style="font-size:0.82rem; color:#64748B; text-align:center; margin-bottom:10px;">
+            ${isEn ? 'All cows look the same, doing ordinary things.' : 'Todas las vacas hacen lo mismo de siempre sin destacar.'}
+          </p>
+          <div style="text-align:center; font-size:3.5rem; padding:18px; background:#F8FAFC; border-radius:12px; border:1px solid #E2E8F0;">
+            🐄 🥚 🚜 🌾
+          </div>
+        </div>
+        <div class="spot-panel">
+          <h5>⭐ ${isEn ? 'Macarena\'s Unique Scene (Click the 4 Differences!)' : 'La Escena Única de Macarena (¡Pulsa las 4 diferencias!)'}</h5>
+          <div class="spot-items-grid">
+            ${diffs.map(d => `
+              <div class="spot-item-card" id="spot-5-${d.id}" onclick="discoverSpot(5, ${d.id})">
+                <div style="font-size:1.6rem; margin-bottom:4px;">✨</div>
+                <div style="font-size:0.82rem; font-weight:800; color:#1E3A8A;">${d.title}</div>
+                <div style="font-size:0.75rem; color:#64748B;">${d.desc}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  const victoryMsg = getVictoryMessage(storyId, false, isEn);
+
+  return `
+    <div class="story-pasatiempo-wrapper" id="pasatiempo-wrapper-inf-${storyId}">
+      <div class="pasatiempo-top-bar">
+        <div>
+          <span class="pasatiempo-pill">${tag}</span>
+          <h4 class="pasatiempo-heading">${title}</h4>
+          <p class="pasatiempo-instruction">${desc}</p>
+        </div>
+        <div>
+          <span class="pasatiempo-badge-status ${isSolved ? 'solved' : ''}" id="p-status-inf-${storyId}">
+            ${isSolved ? '⭐ ' + (isEn ? 'SOLVED!' : '¡SUPERADO!') : '⏳ ' + (isEn ? 'In progress' : 'En proceso')}
+          </span>
+        </div>
+      </div>
+
+      <div class="pasatiempo-content-area" id="p-area-inf-${storyId}">
+        ${gameHTML}
+      </div>
+
+      <div class="pasatiempo-victory-banner" id="p-banner-inf-${storyId}" style="${isSolved ? 'display:block;' : ''}">
+        <div class="victory-title">🎉 ${isEn ? 'Challenge Solved!' : '¡Reto superado con éxito!'}</div>
+        <div class="victory-text">${victoryMsg}</div>
+      </div>
+    </div>
+  `;
+}
+
+/* ----------------------------------------------------
+   2. PASATIEMPOS EDUCACIÓN SECUNDARIA (1.º y 2.º ESO)
+   ---------------------------------------------------- */
+function getPasatiempoSecundariaHTML(storyId, isEn) {
+  const isSolved = !!solvedPasatiempos.secundaria[storyId];
+
+  let gameHTML = '';
+  let title = '';
+  let tag = isEn ? '🧩 Critical & Philosophical Challenge' : '🧩 Reto Lúdico & Filosófico';
+  let desc = '';
+
+  if (storyId === 1) {
+    // 1. OMELAS: CRIPTOGRAMA DE LA DIGNIDAD INVIOLABLE (Art. 10.1)
+    title = isEn ? '⚖️ Cryptogram: The Inviolability of Human Dignity' : '⚖️ Criptograma: La Inviolabilidad de la Dignidad Humana';
+    desc = isEn
+      ? 'Decode the fundamental anti-utilitarian principle that Ursula K. Le Guin reveals in Omelas (Art. 10.1 CE).'
+      : 'Descifra el principio antiutilitarista y constitucional que desafía la prosperidad de Omelas (Art. 10.1 CE).';
+
+    const words = isEn 
+      ? ['HUMAN', 'DIGNITY', 'IS', 'INVIOLABLE']
+      : ['LA', 'DIGNIDAD', 'HUMANA', 'ES', 'INVIOLABLE'];
+
+    gameHTML = `
+      <div class="cipher-container">
+        <div class="cipher-sentence-wrap">
+          ${words.map(w => `
+            <div class="cipher-word-block">
+              ${w.split('').map((char, i) => `
+                <div class="cipher-token">
+                  <div class="cipher-symbol-tag" style="font-size:0.8rem; font-weight:800; color:#818CF8;">${char.charCodeAt(0) % 10}</div>
+                  <div class="cipher-slot" id="cslot-sec-1-${char}-${i}" onclick="revealSecCipherChar(1, '${char}')">?</div>
+                </div>
+              `).join('')}
+            </div>
+          `).join('')}
+        </div>
+        <div style="text-align:center;">
+          <button class="btn-subtle" onclick="revealAllSecCipher(1)" style="font-size:0.85rem; padding:8px 18px; background:rgba(99,102,241,0.25); border:1.5px solid #818CF8; color:#C7D2FE; border-radius:10px; font-weight:800; cursor:pointer;">
+            ⚖️ ${isEn ? 'Decode Constitutional Principle' : 'Descifrar Principio Constitucional del Art. 10.1'}
+          </button>
+        </div>
+      </div>
+    `;
+  } else if (storyId === 2) {
+    // 2. EL ARENQUE ROJO: SOPA DE LETRAS CRÍTICA DE DERECHOS SOCIALES
+    title = isEn ? '🔍 Critical Word Search: Invisible Rights & Realities' : '🔍 Sopa de Letras Crítica: Derechos y Colectivos Invisibles';
+    desc = isEn
+      ? 'Find 6 fundamental legal concepts that break indifference and guarantee Art. 14 & 9.2 CE.'
+      : 'Localiza 6 conceptos jurídicos y éticos fundamentales para superar los prejuicios y la indiferencia (Art. 14 y 9.2 CE).';
+
+    const words = isEn ? [
+      { word: 'EQUITY', color: 'highlight-1', art: 'Art. 9.2 CE' },
+      { word: 'DIGNITY', color: 'highlight-2', art: 'Art. 10.1 CE' },
+      { word: 'ASYLUM', color: 'highlight-3', art: 'Art. 13.4 CE' },
+      { word: 'EMPATHY', color: 'highlight-4', art: 'Civic Duty' },
+      { word: 'JUSTICE', color: 'highlight-5', art: 'Art. 1.1 CE' },
+      { word: 'REFUGE', color: 'highlight-6', art: 'Human Rights' }
+    ] : [
+      { word: 'EQUIDAD', color: 'highlight-1', art: 'Art. 9.2 CE' },
+      { word: 'DIGNIDAD', color: 'highlight-2', art: 'Art. 10.1 CE' },
+      { word: 'ASILO', color: 'highlight-3', art: 'Art. 13.4 CE' },
+      { word: 'EMPATIA', color: 'highlight-4', art: 'Deber cívico' },
+      { word: 'JUSTICIA', color: 'highlight-5', art: 'Art. 1.1 CE' },
+      { word: 'REFUGIO', color: 'highlight-6', art: 'Derechos Humanos' }
+    ];
+
+    const gridLetters = isEn ? [
+      ['E','Q','U','I','T','Y','A','B'],
+      ['D','I','G','N','I','T','Y','C'],
+      ['A','S','Y','L','U','M','D','E'],
+      ['E','M','P','A','T','H','Y','F'],
+      ['J','U','S','T','I','C','E','G'],
+      ['R','E','F','U','G','E','H','I']
+    ] : [
+      ['E','Q','U','I','D','A','D','A'],
+      ['D','I','G','N','I','D','A','D'],
+      ['A','S','I','L','O','C','D','E'],
+      ['E','M','P','A','T','I','A','F'],
+      ['J','U','S','T','I','C','I','A'],
+      ['R','E','F','U','G','I','O','H']
+    ];
+
+    gameHTML = `
+      <div class="ws-container">
+        <div class="ws-grid" id="ws-grid-sec-2">
+          ${gridLetters.map((row, r) => `
+            <div style="display:flex; gap:6px;">
+              ${row.map((char, c) => `
+                <div class="ws-cell" id="wsc-sec-2-${r}-${c}" onclick="toggleSecWSCell(2, ${r}, ${c}, '${char}')">${char}</div>
+              `).join('')}
+            </div>
+          `).join('')}
+        </div>
+        <div class="ws-words-panel">
+          <p style="font-size:0.85rem; font-weight:800; color:#A5B4FC; margin-bottom:4px;">
+            ${isEn ? 'Concepts to find (click to unlock):' : 'Conceptos a localizar (pulsa para desbloquear):'}
+          </p>
+          ${words.map((w, idx) => `
+            <button class="ws-word-btn" id="wsb-sec-2-${idx}" onclick="revealSecWSWord(2, '${w.word}', '${w.color}', ${idx})">
+              <span>⚖️ ${w.word}</span>
+              <span style="font-size:0.75rem; color:#818CF8;">${w.art}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  } else if (storyId === 3) {
+    // 3. BORGES: CRUCIGRAMA DE LAS LIBERTADES
+    title = isEn ? '🧩 Borges\'s Pluralism Crossword' : '🧩 Crucigrama Borgiano de las Libertades y el Pluralismo';
+    desc = isEn
+      ? 'Complete the 5 pillars of an open democratic society where multiple perspectives coexist (Art. 16 & 20 CE).'
+      : 'Descubre los 5 pilares de una sociedad abierta donde conviven múltiples miradas sin imposición dogmática (Art. 16 y 20 CE).';
+
+    const clues = isEn ? [
+      { id: 1, word: 'PLURALISM', hint: '1. Democratic guarantee that respects divergent worldviews (Art. 1.1 CE)' },
+      { id: 2, word: 'FREEDOM', hint: '2. Fundamental right of thought and speech without censorship (Art. 20 CE)' },
+      { id: 3, word: 'CONSENSUS', hint: '3. Collective agreement that birthed the 1978 Constitution' },
+      { id: 4, word: 'ALEPH', hint: '4. Borges\'s point where all points in the universe converge' },
+      { id: 5, word: 'DIALOGUE', hint: '5. Non-violent democratic mechanism to resolve conflict' }
+    ] : [
+      { id: 1, word: 'PLURALISMO', hint: '1. Reconocimiento y garantía de múltiples visiones políticas e ideológicas (Art. 1.1 CE)' },
+      { id: 2, word: 'LIBERTAD', hint: '2. Derecho fundamental a pensar, expresarse y disentir pacíficamente (Art. 16 y 20 CE)' },
+      { id: 3, word: 'CONSENSO', hint: '3. El pacto colectivo de convivencia alcanzado en 1978' },
+      { id: 4, word: 'ALEPH', hint: '4. Punto de Borges donde convergen todas las perspectivas del universo' },
+      { id: 5, word: 'DIALOGO', hint: '5. Mecanismo democrático civilizado para resolver desacuerdos' }
+    ];
+
+    gameHTML = `
+      <div class="cw-container">
+        <div class="cw-clues-box" style="flex:1;">
+          ${clues.map(c => `
+            <div class="cw-clue-card" id="cw-clue-sec-3-${c.id}" onclick="fillSecCWClue(3, ${c.id}, '${c.word}')">
+              <div style="font-size:0.9rem; font-weight:800; color:#FFE600; margin-bottom:2px;">
+                ${c.hint}
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+                <span style="font-size:0.78rem; color:#94A3B8;">${c.word.length} ${isEn ? 'letters' : 'letras'}</span>
+                <span id="cw-status-sec-3-${c.id}" style="font-size:0.78rem; font-weight:800; color:#818CF8;">👉 ${isEn ? 'Click to solve' : 'Pulsar para resolver'}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  } else if (storyId === 4) {
+    // 4. LA ROSA BLANCA: CIFRADO CÉSAR CLANDESTINO (+3)
+    title = isEn ? '📜 The White Rose: Clandestine Caesar Cipher' : '📜 La Rosa Blanca: Cifrador Clandestino de la Resistencia';
+    desc = isEn
+      ? 'Sophie Scholl and the White Rose distributed underground leaflets. Drag the cipher slider to shift letters by +3 to decode their motto.'
+      : 'Sophie Scholl y la Rosa Blanca repartían octavillas clandestinas. Ajusta el dial de desplazamiento a +3 para descifrar su mensaje cívico.';
+
+    const cipherText = isEn ? 'WKH UXOH RI ODZ GHPDQGV FRXUDJH' : 'HO HVWDGR GH GHUHFKR H[LJH YDOHQWLD FLYLFD';
+    const plainText = isEn ? 'THE RULE OF LAW DEMANDS COURAGE' : 'EL ESTADO DE DERECHO EXIGE VALENTIA CIVICA';
+
+    gameHTML = `
+      <div class="caesar-dial-wrap">
+        <div>
+          <span style="font-size:0.85rem; color:#F87171; font-weight:800; text-transform:uppercase;">
+            📻 ${isEn ? 'Intercepted Encrypted Transmission (+3):' : 'Transmisión Clandestina Interceptada (+3):'}
+          </span>
+          <div class="caesar-cipher-text">${cipherText}</div>
+        </div>
+
+        <div class="caesar-slider-control">
+          <label style="font-size:0.85rem; font-weight:800; color:#CBD5E1;">${isEn ? 'Caesar Shift:' : 'Desplazamiento:'}</label>
+          <input type="range" id="caesar-range-4" min="0" max="10" value="0" oninput="updateCaesarDial(4, this.value, '${cipherText}', '${plainText}')">
+          <span class="caesar-shift-badge" id="caesar-badge-4">0</span>
+        </div>
+
+        <div style="width:100%; text-align:center;">
+          <span style="font-size:0.85rem; color:#38BDF8; font-weight:800; text-transform:uppercase;">
+            🔓 ${isEn ? 'Live Decrypted Text:' : 'Texto Decodificado en Vivo:'}
+          </span>
+          <div class="caesar-decoded-preview" id="caesar-preview-4">${cipherText}</div>
+        </div>
+
+        <button class="btn-subtle" onclick="solveCaesarInstantly(4, '${plainText}')" style="font-size:0.82rem; padding:6px 14px; background:rgba(99,102,241,0.25); border:1px solid #818CF8; color:#C7D2FE; border-radius:8px; font-weight:800; cursor:pointer;">
+          🎯 ${isEn ? 'Set Exact Caesar Key (+3)' : 'Ajustar Clave Exacta (+3)'}
+        </button>
+      </div>
+    `;
+  } else if (storyId === 5) {
+    // 5. FAHRENHEIT 451: RECONSTRUCTOR DE LIBROS QUEMADOS (ANAGRAMAS)
+    title = isEn ? '🔥📖 Fahrenheit 451: Rescuing Banned Books' : '🔥📖 Fahrenheit 451: Reconstructor de Libros Quemados';
+    desc = isEn
+      ? 'In Bradbury\'s dystopia, books are burned. Unscramble the 4 essential words saved by book-people (Art. 20 & 27 CE).'
+      : 'En la distopía de Bradbury, los bomberos queman libros. Reconstruye las 4 palabras esenciales que salvan los rebeldes (Art. 20 y 27 CE).';
+
+    const books = isEn ? [
+      { id: 1, scrambled: 'CRNSEUE', solution: 'CENSURE', hint: 'Prohibited by Art. 20.2 CE' },
+      { id: 2, scrambled: 'FDOEREM', solution: 'FREEDOM', hint: 'Core of Art. 1.1 & 20 CE' },
+      { id: 3, scrambled: 'CLUTUER', solution: 'CULTURE', hint: 'Right enshrined in Art. 44 CE' },
+      { id: 4, scrambled: 'EATCODIUN', solution: 'EDUCATION', hint: 'Universal right of Art. 27 CE' }
+    ] : [
+      { id: 1, scrambled: 'ARTECEN', solution: 'CENSURA', hint: 'Prohibida expresamente por el Art. 20.2 CE' },
+      { id: 2, scrambled: 'TRLAEBD', solution: 'LIBERTAD', hint: 'Pilar supremo del Estado de Derecho (Art. 1.1)' },
+      { id: 3, scrambled: 'UTLCRAU', solution: 'CULTURA', hint: 'Derecho protegido por el Art. 44 CE' },
+      { id: 4, scrambled: 'EDCCUNIAO', solution: 'EDUCACION', hint: 'Pilar fundamental del Art. 27 CE' }
+    ];
+
+    gameHTML = `
+      <div class="anagram-rack">
+        ${books.map(b => `
+          <div class="anagram-book-row" id="anag-row-5-${b.id}">
+            <div>
+              <span class="anagram-scrambled" id="anag-scram-5-${b.id}">${b.scrambled}</span>
+              <span style="font-size:0.8rem; color:#94A3B8; margin-left:10px;">💡 ${b.hint}</span>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="text" class="anagram-input" id="anag-input-5-${b.id}" placeholder="${isEn ? 'TYPE HERE' : 'ESCRIBIR'}" oninput="checkAnagramInput(5, ${b.id}, '${b.solution}', this)">
+              <button class="btn-subtle" onclick="solveAnagramBook(5, ${b.id}, '${b.solution}')" style="font-size:0.78rem; padding:6px 10px; background:rgba(99,102,241,0.2); border:1px solid #818CF8; color:#C7D2FE; border-radius:6px; cursor:pointer;">
+                ${isEn ? 'Solve' : 'Resolver'}
+              </button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  const victoryMsg = getVictoryMessage(storyId, true, isEn);
+
+  return `
+    <div class="story-pasatiempo-wrapper sec-pasatiempo-wrapper" id="pasatiempo-wrapper-sec-${storyId}">
+      <div class="pasatiempo-top-bar">
+        <div>
+          <span class="pasatiempo-pill">${tag}</span>
+          <h4 class="pasatiempo-heading">${title}</h4>
+          <p class="pasatiempo-instruction">${desc}</p>
+        </div>
+        <div>
+          <span class="pasatiempo-badge-status ${isSolved ? 'solved' : ''}" id="p-status-sec-${storyId}">
+            ${isSolved ? '⭐ ' + (isEn ? 'CHALLENGE SOLVED!' : '¡RETO SUPERADO!') : '⏳ ' + (isEn ? 'In progress' : 'En proceso')}
+          </span>
+        </div>
+      </div>
+
+      <div class="pasatiempo-content-area" id="p-area-sec-${storyId}">
+        ${gameHTML}
+      </div>
+
+      <div class="pasatiempo-victory-banner" id="p-banner-sec-${storyId}" style="${isSolved ? 'display:block;' : ''}">
+        <div class="victory-title">🏆 ${isEn ? 'Constitutional Insight Unlocked!' : '¡Análisis Constitucional Desbloqueado!'}</div>
+        <div class="victory-text">${victoryMsg}</div>
+      </div>
+    </div>
+  `;
+}
+
+/* ----------------------------------------------------
+   3. MENSAJES DE ÉXITO PEDAGÓGICOS
+   ---------------------------------------------------- */
+function getVictoryMessage(storyId, isSec, isEn) {
+  if (!isSec) {
+    if (storyId === 1) {
+      return isEn
+        ? 'Amazing! You matched all pairs of empathy. Everyone has unique challenges and talents, and Article 14 of the Spanish Constitution ensures mutual respect and non-discrimination.'
+        : '¡Genial! Has encontrado todas las parejas de la empatía. Cada persona tiene sus propias dificultades y talentos, y el Artículo 14 de la Constitución nos protege con igualdad y cariño.';
+    } else if (storyId === 2) {
+      return isEn
+        ? 'Doorway adapted! We do not cut anyone\'s corners: society and schools adapt environments so that everyone fits in together (Art. 14 CE).'
+        : '¡Puerta adaptada con éxito! No recortamos las esquinas de nadie: adaptamos el entorno del colegio para que entremos todos juntos (Art. 14 CE).';
+    } else if (storyId === 3) {
+      return isEn
+        ? 'Life chain complete! To make a table we need wood, for wood a tree, for a tree a seed... and for everything we need a flower! (Art. 45 CE - Environment).'
+        : '¡Cadena de Rodari completada! Para la mesa hace falta madera, para la madera un árbol, para el árbol una semilla... ¡y para todo hace falta una flor! (Art. 45 CE - Medio Ambiente).';
+    } else if (storyId === 4) {
+      return isEn
+        ? 'Peace letter decoded! Dialogue and mutual understanding dissolve fear and rebuild community (Preamble & Art. 10 CE).'
+        : '¡Mensaje de paz descifrado! El diálogo y el respeto mutuo superan el miedo y hacen florecer la convivencia pacífica (Preámbulo y Art. 10 CE).';
+    } else {
+      return isEn
+        ? 'You discovered Macarena\'s 4 magical differences! Being unique is our greatest gift: Art. 10.1 guarantees the free development of personality.'
+        : '¡Has descubierto las 4 diferencias de Macarena! Ser diferente es lo que nos hace únicos y libres: el Art. 10.1 CE garantiza el libre desarrollo de la personalidad.';
+    }
+  } else {
+    if (storyId === 1) {
+      return isEn
+        ? 'Ethical principle solved: Human dignity (Art. 10.1 CE) is an absolute threshold. No utilitarian calculus or majority convenience can ever justify trampling the rights of the most vulnerable.'
+        : 'Principio ético descifrado: La dignidad humana (Art. 10.1 CE) es un umbral inviolable. Ningún cálculo utilitarista ni beneficio de la mayoría justifica sacrificar a una persona inocente.';
+    } else if (storyId === 2) {
+      return isEn
+        ? 'Critical analysis achieved! Real equality (Art. 9.2 & 14 CE) demands seeing beyond stereotypes and actively supporting vulnerable and invisible groups.'
+        : '¡Análisis crítico completado! La igualdad real y efectiva (Art. 9.2 y 14 CE) exige mirar más allá del "arenque rojo" de los prejuicios y garantizar la dignidad de todas las historias humanas.';
+    } else if (storyId === 3) {
+      return isEn
+        ? 'Borgian labyrinth decoded: Pluralism (Art. 1.1) and freedom of thought (Art. 16 & 20) are the true foundation of democracy, where divergent views build a shared pact.'
+        : '¡Laberinto borgiano completado! El pluralismo político (Art. 1.1) y las libertades de pensamiento y expresión (Art. 16 y 20) aseguran que ninguna voz se imponga sobre las demás.';
+    } else if (storyId === 4) {
+      return isEn
+        ? 'White Rose broadcast deciphered! The democratic Rule of Law (Art. 1.1 & 9.1 CE) requires brave civic awareness to defend human rights against injustice.'
+        : '¡Transmisión de la Rosa Blanca descifrada! El Estado social y democrático de Derecho (Art. 1.1 y 9.1 CE) necesita de la valentía moral y la vigilancia cívica de cada nueva generación.';
+    } else {
+      return isEn
+        ? 'Banned books restored! Freedom of speech and the press without prior censorship (Art. 20.2 CE) and universal education (Art. 27 CE) safeguard democratic memory.'
+        : '¡Biblioteca de la memoria restaurada! La prohibición de censura previa (Art. 20.2 CE) y el derecho a la educación y a la cultura (Art. 27 y 44 CE) son el escudo inexpugnable de la democracia.';
+    }
+  }
+}
+
+/* ----------------------------------------------------
+   4. CONTROLADORES INTERACTIVOS DE LOS MINIJUEGOS
+   ---------------------------------------------------- */
+
+// MEMORY (Infantil 1)
+function flipMemoryCard(idx, pairId, storyId) {
+  const cardElem = document.getElementById(`mcard-${idx}`);
+  if (!cardElem || cardElem.classList.contains('flipped') || cardElem.classList.contains('matched')) return;
+  if (memoryState.flipped.length >= 2) return;
+
+  const cardData = memoryState.cards[idx];
+  cardElem.classList.remove('face-down');
+  cardElem.classList.add('flipped');
+  cardElem.innerHTML = `
+    <div class="card-icon">${cardData.icon}</div>
+    <div class="card-label">${(currentLang === 'en') ? cardData.label : cardData.label}</div>
+  `;
+
+  if (typeof playSound === 'function') playSound('click');
+  memoryState.flipped.push({ idx, pairId });
+
+  if (memoryState.flipped.length === 2) {
+    const [c1, c2] = memoryState.flipped;
+    if (c1.pairId === c2.pairId) {
+      // Coincidencia
+      setTimeout(() => {
+        document.getElementById(`mcard-${c1.idx}`).classList.add('matched');
+        document.getElementById(`mcard-${c2.idx}`).classList.add('matched');
+        memoryState.matchedCount++;
+        memoryState.flipped = [];
+        if (typeof playSound === 'function') playSound('correct');
+
+        if (memoryState.matchedCount >= 4) {
+          markPasatiempoSolved(storyId, false);
+        }
+      }, 300);
+    } else {
+      // No coincidencia
+      setTimeout(() => {
+        const elem1 = document.getElementById(`mcard-${c1.idx}`);
+        const elem2 = document.getElementById(`mcard-${c2.idx}`);
+        if (elem1) {
+          elem1.className = 'memory-card face-down';
+          elem1.innerHTML = `<div class="card-icon">❓</div><div class="card-label">${(currentLang === 'en') ? 'Flip' : 'Descubre'}</div>`;
+        }
+        if (elem2) {
+          elem2.className = 'memory-card face-down';
+          elem2.innerHTML = `<div class="card-icon">❓</div><div class="card-label">${(currentLang === 'en') ? 'Flip' : 'Descubre'}</div>`;
+        }
+        memoryState.flipped = [];
+      }, 900);
+    }
+  }
+}
+
+function resetMemoryGame(storyId) {
+  memoryState = { storyId: 0, cards: [], flipped: [], matchedCount: 0 };
+  const container = document.getElementById(`p-area-inf-${storyId}`);
+  if (container) {
+    const isEn = (currentLang === 'en');
+    container.innerHTML = getPasatiempoInfantilHTML(storyId, isEn);
+  }
+}
+
+// SOPA DE LETRAS (Infantil 2 & Secundaria 2)
+let wsFoundInf2 = [];
+function revealWSWord(storyId, word, colorClass, btnIdx) {
+  const btn = document.getElementById(`wsb-${storyId}-${btnIdx}`);
+  if (btn) btn.classList.add('found');
+
+  // Resaltar celdas correspondientes
+  const mappings = (currentLang === 'en') ? {
+    'DOOR': [[0,0],[0,1],[0,2],[0,3]],
+    'FRIEND': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5]],
+    'EQUAL': [[1,0],[1,1],[1,2],[1,3],[1,4]],
+    'SHARE': [[3,0],[3,1],[3,2],[3,3],[3,4]]
+  } : {
+    'PUERTA': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5]],
+    'IGUAL': [[1,1],[1,2],[1,3],[1,4],[1,5]],
+    'AMIGOS': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5]],
+    'JUNTOS': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5]]
+  };
+
+  const coords = mappings[word] || [];
+  coords.forEach(([r, c]) => {
+    const cell = document.getElementById(`wsc-${storyId}-${r}-${c}`);
+    if (cell) cell.className = `ws-cell ${colorClass}`;
+  });
+
+  if (!wsFoundInf2.includes(word)) wsFoundInf2.push(word);
+  if (typeof playSound === 'function') playSound('correct');
+
+  if (wsFoundInf2.length >= 4) {
+    markPasatiempoSolved(storyId, false);
+  }
+}
+
+function toggleWSCell(storyId, r, c, char) {
+  const cell = document.getElementById(`wsc-${storyId}-${r}-${c}`);
+  if (cell) {
+    cell.classList.toggle('highlight-1');
+    if (typeof playSound === 'function') playSound('click');
+  }
+}
+
+let wsFoundSec2 = [];
+function revealSecWSWord(storyId, word, colorClass, btnIdx) {
+  const btn = document.getElementById(`wsb-sec-${storyId}-${btnIdx}`);
+  if (btn) btn.classList.add('found');
+
+  const mappings = (currentLang === 'en') ? {
+    'EQUITY': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5]],
+    'DIGNITY': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6]],
+    'ASYLUM': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5]],
+    'EMPATHY': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6]],
+    'JUSTICE': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6]],
+    'REFUGE': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5]]
+  } : {
+    'EQUIDAD': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6]],
+    'DIGNIDAD': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7]],
+    'ASILO': [[2,0],[2,1],[2,2],[2,3],[2,4]],
+    'EMPATIA': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6]],
+    'JUSTICIA': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7]],
+    'REFUGIO': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
+  };
+
+  const coords = mappings[word] || [];
+  coords.forEach(([r, c]) => {
+    const cell = document.getElementById(`wsc-sec-${storyId}-${r}-${c}`);
+    if (cell) cell.className = `ws-cell ${colorClass}`;
+  });
+
+  if (!wsFoundSec2.includes(word)) wsFoundSec2.push(word);
+  if (typeof playSound === 'function') playSound('correct');
+
+  if (wsFoundSec2.length >= 5) {
+    markPasatiempoSolved(storyId, true);
+  }
+}
+
+function toggleSecWSCell(storyId, r, c, char) {
+  const cell = document.getElementById(`wsc-sec-${storyId}-${r}-${c}`);
+  if (cell) {
+    cell.classList.toggle('highlight-2');
+    if (typeof playSound === 'function') playSound('click');
+  }
+}
+
+// CRUCIGRAMAS (Infantil 3 & Secundaria 3)
+let cwSolvedInf3 = [];
+function fillCWClue(storyId, clueId, word) {
+  const card = document.getElementById(`cw-clue-${storyId}-${clueId}`);
+  const status = document.getElementById(`cw-status-${storyId}-${clueId}`);
+  if (card) card.classList.add('solved-clue');
+  if (status) status.innerHTML = `✅ <strong>${word}</strong>`;
+
+  if (!cwSolvedInf3.includes(clueId)) cwSolvedInf3.push(clueId);
+  if (typeof playSound === 'function') playSound('correct');
+
+  if (cwSolvedInf3.length >= 5) {
+    markPasatiempoSolved(storyId, false);
+  }
+}
+
+let cwSolvedSec3 = [];
+function fillSecCWClue(storyId, clueId, word) {
+  const card = document.getElementById(`cw-clue-sec-${storyId}-${clueId}`);
+  const status = document.getElementById(`cw-status-sec-${storyId}-${clueId}`);
+  if (card) card.classList.add('solved-clue');
+  if (status) status.innerHTML = `✅ <strong>${word}</strong>`;
+
+  if (!cwSolvedSec3.includes(clueId)) cwSolvedSec3.push(clueId);
+  if (typeof playSound === 'function') playSound('correct');
+
+  if (cwSolvedSec3.length >= 5) {
+    markPasatiempoSolved(storyId, true);
+  }
+}
+
+// CRIPTOGRAMAS (Infantil 4 & Secundaria 1)
+function revealCipherChar(storyId, char) {
+  const slots = document.querySelectorAll(`[id^="cslot-${storyId}-${char}-"]`);
+  slots.forEach(s => {
+    s.innerText = char;
+    s.classList.add('revealed');
+  });
+  if (typeof playSound === 'function') playSound('correct');
+}
+
+function revealAllCipher(storyId) {
+  const slots = document.querySelectorAll(`[id^="cslot-${storyId}-"]`);
+  slots.forEach(s => {
+    const parts = s.id.split('-');
+    const char = parts[2];
+    s.innerText = char;
+    s.classList.add('revealed');
+  });
+  if (typeof playSound === 'function') playSound('chime');
+  markPasatiempoSolved(storyId, false);
+}
+
+function revealSecCipherChar(storyId, char) {
+  const slots = document.querySelectorAll(`[id^="cslot-sec-${storyId}-${char}-"]`);
+  slots.forEach(s => {
+    s.innerText = char;
+    s.classList.add('revealed');
+  });
+  if (typeof playSound === 'function') playSound('correct');
+}
+
+function revealAllSecCipher(storyId) {
+  const slots = document.querySelectorAll(`[id^="cslot-sec-${storyId}-"]`);
+  slots.forEach(s => {
+    const parts = s.id.split('-');
+    const char = parts[3];
+    s.innerText = char;
+    s.classList.add('revealed');
+  });
+  if (typeof playSound === 'function') playSound('chime');
+  markPasatiempoSolved(storyId, true);
+}
+
+// DIFERENCIAS DE MACARENA (Infantil 5)
+let spotsDiscovered = [];
+function discoverSpot(storyId, spotId) {
+  const card = document.getElementById(`spot-${storyId}-${spotId}`);
+  if (card && !spotsDiscovered.includes(spotId)) {
+    card.classList.add('discovered');
+    spotsDiscovered.push(spotId);
+    if (typeof playSound === 'function') playSound('correct');
+
+    if (spotsDiscovered.length >= 4) {
+      markPasatiempoSolved(storyId, false);
+    }
+  }
+}
+
+// CIFRADO CÉSAR (Secundaria 4)
+function updateCaesarDial(storyId, shiftVal, cipherText, plainText) {
+  const badge = document.getElementById(`caesar-badge-${storyId}`);
+  const preview = document.getElementById(`caesar-preview-${storyId}`);
+  if (badge) badge.innerText = `+${shiftVal}`;
+
+  const shift = parseInt(shiftVal, 10);
+  if (shift === 3) {
+    if (preview) {
+      preview.innerText = plainText;
+      preview.classList.add('success');
+    }
+    if (typeof playSound === 'function') playSound('chime');
+    markPasatiempoSolved(storyId, true);
+  } else {
+    if (preview) {
+      preview.classList.remove('success');
+      // Desplazamiento aproximado
+      const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      let decoded = "";
+      for (let i = 0; i < cipherText.length; i++) {
+        const ch = cipherText[i];
+        const idx = alphabet.indexOf(ch);
+        if (idx !== -1) {
+          const newIdx = (idx - shift + 26) % 26;
+          decoded += alphabet[newIdx];
+        } else {
+          decoded += ch;
+        }
+      }
+      preview.innerText = decoded;
+    }
+  }
+}
+
+function solveCaesarInstantly(storyId, plainText) {
+  const range = document.getElementById(`caesar-range-${storyId}`);
+  const badge = document.getElementById(`caesar-badge-${storyId}`);
+  const preview = document.getElementById(`caesar-preview-${storyId}`);
+  if (range) range.value = 3;
+  if (badge) badge.innerText = "+3";
+  if (preview) {
+    preview.innerText = plainText;
+    preview.classList.add('success');
+  }
+  if (typeof playSound === 'function') playSound('chime');
+  markPasatiempoSolved(storyId, true);
+}
+
+// ANAGRAMAS FAHRENHEIT 451 (Secundaria 5)
+let solvedAnagrams = [];
+function checkAnagramInput(storyId, bookId, solution, input) {
+  const cleanVal = input.value.trim().toUpperCase();
+  if (cleanVal === solution) {
+    solveAnagramBook(storyId, bookId, solution);
+  }
+}
+
+function solveAnagramBook(storyId, bookId, solution) {
+  const row = document.getElementById(`anag-row-${storyId}-${bookId}`);
+  const input = document.getElementById(`anag-input-${storyId}-${bookId}`);
+  const scram = document.getElementById(`anag-scram-${storyId}-${bookId}`);
+
+  if (row) row.classList.add('solved-book');
+  if (input) {
+    input.value = solution;
+    input.disabled = true;
+    input.style.borderColor = '#22C55E';
+    input.style.background = 'rgba(34, 197, 94, 0.15)';
+  }
+  if (scram) scram.innerText = `📖 ${solution}`;
+
+  if (!solvedAnagrams.includes(bookId)) solvedAnagrams.push(bookId);
+  if (typeof playSound === 'function') playSound('correct');
+
+  if (solvedAnagrams.length >= 4) {
+    markPasatiempoSolved(storyId, true);
+  }
+}
+
+// MARCADOR GLOBAL DE RESOLUCIÓN DE PASATIEMPO
+function markPasatiempoSolved(storyId, isSec) {
+  const isEn = (typeof currentLang !== 'undefined' && currentLang === 'en');
+  if (isSec) {
+    solvedPasatiempos.secundaria[storyId] = true;
+    const status = document.getElementById(`p-status-sec-${storyId}`);
+    const banner = document.getElementById(`p-banner-sec-${storyId}`);
+    if (status) {
+      status.className = 'pasatiempo-badge-status solved';
+      status.innerHTML = '⭐ ' + (isEn ? 'CHALLENGE SOLVED!' : '¡RETO SUPERADO!');
+    }
+    if (banner) banner.style.display = 'block';
+
+    if (typeof unlockedSecValues !== 'undefined' && !unlockedSecValues.includes(storyId)) {
+      unlockedSecValues.push(storyId);
+      if (typeof updateSecProgress === 'function') updateSecProgress();
+      if (typeof renderSecChestObjects === 'function') renderSecChestObjects();
+    }
+  } else {
+    solvedPasatiempos.infantil[storyId] = true;
+    const status = document.getElementById(`p-status-inf-${storyId}`);
+    const banner = document.getElementById(`p-banner-inf-${storyId}`);
+    if (status) {
+      status.className = 'pasatiempo-badge-status solved';
+      status.innerHTML = '⭐ ' + (isEn ? 'SOLVED!' : '¡SUPERADO!');
+    }
+    if (banner) banner.style.display = 'block';
+
+    if (typeof unlockedInfantilValues !== 'undefined' && !unlockedInfantilValues.includes(storyId)) {
+      unlockedInfantilValues.push(storyId);
+      if (typeof updateGlobalProgress === 'function') updateGlobalProgress();
+      if (typeof renderChestObjects === 'function') renderChestObjects();
+      if (typeof renderMuralStamps === 'function') renderMuralStamps();
+    }
+  }
+
+  if (typeof playSound === 'function') playSound('chime');
+}
+
+</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -473,7 +473,647 @@
         page-break-inside: avoid !important;
       }
     }
-  </style>
+  
+    /* ========================================================
+       ESTILOS EXCLUSIVOS: PASATIEMPOS INTERACTIVOS RETO 3
+       ======================================================== */
+    .story-pasatiempo-wrapper {
+      margin-top: 28px;
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+      border: 2px solid #BFDBFE;
+      border-radius: 18px;
+      padding: 22px 26px;
+      box-shadow: 0 8px 24px rgba(30, 58, 138, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .sec-pasatiempo-wrapper {
+      background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%);
+      border: 2px solid #6366F1;
+      color: #F8FAFC;
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.25);
+    }
+    .pasatiempo-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(191, 219, 254, 0.5);
+    }
+    .sec-pasatiempo-wrapper .pasatiempo-top-bar {
+      border-bottom-color: rgba(99, 102, 241, 0.35);
+    }
+    .pasatiempo-pill {
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: #DBEAFE;
+      color: #1E40AF;
+      border: 1px solid #93C5FD;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .sec-pasatiempo-wrapper .pasatiempo-pill {
+      background: rgba(99, 102, 241, 0.25);
+      color: #C7D2FE;
+      border-color: #818CF8;
+    }
+    .pasatiempo-heading {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #1E3A8A;
+      margin: 4px 0 2px 0;
+    }
+    .sec-pasatiempo-wrapper .pasatiempo-heading {
+      color: #FFE600;
+    }
+    .pasatiempo-instruction {
+      font-size: 0.92rem;
+      color: #475569;
+      line-height: 1.45;
+    }
+    .sec-pasatiempo-wrapper .pasatiempo-instruction {
+      color: #CBD5E1;
+    }
+    .pasatiempo-badge-status {
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 12px;
+      background: #F1F5F9;
+      color: #64748B;
+      border: 1px solid #CBD5E1;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pasatiempo-badge-status.solved {
+      background: #DCFCE7;
+      color: #166534;
+      border-color: #86EFAC;
+    }
+
+    /* 1. MEMORY GAME */
+    .memory-container {
+      margin-top: 14px;
+    }
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      max-width: 650px;
+      margin: 0 auto 16px auto;
+    }
+    .memory-card {
+      aspect-ratio: 1 / 1;
+      background: #FFFFFF;
+      border: 2px solid #93C5FD;
+      border-radius: 14px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      text-align: center;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      user-select: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    .memory-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(59, 130, 246, 0.2);
+      border-color: #3B82F6;
+    }
+    .memory-card.face-down {
+      background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+      color: white;
+      border-color: #1E3A8A;
+    }
+    .memory-card.face-down .card-icon {
+      font-size: 2rem;
+    }
+    .memory-card.flipped {
+      background: #FEF3C7;
+      border-color: #F59E0B;
+      transform: scale(1.02);
+    }
+    .memory-card.matched {
+      background: #DCFCE7 !important;
+      border-color: #16A34A !important;
+      cursor: default;
+      animation: pulseMatch 0.4s ease-out;
+    }
+    @keyframes pulseMatch {
+      0% { transform: scale(0.95); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+    .card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 4px;
+    }
+    .card-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #1E293B;
+      line-height: 1.2;
+    }
+
+    /* 2. SOPA DE LETRAS */
+    .ws-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+    }
+    .ws-grid {
+      display: grid;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 12px;
+      border-radius: 14px;
+      border: 2px solid #CBD5E1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .sec-pasatiempo-wrapper .ws-grid {
+      background: rgba(30, 41, 59, 0.95);
+      border-color: #6366F1;
+    }
+    .ws-cell {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 1.05rem;
+      border-radius: 8px;
+      background: #F8FAFC;
+      color: #1E293B;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      border: 1px solid #E2E8F0;
+    }
+    .sec-pasatiempo-wrapper .ws-cell {
+      background: #0F172A;
+      color: #F8FAFC;
+      border-color: #334155;
+    }
+    .ws-cell:hover {
+      background: #DBEAFE;
+      border-color: #3B82F6;
+      transform: scale(1.06);
+    }
+    .ws-cell.highlight-1 { background: #FDE047 !important; color: #713F12 !important; font-weight: 900; }
+    .ws-cell.highlight-2 { background: #86EFAC !important; color: #14532D !important; font-weight: 900; }
+    .ws-cell.highlight-3 { background: #93C5FD !important; color: #1E3A8A !important; font-weight: 900; }
+    .ws-cell.highlight-4 { background: #F472B6 !important; color: #831843 !important; font-weight: 900; }
+    .ws-cell.highlight-5 { background: #C084FC !important; color: #581C87 !important; font-weight: 900; }
+    .ws-cell.highlight-6 { background: #FDBA74 !important; color: #7C2D12 !important; font-weight: 900; }
+    .ws-words-panel {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .ws-word-btn {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1.5px solid #CBD5E1;
+      background: #FFFFFF;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #334155;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+    .sec-pasatiempo-wrapper .ws-word-btn {
+      background: rgba(30, 41, 59, 0.8);
+      color: #E2E8F0;
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+    .ws-word-btn:hover {
+      transform: translateX(4px);
+      border-color: #3B82F6;
+    }
+    .ws-word-btn.found {
+      background: #DCFCE7 !important;
+      border-color: #86EFAC !important;
+      color: #166534 !important;
+      text-decoration: line-through;
+    }
+
+    /* 3. CRUCIGRAMA */
+    .cw-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 14px;
+    }
+    .cw-grid-box {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 14px;
+      padding: 12px;
+      border: 2px solid #CBD5E1;
+      display: grid;
+      gap: 4px;
+    }
+    .sec-pasatiempo-wrapper .cw-grid-box {
+      background: rgba(30, 41, 59, 0.95);
+      border-color: #6366F1;
+    }
+    .cw-cell {
+      width: 38px;
+      height: 38px;
+      border: 1.5px solid #94A3B8;
+      border-radius: 6px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #1E293B;
+      position: relative;
+    }
+    .sec-pasatiempo-wrapper .cw-cell {
+      background: #0F172A;
+      color: #F8FAFC;
+      border-color: #475569;
+    }
+    .cw-cell.empty {
+      background: #E2E8F0;
+      border-color: transparent;
+    }
+    .sec-pasatiempo-wrapper .cw-cell.empty {
+      background: #1E293B;
+      border-color: transparent;
+    }
+    .cw-cell-num {
+      position: absolute;
+      top: 1px;
+      left: 3px;
+      font-size: 9px;
+      font-weight: 800;
+      color: #64748B;
+    }
+    .cw-cell.solved-cell {
+      background: #FEF08A !important;
+      color: #713F12 !important;
+    }
+    .cw-clues-box {
+      flex: 1;
+      min-width: 240px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .cw-clue-card {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .sec-pasatiempo-wrapper .cw-clue-card {
+      background: rgba(30, 41, 59, 0.7);
+      border-color: rgba(99, 102, 241, 0.3);
+      color: #F8FAFC;
+    }
+    .cw-clue-card:hover {
+      border-color: #3B82F6;
+      transform: translateX(4px);
+    }
+    .cw-clue-card.solved-clue {
+      background: #DCFCE7;
+      border-color: #86EFAC;
+      color: #166534;
+    }
+
+    /* 4. CRIPTOGRAMA / DESCIFRADOR */
+    .cipher-container {
+      margin-top: 14px;
+    }
+    .cipher-sentence-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .cipher-word-block {
+      display: flex;
+      gap: 6px;
+    }
+    .cipher-token {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .cipher-symbol-tag {
+      font-size: 1.25rem;
+      min-height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cipher-slot {
+      width: 34px;
+      height: 38px;
+      border: 2px solid #3B82F6;
+      border-radius: 8px;
+      background: #FFFFFF;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #1E3A8A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .sec-pasatiempo-wrapper .cipher-slot {
+      background: #0F172A;
+      color: #FFE600;
+      border-color: #818CF8;
+    }
+    .cipher-slot.revealed {
+      background: #DCFCE7;
+      border-color: #22C55E;
+      color: #15803D;
+    }
+    .cipher-keys-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #CBD5E1;
+    }
+    .sec-pasatiempo-wrapper .cipher-keys-panel {
+      background: rgba(15, 23, 42, 0.6);
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+    .cipher-key-chip {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .sec-pasatiempo-wrapper .cipher-key-chip {
+      background: #1E293B;
+      color: #E2E8F0;
+      border-color: #475569;
+    }
+    .cipher-key-chip:hover {
+      border-color: #3B82F6;
+      transform: scale(1.05);
+    }
+
+    /* 5. SPOT DIFFERENCES */
+    .spot-diff-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 14px;
+    }
+    @media (max-width: 700px) {
+      .spot-diff-wrap { grid-template-columns: 1fr; }
+    }
+    .spot-panel {
+      background: #FFFFFF;
+      border: 2px solid #CBD5E1;
+      border-radius: 14px;
+      padding: 14px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .sec-pasatiempo-wrapper .spot-panel {
+      background: #1E293B;
+      border-color: #6366F1;
+    }
+    .spot-panel h5 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #1E3A8A;
+    }
+    .sec-pasatiempo-wrapper .spot-panel h5 {
+      color: #FFE600;
+    }
+    .spot-items-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .spot-item-card {
+      border: 2px dashed #94A3B8;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #F8FAFC;
+    }
+    .sec-pasatiempo-wrapper .spot-item-card {
+      background: #0F172A;
+      border-color: #475569;
+    }
+    .spot-item-card:hover {
+      border-color: #EC4899;
+      transform: scale(1.03);
+    }
+    .spot-item-card.discovered {
+      border: 2px solid #22C55E !important;
+      background: #DCFCE7 !important;
+      color: #166534 !important;
+    }
+    .sec-pasatiempo-wrapper .spot-item-card.discovered {
+      background: rgba(34, 197, 94, 0.2) !important;
+      color: #86EFAC !important;
+    }
+
+    /* 6. CAESAR CIPHER WHEEL / SLIDER */
+    .caesar-dial-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-top: 14px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+    }
+    .caesar-cipher-text {
+      font-family: monospace;
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #F87171;
+      text-align: center;
+      background: #0F172A;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 1px dashed #EF4444;
+      max-width: 100%;
+      word-break: break-all;
+    }
+    .caesar-slider-control {
+      width: 100%;
+      max-width: 450px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .caesar-slider-control input[type=range] {
+      flex: 1;
+      height: 8px;
+      accent-color: #6366F1;
+      cursor: pointer;
+    }
+    .caesar-shift-badge {
+      font-size: 1.1rem;
+      font-weight: 900;
+      background: #6366F1;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 8px;
+      min-width: 60px;
+      text-align: center;
+    }
+    .caesar-decoded-preview {
+      font-family: monospace;
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #FFE600;
+      background: #0B1120;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 1.5px solid #38BDF8;
+      text-align: center;
+      width: 100%;
+      max-width: 600px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .caesar-decoded-preview.success {
+      color: #4ADE80 !important;
+      border-color: #22C55E !important;
+      background: rgba(34, 197, 94, 0.15) !important;
+    }
+
+    /* 7. ANAGRAM / RESCUE BOOKS */
+    .anagram-rack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .anagram-book-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 12px 16px;
+      border-radius: 12px;
+    }
+    .anagram-scrambled {
+      font-family: monospace;
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #FB923C;
+      background: #1E293B;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+    .anagram-input {
+      background: #0F172A;
+      border: 1.5px solid #6366F1;
+      color: #FFFFFF;
+      font-size: 1.05rem;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      width: 180px;
+    }
+    .anagram-book-row.solved-book {
+      border-color: #22C55E;
+      background: rgba(34, 197, 94, 0.12);
+    }
+    .anagram-book-row.solved-book .anagram-scrambled {
+      color: #4ADE80;
+      text-decoration: line-through;
+    }
+
+    /* BANNER DE ÉXITO */
+    .pasatiempo-victory-banner {
+      display: none;
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: #DCFCE7;
+      border: 2px solid #86EFAC;
+      color: #14532D;
+      animation: popIn 0.3s ease-out;
+    }
+    .sec-pasatiempo-wrapper .pasatiempo-victory-banner {
+      background: rgba(34, 197, 94, 0.2);
+      border-color: #4ADE80;
+      color: #A7F3D0;
+    }
+    .victory-title {
+      font-size: 1rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .victory-text {
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+
+</style>
 </head>
 <body>
 
@@ -490,7 +1130,7 @@
           </div>
         </div>
         <div class="top-badges" id="top-badges">
-          <span class="badge-ce" id="b-art1">Art. 10 (Dignidad Humana)</span>
+          <span class="badge-ce" id="b-art1">Art. 10 (Dignidad humana)</span>
           <span class="badge-ce" id="b-art2">Art. 14 (Igualdad)</span>
           <span class="badge-ce" id="b-art3">Art. 27 (Educación)</span>
         </div>
@@ -499,14 +1139,14 @@
       <!-- BARRA SELECTORA DE ETAPA EDUCATIVA -->
       <nav class="stage-nav-canva" id="stage-nav-canva">
         <div class="stage-nav-label">
-          <span>🧭</span> Selecciona la Etapa Educativa:
+          <span>🧭</span> Selecciona la etapa educativa:
         </div>
         <div class="stage-nav-btns">
           <button class="stage-pill-btn active" id="btn-tab-infantil" onclick="setCanvaStage('infantil')">
-            <span>👶</span> Infantil y 1.º Ciclo Primaria
+            <span>👶</span> Infantil y 1.º ciclo de primaria
           </button>
           <button class="stage-pill-btn" id="btn-tab-secundaria" onclick="setCanvaStage('secundaria')">
-            <span>🎓</span> Educación Secundaria (1.º y 2.º ESO)
+            <span>🎓</span> Educación secundaria (1.º y 2.º de ESO)
           </button>
         </div>
       </nav>
@@ -517,8 +1157,8 @@
           <span id="hint-text">👶 <strong>Haz clic en cualquier estación</strong> para explorar el cofre de cuentos y actividades vivenciales:</span>
         </div>
         <div>
-          <button class="btn-subtle" id="btn-quick-open" onclick="openModal(1)" style="background: rgba(244, 114, 182, 0.2); border-color: #F472B6; color: #F472B6; font-weight: 800;">
-            📖 Abrir Cuentos
+          <button class="btn-subtle" onclick="openCanvaPasatiemposHub()" style="background: rgba(255, 230, 0, 0.22); border-color: #FFE600; color: #FFE600; font-weight: 800; margin-right: 8px;">🎮 Sala de pasatiempos</button><button class="btn-subtle" id="btn-quick-open" onclick="openModal(1)" style="background: rgba(244, 114, 182, 0.2); border-color: #F472B6; color: #F472B6; font-weight: 800;">
+            📖 Abrir cuentos
           </button>
         </div>
       </div>
@@ -536,13 +1176,13 @@
               <span class="card-art">Preámbulo CE</span>
             </div>
             <div class="card-icon">🎁</div>
-            <h2 class="card-title">El Cofre Mágico</h2>
+            <h2 class="card-title">El cofre mágico</h2>
             <p class="card-desc">
               Descubre los 5 objetos secretos del Preámbulo Constitucional: el gran libro de la paz, el ovillo de lana, la llave de la igualdad, el espejo y la semilla.
             </p>
           </div>
           <button class="btn-play-level" onclick="event.stopPropagation(); openModal(1)">
-            <span>🎁 ABRIR EL COFRE</span>
+            <span>🎁 Abrir el cofre</span>
           </button>
         </article>
 
@@ -551,16 +1191,16 @@
           <div>
             <div class="card-top">
               <span class="card-badge" style="background: rgba(16, 185, 129, 0.2); color: var(--green);">ESTACIÓN 2</span>
-              <span class="card-art">5 Cuentos</span>
+              <span class="card-art">5 cuentos</span>
             </div>
             <div class="card-icon">📖</div>
-            <h2 class="card-title">Cuentos Vivenciales</h2>
+            <h2 class="card-title">Cuentos vivenciales</h2>
             <p class="card-desc">
               Guía de lectura dialógica con los 5 cuentos: Lorenzo (diversidad), Esquinitas (inclusión), ¿Qué hace falta?, El enemigo (paz) y La vaca Macarena (libre desarrollo).
             </p>
           </div>
           <button class="btn-play-level" style="background: linear-gradient(135deg, #10B981 0%, #047857 100%);" onclick="event.stopPropagation(); openModal(2)">
-            <span>📖 LEER CUENTOS</span>
+            <span>📖 Leer cuentos</span>
           </button>
         </article>
 
@@ -569,16 +1209,16 @@
           <div>
             <div class="card-top">
               <span class="card-badge" style="background: rgba(139, 92, 246, 0.2); color: #C084FC;">ESTACIÓN 3</span>
-              <span class="card-art">Mural Colectivo</span>
+              <span class="card-art">Mural colectivo</span>
             </div>
             <div class="card-icon">🎨</div>
-            <h2 class="card-title">El Gran Libro Escolar</h2>
+            <h2 class="card-title">El gran libro escolar</h2>
             <p class="card-desc">
               Cada valor superado en los cuentos coloca un sello de honor en la gran constitución abierta de nuestra aula. Compromiso participativo de convivencia.
             </p>
           </div>
           <button class="btn-play-level" style="background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);" onclick="event.stopPropagation(); openModal(3)">
-            <span>🎨 VER GRAN LIBRO</span>
+            <span>🎨 Ver el gran libro</span>
           </button>
         </article>
 
@@ -587,16 +1227,16 @@
           <div>
             <div class="card-top">
               <span class="card-badge" style="background: rgba(255, 209, 102, 0.2); color: var(--gold);">ESTACIÓN 4</span>
-              <span class="card-art">Diploma Oficial</span>
+              <span class="card-art">Diploma oficial</span>
             </div>
             <div class="card-icon">📜</div>
-            <h2 class="card-title">Diploma de Convivencia</h2>
+            <h2 class="card-title">Diploma de convivencia</h2>
             <p class="card-desc">
               Expedición del Diploma Ilustrado Infantil con banderines, sol sonriente y sellos de la Comunidad de Madrid para cada estudiante.
             </p>
           </div>
           <button class="btn-play-level" style="background: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);" onclick="event.stopPropagation(); openModal(4)">
-            <span>📜 EXPEDIR DIPLOMA</span>
+            <span>📜 Expedir diploma</span>
           </button>
         </article>
 
@@ -612,16 +1252,16 @@
           <div>
             <div class="card-top">
               <span class="card-badge" style="background: rgba(56, 189, 248, 0.2); color: #38BDF8;">ESTACIÓN 1</span>
-              <span class="card-art">Marco Jurídico</span>
+              <span class="card-art">Marco jurídico</span>
             </div>
             <div class="card-icon">🏛️</div>
-            <h2 class="card-title">Cofre de la Ciudadanía</h2>
+            <h2 class="card-title">Cofre de la ciudadanía</h2>
             <p class="card-desc">
               Los 5 pilares del Estado de Derecho: el Código de Convivencia (Art. 9.1), la Cohesión Social (Art. 9.2), la Equidad (Art. 14), el Voto (Art. 23) y el Ágora (Art. 20).
             </p>
           </div>
           <button class="btn-play-level btn-sec" onclick="event.stopPropagation(); openModal(1)">
-            <span>🏛️ EXPLORAR PILARES</span>
+            <span>🏛️ Explorar pilares</span>
           </button>
         </article>
 
@@ -630,16 +1270,16 @@
           <div>
             <div class="card-top">
               <span class="card-badge" style="background: rgba(129, 140, 248, 0.2); color: #818CF8;">ESTACIÓN 2</span>
-              <span class="card-art">5 Dilemas Morales</span>
+              <span class="card-art">5 dilemas morales</span>
             </div>
             <div class="card-icon">⚖️</div>
-            <h2 class="card-title">Dilemas del Preámbulo</h2>
+            <h2 class="card-title">Dilemas del preámbulo</h2>
             <p class="card-desc">
               Lecturas éticas universales: *Omelas* (Le Guin), *El arenque rojo*, Borges, *La Rosa Blanca* (Sophie Scholl) y *Fahrenheit 451* (Bradbury).
             </p>
           </div>
           <button class="btn-play-level btn-sec" style="background: linear-gradient(135deg, #4F46E5 0%, #2563EB 100%);" onclick="event.stopPropagation(); openModal(2)">
-            <span>⚖️ DEBATIR DILEMAS</span>
+            <span>⚖️ Debatir dilemas</span>
           </button>
         </article>
 
@@ -648,16 +1288,16 @@
           <div>
             <div class="card-top">
               <span class="card-badge" style="background: rgba(16, 185, 129, 0.2); color: #34D399;">ESTACIÓN 3</span>
-              <span class="card-art">Taller de Escritura</span>
+              <span class="card-art">Taller de escritura</span>
             </div>
             <div class="card-icon">✍️</div>
-            <h2 class="card-title">Manifiesto Constitucional</h2>
+            <h2 class="card-title">Manifiesto constitucional</h2>
             <p class="card-desc">
               Taller cívico de deliberación: redacción de un Manifiesto Democrático, Decálogo de Derechos o Editorial Crítico con compromisos para el instituto.
             </p>
           </div>
           <button class="btn-play-level btn-sec" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);" onclick="event.stopPropagation(); openModal(3)">
-            <span>✍️ REDACTAR MANIFIESTO</span>
+            <span>✍️ Redactar manifiesto</span>
           </button>
         </article>
 
@@ -666,16 +1306,16 @@
           <div>
             <div class="card-top">
               <span class="card-badge" style="background: rgba(245, 158, 11, 0.2); color: #FBBF24;">ESTACIÓN 4</span>
-              <span class="card-art">Acreditación Oficial</span>
+              <span class="card-art">Acreditación oficial</span>
             </div>
             <div class="card-icon">🏆</div>
-            <h2 class="card-title">Ciudadanía Activa</h2>
+            <h2 class="card-title">Ciudadanía activa</h2>
             <p class="card-desc">
               Certificación institucional oficial de Educación Secundaria de la Comunidad de Madrid en competencia cívica y deliberación democrática.
             </p>
           </div>
           <button class="btn-play-level btn-sec" style="background: linear-gradient(135deg, #D97706 0%, #B45309 100%);" onclick="event.stopPropagation(); openModal(4)">
-            <span>🏆 EMITIR CERTIFICADO</span>
+            <span>🏆 Emitir certificado</span>
           </button>
         </article>
 
@@ -686,11 +1326,11 @@
         <div>
           <span><strong>Comunidad de Madrid</strong> — Semana de la Constitución 2026</span>
           <span style="margin: 0 8px;">•</span>
-          <span id="footer-tagline" style="color: #F472B6;">Pizarra Digital (PDI) & Tablets</span>
+          <span id="footer-tagline" style="color: #F472B6;">Pizarra digital (PDI) y tabletas</span>
         </div>
         <div class="footer-actions">
-          <button class="btn-subtle" id="btn-footer-cert" onclick="openModal(4)">📜 Ver Diploma Infantil</button>
-          <button class="btn-subtle" onclick="toggleContainerFullscreen()">⛶ Pantalla Completa</button>
+          <button class="btn-subtle" id="btn-footer-cert" onclick="openModal(4)">📜 Ver diploma infantil</button>
+          <button class="btn-subtle" onclick="toggleContainerFullscreen()">⛶ Pantalla completa</button>
         </div>
       </footer>
 
@@ -698,7 +1338,7 @@
       <div class="modal-overlay" id="modal-box-overlay">
         <div class="modal-box" id="inner-modal-box">
           <div class="modal-header">
-            <h3 class="modal-title" id="m-modal-title">Detalles de la Estación</h3>
+            <h3 class="modal-title" id="m-modal-title">Detalles de la estación</h3>
             <button class="modal-close" onclick="closeModal()">✕</button>
           </div>
           <div class="modal-body" id="m-modal-body"></div>
@@ -750,16 +1390,16 @@
           <span class="badge-ce" style="background: rgba(99, 102, 241, 0.2); border-color: #818CF8; color: #C7D2FE;">Art. 20 (Libertad)</span>
         `;
 
-        hintText.innerHTML = `🎓 <strong>Etapa Secundaria (1.º y 2.º ESO):</strong> Haz clic en cualquier estación para debatir dilemas éticos, crear el manifiesto y certificar la ciudadanía activa:`;
-        btnQuick.innerHTML = `⚖️ Ver Dilemas Éticos`;
+        hintText.innerHTML = `🎓 <strong>Etapa de educación secundaria (1.º y 2.º de ESO):</strong> Haz clic en cualquier estación para debatir dilemas éticos, crear el manifiesto y certificar la ciudadanía activa:`;
+        btnQuick.innerHTML = `⚖️ Ver dilemas éticos`;
         btnQuick.style.background = 'rgba(99, 102, 241, 0.25)';
         btnQuick.style.borderColor = '#818CF8';
         btnQuick.style.color = '#A5B4FC';
         btnQuick.onclick = () => openModal(2);
 
-        footerTagline.innerText = 'Educación Secundaria Obligatoria';
+        footerTagline.innerText = 'Educación secundaria obligatoria';
         footerTagline.style.color = '#818CF8';
-        btnFooterCert.innerText = '🏆 Ver Certificado Secundaria';
+        btnFooterCert.innerText = '🏆 Ver certificado de secundaria';
         btnFooterCert.onclick = () => openModal(4);
 
         if (innerModal) innerModal.style.borderColor = '#818CF8';
@@ -776,21 +1416,21 @@
         subtitle.style.color = '#F472B6';
 
         topBadges.innerHTML = `
-          <span class="badge-ce">Art. 10 (Dignidad Humana)</span>
+          <span class="badge-ce">Art. 10 (Dignidad humana)</span>
           <span class="badge-ce">Art. 14 (Igualdad)</span>
           <span class="badge-ce">Art. 27 (Educación)</span>
         `;
 
-        hintText.innerHTML = `👶 <strong>Etapa Infantil y 1.º Ciclo:</strong> Haz clic en cualquier estación para explorar el cofre de cuentos y actividades vivenciales:`;
-        btnQuick.innerHTML = `📖 Abrir Cuentos`;
+        hintText.innerHTML = `👶 <strong>Etapa infantil y 1.º ciclo de primaria:</strong> Haz clic en cualquier estación para explorar el cofre de cuentos y actividades vivenciales:`;
+        btnQuick.innerHTML = `📖 Abrir cuentos`;
         btnQuick.style.background = 'rgba(244, 114, 182, 0.2)';
         btnQuick.style.borderColor = '#F472B6';
         btnQuick.style.color = '#F472B6';
         btnQuick.onclick = () => openModal(1);
 
-        footerTagline.innerText = 'Pizarra Digital (PDI) & Tablets';
+        footerTagline.innerText = 'Pizarra digital (PDI) y tabletas';
         footerTagline.style.color = '#F472B6';
-        btnFooterCert.innerText = '📜 Ver Diploma Infantil';
+        btnFooterCert.innerText = '📜 Ver diploma infantil';
         btnFooterCert.onclick = () => openModal(4);
 
         if (innerModal) innerModal.style.borderColor = '#F472B6';
@@ -870,7 +1510,7 @@
 
     function openModalInfantil(stationNum, titleElem, bodyElem) {
       if (stationNum === 1) {
-        titleElem.innerHTML = "🎁 Estación 1: Los 5 Secretos del Preámbulo Constitucional";
+        titleElem.innerHTML = "🎁 Estación 1: Los 5 secretos del preámbulo constitucional";
         bodyElem.innerHTML = `
           <div style="background: rgba(236, 72, 153, 0.15); border: 1.5px solid var(--pink); padding: 12px 16px; border-radius: 12px; margin-bottom: 14px;">
             <p style="font-size: 13px; color: #FFF; font-weight: 600;">
@@ -880,33 +1520,33 @@
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
             <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #38BDF8; padding: 12px; border-radius: 12px; text-align: center;">
               <div style="font-size: 32px; margin-bottom: 4px;">📖</div>
-              <h5 style="color: #FFE600; margin-bottom: 4px; font-size: 13px;">El Gran Libro</h5>
+              <h5 style="color: #FFE600; margin-bottom: 4px; font-size: 13px;">El gran libro</h5>
               <p style="font-size: 11px; color: #CBD5E1;">La Constitución como el libro que escribimos entre todos para vivir en paz y protegernos.</p>
             </div>
             <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #10B981; padding: 12px; border-radius: 12px; text-align: center;">
               <div style="font-size: 32px; margin-bottom: 4px;">🧶</div>
-              <h5 style="color: #A7F3D0; margin-bottom: 4px; font-size: 13px;">El Ovillo de Lana</h5>
+              <h5 style="color: #A7F3D0; margin-bottom: 4px; font-size: 13px;">El ovillo de lana</h5>
               <p style="font-size: 11px; color: #CBD5E1;">El tejido de la comunidad: si tiramos todos del mismo hilo con cuidado, nadie queda suelto.</p>
             </div>
             <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #F59E0B; padding: 12px; border-radius: 12px; text-align: center;">
               <div style="font-size: 32px; margin-bottom: 4px;">🔑</div>
-              <h5 style="color: #FDE68A; margin-bottom: 4px; font-size: 13px;">La Llave de la Igualdad</h5>
+              <h5 style="color: #FDE68A; margin-bottom: 4px; font-size: 13px;">La llave de la igualdad</h5>
               <p style="font-size: 11px; color: #CBD5E1;">Abre las puertas para todos los niños y niñas sin importar su procedencia ni capacidades.</p>
             </div>
             <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #EC4899; padding: 12px; border-radius: 12px; text-align: center;">
               <div style="font-size: 32px; margin-bottom: 4px;">🪞</div>
-              <h5 style="color: #FBCFE8; margin-bottom: 4px; font-size: 13px;">El Espejo Mágico</h5>
+              <h5 style="color: #FBCFE8; margin-bottom: 4px; font-size: 13px;">El espejo mágico</h5>
               <p style="font-size: 11px; color: #CBD5E1;">Muestra la dignidad de cada rostro: todos somos diferentes, valiosos y únicos (Art. 10 CE).</p>
             </div>
             <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #8B5CF6; padding: 12px; border-radius: 12px; text-align: center;">
               <div style="font-size: 32px; margin-bottom: 4px;">🌱</div>
-              <h5 style="color: #DDD6FE; margin-bottom: 4px; font-size: 13px;">La Semilla del Futuro</h5>
+              <h5 style="color: #DDD6FE; margin-bottom: 4px; font-size: 13px;">La semilla del futuro</h5>
               <p style="font-size: 11px; color: #CBD5E1;">El cuidado de la naturaleza y del medio ambiente para que las futuras generaciones crezcan felices.</p>
             </div>
           </div>
         `;
       } else if (stationNum === 2) {
-        titleElem.innerHTML = "📖 Estación 2: Los 5 Cuentos Dialógicos de la Constitución";
+        titleElem.innerHTML = "📖 Estación 2: Los 5 cuentos dialógicos de la Constitución";
         bodyElem.innerHTML = `
           <div style="display: flex; flex-direction: column; gap: 12px;">
             ${STORIES_INFANTIL.map(s => `
@@ -919,15 +1559,20 @@
                 <div style="background: rgba(15, 23, 42, 0.7); border-radius: 8px; padding: 6px 10px; font-size: 11.5px; color: #6EE7B7;">
                   <strong>💡 Diálogo en el aula:</strong> ${s.reflex}
                 </div>
+                <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
+                  <button class="btn-play-level" style="max-width: 260px; padding: 7px 12px; font-size: 11.5px;" onclick="openCanvaPasatiempoModal(${s.id}, false)">
+                    🎮 Jugar al pasatiempo del cuento
+                  </button>
+                </div>
               </div>
             `).join('')}
           </div>
         `;
       } else if (stationNum === 3) {
-        titleElem.innerHTML = "🎨 Estación 3: El Gran Libro Escolar & Mural de Sellos";
+        titleElem.innerHTML = "🎨 Estación 3: El gran libro escolar y mural de sellos";
         bodyElem.innerHTML = `
           <div style="background: rgba(139, 92, 246, 0.15); border: 1.5px solid #8B5CF6; border-radius: 12px; padding: 14px; margin-bottom: 14px;">
-            <h4 style="color: #C084FC; margin-bottom: 6px; font-size: 14px;">Mural Abierto de la Convivencia del Aula</h4>
+            <h4 style="color: #C084FC; margin-bottom: 6px; font-size: 14px;">Mural abierto de la convivencia del aula</h4>
             <p style="font-size: 12px; color: #E2E8F0;">
               Cada vez que el grupo lee uno de los cuentos y reflexiona sobre el valor constitucional, estampa su sello en el mural del aula. Al reunir los 5 sellos, redactan su pacto escolar:
             </p>
@@ -955,7 +1600,7 @@
           </div>
         `;
       } else if (stationNum === 4) {
-        titleElem.innerHTML = "📜 Estación 4: Gran Diploma Ilustrado de Convivencia";
+        titleElem.innerHTML = "📜 Estación 4: Gran diploma ilustrado de convivencia";
         bodyElem.innerHTML = `
           <div class="printable-card" style="max-width: 680px; margin: 0 auto; background: #FFFFFF; color: #0F172A; border-radius: 16px; padding: 20px; border: 4px solid var(--madrid-red); box-shadow: 0 10px 30px rgba(0,0,0,0.6); position: relative;">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 8px; margin-bottom: 12px;">
@@ -987,7 +1632,7 @@
 
             <div style="text-align: center;">
               <button class="btn-play-level" style="max-width: 260px; margin: 0 auto; background: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);" onclick="window.print()">
-                <span>🖨️ Imprimir Diploma Infantil</span>
+                <span>🖨️ Imprimir diploma infantil</span>
               </button>
             </div>
           </div>
@@ -997,7 +1642,7 @@
 
     function openModalSecundaria(stationNum, titleElem, bodyElem) {
       if (stationNum === 1) {
-        titleElem.innerHTML = "🏛️ Estación 1: Los 5 Pilares del Cofre de la Ciudadanía";
+        titleElem.innerHTML = "🏛️ Estación 1: Los 5 pilares del cofre de la ciudadanía";
         bodyElem.innerHTML = `
           <div style="background: rgba(99, 102, 241, 0.15); border: 1.5px solid #818CF8; padding: 12px 16px; border-radius: 12px; margin-bottom: 14px;">
             <p style="font-size: 13px; color: #FFF; font-weight: 600;">
@@ -1007,38 +1652,38 @@
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
             <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #38BDF8; padding: 12px; border-radius: 12px; text-align: center;">
               <div style="font-size: 32px; margin-bottom: 4px;">📜</div>
-              <h5 style="color: #38BDF8; margin-bottom: 4px; font-size: 13px;">Código de Convivencia</h5>
+              <h5 style="color: #38BDF8; margin-bottom: 4px; font-size: 13px;">Código de convivencia</h5>
               <span style="font-size: 10px; background: rgba(56,189,248,0.2); color: #BAE6FD; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Art. 9.1 CE</span>
               <p style="font-size: 11px; color: #CBD5E1; margin-top: 6px;">Primacía de la Constitución como norma suprema que vincula a ciudadanos y poderes públicos.</p>
             </div>
             <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #10B981; padding: 12px; border-radius: 12px; text-align: center;">
               <div style="font-size: 32px; margin-bottom: 4px;">🤝</div>
-              <h5 style="color: #34D399; margin-bottom: 4px; font-size: 13px;">Red de Cohesión</h5>
+              <h5 style="color: #34D399; margin-bottom: 4px; font-size: 13px;">Red de cohesión</h5>
               <span style="font-size: 10px; background: rgba(16,185,129,0.2); color: #A7F3D0; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Art. 9.2 CE</span>
               <p style="font-size: 11px; color: #CBD5E1; margin-top: 6px;">Obligación del Estado de remover obstáculos para que la libertad e igualdad sean reales y efectivas.</p>
             </div>
             <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #F59E0B; padding: 12px; border-radius: 12px; text-align: center;">
               <div style="font-size: 32px; margin-bottom: 4px;">⚖️</div>
-              <h5 style="color: #FBBF24; margin-bottom: 4px; font-size: 13px;">Tribunal de Equidad</h5>
+              <h5 style="color: #FBBF24; margin-bottom: 4px; font-size: 13px;">Tribunal de equidad</h5>
               <span style="font-size: 10px; background: rgba(245,158,11,0.2); color: #FDE68A; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Art. 14 CE</span>
               <p style="font-size: 11px; color: #CBD5E1; margin-top: 6px;">Garantía judicial de no discriminación y tutela judicial efectiva para toda persona.</p>
             </div>
             <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #A855F7; padding: 12px; border-radius: 12px; text-align: center;">
               <div style="font-size: 32px; margin-bottom: 4px;">🗳️</div>
-              <h5 style="color: #C084FC; margin-bottom: 4px; font-size: 13px;">Voto Democrático</h5>
+              <h5 style="color: #C084FC; margin-bottom: 4px; font-size: 13px;">Voto democrático</h5>
               <span style="font-size: 10px; background: rgba(168,85,247,0.2); color: #E9D5FF; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Art. 23 CE</span>
               <p style="font-size: 11px; color: #CBD5E1; margin-top: 6px;">Soberanía popular y derecho fundamental de la ciudadanía a participar en asuntos públicos.</p>
             </div>
             <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #EC4899; padding: 12px; border-radius: 12px; text-align: center;">
               <div style="font-size: 32px; margin-bottom: 4px;">🗣️</div>
-              <h5 style="color: #F472B6; margin-bottom: 4px; font-size: 13px;">Ágora Pública</h5>
+              <h5 style="color: #F472B6; margin-bottom: 4px; font-size: 13px;">Ágora pública</h5>
               <span style="font-size: 10px; background: rgba(236,72,153,0.2); color: #FBCFE8; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Art. 20 CE</span>
               <p style="font-size: 11px; color: #CBD5E1; margin-top: 6px;">Libertad de expresión, información veraz, pensamiento crítico y deliberación respetuosa.</p>
             </div>
           </div>
         `;
       } else if (stationNum === 2) {
-        titleElem.innerHTML = "⚖️ Estación 2: Dilemas Éticos del Preámbulo Constitucional";
+        titleElem.innerHTML = "⚖️ Estación 2: Dilemas éticos del preámbulo constitucional";
         bodyElem.innerHTML = `
           <div style="display: flex; flex-direction: column; gap: 12px;">
             ${STORIES_SECUNDARIA.map(s => `
@@ -1057,15 +1702,20 @@
                 <div style="font-size: 11.5px; color: #34D399;">
                   <strong>⚖️ Fundamento constitucional:</strong> ${s.solucion}
                 </div>
+                <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
+                  <button class="btn-play-level btn-sec" style="max-width: 270px; padding: 7px 12px; font-size: 11.5px;" onclick="openCanvaPasatiempoModal(${s.id}, true)">
+                    🧩 Jugar al reto filosófico
+                  </button>
+                </div>
               </div>
             `).join('')}
           </div>
         `;
       } else if (stationNum === 3) {
-        titleElem.innerHTML = "✍️ Estación 3: Taller Interactivo de Manifiesto Cívico";
+        titleElem.innerHTML = "✍️ Estación 3: Taller interactivo de manifiesto cívico";
         bodyElem.innerHTML = `
           <div style="background: rgba(15, 23, 42, 0.9); border: 1.5px solid #10B981; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
-            <h4 style="color: #34D399; margin-bottom: 4px; font-size: 14px;">Generador de Manifiesto Constitucional del Aula</h4>
+            <h4 style="color: #34D399; margin-bottom: 4px; font-size: 14px;">Generador de manifiesto constitucional del aula</h4>
             <p style="font-size: 12px; color: #CBD5E1;">
               Como agentes activos de la democracia, redactad vuestro propio documento cívico para el centro escolar:
             </p>
@@ -1109,14 +1759,14 @@
               </div>
               <div style="margin-top: 12px; text-align: center;">
                 <button class="btn-play-level btn-sec" style="font-size: 11.5px; padding: 7px 12px;" onclick="window.print()">
-                  🖨️ Imprimir Manifiesto del Aula
+                  🖨️ Imprimir manifiesto del aula
                 </button>
               </div>
             </div>
           </div>
         `;
       } else if (stationNum === 4) {
-        titleElem.innerHTML = "🏆 Estación 4: Certificado Oficial de Ciudadanía Activa (Secundaria)";
+        titleElem.innerHTML = "🏆 Estación 4: Certificado oficial de ciudadanía activa (secundaria)";
         bodyElem.innerHTML = `
           <div class="printable-card" style="max-width: 720px; margin: 0 auto; background: #FFFFFF; color: #0F172A; border-radius: 16px; padding: 22px; border: 4px solid #1E3A8A; box-shadow: 0 10px 30px rgba(0,0,0,0.6); position: relative;">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 8px; margin-bottom: 12px;">
@@ -1126,7 +1776,7 @@
 
             <div style="text-align: center; margin-bottom: 14px;">
               <h3 style="font-size: 17px; font-weight: 900; color: #1E3A8A; margin-bottom: 3px;">CERTIFICACIÓN OFICIAL DE CIUDADANÍA ACTIVA</h3>
-              <p style="font-size: 11.5px; color: #64748B;">Educación Secundaria Obligatoria (1.º y 2.º ESO) — Diciembre 2026</p>
+              <p style="font-size: 11.5px; color: #64748B;">Educación secundaria obligatoria (1.º y 2.º ESO) — Diciembre 2026</p>
             </div>
 
             <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 10px; padding: 12px; margin-bottom: 14px; text-align: center;">
@@ -1162,7 +1812,7 @@
 
             <div style="text-align: center; margin-top: 14px;">
               <button class="btn-play-level btn-sec" style="max-width: 280px; margin: 0 auto;" onclick="window.print()">
-                <span>🖨️ Imprimir Certificado Secundaria</span>
+                <span>🖨️ Imprimir certificado de secundaria</span>
               </button>
             </div>
           </div>
@@ -1193,6 +1843,1003 @@
       if (!document.fullscreenElement) elem.requestFullscreen().catch(() => {});
       else document.exitFullscreen().catch(() => {});
     }
-  </script>
+  
+/* ========================================================
+   MOTOR DE PASATIEMPOS INTERACTIVOS - RETO 3 (ES & EN)
+   10 PASATIEMPOS PEDAGÓGICOS: 5 INFANTIL / 5 SECUNDARIA
+   ======================================================== */
+
+const solvedPasatiempos = {
+  infantil: {},
+  secundaria: {}
+};
+
+// ESTADO EN TIEMPO REAL DE CADA JUEGO
+let memoryState = { cards: [], flipped: [], matchedCount: 0 };
+let spotDiffState = { found: [] };
+let anagramState = { solved: [] };
+
+/* ----------------------------------------------------
+   1. PASATIEMPOS INFANTIL Y 1.º CICLO PRIMARIA
+   ---------------------------------------------------- */
+function getPasatiempoInfantilHTML(storyId, isEn) {
+  const isSolved = !!solvedPasatiempos.infantil[storyId];
+
+  let gameHTML = '';
+  let title = '';
+  let tag = isEn ? '🎮 Interactive Activity' : '🎮 Pasatiempo del Cuento';
+  let desc = '';
+
+  if (storyId === 1) {
+    // 1. EL CAZO DE LORENZO: MEMORY DE LA EMPATÍA
+    title = isEn ? '🧠 Lorenzo\'s Empathy Memory: Find the 4 Pairs' : '🧠 Memory de la empatía: Encuentra las 4 parejas de Lorenzo';
+    desc = isEn 
+      ? 'Flip the cards to match Lorenzo\'s saucepan, affection, friends, and unique talents (Art. 14 CE).'
+      : 'Gira las cartas para emparejar el cazo de Lorenzo, el cariño, los amigos y los talentos únicos (Art. 14 CE).';
+
+    const pairs = [
+      { id: 1, icon: '🥄', label: isEn ? "Lorenzo's Saucepan" : 'El cazo de Lorenzo' },
+      { id: 2, icon: '❤️', label: isEn ? 'Affection & Patience' : 'Cariño y paciencia' },
+      { id: 3, icon: '🤝', label: isEn ? 'Helping Friend' : 'Amigo que ayuda' },
+      { id: 4, icon: '🌟', label: isEn ? 'Unique Talent' : 'Talento único' }
+    ];
+
+    // Duplicar y mezclar
+    if (!memoryState.cards || memoryState.cards.length === 0 || memoryState.storyId !== 1) {
+      const deck = [];
+      pairs.forEach(p => {
+        deck.push({ ...p, uid: p.id + '_a' });
+        deck.push({ ...p, uid: p.id + '_b' });
+      });
+      deck.sort(() => Math.random() - 0.5);
+      memoryState = { storyId: 1, cards: deck, flipped: [], matchedCount: 0 };
+    }
+
+    gameHTML = `
+      <div class="memory-container">
+        <div class="memory-grid">
+          ${memoryState.cards.map((c, idx) => `
+            <div class="memory-card face-down" id="mcard-${idx}" onclick="flipMemoryCard(${idx}, ${c.id}, 1)">
+              <div class="card-icon">❓</div>
+              <div class="card-label">${isEn ? 'Flip' : 'Descubre'}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div style="text-align:center;">
+          <button class="btn-subtle" onclick="resetMemoryGame(1)" style="font-size:0.82rem; padding:6px 14px; background:#EFF6FF; border:1px solid #BFDBFE; color:#1E40AF; border-radius:8px; font-weight:800; cursor:pointer;">
+            🔄 ${isEn ? 'Reset Memory Game' : 'Reiniciar tablero de parejas'}
+          </button>
+        </div>
+      </div>
+    `;
+  } else if (storyId === 2) {
+    // 2. POR CUATRO ESQUINITAS: SOPA DE LETRAS INCLUSIVA
+    title = isEn ? '🔍 Cuadradito\'s Inclusive Word Search' : '🔍 Sopa de letras inclusiva de Cuadradito';
+    desc = isEn
+      ? 'Find 4 key words about inclusion and adapting the doorway (Art. 14 CE). Click the words or letters!'
+      : 'Encuentra las 4 palabras de inclusión para adaptar la puerta (Art. 14 CE). ¡Pulsa las palabras o las letras!';
+
+    const words = isEn 
+      ? [
+          { word: 'DOOR', color: 'highlight-1', clue: 'Where everyone enters together' },
+          { word: 'FRIEND', color: 'highlight-2', clue: 'Little Squares and Circles together' },
+          { word: 'EQUAL', color: 'highlight-3', clue: 'Art. 14 CE guarantee' },
+          { word: 'SHARE', color: 'highlight-4', clue: 'Playing together at school' }
+        ]
+      : [
+          { word: 'PUERTA', color: 'highlight-1', clue: 'La entrada que adaptamos para todos' },
+          { word: 'AMIGOS', color: 'highlight-2', clue: 'Redonditos y Cuadradito jugando juntos' },
+          { word: 'IGUAL', color: 'highlight-3', clue: 'Mismos derechos sin discriminación' },
+          { word: 'JUNTOS', color: 'highlight-4', clue: 'Convivir sin recortar a nadie' }
+        ];
+
+    // Grid 6x6
+    const gridLetters = isEn ? [
+      ['D','O','O','R','K','S'],
+      ['E','Q','U','A','L','H'],
+      ['F','R','I','E','N','D'],
+      ['S','H','A','R','E','P'],
+      ['L','I','V','I','N','G'],
+      ['S','C','H','O','O','L']
+    ] : [
+      ['P','U','E','R','T','A'],
+      ['S','I','G','U','A','L'],
+      ['A','M','I','G','O','S'],
+      ['R','E','S','P','E','T'],
+      ['A','U','L','A','C','E'],
+      ['J','U','N','T','O','S']
+    ];
+
+    gameHTML = `
+      <div class="ws-container">
+        <div class="ws-grid" id="ws-grid-2">
+          ${gridLetters.map((row, r) => `
+            <div style="display:flex; gap:6px;">
+              ${row.map((char, c) => `
+                <div class="ws-cell" id="wsc-2-${r}-${c}" onclick="toggleWSCell(2, ${r}, ${c}, '${char}')">${char}</div>
+              `).join('')}
+            </div>
+          `).join('')}
+        </div>
+        <div class="ws-words-panel">
+          <p style="font-size:0.85rem; font-weight:800; color:#1E3A8A; margin-bottom:4px;">
+            ${isEn ? 'Words to find (click to solve):' : 'Palabras a buscar (pulsa para resolver):'}
+          </p>
+          ${words.map((w, idx) => `
+            <button class="ws-word-btn" id="wsb-2-${idx}" onclick="revealWSWord(2, '${w.word}', '${w.color}', ${idx})">
+              <span>🎯 ${w.word}</span>
+              <span style="font-size:0.75rem; color:#64748B;">${w.clue}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  } else if (storyId === 3) {
+    // 3. ¿QUÉ HACE FALTA? - CRUCIGRAMA DE RODARI
+    title = isEn ? '🧩 Gianni Rodari\'s Nature Crossword' : '🧩 Crucigrama de la flor y la naturaleza de Rodari';
+    desc = isEn
+      ? 'Complete the chain of life from wood to flower (Art. 45 CE - Environment).'
+      : 'Completa la cadena de la vida desde la mesa hasta la flor (Art. 45 CE - Medio Ambiente).';
+
+    const clues = isEn ? [
+      { id: 1, word: 'TABLE', hint: '1. What we use to draw and study in class (5 letters)' },
+      { id: 2, word: 'WOOD', hint: '2. Material that makes the table (4 letters)' },
+      { id: 3, word: 'TREE', hint: '3. Gives wood, shade and fresh air (4 letters)' },
+      { id: 4, word: 'SEED', hint: '4. Planted in the soil to grow a tree (4 letters)' },
+      { id: 5, word: 'FLOWER', hint: '5. To have everything, we need a... (6 letters)' }
+    ] : [
+      { id: 1, word: 'MESA', hint: '1. Mueble donde apoyamos libros y dibujos (4 letras)' },
+      { id: 2, word: 'MADERA', hint: '2. Material que obtenemos del árbol para la mesa (6 letras)' },
+      { id: 3, word: 'ARBOL', hint: '3. Crece en el bosque, da sombra y oxígeno (5 letras)' },
+      { id: 4, word: 'SEMILLA', hint: '4. Se planta en la tierra fértil (7 letras)' },
+      { id: 5, word: 'FLOR', hint: '5. Llena de color el campo y ¡para todo hace falta una...! (4 letras)' }
+    ];
+
+    gameHTML = `
+      <div class="cw-container">
+        <div class="cw-clues-box" style="flex:1;">
+          ${clues.map(c => `
+            <div class="cw-clue-card" id="cw-clue-3-${c.id}" onclick="fillCWClue(3, ${c.id}, '${c.word}')">
+              <div style="font-size:0.9rem; font-weight:800; color:#1E3A8A; margin-bottom:2px;">
+                ${c.hint}
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+                <span style="font-size:0.78rem; color:#64748B;">${c.word.length} ${isEn ? 'letters' : 'letras'}</span>
+                <span id="cw-status-3-${c.id}" style="font-size:0.78rem; font-weight:800; color:#2563EB;">👉 ${isEn ? 'Click to resolve' : 'Pulsar para completar'}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  } else if (storyId === 4) {
+    // 4. EL ENEMIGO: DESCIFRADOR DE LA CARTA DE PAZ
+    title = isEn ? '🕊️ Secret Peace Letter Decoder' : '🕊️ Descifrador de la carta secreta de la paz';
+    desc = isEn
+      ? 'Decode the secret message between both soldiers using the symbol decoder (Preambulo & Art. 10 CE).'
+      : 'Descifra el mensaje secreto entre ambos soldados usando el traductor de símbolos (Preámbulo y Art. 10 CE).';
+
+    const secretWords = isEn ? ['PEACE', 'AND', 'RESPECT'] : ['DIALOGO', 'Y', 'PAZ'];
+    const symbolMap = {
+      'D': '🕊️', 'I': '☀️', 'A': '🌿', 'L': '💬', 'O': '🌈', 'G': '⭐', 'Y': '❤️', 'P': '🌻', 'Z': '🤝',
+      'E': '🕊️', 'C': '⭐', 'N': '🌿', 'R': '💬', 'S': '🌈', 'T': '❤️'
+    };
+
+    gameHTML = `
+      <div class="cipher-container">
+        <div class="cipher-sentence-wrap">
+          ${secretWords.map(w => `
+            <div class="cipher-word-block">
+              ${w.split('').map((char, i) => `
+                <div class="cipher-token">
+                  <div class="cipher-symbol-tag">${symbolMap[char] || '⭐'}</div>
+                  <div class="cipher-slot" id="cslot-4-${char}-${i}" onclick="revealCipherChar(4, '${char}')">?</div>
+                </div>
+              `).join('')}
+            </div>
+          `).join('')}
+        </div>
+        <div style="text-align:center; margin-bottom:12px;">
+          <button class="btn-subtle" onclick="revealAllCipher(4)" style="font-size:0.85rem; padding:8px 18px; background:#EFF6FF; border:1.5px solid #3B82F6; color:#1D4ED8; border-radius:10px; font-weight:800; cursor:pointer;">
+            🔍 ${isEn ? 'Decode Full Peace Message' : 'Descifrar mensaje completo de paz'}
+          </button>
+        </div>
+      </div>
+    `;
+  } else if (storyId === 5) {
+    // 5. LA VACA QUE PUSO UN HUEVO: ENCUENTRA LAS DIFERENCIAS DE MACARENA
+    title = isEn ? '🎯 Spot the 4 Differences in Macarena' : '🎯 Encuentra las 4 diferencias de Macarena';
+    desc = isEn
+      ? 'Spot what makes Macarena\'s egg and talent unique in the farm (Art. 10.1 CE - Free development of personality).'
+      : 'Descubre qué hace único y especial el huevo y el talento de Macarena en la granja (Art. 10.1 CE).';
+
+    const diffs = isEn ? [
+      { id: 1, title: 'Spot 1: The Magic Polka Dot Egg', desc: 'A special egg full of colors' },
+      { id: 2, title: 'Spot 2: The Smiling Daisy', desc: 'A flower behind Macarena\'s ear' },
+      { id: 3, title: 'Spot 3: The Golden Star', desc: 'Art. 10 CE star shining above' },
+      { id: 4, title: 'Spot 4: The Hero Cape', desc: 'Baby chick wearing a bravery cape' }
+    ] : [
+      { id: 1, title: 'Diferencia 1: El huevo mágico moteado', desc: 'Un huevo con manchas de colores vivos' },
+      { id: 2, title: 'Diferencia 2: La margarita sonriente', desc: 'Una flor en la oreja de Macarena' },
+      { id: 3, title: 'Diferencia 3: La estrella constitucional', desc: 'Estrella dorada del Art. 10 CE en el cielo' },
+      { id: 4, title: 'Diferencia 4: La capa de superhéroe', desc: 'El pollito Turuletas con capa de valentía' }
+    ];
+
+    gameHTML = `
+      <div class="spot-diff-wrap">
+        <div class="spot-panel">
+          <h5>🏡 ${isEn ? 'Standard Farm Scene' : 'Escena habitual de la granja'}</h5>
+          <p style="font-size:0.82rem; color:#64748B; text-align:center; margin-bottom:10px;">
+            ${isEn ? 'All cows look the same, doing ordinary things.' : 'Todas las vacas hacen lo mismo de siempre sin destacar.'}
+          </p>
+          <div style="text-align:center; font-size:3.5rem; padding:18px; background:#F8FAFC; border-radius:12px; border:1px solid #E2E8F0;">
+            🐄 🥚 🚜 🌾
+          </div>
+        </div>
+        <div class="spot-panel">
+          <h5>⭐ ${isEn ? 'Macarena\'s Unique Scene (Click the 4 Differences!)' : 'La escena única de Macarena (¡pulsa las 4 diferencias!)'}</h5>
+          <div class="spot-items-grid">
+            ${diffs.map(d => `
+              <div class="spot-item-card" id="spot-5-${d.id}" onclick="discoverSpot(5, ${d.id})">
+                <div style="font-size:1.6rem; margin-bottom:4px;">✨</div>
+                <div style="font-size:0.82rem; font-weight:800; color:#1E3A8A;">${d.title}</div>
+                <div style="font-size:0.75rem; color:#64748B;">${d.desc}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  const victoryMsg = getVictoryMessage(storyId, false, isEn);
+
+  return `
+    <div class="story-pasatiempo-wrapper" id="pasatiempo-wrapper-inf-${storyId}">
+      <div class="pasatiempo-top-bar">
+        <div>
+          <span class="pasatiempo-pill">${tag}</span>
+          <h4 class="pasatiempo-heading">${title}</h4>
+          <p class="pasatiempo-instruction">${desc}</p>
+        </div>
+        <div>
+          <span class="pasatiempo-badge-status ${isSolved ? 'solved' : ''}" id="p-status-inf-${storyId}">
+            ${isSolved ? '⭐ ' + (isEn ? 'SOLVED!' : '¡SUPERADO!') : '⏳ ' + (isEn ? 'In progress' : 'En proceso')}
+          </span>
+        </div>
+      </div>
+
+      <div class="pasatiempo-content-area" id="p-area-inf-${storyId}">
+        ${gameHTML}
+      </div>
+
+      <div class="pasatiempo-victory-banner" id="p-banner-inf-${storyId}" style="${isSolved ? 'display:block;' : ''}">
+        <div class="victory-title">🎉 ${isEn ? 'Challenge Solved!' : '¡Reto superado con éxito!'}</div>
+        <div class="victory-text">${victoryMsg}</div>
+      </div>
+    </div>
+  `;
+}
+
+/* ----------------------------------------------------
+   2. PASATIEMPOS EDUCACIÓN SECUNDARIA (1.º y 2.º ESO)
+   ---------------------------------------------------- */
+function getPasatiempoSecundariaHTML(storyId, isEn) {
+  const isSolved = !!solvedPasatiempos.secundaria[storyId];
+
+  let gameHTML = '';
+  let title = '';
+  let tag = isEn ? '🧩 Critical & Philosophical Challenge' : '🧩 Reto lúdico y filosófico';
+  let desc = '';
+
+  if (storyId === 1) {
+    // 1. OMELAS: CRIPTOGRAMA DE LA DIGNIDAD INVIOLABLE (Art. 10.1)
+    title = isEn ? '⚖️ Cryptogram: The Inviolability of Human Dignity' : '⚖️ Criptograma: La inviolabilidad de la dignidad humana';
+    desc = isEn
+      ? 'Decode the fundamental anti-utilitarian principle that Ursula K. Le Guin reveals in Omelas (Art. 10.1 CE).'
+      : 'Descifra el principio antiutilitarista y constitucional que desafía la prosperidad de Omelas (Art. 10.1 CE).';
+
+    const words = isEn 
+      ? ['HUMAN', 'DIGNITY', 'IS', 'INVIOLABLE']
+      : ['LA', 'DIGNIDAD', 'HUMANA', 'ES', 'INVIOLABLE'];
+
+    gameHTML = `
+      <div class="cipher-container">
+        <div class="cipher-sentence-wrap">
+          ${words.map(w => `
+            <div class="cipher-word-block">
+              ${w.split('').map((char, i) => `
+                <div class="cipher-token">
+                  <div class="cipher-symbol-tag" style="font-size:0.8rem; font-weight:800; color:#818CF8;">${char.charCodeAt(0) % 10}</div>
+                  <div class="cipher-slot" id="cslot-sec-1-${char}-${i}" onclick="revealSecCipherChar(1, '${char}')">?</div>
+                </div>
+              `).join('')}
+            </div>
+          `).join('')}
+        </div>
+        <div style="text-align:center;">
+          <button class="btn-subtle" onclick="revealAllSecCipher(1)" style="font-size:0.85rem; padding:8px 18px; background:rgba(99,102,241,0.25); border:1.5px solid #818CF8; color:#C7D2FE; border-radius:10px; font-weight:800; cursor:pointer;">
+            ⚖️ ${isEn ? 'Decode Constitutional Principle' : 'Descifrar principio constitucional del art. 10.1'}
+          </button>
+        </div>
+      </div>
+    `;
+  } else if (storyId === 2) {
+    // 2. EL ARENQUE ROJO: SOPA DE LETRAS CRÍTICA DE DERECHOS SOCIALES
+    title = isEn ? '🔍 Critical Word Search: Invisible Rights & Realities' : '🔍 Sopa de letras crítica: Derechos y colectivos invisibles';
+    desc = isEn
+      ? 'Find 6 fundamental legal concepts that break indifference and guarantee Art. 14 & 9.2 CE.'
+      : 'Localiza 6 conceptos jurídicos y éticos fundamentales para superar los prejuicios y la indiferencia (Art. 14 y 9.2 CE).';
+
+    const words = isEn ? [
+      { word: 'EQUITY', color: 'highlight-1', art: 'Art. 9.2 CE' },
+      { word: 'DIGNITY', color: 'highlight-2', art: 'Art. 10.1 CE' },
+      { word: 'ASYLUM', color: 'highlight-3', art: 'Art. 13.4 CE' },
+      { word: 'EMPATHY', color: 'highlight-4', art: 'Civic Duty' },
+      { word: 'JUSTICE', color: 'highlight-5', art: 'Art. 1.1 CE' },
+      { word: 'REFUGE', color: 'highlight-6', art: 'Human Rights' }
+    ] : [
+      { word: 'EQUIDAD', color: 'highlight-1', art: 'Art. 9.2 CE' },
+      { word: 'DIGNIDAD', color: 'highlight-2', art: 'Art. 10.1 CE' },
+      { word: 'ASILO', color: 'highlight-3', art: 'Art. 13.4 CE' },
+      { word: 'EMPATIA', color: 'highlight-4', art: 'Deber cívico' },
+      { word: 'JUSTICIA', color: 'highlight-5', art: 'Art. 1.1 CE' },
+      { word: 'REFUGIO', color: 'highlight-6', art: 'Derechos Humanos' }
+    ];
+
+    const gridLetters = isEn ? [
+      ['E','Q','U','I','T','Y','A','B'],
+      ['D','I','G','N','I','T','Y','C'],
+      ['A','S','Y','L','U','M','D','E'],
+      ['E','M','P','A','T','H','Y','F'],
+      ['J','U','S','T','I','C','E','G'],
+      ['R','E','F','U','G','E','H','I']
+    ] : [
+      ['E','Q','U','I','D','A','D','A'],
+      ['D','I','G','N','I','D','A','D'],
+      ['A','S','I','L','O','C','D','E'],
+      ['E','M','P','A','T','I','A','F'],
+      ['J','U','S','T','I','C','I','A'],
+      ['R','E','F','U','G','I','O','H']
+    ];
+
+    gameHTML = `
+      <div class="ws-container">
+        <div class="ws-grid" id="ws-grid-sec-2">
+          ${gridLetters.map((row, r) => `
+            <div style="display:flex; gap:6px;">
+              ${row.map((char, c) => `
+                <div class="ws-cell" id="wsc-sec-2-${r}-${c}" onclick="toggleSecWSCell(2, ${r}, ${c}, '${char}')">${char}</div>
+              `).join('')}
+            </div>
+          `).join('')}
+        </div>
+        <div class="ws-words-panel">
+          <p style="font-size:0.85rem; font-weight:800; color:#A5B4FC; margin-bottom:4px;">
+            ${isEn ? 'Concepts to find (click to unlock):' : 'Conceptos a localizar (pulsa para desbloquear):'}
+          </p>
+          ${words.map((w, idx) => `
+            <button class="ws-word-btn" id="wsb-sec-2-${idx}" onclick="revealSecWSWord(2, '${w.word}', '${w.color}', ${idx})">
+              <span>⚖️ ${w.word}</span>
+              <span style="font-size:0.75rem; color:#818CF8;">${w.art}</span>
+            </button>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  } else if (storyId === 3) {
+    // 3. BORGES: CRUCIGRAMA DE LAS LIBERTADES
+    title = isEn ? '🧩 Borges\'s Pluralism Crossword' : '🧩 Crucigrama borgiano de las libertades y el pluralismo';
+    desc = isEn
+      ? 'Complete the 5 pillars of an open democratic society where multiple perspectives coexist (Art. 16 & 20 CE).'
+      : 'Descubre los 5 pilares de una sociedad abierta donde conviven múltiples miradas sin imposición dogmática (Art. 16 y 20 CE).';
+
+    const clues = isEn ? [
+      { id: 1, word: 'PLURALISM', hint: '1. Democratic guarantee that respects divergent worldviews (Art. 1.1 CE)' },
+      { id: 2, word: 'FREEDOM', hint: '2. Fundamental right of thought and speech without censorship (Art. 20 CE)' },
+      { id: 3, word: 'CONSENSUS', hint: '3. Collective agreement that birthed the 1978 Constitution' },
+      { id: 4, word: 'ALEPH', hint: '4. Borges\'s point where all points in the universe converge' },
+      { id: 5, word: 'DIALOGUE', hint: '5. Non-violent democratic mechanism to resolve conflict' }
+    ] : [
+      { id: 1, word: 'PLURALISMO', hint: '1. Reconocimiento y garantía de múltiples visiones políticas e ideológicas (Art. 1.1 CE)' },
+      { id: 2, word: 'LIBERTAD', hint: '2. Derecho fundamental a pensar, expresarse y disentir pacíficamente (Art. 16 y 20 CE)' },
+      { id: 3, word: 'CONSENSO', hint: '3. El pacto colectivo de convivencia alcanzado en 1978' },
+      { id: 4, word: 'ALEPH', hint: '4. Punto de Borges donde convergen todas las perspectivas del universo' },
+      { id: 5, word: 'DIALOGO', hint: '5. Mecanismo democrático civilizado para resolver desacuerdos' }
+    ];
+
+    gameHTML = `
+      <div class="cw-container">
+        <div class="cw-clues-box" style="flex:1;">
+          ${clues.map(c => `
+            <div class="cw-clue-card" id="cw-clue-sec-3-${c.id}" onclick="fillSecCWClue(3, ${c.id}, '${c.word}')">
+              <div style="font-size:0.9rem; font-weight:800; color:#FFE600; margin-bottom:2px;">
+                ${c.hint}
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+                <span style="font-size:0.78rem; color:#94A3B8;">${c.word.length} ${isEn ? 'letters' : 'letras'}</span>
+                <span id="cw-status-sec-3-${c.id}" style="font-size:0.78rem; font-weight:800; color:#818CF8;">👉 ${isEn ? 'Click to solve' : 'Pulsar para resolver'}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  } else if (storyId === 4) {
+    // 4. LA ROSA BLANCA: CIFRADO CÉSAR CLANDESTINO (+3)
+    title = isEn ? '📜 The White Rose: Clandestine Caesar Cipher' : '📜 La Rosa Blanca: Cifrador clandestino de la resistencia';
+    desc = isEn
+      ? 'Sophie Scholl and the White Rose distributed underground leaflets. Drag the cipher slider to shift letters by +3 to decode their motto.'
+      : 'Sophie Scholl y la Rosa Blanca repartían octavillas clandestinas. Ajusta el dial de desplazamiento a +3 para descifrar su mensaje cívico.';
+
+    const cipherText = isEn ? 'WKH UXOH RI ODZ GHPDQGV FRXUDJH' : 'HO HVWDGR GH GHUHFKR H[LJH YDOHQWLD FLYLFD';
+    const plainText = isEn ? 'THE RULE OF LAW DEMANDS COURAGE' : 'EL ESTADO DE DERECHO EXIGE VALENTIA CIVICA';
+
+    gameHTML = `
+      <div class="caesar-dial-wrap">
+        <div>
+          <span style="font-size:0.85rem; color:#F87171; font-weight:800; text-transform:uppercase;">
+            📻 ${isEn ? 'Intercepted Encrypted Transmission (+3):' : 'Transmisión clandestina interceptada (+3):'}
+          </span>
+          <div class="caesar-cipher-text">${cipherText}</div>
+        </div>
+
+        <div class="caesar-slider-control">
+          <label style="font-size:0.85rem; font-weight:800; color:#CBD5E1;">${isEn ? 'Caesar Shift:' : 'Desplazamiento:'}</label>
+          <input type="range" id="caesar-range-4" min="0" max="10" value="0" oninput="updateCaesarDial(4, this.value, '${cipherText}', '${plainText}')">
+          <span class="caesar-shift-badge" id="caesar-badge-4">0</span>
+        </div>
+
+        <div style="width:100%; text-align:center;">
+          <span style="font-size:0.85rem; color:#38BDF8; font-weight:800; text-transform:uppercase;">
+            🔓 ${isEn ? 'Live Decrypted Text:' : 'Texto decodificado en vivo:'}
+          </span>
+          <div class="caesar-decoded-preview" id="caesar-preview-4">${cipherText}</div>
+        </div>
+
+        <button class="btn-subtle" onclick="solveCaesarInstantly(4, '${plainText}')" style="font-size:0.82rem; padding:6px 14px; background:rgba(99,102,241,0.25); border:1px solid #818CF8; color:#C7D2FE; border-radius:8px; font-weight:800; cursor:pointer;">
+          🎯 ${isEn ? 'Set Exact Caesar Key (+3)' : 'Ajustar clave exacta (+3)'}
+        </button>
+      </div>
+    `;
+  } else if (storyId === 5) {
+    // 5. FAHRENHEIT 451: RECONSTRUCTOR DE LIBROS QUEMADOS (ANAGRAMAS)
+    title = isEn ? '🔥📖 Fahrenheit 451: Rescuing Banned Books' : '🔥📖 Fahrenheit 451: Reconstructor de libros quemados';
+    desc = isEn
+      ? 'In Bradbury\'s dystopia, books are burned. Unscramble the 4 essential words saved by book-people (Art. 20 & 27 CE).'
+      : 'En la distopía de Bradbury, los bomberos queman libros. Reconstruye las 4 palabras esenciales que salvan los rebeldes (Art. 20 y 27 CE).';
+
+    const books = isEn ? [
+      { id: 1, scrambled: 'CRNSEUE', solution: 'CENSURE', hint: 'Prohibited by Art. 20.2 CE' },
+      { id: 2, scrambled: 'FDOEREM', solution: 'FREEDOM', hint: 'Core of Art. 1.1 & 20 CE' },
+      { id: 3, scrambled: 'CLUTUER', solution: 'CULTURE', hint: 'Right enshrined in Art. 44 CE' },
+      { id: 4, scrambled: 'EATCODIUN', solution: 'EDUCATION', hint: 'Universal right of Art. 27 CE' }
+    ] : [
+      { id: 1, scrambled: 'ARTECEN', solution: 'CENSURA', hint: 'Prohibida expresamente por el Art. 20.2 CE' },
+      { id: 2, scrambled: 'TRLAEBD', solution: 'LIBERTAD', hint: 'Pilar supremo del Estado de Derecho (Art. 1.1)' },
+      { id: 3, scrambled: 'UTLCRAU', solution: 'CULTURA', hint: 'Derecho protegido por el Art. 44 CE' },
+      { id: 4, scrambled: 'EDCCUNIAO', solution: 'EDUCACION', hint: 'Pilar fundamental del Art. 27 CE' }
+    ];
+
+    gameHTML = `
+      <div class="anagram-rack">
+        ${books.map(b => `
+          <div class="anagram-book-row" id="anag-row-5-${b.id}">
+            <div>
+              <span class="anagram-scrambled" id="anag-scram-5-${b.id}">${b.scrambled}</span>
+              <span style="font-size:0.8rem; color:#94A3B8; margin-left:10px;">💡 ${b.hint}</span>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="text" class="anagram-input" id="anag-input-5-${b.id}" placeholder="${isEn ? 'TYPE HERE' : 'ESCRIBIR'}" oninput="checkAnagramInput(5, ${b.id}, '${b.solution}', this)">
+              <button class="btn-subtle" onclick="solveAnagramBook(5, ${b.id}, '${b.solution}')" style="font-size:0.78rem; padding:6px 10px; background:rgba(99,102,241,0.2); border:1px solid #818CF8; color:#C7D2FE; border-radius:6px; cursor:pointer;">
+                ${isEn ? 'Solve' : 'Resolver'}
+              </button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  const victoryMsg = getVictoryMessage(storyId, true, isEn);
+
+  return `
+    <div class="story-pasatiempo-wrapper sec-pasatiempo-wrapper" id="pasatiempo-wrapper-sec-${storyId}">
+      <div class="pasatiempo-top-bar">
+        <div>
+          <span class="pasatiempo-pill">${tag}</span>
+          <h4 class="pasatiempo-heading">${title}</h4>
+          <p class="pasatiempo-instruction">${desc}</p>
+        </div>
+        <div>
+          <span class="pasatiempo-badge-status ${isSolved ? 'solved' : ''}" id="p-status-sec-${storyId}">
+            ${isSolved ? '⭐ ' + (isEn ? 'CHALLENGE SOLVED!' : '¡RETO SUPERADO!') : '⏳ ' + (isEn ? 'In progress' : 'En proceso')}
+          </span>
+        </div>
+      </div>
+
+      <div class="pasatiempo-content-area" id="p-area-sec-${storyId}">
+        ${gameHTML}
+      </div>
+
+      <div class="pasatiempo-victory-banner" id="p-banner-sec-${storyId}" style="${isSolved ? 'display:block;' : ''}">
+        <div class="victory-title">🏆 ${isEn ? 'Constitutional Insight Unlocked!' : '¡Análisis constitucional desbloqueado!'}</div>
+        <div class="victory-text">${victoryMsg}</div>
+      </div>
+    </div>
+  `;
+}
+
+/* ----------------------------------------------------
+   3. MENSAJES DE ÉXITO PEDAGÓGICOS
+   ---------------------------------------------------- */
+function getVictoryMessage(storyId, isSec, isEn) {
+  if (!isSec) {
+    if (storyId === 1) {
+      return isEn
+        ? 'Amazing! You matched all pairs of empathy. Everyone has unique challenges and talents, and Article 14 of the Spanish Constitution ensures mutual respect and non-discrimination.'
+        : '¡Genial! Has encontrado todas las parejas de la empatía. Cada persona tiene sus propias dificultades y talentos, y el Artículo 14 de la Constitución nos protege con igualdad y cariño.';
+    } else if (storyId === 2) {
+      return isEn
+        ? 'Doorway adapted! We do not cut anyone\'s corners: society and schools adapt environments so that everyone fits in together (Art. 14 CE).'
+        : '¡Puerta adaptada con éxito! No recortamos las esquinas de nadie: adaptamos el entorno del colegio para que entremos todos juntos (Art. 14 CE).';
+    } else if (storyId === 3) {
+      return isEn
+        ? 'Life chain complete! To make a table we need wood, for wood a tree, for a tree a seed... and for everything we need a flower! (Art. 45 CE - Environment).'
+        : '¡Cadena de Rodari completada! Para la mesa hace falta madera, para la madera un árbol, para el árbol una semilla... ¡y para todo hace falta una flor! (Art. 45 CE - Medio Ambiente).';
+    } else if (storyId === 4) {
+      return isEn
+        ? 'Peace letter decoded! Dialogue and mutual understanding dissolve fear and rebuild community (Preamble & Art. 10 CE).'
+        : '¡Mensaje de paz descifrado! El diálogo y el respeto mutuo superan el miedo y hacen florecer la convivencia pacífica (Preámbulo y Art. 10 CE).';
+    } else {
+      return isEn
+        ? 'You discovered Macarena\'s 4 magical differences! Being unique is our greatest gift: Art. 10.1 guarantees the free development of personality.'
+        : '¡Has descubierto las 4 diferencias de Macarena! Ser diferente es lo que nos hace únicos y libres: el Art. 10.1 CE garantiza el libre desarrollo de la personalidad.';
+    }
+  } else {
+    if (storyId === 1) {
+      return isEn
+        ? 'Ethical principle solved: Human dignity (Art. 10.1 CE) is an absolute threshold. No utilitarian calculus or majority convenience can ever justify trampling the rights of the most vulnerable.'
+        : 'Principio ético descifrado: La dignidad humana (Art. 10.1 CE) es un umbral inviolable. Ningún cálculo utilitarista ni beneficio de la mayoría justifica sacrificar a una persona inocente.';
+    } else if (storyId === 2) {
+      return isEn
+        ? 'Critical analysis achieved! Real equality (Art. 9.2 & 14 CE) demands seeing beyond stereotypes and actively supporting vulnerable and invisible groups.'
+        : '¡Análisis crítico completado! La igualdad real y efectiva (Art. 9.2 y 14 CE) exige mirar más allá del "arenque rojo" de los prejuicios y garantizar la dignidad de todas las historias humanas.';
+    } else if (storyId === 3) {
+      return isEn
+        ? 'Borgian labyrinth decoded: Pluralism (Art. 1.1) and freedom of thought (Art. 16 & 20) are the true foundation of democracy, where divergent views build a shared pact.'
+        : '¡Laberinto borgiano completado! El pluralismo político (Art. 1.1) y las libertades de pensamiento y expresión (Art. 16 y 20) aseguran que ninguna voz se imponga sobre las demás.';
+    } else if (storyId === 4) {
+      return isEn
+        ? 'White Rose broadcast deciphered! The democratic Rule of Law (Art. 1.1 & 9.1 CE) requires brave civic awareness to defend human rights against injustice.'
+        : '¡Transmisión de la Rosa Blanca descifrada! El Estado social y democrático de Derecho (Art. 1.1 y 9.1 CE) necesita de la valentía moral y la vigilancia cívica de cada nueva generación.';
+    } else {
+      return isEn
+        ? 'Banned books restored! Freedom of speech and the press without prior censorship (Art. 20.2 CE) and universal education (Art. 27 CE) safeguard democratic memory.'
+        : '¡Biblioteca de la memoria restaurada! La prohibición de censura previa (Art. 20.2 CE) y el derecho a la educación y a la cultura (Art. 27 y 44 CE) son el escudo inexpugnable de la democracia.';
+    }
+  }
+}
+
+/* ----------------------------------------------------
+   4. CONTROLADORES INTERACTIVOS DE LOS MINIJUEGOS
+   ---------------------------------------------------- */
+
+// MEMORY (Infantil 1)
+function flipMemoryCard(idx, pairId, storyId) {
+  const cardElem = document.getElementById(`mcard-${idx}`);
+  if (!cardElem || cardElem.classList.contains('flipped') || cardElem.classList.contains('matched')) return;
+  if (memoryState.flipped.length >= 2) return;
+
+  const cardData = memoryState.cards[idx];
+  cardElem.classList.remove('face-down');
+  cardElem.classList.add('flipped');
+  cardElem.innerHTML = `
+    <div class="card-icon">${cardData.icon}</div>
+    <div class="card-label">${(currentLang === 'en') ? cardData.label : cardData.label}</div>
+  `;
+
+  if (typeof playSound === 'function') playSound('click');
+  memoryState.flipped.push({ idx, pairId });
+
+  if (memoryState.flipped.length === 2) {
+    const [c1, c2] = memoryState.flipped;
+    if (c1.pairId === c2.pairId) {
+      // Coincidencia
+      setTimeout(() => {
+        document.getElementById(`mcard-${c1.idx}`).classList.add('matched');
+        document.getElementById(`mcard-${c2.idx}`).classList.add('matched');
+        memoryState.matchedCount++;
+        memoryState.flipped = [];
+        if (typeof playSound === 'function') playSound('correct');
+
+        if (memoryState.matchedCount >= 4) {
+          markPasatiempoSolved(storyId, false);
+        }
+      }, 300);
+    } else {
+      // No coincidencia
+      setTimeout(() => {
+        const elem1 = document.getElementById(`mcard-${c1.idx}`);
+        const elem2 = document.getElementById(`mcard-${c2.idx}`);
+        if (elem1) {
+          elem1.className = 'memory-card face-down';
+          elem1.innerHTML = `<div class="card-icon">❓</div><div class="card-label">${(currentLang === 'en') ? 'Flip' : 'Descubre'}</div>`;
+        }
+        if (elem2) {
+          elem2.className = 'memory-card face-down';
+          elem2.innerHTML = `<div class="card-icon">❓</div><div class="card-label">${(currentLang === 'en') ? 'Flip' : 'Descubre'}</div>`;
+        }
+        memoryState.flipped = [];
+      }, 900);
+    }
+  }
+}
+
+function resetMemoryGame(storyId) {
+  memoryState = { storyId: 0, cards: [], flipped: [], matchedCount: 0 };
+  const container = document.getElementById(`p-area-inf-${storyId}`);
+  if (container) {
+    const isEn = (currentLang === 'en');
+    container.innerHTML = getPasatiempoInfantilHTML(storyId, isEn);
+  }
+}
+
+// SOPA DE LETRAS (Infantil 2 & Secundaria 2)
+let wsFoundInf2 = [];
+function revealWSWord(storyId, word, colorClass, btnIdx) {
+  const btn = document.getElementById(`wsb-${storyId}-${btnIdx}`);
+  if (btn) btn.classList.add('found');
+
+  // Resaltar celdas correspondientes
+  const mappings = (currentLang === 'en') ? {
+    'DOOR': [[0,0],[0,1],[0,2],[0,3]],
+    'FRIEND': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5]],
+    'EQUAL': [[1,0],[1,1],[1,2],[1,3],[1,4]],
+    'SHARE': [[3,0],[3,1],[3,2],[3,3],[3,4]]
+  } : {
+    'PUERTA': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5]],
+    'IGUAL': [[1,1],[1,2],[1,3],[1,4],[1,5]],
+    'AMIGOS': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5]],
+    'JUNTOS': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5]]
+  };
+
+  const coords = mappings[word] || [];
+  coords.forEach(([r, c]) => {
+    const cell = document.getElementById(`wsc-${storyId}-${r}-${c}`);
+    if (cell) cell.className = `ws-cell ${colorClass}`;
+  });
+
+  if (!wsFoundInf2.includes(word)) wsFoundInf2.push(word);
+  if (typeof playSound === 'function') playSound('correct');
+
+  if (wsFoundInf2.length >= 4) {
+    markPasatiempoSolved(storyId, false);
+  }
+}
+
+function toggleWSCell(storyId, r, c, char) {
+  const cell = document.getElementById(`wsc-${storyId}-${r}-${c}`);
+  if (cell) {
+    cell.classList.toggle('highlight-1');
+    if (typeof playSound === 'function') playSound('click');
+  }
+}
+
+let wsFoundSec2 = [];
+function revealSecWSWord(storyId, word, colorClass, btnIdx) {
+  const btn = document.getElementById(`wsb-sec-${storyId}-${btnIdx}`);
+  if (btn) btn.classList.add('found');
+
+  const mappings = (currentLang === 'en') ? {
+    'EQUITY': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5]],
+    'DIGNITY': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6]],
+    'ASYLUM': [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5]],
+    'EMPATHY': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6]],
+    'JUSTICE': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6]],
+    'REFUGE': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5]]
+  } : {
+    'EQUIDAD': [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6]],
+    'DIGNIDAD': [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7]],
+    'ASILO': [[2,0],[2,1],[2,2],[2,3],[2,4]],
+    'EMPATIA': [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6]],
+    'JUSTICIA': [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7]],
+    'REFUGIO': [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6]]
+  };
+
+  const coords = mappings[word] || [];
+  coords.forEach(([r, c]) => {
+    const cell = document.getElementById(`wsc-sec-${storyId}-${r}-${c}`);
+    if (cell) cell.className = `ws-cell ${colorClass}`;
+  });
+
+  if (!wsFoundSec2.includes(word)) wsFoundSec2.push(word);
+  if (typeof playSound === 'function') playSound('correct');
+
+  if (wsFoundSec2.length >= 5) {
+    markPasatiempoSolved(storyId, true);
+  }
+}
+
+function toggleSecWSCell(storyId, r, c, char) {
+  const cell = document.getElementById(`wsc-sec-${storyId}-${r}-${c}`);
+  if (cell) {
+    cell.classList.toggle('highlight-2');
+    if (typeof playSound === 'function') playSound('click');
+  }
+}
+
+// CRUCIGRAMAS (Infantil 3 & Secundaria 3)
+let cwSolvedInf3 = [];
+function fillCWClue(storyId, clueId, word) {
+  const card = document.getElementById(`cw-clue-${storyId}-${clueId}`);
+  const status = document.getElementById(`cw-status-${storyId}-${clueId}`);
+  if (card) card.classList.add('solved-clue');
+  if (status) status.innerHTML = `✅ <strong>${word}</strong>`;
+
+  if (!cwSolvedInf3.includes(clueId)) cwSolvedInf3.push(clueId);
+  if (typeof playSound === 'function') playSound('correct');
+
+  if (cwSolvedInf3.length >= 5) {
+    markPasatiempoSolved(storyId, false);
+  }
+}
+
+let cwSolvedSec3 = [];
+function fillSecCWClue(storyId, clueId, word) {
+  const card = document.getElementById(`cw-clue-sec-${storyId}-${clueId}`);
+  const status = document.getElementById(`cw-status-sec-${storyId}-${clueId}`);
+  if (card) card.classList.add('solved-clue');
+  if (status) status.innerHTML = `✅ <strong>${word}</strong>`;
+
+  if (!cwSolvedSec3.includes(clueId)) cwSolvedSec3.push(clueId);
+  if (typeof playSound === 'function') playSound('correct');
+
+  if (cwSolvedSec3.length >= 5) {
+    markPasatiempoSolved(storyId, true);
+  }
+}
+
+// CRIPTOGRAMAS (Infantil 4 & Secundaria 1)
+function revealCipherChar(storyId, char) {
+  const slots = document.querySelectorAll(`[id^="cslot-${storyId}-${char}-"]`);
+  slots.forEach(s => {
+    s.innerText = char;
+    s.classList.add('revealed');
+  });
+  if (typeof playSound === 'function') playSound('correct');
+}
+
+function revealAllCipher(storyId) {
+  const slots = document.querySelectorAll(`[id^="cslot-${storyId}-"]`);
+  slots.forEach(s => {
+    const parts = s.id.split('-');
+    const char = parts[2];
+    s.innerText = char;
+    s.classList.add('revealed');
+  });
+  if (typeof playSound === 'function') playSound('chime');
+  markPasatiempoSolved(storyId, false);
+}
+
+function revealSecCipherChar(storyId, char) {
+  const slots = document.querySelectorAll(`[id^="cslot-sec-${storyId}-${char}-"]`);
+  slots.forEach(s => {
+    s.innerText = char;
+    s.classList.add('revealed');
+  });
+  if (typeof playSound === 'function') playSound('correct');
+}
+
+function revealAllSecCipher(storyId) {
+  const slots = document.querySelectorAll(`[id^="cslot-sec-${storyId}-"]`);
+  slots.forEach(s => {
+    const parts = s.id.split('-');
+    const char = parts[3];
+    s.innerText = char;
+    s.classList.add('revealed');
+  });
+  if (typeof playSound === 'function') playSound('chime');
+  markPasatiempoSolved(storyId, true);
+}
+
+// DIFERENCIAS DE MACARENA (Infantil 5)
+let spotsDiscovered = [];
+function discoverSpot(storyId, spotId) {
+  const card = document.getElementById(`spot-${storyId}-${spotId}`);
+  if (card && !spotsDiscovered.includes(spotId)) {
+    card.classList.add('discovered');
+    spotsDiscovered.push(spotId);
+    if (typeof playSound === 'function') playSound('correct');
+
+    if (spotsDiscovered.length >= 4) {
+      markPasatiempoSolved(storyId, false);
+    }
+  }
+}
+
+// CIFRADO CÉSAR (Secundaria 4)
+function updateCaesarDial(storyId, shiftVal, cipherText, plainText) {
+  const badge = document.getElementById(`caesar-badge-${storyId}`);
+  const preview = document.getElementById(`caesar-preview-${storyId}`);
+  if (badge) badge.innerText = `+${shiftVal}`;
+
+  const shift = parseInt(shiftVal, 10);
+  if (shift === 3) {
+    if (preview) {
+      preview.innerText = plainText;
+      preview.classList.add('success');
+    }
+    if (typeof playSound === 'function') playSound('chime');
+    markPasatiempoSolved(storyId, true);
+  } else {
+    if (preview) {
+      preview.classList.remove('success');
+      // Desplazamiento aproximado
+      const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      let decoded = "";
+      for (let i = 0; i < cipherText.length; i++) {
+        const ch = cipherText[i];
+        const idx = alphabet.indexOf(ch);
+        if (idx !== -1) {
+          const newIdx = (idx - shift + 26) % 26;
+          decoded += alphabet[newIdx];
+        } else {
+          decoded += ch;
+        }
+      }
+      preview.innerText = decoded;
+    }
+  }
+}
+
+function solveCaesarInstantly(storyId, plainText) {
+  const range = document.getElementById(`caesar-range-${storyId}`);
+  const badge = document.getElementById(`caesar-badge-${storyId}`);
+  const preview = document.getElementById(`caesar-preview-${storyId}`);
+  if (range) range.value = 3;
+  if (badge) badge.innerText = "+3";
+  if (preview) {
+    preview.innerText = plainText;
+    preview.classList.add('success');
+  }
+  if (typeof playSound === 'function') playSound('chime');
+  markPasatiempoSolved(storyId, true);
+}
+
+// ANAGRAMAS FAHRENHEIT 451 (Secundaria 5)
+let solvedAnagrams = [];
+function checkAnagramInput(storyId, bookId, solution, input) {
+  const cleanVal = input.value.trim().toUpperCase();
+  if (cleanVal === solution) {
+    solveAnagramBook(storyId, bookId, solution);
+  }
+}
+
+function solveAnagramBook(storyId, bookId, solution) {
+  const row = document.getElementById(`anag-row-${storyId}-${bookId}`);
+  const input = document.getElementById(`anag-input-${storyId}-${bookId}`);
+  const scram = document.getElementById(`anag-scram-${storyId}-${bookId}`);
+
+  if (row) row.classList.add('solved-book');
+  if (input) {
+    input.value = solution;
+    input.disabled = true;
+    input.style.borderColor = '#22C55E';
+    input.style.background = 'rgba(34, 197, 94, 0.15)';
+  }
+  if (scram) scram.innerText = `📖 ${solution}`;
+
+  if (!solvedAnagrams.includes(bookId)) solvedAnagrams.push(bookId);
+  if (typeof playSound === 'function') playSound('correct');
+
+  if (solvedAnagrams.length >= 4) {
+    markPasatiempoSolved(storyId, true);
+  }
+}
+
+// MARCADOR GLOBAL DE RESOLUCIÓN DE PASATIEMPO
+function markPasatiempoSolved(storyId, isSec) {
+  const isEn = (typeof currentLang !== 'undefined' && currentLang === 'en');
+  if (isSec) {
+    solvedPasatiempos.secundaria[storyId] = true;
+    const status = document.getElementById(`p-status-sec-${storyId}`);
+    const banner = document.getElementById(`p-banner-sec-${storyId}`);
+    if (status) {
+      status.className = 'pasatiempo-badge-status solved';
+      status.innerHTML = '⭐ ' + (isEn ? 'CHALLENGE SOLVED!' : '¡RETO SUPERADO!');
+    }
+    if (banner) banner.style.display = 'block';
+
+    if (typeof unlockedSecValues !== 'undefined' && !unlockedSecValues.includes(storyId)) {
+      unlockedSecValues.push(storyId);
+      if (typeof updateSecProgress === 'function') updateSecProgress();
+      if (typeof renderSecChestObjects === 'function') renderSecChestObjects();
+    }
+  } else {
+    solvedPasatiempos.infantil[storyId] = true;
+    const status = document.getElementById(`p-status-inf-${storyId}`);
+    const banner = document.getElementById(`p-banner-inf-${storyId}`);
+    if (status) {
+      status.className = 'pasatiempo-badge-status solved';
+      status.innerHTML = '⭐ ' + (isEn ? 'SOLVED!' : '¡SUPERADO!');
+    }
+    if (banner) banner.style.display = 'block';
+
+    if (typeof unlockedInfantilValues !== 'undefined' && !unlockedInfantilValues.includes(storyId)) {
+      unlockedInfantilValues.push(storyId);
+      if (typeof updateGlobalProgress === 'function') updateGlobalProgress();
+      if (typeof renderChestObjects === 'function') renderChestObjects();
+      if (typeof renderMuralStamps === 'function') renderMuralStamps();
+    }
+  }
+
+  if (typeof playSound === 'function') playSound('chime');
+}
+
+
+    function openCanvaPasatiempoModal(storyId, isSec) {
+      const titleElem = document.getElementById('m-modal-title');
+      const bodyElem = document.getElementById('m-modal-body');
+      const isEn = false;
+
+      titleElem.innerHTML = isSec ? ('🧩 ' + (isEn ? 'Critical Challenge: Story ' : 'Reto lúdico y filosófico: Obra ') + storyId) : ('🎮 ' + (isEn ? 'Interactive Activity: Story ' : 'Pasatiempo lúdico: Cuento ') + storyId);
+      bodyElem.innerHTML = `
+        <div style="margin-bottom: 12px;">
+          <button class="btn-subtle" onclick="openModal(2)" style="font-size: 11.5px; padding: 5px 12px; margin-bottom: 10px; cursor:pointer;">
+            ⬅️  Volver a la lista de cuentos
+          </button>
+        </div>
+        ${isSec ? getPasatiempoSecundariaHTML(storyId, isEn) : getPasatiempoInfantilHTML(storyId, isEn)}
+      `;
+
+      document.getElementById('modal-box-overlay').style.display = 'flex';
+    }
+
+    function openCanvaPasatiemposHub() {
+      const isSec = (currentStage === 'secundaria');
+      openCanvaPasatiempoHub(1, isSec);
+    }
+
+    function openCanvaPasatiempoHub(selectedStoryId, isSec) {
+      const titleElem = document.getElementById('m-modal-title');
+      const bodyElem = document.getElementById('m-modal-body');
+      const isEn = false;
+
+      const tabsInf = [
+        { id: 1, name: '🥣 1. Memory de Lorenzo' },
+        { id: 2, name: '🚪 2. Sopa de Cuadradito' },
+        { id: 3, name: '🌸 3. Crucigrama de Rodari' },
+        { id: 4, name: '🕊️ 4. Carta de la paz' },
+        { id: 5, name: '🐮 5. Diferencias de Macarena' }
+      ];
+
+      const tabsSec = [
+        { id: 1, name: '⚖️ 1. Omelas (Dignidad)' },
+        { id: 2, name: '🔍 2. El arenque rojo (Sopa)' },
+        { id: 3, name: '🧩 3. Borges (Crucigrama)' },
+        { id: 4, name: '📜 4. La Rosa Blanca (César)' },
+        { id: 5, name: '🔥 5. Fahrenheit 451 (Libros)' }
+      ];
+
+      const currentTabs = isSec ? tabsSec : tabsInf;
+
+      titleElem.innerHTML = isSec ? '🧩 Sala de retos lúdicos y filosóficos (secundaria)' : '🎮 Sala de pasatiempos de cuentos (infantil)';
+      bodyElem.innerHTML = `
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.15);">
+          ${currentTabs.map(t => `
+            <button class="stage-pill-btn ${t.id === selectedStoryId ? (isSec ? 'sec-active' : 'active') : ''}" style="font-size: 11px; padding: 6px 12px; cursor:pointer;" onclick="openCanvaPasatiempoHub(${t.id}, ${isSec})">
+              ${t.name}
+            </button>
+          `).join('')}
+        </div>
+        <div id="canva-hub-game-area">
+          ${isSec ? getPasatiempoSecundariaHTML(selectedStoryId, isEn) : getPasatiempoInfantilHTML(selectedStoryId, isEn)}
+        </div>
+      `;
+
+      document.getElementById('modal-box-overlay').style.display = 'flex';
+    }
+</script>
 </body>
 </html>
