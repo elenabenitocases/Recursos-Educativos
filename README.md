@@ -1,5 +1,5 @@
 ﻿# 🏛️ Recursos Educativos · Constitución Española 2026
-### **Subdirección General de Formación del Profesorado**
+### **Comunidad de Madrid**
 **Consejería de Educación, Ciencia y Universidades · Comunidad de Madrid**
 
 ---
@@ -79,4 +79,4 @@ Este repositorio reúne las versiones web interactivas, los tableros visuales in
 
 ---
 **Comunidad de Madrid · Consejería de Educación, Ciencia y Universidades**  
-*Subdirección General de Formación del Profesorado*
+*Consejería de Educación, Ciencia y Universidades*

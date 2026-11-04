@@ -1,6 +1,6 @@
-# 🎮 RECURSOS CANVA · RETO 3: NUESTRA CONSTITUCIÓN, CUENTO A CUENTO
+﻿# 🎮 RECURSOS CANVA · RETO 3: NUESTRA CONSTITUCIÓN, CUENTO A CUENTO
 ## DÍA DE LA CONSTITUCIÓN ESPAÑOLA 2026
-**Subdirección General de Formación del Profesorado · Consejería de Educación, Ciencia y Universidades · Comunidad de Madrid**
+**Comunidad de Madrid · Consejería de Educación, Ciencia y Universidades**
 
 ---
 

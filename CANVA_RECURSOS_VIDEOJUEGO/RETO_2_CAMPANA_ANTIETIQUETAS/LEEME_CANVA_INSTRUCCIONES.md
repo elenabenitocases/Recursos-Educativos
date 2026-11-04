@@ -1,6 +1,6 @@
-# 🎮 RECURSOS CANVA · RETO 2: CAMPAÑA EXPRÉS ANTI-ETIQUETAS
+﻿# 🎮 RECURSOS CANVA · RETO 2: CAMPAÑA EXPRÉS ANTI-ETIQUETAS
 ## DÍA DE LA CONSTITUCIÓN ESPAÑOLA 2026
-**Subdirección General de Formación del Profesorado · Consejería de Educación, Ciencia y Universidades · Comunidad de Madrid**
+**Comunidad de Madrid · Consejería de Educación, Ciencia y Universidades**
 
 ---
 

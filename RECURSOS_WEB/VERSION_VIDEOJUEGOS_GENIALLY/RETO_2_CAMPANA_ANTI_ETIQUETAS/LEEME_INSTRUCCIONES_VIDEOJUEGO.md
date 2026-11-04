@@ -1,7 +1,7 @@
-# GUÍA DE PUBLICACIÓN EN EDUCAMADRID
+﻿# GUÍA DE PUBLICACIÓN EN EDUCAMADRID
 ## RETO 2: CAMPAÑA EXPRÉS ANTI-ETIQUETAS · VERSIÓN VIDEOJUEGO GENIALLY
 **Día de la Constitución Española 2026**  
-**Subdirección General de Formación del Profesorado · Consejería de Educación, Ciencia y Universidades · Comunidad de Madrid**
+**Comunidad de Madrid · Consejería de Educación, Ciencia y Universidades**
 
 ---
 

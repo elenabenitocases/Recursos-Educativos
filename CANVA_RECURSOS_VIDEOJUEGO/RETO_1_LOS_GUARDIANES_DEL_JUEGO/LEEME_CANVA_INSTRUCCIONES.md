@@ -1,6 +1,6 @@
-# 🎨 RECURSOS CANVA · RETO 1: LOS GUARDIANES DEL JUEGO
+﻿# 🎨 RECURSOS CANVA · RETO 1: LOS GUARDIANES DEL JUEGO
 ## DÍA DE LA CONSTITUCIÓN ESPAÑOLA 2026
-**Subdirección General de Formación del Profesorado · Comunidad de Madrid**
+**Comunidad de Madrid**
 
 ---
 

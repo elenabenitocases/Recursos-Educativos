@@ -1,6 +1,6 @@
-# GUÍA DE IMPLEMENTACIÓN EN EDUCAMADRID
+﻿# GUÍA DE IMPLEMENTACIÓN EN EDUCAMADRID
 ## Reto 1: Los Guardianes del Juego · Día de la Constitución 2026
-**Subdirección General de Formación del Profesorado**  
+**Consejería de Educación, Ciencia y Universidades**  
 **Consejería de Educación, Ciencia y Universidades · Comunidad de Madrid**
 
 ---
@@ -80,4 +80,4 @@ Para integrar el reto interactivo directamente dentro de un artículo, noticia o
 * **Recompensa final:** Desbloqueo de la Insignia Oficial y emisión personalizada del **Carnet Oficial de Guardián/a del Juego 2026**, imprimible directamente en PDF desde el navegador.
 
 ---
-*Subdirección General de Formación del Profesorado · Dirección General de Bilingüismo y Calidad de la Enseñanza · Comunidad de Madrid*
+*Dirección General de Bilingüismo y Calidad de la Enseñanza · Comunidad de Madrid*
