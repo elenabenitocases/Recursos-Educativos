@@ -1,0 +1,3235 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 3: Nuestra Constitución, Cuento a Cuento | Día de la Constitución 2026</title>
+  <style>
+    :root {
+      --madrid-red: #C7082A;
+      --madrid-darkred: #94041C;
+      --madrid-gold: #D4AF37;
+      --story-blue: #0284C7;
+      --story-green: #10B981;
+      --story-purple: #8B5CF6;
+      --story-amber: #F59E0B;
+      --story-rose: #F43F5E;
+      --sec-navy: #0F172A;
+      --sec-slate: #1E293B;
+      --sec-teal: #0D9488;
+      --text-dark: #1E293B;
+      --text-muted: #64748B;
+      --bg-warm: #FFFDF9;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-md: 0 6px 16px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 28px rgba(0,0,0,0.12);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+    }
+
+    html {
+      overflow-y: scroll;
+      scrollbar-gutter: stable;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--bg-warm);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* BARRA INSTITUCIONAL SUPERIOR (Normalizada con Reto 1) */
+    .gov-bar {
+      background: #FFFFFF;
+      border-bottom: 3px solid var(--madrid-red);
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      min-height: 60px;
+    }
+    .gov-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .gov-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+      display: block;
+    }
+    .gov-title-block {
+      border-left: 2px solid #CBD5E1;
+      padding-left: 14px;
+    }
+    .gov-title-block h1 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--madrid-red);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .gov-title-block p {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .gov-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-tool {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-tool:hover {
+      background: #E2E8F0;
+      transform: translateY(-1px);
+    }
+    .btn-tool.active {
+      background: var(--madrid-red);
+      color: white;
+      border-color: var(--madrid-red);
+    }
+
+    /* SELECTOR DE ETAPA EDUCATIVA */
+    .stage-nav-bar {
+      background: #FFFFFF;
+      border-bottom: 2px solid var(--border-color);
+      padding: 12px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      position: sticky;
+      top: 0;
+      z-index: 90;
+    }
+    .stage-nav-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .stage-nav-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stage-nav-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .stage-btn {
+      background: #F8FAFC;
+      color: var(--text-dark);
+      border: 2px solid var(--border-color);
+      border-radius: 28px;
+      padding: 8px 18px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.22s ease;
+    }
+    .stage-btn:hover {
+      background: #F1F5F9;
+      transform: translateY(-1px);
+    }
+    .stage-btn.active {
+      background: var(--madrid-red);
+      color: #FFFFFF;
+      border-color: var(--madrid-red);
+      box-shadow: 0 4px 14px rgba(199, 8, 42, 0.28);
+    }
+
+    /* HERO NARRATIVO */
+    .hero {
+      background: linear-gradient(135deg, #0284C7 0%, #0369A1 50%, #075985 100%);
+      color: #FFFFFF;
+      padding: 32px 24px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s ease;
+    }
+    .hero.theme-secundaria {
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 55%, #0D9488 100%);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(212,175,55,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-info {
+      flex: 1;
+    }
+    .hero-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+    .hero-subtitle {
+      font-size: 1.05rem;
+      line-height: 1.5;
+      opacity: 0.95;
+      max-width: 780px;
+      margin-bottom: 16px;
+    }
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .meta-tag {
+      background: rgba(255, 255, 255, 0.18);
+      padding: 5px 12px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .hero-badge-preview {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      border: 2px dashed rgba(255, 255, 255, 0.35);
+      border-radius: var(--radius-lg);
+      padding: 18px 24px;
+      text-align: center;
+      min-width: 190px;
+      flex-shrink: 0;
+    }
+    .hero-badge-img {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+      margin-bottom: 6px;
+    }
+    .hero-badge-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+    .hero-badge-status {
+      font-size: 0.75rem;
+      color: var(--madrid-gold);
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    /* BARRA DE PROGRESO GLOBAL */
+    .progress-bar-container {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 24px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .progress-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .progress-label {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      white-space: nowrap;
+    }
+    .progress-track {
+      flex: 1;
+      height: 10px;
+      background: #E2E8F0;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #0284C7, #10B981);
+      border-radius: 20px;
+      transition: width 0.4s ease;
+    }
+    .progress-percent {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--story-blue);
+      min-width: 45px;
+      text-align: right;
+    }
+
+    /* NAVEGACIÓN ENTRE FASES (TABS) */
+    .tabs-nav {
+      background: #FFFFFF;
+      border-bottom: 2px solid var(--border-color);
+      position: sticky;
+      top: 59px;
+      z-index: 80;
+    }
+    .tabs-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 8px;
+      padding: 8px 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-container::-webkit-scrollbar {
+      display: none;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      background: #F1F5F9;
+      color: var(--text-dark);
+    }
+    .tab-btn.active {
+      background: #EFF6FF;
+      color: var(--story-blue);
+      font-weight: 800;
+      border: 1px solid #BFDBFE;
+    }
+    .tab-btn.active-sec {
+      background: #F0FDFA;
+      color: var(--sec-teal);
+      border-color: #99F6E4;
+    }
+    .tab-badge {
+      background: #E2E8F0;
+      color: var(--text-muted);
+      padding: 2px 7px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+    .tab-btn.active .tab-badge {
+      background: var(--story-blue);
+      color: #FFFFFF;
+    }
+    .tab-btn.active-sec .tab-badge {
+      background: var(--sec-teal);
+      color: #FFFFFF;
+    }
+
+    /* CONTENEDOR PRINCIPAL Y SECCIONES */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 24px 60px;
+      flex: 1;
+      width: 100%;
+    }
+    .phase-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .phase-section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* TARJETAS BASE */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+    .card-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    /* BOTONES DE ACCIÓN COMUNES */
+    .btn-action {
+      border: none;
+      padding: 12px 24px;
+      border-radius: 14px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-action-primary {
+      background: var(--madrid-red);
+      color: #FFFFFF;
+    }
+    .btn-action-primary:hover {
+      background: var(--madrid-darkred);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(199, 8, 42, 0.3);
+    }
+    .btn-action-story {
+      background: var(--story-blue);
+      color: #FFFFFF;
+    }
+    .btn-action-story:hover {
+      background: #0369A1;
+      transform: translateY(-2px);
+    }
+    .btn-action-sec {
+      background: var(--sec-teal);
+      color: #FFFFFF;
+    }
+    .btn-action-sec:hover {
+      background: #0F766E;
+      transform: translateY(-2px);
+    }
+
+    /* ESTILOS INFANTIL */
+    .chest-showcase {
+      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+      border: 2px dashed #F59E0B;
+      border-radius: var(--radius-lg);
+      padding: 32px 20px;
+      text-align: center;
+      margin-bottom: 28px;
+      cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .chest-showcase:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);
+    }
+    .chest-visual {
+      font-size: 4.8rem;
+      line-height: 1;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 6px 12px rgba(217, 119, 6, 0.25));
+      animation: floatChest 3s ease-in-out infinite;
+    }
+    @keyframes floatChest {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .chest-status {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #B45309;
+      margin-bottom: 6px;
+    }
+    .chest-sub {
+      font-size: 0.9rem;
+      color: #92400E;
+    }
+
+    .objects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .obj-card {
+      background: #FFFFFF;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 18px 14px;
+      text-align: center;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+    .obj-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--story-blue);
+    }
+    .obj-card.unlocked {
+      border-color: #10B981;
+      background: #F0FDF4;
+    }
+    .obj-icon {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+    .obj-name {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .obj-value-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--story-blue);
+      background: #EFF6FF;
+      padding: 3px 8px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+    }
+    .obj-story-ref {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ESTACIÓN DEL CUENTO INFANTIL */
+    .story-select-bar {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+    .story-tab-pill {
+      background: #F1F5F9;
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .story-tab-pill:hover {
+      background: #E2E8F0;
+    }
+    .story-tab-pill.active {
+      background: var(--story-blue);
+      color: #FFFFFF;
+      border-color: var(--story-blue);
+    }
+    .story-station-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .story-station-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .story-art-badge {
+      background: #EFF6FF;
+      color: var(--story-blue);
+      border: 1px solid #BFDBFE;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+    .story-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin: 20px 0;
+    }
+    .step-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .step-box h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .step-box p {
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      line-height: 1.45;
+    }
+    .minigame-box {
+      background: #F0FDF4;
+      border: 2px solid #86EFAC;
+      border-radius: var(--radius-md);
+      padding: 18px;
+      margin-top: 18px;
+    }
+    .minigame-q {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #166534;
+      margin-bottom: 12px;
+    }
+    .minigame-options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-option {
+      background: #FFFFFF;
+      border: 2px solid #BBF7D0;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #166534;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-option:hover {
+      background: #DCFCE7;
+      transform: translateY(-1px);
+    }
+    .btn-option.correct {
+      background: #10B981;
+      color: #FFFFFF;
+      border-color: #059669;
+    }
+
+    /* EL GRAN LIBRO / MURAL INFANTIL */
+    .book-spread {
+      background: #FFFBEB;
+      border: 6px solid #D97706;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(217, 119, 6, 0.15);
+      position: relative;
+    }
+    .book-pages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .book-stamp-card {
+      background: #FFFFFF;
+      border: 2px dashed #F59E0B;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .book-stamp-card.stamped {
+      border-style: solid;
+      border-color: #10B981;
+      background: #F0FDF4;
+    }
+    .stamp-symbol {
+      font-size: 2.2rem;
+      margin-bottom: 6px;
+    }
+    .stamp-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .stamp-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #059669;
+      background: #D1FAE5;
+      padding: 2px 6px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    /* DIPLOMA INFANTIL ILUSTRADO */
+    .cert-infantil {
+      background: #FFFFFF;
+      background-image: 
+        radial-gradient(#F1F5F9 2px, transparent 2px),
+        linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 120px, #FFFFFF calc(100% - 120px), #FFFBEB 100%);
+      border: 8px solid #38BDF8;
+      outline: 6px dashed #F59E0B;
+      outline-offset: -12px;
+      border-radius: 32px;
+      padding: 24px 24px 20px;
+      text-align: center;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+      max-width: 960px;
+      margin: 0 auto 24px;
+    }
+    .cert-bunting {
+      width: 100%;
+      height: 28px;
+      margin-bottom: 6px;
+    }
+    .cert-corner-sun {
+      position: absolute;
+      top: 16px;
+      left: 20px;
+    }
+    .cert-corner-rainbow {
+      position: absolute;
+      top: 14px;
+      right: 20px;
+    }
+    .cert-header-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    .cert-infantil-badge {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
+    }
+    .cert-header-text {
+      text-align: center;
+    }
+    .cert-gov-sub {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--madrid-red);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .cert-infantil-title {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: #0284C7;
+      line-height: 1.15;
+      margin: 4px 0;
+      letter-spacing: -0.01em;
+    }
+    .cert-infantil-subtitle {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #D97706;
+    }
+    .cert-give-to {
+      font-size: 0.9rem;
+      color: #64748B;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+    .cert-infantil-child {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: #C7082A;
+      margin: 4px auto 10px;
+      border-bottom: 3px dashed #F59E0B;
+      display: inline-block;
+      padding: 0 20px 4px;
+      cursor: pointer;
+    }
+    .cert-main-p {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: #334155;
+      max-width: 760px;
+      margin: 0 auto 14px;
+    }
+    .cert-characters-showcase {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin: 10px 0 16px;
+      background: #FFFFFF;
+      border: 2px solid #E0F2FE;
+      border-radius: 18px;
+      padding: 10px 6px;
+    }
+    .cert-character-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .cert-char-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      border: 2px solid #BFDBFE;
+    }
+    .cert-char-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #1E293B;
+      white-space: nowrap;
+    }
+    .cert-char-val {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #0284C7;
+      white-space: nowrap;
+    }
+    .cert-footer-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 2px dashed #BAE6FD;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .cert-signature-box {
+      text-align: center;
+      min-width: 140px;
+    }
+    .cert-sig-line {
+      width: 130px;
+      height: 2px;
+      background: #94A3B8;
+      margin: 18px auto 4px;
+    }
+    .cert-sig-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #1E293B;
+    }
+    .cert-sig-sub {
+      font-size: 0.7rem;
+      color: #64748B;
+    }
+    .cert-medal-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .cert-medal-circle {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      border: 3px solid #FDE68A;
+      box-shadow: 0 4px 10px rgba(217, 119, 6, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-size: 0.65rem;
+      font-weight: 900;
+      line-height: 1;
+      text-align: center;
+    }
+
+    /* ESTILOS SECUNDARIA */
+    .sec-badge-bar {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+    .sec-tab-pill {
+      background: #F1F5F9;
+      border: 1px solid var(--border-color);
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .sec-tab-pill:hover {
+      background: #E2E8F0;
+    }
+    .sec-tab-pill.active {
+      background: var(--sec-teal);
+      color: #FFFFFF;
+      border-color: var(--sec-teal);
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+    }
+
+    .sec-story-view {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+    .sec-story-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .sec-story-titles h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--sec-navy);
+      margin-bottom: 4px;
+    }
+    .sec-story-author {
+      font-size: 0.95rem;
+      color: var(--sec-teal);
+      font-weight: 700;
+    }
+    .sec-article-pill {
+      background: #F0FDFA;
+      color: var(--sec-teal);
+      border: 1px solid #99F6E4;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .sec-dilemma-card {
+      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+      border-left: 6px solid #D97706;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .sec-dilemma-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #B45309;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .sec-dilemma-text {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #78350F;
+      line-height: 1.45;
+    }
+
+    .sec-debate-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .sec-debate-box h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--sec-navy);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sec-debate-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sec-debate-list li {
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.45;
+    }
+    .sec-debate-list li::before {
+      content: "•";
+      color: var(--sec-teal);
+      font-weight: 900;
+      font-size: 1.2rem;
+      position: absolute;
+      left: 4px;
+      top: -2px;
+    }
+
+    .sec-vote-simulator {
+      background: #FFFFFF;
+      border: 2px solid #E2E8F0;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .sec-vote-q {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--sec-navy);
+      margin-bottom: 12px;
+    }
+    .sec-vote-btn {
+      width: 100%;
+      text-align: left;
+      background: #F8FAFC;
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sec-vote-btn:hover {
+      background: #F1F5F9;
+      border-color: var(--sec-teal);
+    }
+    .sec-vote-btn.selected {
+      background: #F0FDFA;
+      border-color: var(--sec-teal);
+      color: #0F766E;
+      font-weight: 800;
+    }
+    .sec-feedback-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 10px;
+      background: #F0FDF4;
+      border: 1px solid #86EFAC;
+      font-size: 0.88rem;
+      color: #166534;
+      display: none;
+      line-height: 1.45;
+    }
+
+    .workshop-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 16px;
+    }
+    @media (max-width: 768px) {
+      .workshop-form-grid { grid-template-columns: 1fr; }
+    }
+    .form-group-sec {
+      margin-bottom: 14px;
+    }
+    .form-group-sec label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--sec-navy);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-control-sec {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-control-sec:focus {
+      border-color: var(--sec-teal);
+    }
+    .manifesto-preview-box {
+      background: #FFFDF9;
+      border: 2px solid #D4AF37;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: 0 4px 16px rgba(212, 175, 55, 0.15);
+      position: relative;
+    }
+    .manifesto-preview-title {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #78350F;
+      text-align: center;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .manifesto-preview-meta {
+      font-size: 0.78rem;
+      text-align: center;
+      color: #92400E;
+      margin-bottom: 16px;
+      font-weight: 700;
+      border-bottom: 1px solid #FDE68A;
+      padding-bottom: 8px;
+    }
+    .manifesto-preview-content {
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: #1E293B;
+      margin-bottom: 14px;
+    }
+    .manifesto-preview-commitments {
+      list-style: decimal;
+      padding-left: 20px;
+      font-size: 0.85rem;
+      color: #1E293B;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* CERTIFICADO OFICIAL SECUNDARIA (A4 Landscape) */
+    .cert-secundaria {
+      background: #FFFFFF;
+      border: 4px double var(--madrid-red);
+      outline: 2px solid var(--madrid-gold);
+      outline-offset: -8px;
+      border-radius: 16px;
+      padding: 32px 36px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      max-width: 980px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+    .cert-sec-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #E2E8F0;
+      padding-bottom: 14px;
+      margin-bottom: 16px;
+    }
+    .cert-sec-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+    }
+    .cert-sec-institution {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--madrid-red);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .cert-sec-maintitle {
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--sec-navy);
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+      margin: 6px 0;
+    }
+    .cert-sec-subtitle {
+      font-size: 0.95rem;
+      color: var(--sec-teal);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .cert-sec-award {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .cert-sec-student {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--madrid-red);
+      border-bottom: 2px solid var(--madrid-gold);
+      display: inline-block;
+      padding: 2px 24px 4px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+    .cert-sec-school {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--sec-navy);
+      margin-bottom: 16px;
+      cursor: pointer;
+    }
+    .cert-sec-body {
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--text-dark);
+      max-width: 820px;
+      margin: 0 auto 20px;
+      text-align: justify;
+    }
+    .cert-sec-pillars {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 22px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px 8px;
+    }
+    .cert-sec-pillar-item {
+      text-align: center;
+    }
+    .cert-sec-pillar-icon {
+      font-size: 1.4rem;
+      margin-bottom: 2px;
+    }
+    .cert-sec-pillar-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--sec-navy);
+    }
+    .cert-sec-pillar-art {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--sec-teal);
+    }
+    .cert-sec-signatures {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid #E2E8F0;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .cert-sec-seal {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 3px double var(--madrid-gold);
+      background: #FFFDF9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-size: 0.6rem;
+      font-weight: 900;
+      color: var(--madrid-red);
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.25);
+    }
+
+    /* PIE DE PÁGINA NORMALIZADO */
+    .gov-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 24px 32px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      margin-top: auto;
+    }
+    .gov-footer strong {
+      color: var(--madrid-red);
+    }
+
+    /* PRINT RULES */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 6mm;
+      }
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body { 
+        background: #FFFFFF !important; 
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      header.gov-bar, .stage-nav-bar, .hero, .tabs-nav, .progress-bar-container, .gov-footer,
+      .btn-action, .btn-tool, .chest-showcase, .story-select-bar, .story-steps-grid,
+      .minigame-box, .sec-badge-bar, .sec-story-view, .sec-debate-box, .sec-vote-simulator,
+      .workshop-form-grid, .btn-print-top {
+        display: none !important;
+      }
+      main { padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+
+      body.printing-infantil #track-secundaria { display: none !important; }
+      body.printing-infantil #track-infantil { display: block !important; }
+      body.printing-infantil #sec-1,
+      body.printing-infantil #sec-2,
+      body.printing-infantil #sec-3 { display: none !important; }
+      body.printing-infantil #sec-4 {
+        display: block !important;
+        visibility: visible !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        background: transparent !important;
+      }
+      body.printing-infantil #sec-4 .card {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+      }
+      body.printing-infantil .cert-infantil {
+        display: block !important;
+        visibility: visible !important;
+        page-break-inside: avoid !important;
+        box-shadow: none !important;
+        border: 6px solid #38BDF8 !important;
+        outline: 4px dashed #FDE047 !important;
+        max-width: 98% !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 16px 14px !important;
+        background: #FFFFFF !important;
+      }
+      body.printing-infantil .cert-infantil * {
+        visibility: visible !important;
+      }
+
+      body.printing-secundaria #track-infantil { display: none !important; }
+      body.printing-secundaria #track-secundaria { display: block !important; }
+      body.printing-secundaria #sec-sec-1,
+      body.printing-secundaria #sec-sec-2,
+      body.printing-secundaria #sec-sec-3 { display: none !important; }
+      body.printing-secundaria #sec-sec-4 {
+        display: block !important;
+        visibility: visible !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        background: transparent !important;
+      }
+      body.printing-secundaria #sec-sec-4 .card {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+      }
+      body.printing-secundaria .cert-secundaria {
+        display: block !important;
+        visibility: visible !important;
+        page-break-inside: avoid !important;
+        box-shadow: none !important;
+        border: 4px double #C7082A !important;
+        outline: 2px solid #D4AF37 !important;
+        max-width: 98% !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 22px 26px !important;
+        background: #FFFFFF !important;
+      }
+      body.printing-secundaria .cert-secundaria * {
+        visibility: visible !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA INSTITUCIONAL SUPERIOR -->
+  <header class="gov-bar">
+    <div class="gov-brand">
+      <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" class="gov-logo" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'48\' viewBox=\'0 0 180 48\'><rect width=\'48\' height=\'48\' fill=\'%23C7082A\'/><text x=\'56\' y=\'20\' font-family=\'sans-serif\' font-size=\'11\' font-weight=\'bold\' fill=\'%23000\'>Comunidad</text><text x=\'56\' y=\'34\' font-family=\'sans-serif\' font-size=\'11\' font-weight=\'bold\' fill=\'%23000\'>de Madrid</text></svg>';">
+      <div class="gov-title-block">
+        <h1 id="gov-title">Semanas Temáticas</h1>
+        <p id="gov-sub">Semana de la Constitución 2026 | Recursos Digitales Interactivos</p>
+      </div>
+    </div>
+    <div class="gov-actions">
+      <button class="btn-tool" id="btn-sound" onclick="toggleSound()">
+        <span id="sound-icon">🔊</span> <span id="label-sound">Sonido: ON</span>
+      </button>
+      <button class="btn-tool" id="btn-lang" onclick="toggleLanguage()">
+        🌐 Idioma: <strong id="lang-label">ES</strong>
+      </button>
+      <button class="btn-tool btn-print-top" id="btn-print-top" onclick="printActiveDiploma()" title="Imprimir diploma o certificado">
+        🖨️ <span id="label-print-top">Imprimir</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- SELECTOR DE ETAPA EDUCATIVA (DUAL-TRACK) -->
+  <div class="stage-nav-bar">
+    <div class="stage-nav-inner">
+      <span class="stage-nav-title" id="stage-nav-title">
+        <span>🎯</span> Selecciona la Etapa Educativa:
+      </span>
+      <div class="stage-nav-buttons">
+        <button class="stage-btn active" id="btn-stage-infantil" onclick="switchTrack('infantil')">
+          👶 <span id="btn-text-infantil">Infantil y 1.º Ciclo Primaria</span>
+        </button>
+        <button class="stage-btn" id="btn-stage-secundaria" onclick="switchTrack('secundaria')">
+          🎓 <span id="btn-text-secundaria">Educación Secundaria (1.º y 2.º ESO)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO NARRATIVO -->
+  <section class="hero" id="hero-banner">
+    <div class="hero-content">
+      <div class="hero-info">
+        <div class="hero-badge-pill" id="hero-badge-pill">
+          ✨ Preámbulo y Art. 10 CE • El Valle de las Voces
+        </div>
+        <h1 id="hero-title">Reto 3: Nuestra Constitución, cuento a cuento</h1>
+        <p class="hero-subtitle" id="hero-subtitle">
+          Descubre el gran cofre de la convivencia. Cinco cuentos, cinco objetos mágicos y cinco valores esenciales para aprender a cuidarnos y vivir en paz.
+        </p>
+        <div class="hero-meta" id="hero-meta">
+          <span class="meta-tag" id="meta-dest">👶 Infantil (5 años) y 1.º Ciclo Primaria (6-7 años)</span>
+          <span class="meta-tag" id="meta-cuentos">📚 5 cuentos y objetos simbólicos</span>
+          <span class="meta-tag" id="meta-mural">🎨 Creación de «La gran constitución» de aula</span>
+        </div>
+      </div>
+      <div class="hero-badge-preview">
+        <img src="Artefactos/insignia_reto3.png" alt="Insignia Reto 3" class="hero-badge-img" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'85\' height=\'85\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%230284C7\' stroke=\'%23D4AF37\' stroke-width=\'4\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>⚙️</text></svg>';">
+        <div class="hero-badge-title" id="badge-title-top">Insignia oficial</div>
+        <div class="hero-badge-status" id="badge-status-top">Reto 3: en proceso</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       TRACK 1: INFANTIL Y 1.º CICLO PRIMARIA
+       ======================================================== -->
+  <div id="track-infantil" class="track-wrapper">
+
+    <!-- BARRA DE PROGRESO INFANTIL -->
+    <div class="progress-bar-container">
+      <div class="progress-wrap">
+        <span class="progress-label" id="progress-label">Valores descubiertos:</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="progress-percent" id="progress-percent">0 / 5</span>
+      </div>
+    </div>
+
+    <!-- TABS INFANTIL -->
+    <nav class="tabs-nav">
+      <div class="tabs-container">
+        <button class="tab-btn active" id="tab-1" onclick="switchPhase(1)">
+          <span id="tab-label-1">🎁 1. El cofre de la convivencia</span>
+          <span class="tab-badge" id="badge-tab-1">Apertura</span>
+        </button>
+        <button class="tab-btn" id="tab-2" onclick="switchPhase(2)">
+          <span id="tab-label-2">📖 2. Estaciones de los 5 cuentos</span>
+          <span class="tab-badge" id="badge-tab-2">5 valores</span>
+        </button>
+        <button class="tab-btn" id="tab-3" onclick="switchPhase(3)">
+          <span id="tab-label-3">📜 3. La gran constitución de aula</span>
+          <span class="tab-badge" id="badge-tab-3">Mural</span>
+        </button>
+        <button class="tab-btn" id="tab-4" onclick="switchPhase(4)">
+          <span id="tab-label-4">🏅 4. Insignia y diploma infantil</span>
+          <span class="tab-badge" id="badge-tab-4">Premio</span>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <!-- FASE 1 INFANTIL: EL COFRE DE LA CONVIVENCIA -->
+      <section class="phase-section active" id="sec-1">
+        <div class="card">
+          <div class="chest-showcase" onclick="toggleChest()">
+            <div class="chest-visual" id="chest-box">🎁</div>
+            <h3 class="chest-status" id="chest-status-text">¡El cofre mágico de la convivencia está cerrado!</h3>
+            <p class="chest-sub" id="chest-sub-text">Haz clic aquí para abrirlo y descubrir los 5 objetos secretos del Preámbulo</p>
+          </div>
+
+          <h3 class="card-title" id="chest-sec-title">✨ Los 5 Objetos Mágicos del Preámbulo Constitucional</h3>
+          <p class="card-subtitle" id="chest-sec-desc">
+            Cada objeto del cofre representa una historia y una regla de oro de nuestra convivencia:
+          </p>
+
+          <div class="objects-grid" id="objects-grid">
+            <!-- Renderizado dinámico de los 5 objetos -->
+          </div>
+
+          <div style="text-align: center; margin-top: 28px;">
+            <button class="btn-action btn-action-story" onclick="switchPhase(2)">
+              <span id="btn-next-stories">Ir a las Estaciones de los 5 Cuentos 👉</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FASE 2 INFANTIL: ESTACIONES DE LOS 5 CUENTOS -->
+      <section class="phase-section" id="sec-2">
+        <div class="card">
+          <h2 class="card-title" id="stories-title">📖 Estación del cuento y actividad vivencial</h2>
+          <p class="card-subtitle" id="stories-desc">
+            Selecciona un cuento para descubrir su enseñanza y superar el minijuego de aula:
+          </p>
+
+          <div class="story-select-bar" id="story-select-bar">
+            <!-- Botones dinámicos de cuentos -->
+          </div>
+
+          <div class="story-station-card" id="story-station-card">
+            <!-- Contenido dinámico del cuento actual -->
+          </div>
+
+          <div style="text-align: center; margin-top: 24px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+            <button class="btn-action btn-action-story" id="btn-to-mural" onclick="switchPhase(3)">
+              📜 Ir al Gran Libro de Aula 👉
+            </button>
+            <button class="btn-action" id="btn-back-chest" style="background:#F1F5F9; color:var(--text-dark);" onclick="switchPhase(1)">
+              🎁 Volver al cofre
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FASE 3 INFANTIL: LA GRAN CONSTITUCIÓN DE AULA -->
+      <section class="phase-section" id="sec-3">
+        <div class="card">
+          <h2 class="card-title" id="book-title-top">📜 El gran libro abierto de nuestra convivencia</h2>
+          <p class="card-subtitle" id="book-desc-top">
+            A medida que exploramos los cuentos, estampamos los 5 sellos constitucionales en el mural colectivo de nuestra clase:
+          </p>
+
+          <div class="book-spread">
+            <div style="text-align: center; margin-bottom: 12px;">
+              <h3 style="font-size:1.3rem; color:#B45309; font-weight:900;" id="mural-book-title">MURAL DE AULA: NUESTRA CONSTITUCIÓN EN DIBUJOS</h3>
+              <p style="font-size:0.85rem; color:#92400E;" id="mural-book-sub">Valores acordados por todas y todos para vivir con alegría y respeto</p>
+            </div>
+
+            <div class="book-pages-grid" id="book-pages-grid">
+              <!-- Renderizado de los 5 sellos -->
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 24px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+            <button class="btn-action btn-action-primary" id="btn-to-cert" onclick="switchPhase(4)">
+              🏅 Expedir Diploma Infantil Oficial 👉
+            </button>
+            <button class="btn-action" id="btn-complete-all" style="background:#F1F5F9; color:var(--text-dark);" onclick="completeAllStoriesAndUnlock()">
+              ✨ Completar todos los sellos de aula
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FASE 4 INFANTIL: DIPLOMA INFANTIL ILUSTRADO -->
+      <section class="phase-section" id="sec-4">
+        <div class="card">
+          
+          <!-- DIPLOMA IMPRIMIBLE INFANTIL -->
+          <div class="cert-infantil" id="cert-infantil">
+            <!-- Banderines decorativos -->
+            <svg class="cert-bunting" viewBox="0 0 700 45" preserveAspectRatio="none">
+              <polygon points="15,12 35,10 25,32" fill="#F43F5E"/>
+              <polygon points="65,14 85,13 75,35" fill="#F59E0B"/>
+              <polygon points="115,18 135,17 125,39" fill="#10B981"/>
+              <polygon points="165,22 185,21 175,43" fill="#0284C7"/>
+              <polygon points="215,24 235,23 225,45" fill="#8B5CF6"/>
+              <polygon points="285,21 305,20 295,42" fill="#EC4899"/>
+              <polygon points="335,16 355,15 345,37" fill="#F43F5E"/>
+              <polygon points="385,16 405,18 395,40" fill="#F59E0B"/>
+              <polygon points="435,22 455,24 445,46" fill="#10B981"/>
+              <polygon points="485,26 505,27 495,49" fill="#0284C7"/>
+              <polygon points="535,26 555,25 545,47" fill="#8B5CF6"/>
+              <polygon points="585,22 605,20 595,42" fill="#EC4899"/>
+              <polygon points="635,16 655,14 645,36" fill="#10B981"/>
+            </svg>
+
+            <!-- Sol sonriente -->
+            <div class="cert-corner-sun">
+              <svg width="60" height="60" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="28" fill="#FDE047" stroke="#F59E0B" stroke-width="3"/>
+                <path d="M50,8 L50,16 M50,84 L50,92 M8,50 L16,50 M84,50 L92,50 M20,20 L26,26 M74,74 L80,80 M20,80 L26,74 M74,26 L80,20" stroke="#F59E0B" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="41" cy="46" r="3.5" fill="#78350F"/>
+                <circle cx="59" cy="46" r="3.5" fill="#78350F"/>
+                <ellipse cx="36" cy="53" rx="4" ry="2.5" fill="#F87171" opacity="0.8"/>
+                <ellipse cx="64" cy="53" rx="4" ry="2.5" fill="#F87171" opacity="0.8"/>
+                <path d="M42,54 Q50,64 58,54" fill="none" stroke="#78350F" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </div>
+
+            <!-- Arcoíris con nubes -->
+            <div class="cert-corner-rainbow">
+              <svg width="64" height="56" viewBox="0 0 100 80">
+                <path d="M15,62 A35,35 0 0,1 85,62" fill="none" stroke="#F43F5E" stroke-width="5"/>
+                <path d="M21,62 A29,29 0 0,1 79,62" fill="none" stroke="#F59E0B" stroke-width="5"/>
+                <path d="M27,62 A23,23 0 0,1 73,62" fill="none" stroke="#10B981" stroke-width="5"/>
+                <path d="M33,62 A17,17 0 0,1 67,62" fill="none" stroke="#0284C7" stroke-width="5"/>
+                <ellipse cx="18" cy="62" rx="14" ry="10" fill="#FFFFFF" stroke="#BAE6FD" stroke-width="2"/>
+                <ellipse cx="82" cy="62" rx="14" ry="10" fill="#FFFFFF" stroke="#BAE6FD" stroke-width="2"/>
+              </svg>
+            </div>
+
+            <!-- Cabecera institucional -->
+            <div class="cert-header-badge-row">
+              <img src="Artefactos/insignia_reto3.png" alt="Insignia Reto 3" class="cert-infantil-badge" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%230284C7\' stroke=\'%23D4AF37\' stroke-width=\'4\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>⚙️</text></svg>';">
+              <div class="cert-header-text">
+                <div class="cert-gov-sub" id="cert-gov-sub">Comunidad de Madrid</div>
+                <h2 class="cert-infantil-title" id="cert-infantil-title">DIPLOMA DE SUPERGUARDIÁN/A</h2>
+                <div class="cert-infantil-subtitle" id="cert-infantil-subtitle">🌟 Gran libro de la convivencia y la amistad 🌟</div>
+              </div>
+            </div>
+            
+            <div class="cert-give-to" id="cert-give-to">Con mucho cariño y alegría, este diploma de honor se otorga a:</div>
+            <div class="cert-infantil-child" id="cert-child-name" onclick="updateInfantilClass()" title="Haz clic para cambiar el nombre">AULA DE INFANTIL Y PRIMARIA — GUARDIANES DEL RESPETO</div>
+
+            <p class="cert-main-p" id="cert-main-p">
+              Por haber descubierto con una gran sonrisa los <strong>5 valores de la Constitución</strong> a través de los cuentos mágicos: aprendiendo a compartir, ayudando a los compañeros, respetando que todos somos únicos y resolviendo cualquier problema hablando con el corazón.
+            </p>
+
+            <!-- 5 Dibujos de cuentos -->
+            <div class="cert-characters-showcase">
+              <div class="cert-character-item">
+                <div class="cert-char-icon-circle" style="background:#EFF6FF; border-color:#93C5FD;">🥄</div>
+                <span class="cert-char-title" id="cert-char-title-1">Lorenzo</span>
+                <span class="cert-char-val" id="cert-char-val-1">Diversidad</span>
+              </div>
+              <div class="cert-character-item">
+                <div class="cert-char-icon-circle" style="background:#F0FDF4; border-color:#86EFAC;">🔲</div>
+                <span class="cert-char-title" id="cert-char-title-2">Cuadradito</span>
+                <span class="cert-char-val" id="cert-char-val-2">Inclusión</span>
+              </div>
+              <div class="cert-character-item">
+                <div class="cert-char-icon-circle" style="background:#FFFBEB; border-color:#FDE68A;">🌱</div>
+                <span class="cert-char-title" id="cert-char-title-3">Rodari</span>
+                <span class="cert-char-val" id="cert-char-val-3">Naturaleza</span>
+              </div>
+              <div class="cert-character-item">
+                <div class="cert-char-icon-circle" style="background:#FEF2F2; border-color:#FECACA;">🕊️</div>
+                <span class="cert-char-title" id="cert-char-title-4">Soldados</span>
+                <span class="cert-char-val" id="cert-char-val-4">Paz</span>
+              </div>
+              <div class="cert-character-item">
+                <div class="cert-char-icon-circle" style="background:#FAF5FF; border-color:#E9D5FF;">🐮</div>
+                <span class="cert-char-title" id="cert-char-title-5">Macarena</span>
+                <span class="cert-char-val" id="cert-char-val-5">Libertad</span>
+              </div>
+            </div>
+
+            <div class="cert-footer-row">
+              <div class="cert-signature-box">
+                <div class="cert-sig-line"></div>
+                <div class="cert-sig-title" id="cert-sig-title-1">Maestro/a o Tutor/a</div>
+                <div class="cert-sig-sub" id="cert-sig-sub-1">Coordinación de Convivencia</div>
+              </div>
+              <div class="cert-medal-box">
+                <div class="cert-medal-circle" id="cert-medal-circle">
+                  <span style="font-size:1.1rem;">🏅</span>
+                  <span id="cert-medal-text">¡MISIÓN<br>CUMPLIDA!</span>
+                </div>
+              </div>
+              <div class="cert-signature-box">
+                <div class="cert-sig-line"></div>
+                <div class="cert-sig-title" id="cert-sig-title-2">Día de la Constitución</div>
+                <div class="cert-sig-sub" id="cert-sig-sub-2">Diciembre 2026</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="text-align: center; margin-top: 24px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+            <button class="btn-action btn-action-primary" id="btn-print-diploma" onclick="printDiplomaInfantil()">
+              🖨️ Imprimir diploma infantil de aula
+            </button>
+            <button class="btn-action btn-action-story" id="btn-back-book" onclick="switchPhase(3)">
+              📜 Volver al gran libro
+            </button>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <!-- ========================================================
+       TRACK 2: EDUCACIÓN SECUNDARIA (1.º y 2.º ESO)
+       ======================================================== -->
+  <div id="track-secundaria" class="track-wrapper" style="display: none;">
+
+    <!-- BARRA DE PROGRESO SECUNDARIA -->
+    <div class="progress-bar-container">
+      <div class="progress-wrap">
+        <span class="progress-label" id="sec-progress-label">Dilemas y valores éticos analizados:</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="sec-progress-fill" style="background: linear-gradient(90deg, #0D9488, #D4AF37);"></div>
+        </div>
+        <span class="progress-percent" id="sec-progress-percent" style="color: var(--sec-teal);">0 / 5</span>
+      </div>
+    </div>
+
+    <!-- TABS SECUNDARIA -->
+    <nav class="tabs-nav">
+      <div class="tabs-container">
+        <button class="tab-btn active active-sec" id="tab-sec-1" onclick="switchSecPhase(1)">
+          <span id="tab-sec-label-1">📦 1. El cofre de la ciudadanía</span>
+          <span class="tab-badge" id="badge-sec-tab-1">5 Objetos</span>
+        </button>
+        <button class="tab-btn" id="tab-sec-2" onclick="switchSecPhase(2)">
+          <span id="tab-sec-label-2">⚖️ 2. Estaciones y dilemas del Preámbulo</span>
+          <span class="tab-badge" id="badge-sec-tab-2">5 Obras</span>
+        </button>
+        <button class="tab-btn" id="tab-sec-3" onclick="switchSecPhase(3)">
+          <span id="tab-sec-label-3">✍️ 3. Taller: Manifiesto cívico</span>
+          <span class="tab-badge" id="badge-sec-tab-3">Resolución</span>
+        </button>
+        <button class="tab-btn" id="tab-sec-4" onclick="switchSecPhase(4)">
+          <span id="tab-sec-label-4">🏅 4. Certificación oficial Secundaria</span>
+          <span class="tab-badge" id="badge-sec-tab-4">Oficial</span>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <!-- FASE 1 SECUNDARIA: EL COFRE DE LA CIUDADANÍA -->
+      <section class="phase-section active" id="sec-sec-1">
+        <div class="card">
+          <h2 class="card-title" id="sec-chest-title">📦 El cofre de los 5 objetos detonantes de la ciudadanía</h2>
+          <p class="card-subtitle" id="sec-chest-desc">
+            Cada objeto del cofre representa una obra literaria clave y abre una pregunta ética fundamental sobre los derechos y principios de nuestra Constitución:
+          </p>
+
+          <div class="objects-grid" id="sec-objects-grid">
+            <!-- Renderizado dinámico de los 5 objetos de Secundaria -->
+          </div>
+
+          <div style="text-align: center; margin-top: 28px;">
+            <button class="btn-action btn-action-sec" onclick="switchSecPhase(2)">
+              <span id="btn-next-sec-stories">Explorar las 5 Estaciones Literarias y Dilemas 👉</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FASE 2 SECUNDARIA: ESTACIONES Y DILEMAS DEL PREÁMBULO -->
+      <section class="phase-section" id="sec-sec-2">
+        <div class="card">
+          <h2 class="card-title" id="sec-stations-title">⚖️ Estaciones del Preámbulo y Dilemas Morales</h2>
+          <p class="card-subtitle" id="sec-stations-desc">
+            Selecciona una obra literaria para examinar su dilema moral, reflexionar con las preguntas de debate y posicionarte en el tribunal ético:
+          </p>
+
+          <div class="sec-badge-bar" id="sec-story-selector">
+            <!-- Botones dinámicos de las 5 obras de secundaria -->
+          </div>
+
+          <div class="sec-story-view" id="sec-story-view">
+            <!-- Vista de la obra seleccionada -->
+          </div>
+
+          <div style="text-align: center; margin-top: 24px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+            <button class="btn-action btn-action-sec" id="btn-to-workshop" onclick="switchSecPhase(3)">
+              ✍️ Ir al Taller de Manifiesto Cívico 👉
+            </button>
+            <button class="btn-action" id="btn-back-sec-chest" style="background:#F1F5F9; color:var(--text-dark);" onclick="switchSecPhase(1)">
+              📦 Volver al cofre
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- FASE 3 SECUNDARIA: TALLER COMPETENCIAL DE AULA -->
+      <section class="phase-section" id="sec-sec-3">
+        <div class="card">
+          <h2 class="card-title" id="sec-workshop-title">✍️ Taller Competencial: Manifiesto Cívico y Editorial de Aula</h2>
+          <p class="card-subtitle" id="sec-workshop-desc">
+            Aplica el pensamiento crítico redactando la resolución democrática de tu grupo sobre los dilemas de dignidad, información veraz y estado de derecho:
+          </p>
+
+          <div class="workshop-form-grid">
+            <div>
+              <div class="form-group-sec">
+                <label id="lbl-manifesto-type">Modalidad de Proyecto:</label>
+                <select class="form-control-sec" id="sec-input-type" onchange="updateManifestoPreview()">
+                  <option value="editorial" id="opt-type-editorial">📰 Editorial periodístico: «Dignidad sin condiciones» (Omelas)</option>
+                  <option value="decalogo" id="opt-type-decalogo">🛡️ Decálogo cívico: «Detectores del Arenque Rojo» (Anti-Bulos)</option>
+                  <option value="manifiesto" id="opt-type-manifiesto">📚 Manifiesto de los Hombres-Libro: «Biblioteca viva» (Fahrenheit 451)</option>
+                </select>
+              </div>
+
+              <div class="form-group-sec">
+                <label id="lbl-manifesto-title">Título de la Propuesta:</label>
+                <input type="text" class="form-control-sec" id="sec-input-title" value="Dignidad sin excepciones: La voz frente a la injusticia" oninput="updateManifestoPreview()">
+              </div>
+
+              <div class="form-group-sec">
+                <label id="lbl-manifesto-team">Tribunal / Alumnado Redactor:</label>
+                <input type="text" class="form-control-sec" id="sec-input-team" value="Comisión Ética de 1.º y 2.º ESO — Alumnado de Garantías" oninput="updateManifestoPreview()">
+              </div>
+
+              <div class="form-group-sec">
+                <label id="lbl-manifesto-art">Artículo Constitucional Eje:</label>
+                <select class="form-control-sec" id="sec-input-art" onchange="updateManifestoPreview()">
+                  <option value="Art. 10 CE (Dignidad inviolable de la persona)">Art. 10 CE (Dignidad inviolable de la persona)</option>
+                  <option value="Art. 20 CE (Libertad de expresión y veracidad informativa)">Art. 20 CE (Libertad de expresión y veracidad)</option>
+                  <option value="Art. 9.1 CE (Imperio de la ley y seguridad jurídica)">Art. 9.1 CE (Imperio de la ley y justicia)</option>
+                  <option value="Preámbulo CE (Paz, convivencia y garantías democráticas)">Preámbulo CE (Convivencia pacífica y derechos)</option>
+                  <option value="Art. 44 CE (Derecho al acceso a la cultura y la ciencia)">Art. 44 CE (Acceso libre a la cultura)</option>
+                </select>
+              </div>
+
+              <div class="form-group-sec">
+                <label id="lbl-manifesto-body">Tesis Democrática / Justificación Ética:</label>
+                <textarea class="form-control-sec" id="sec-input-body" rows="3" oninput="updateManifestoPreview()">En una sociedad verdaderamente democrática no cabe el sacrificio de ningún ser humano por la comodidad o bienestar de la mayoría. La dignidad y los derechos humanos son innegociables.</textarea>
+              </div>
+
+              <div class="form-group-sec">
+                <label id="lbl-manifesto-commitments">Compromisos de Aula (3 Principios):</label>
+                <input type="text" class="form-control-sec" id="sec-input-c1" value="1. Romper el silencio ante cualquier trato indigno o acoso." oninput="updateManifestoPreview()" style="margin-bottom:6px;">
+                <input type="text" class="form-control-sec" id="sec-input-c2" value="2. Contrastar siempre las fuentes antes de difundir mensajes o rumores." oninput="updateManifestoPreview()" style="margin-bottom:6px;">
+                <input type="text" class="form-control-sec" id="sec-input-c3" value="3. Defender los libros, el libre pensamiento y el debate dialogado." oninput="updateManifestoPreview()">
+              </div>
+            </div>
+
+            <div>
+              <div class="manifesto-preview-box">
+                <div class="manifesto-preview-title" id="prev-manifesto-title">Dignidad sin excepciones: La voz frente a la injusticia</div>
+                <div class="manifesto-preview-meta" id="prev-manifesto-meta">Comisión Ética de 1.º y 2.º ESO &bull; Art. 10 CE</div>
+                <div class="manifesto-preview-content" id="prev-manifesto-body">
+                  En una sociedad verdaderamente democrática no cabe el sacrificio de ningún ser humano por la comodidad o bienestar de la mayoría. La dignidad y los derechos humanos son innegociables.
+                </div>
+                <strong style="font-size:0.85rem; color:#78350F; display:block; margin-bottom:6px;" id="prev-comp-heading">Compromisos de Acción Democrática:</strong>
+                <ol class="manifesto-preview-commitments" id="prev-manifesto-commitments">
+                  <li>Romper el silencio ante cualquier trato indigno o acoso.</li>
+                  <li>Contrastar siempre las fuentes antes de difundir mensajes o rumores.</li>
+                  <li>Defender los libros, el libre pensamiento y el debate dialogado.</li>
+                </ol>
+              </div>
+
+              <div style="margin-top: 18px; text-align: center;">
+                <button class="btn-action btn-action-sec" id="btn-to-sec-cert" onclick="switchSecPhase(4)" style="width:100%; justify-content:center;">
+                  🏅 Proceder a la Certificación Oficial 👉
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FASE 4 SECUNDARIA: CERTIFICACIÓN OFICIAL DE SECUNDARIA -->
+      <section class="phase-section" id="sec-sec-4">
+        <div class="card">
+          
+          <!-- CERTIFICADO OFICIAL SECUNDARIA -->
+          <div class="cert-secundaria" id="cert-secundaria">
+            <div class="cert-sec-header">
+              <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" class="cert-sec-logo" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'48\' viewBox=\'0 0 180 48\'><rect width=\'48\' height=\'48\' fill=\'%23C7082A\'/><text x=\'56\' y=\'20\' font-family=\'sans-serif\' font-size=\'11\' font-weight=\'bold\' fill=\'%23000\'>Comunidad</text><text x=\'56\' y=\'34\' font-family=\'sans-serif\' font-size=\'11\' font-weight=\'bold\' fill=\'%23000\'>de Madrid</text></svg>';">
+              <div class="cert-sec-institution" id="cert-sec-inst">Comunidad de Madrid</div>
+              <img src="Artefactos/insignia_reto3.png" alt="Insignia Reto 3" style="height:48px; width:auto;" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'50\' height=\'50\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%230284C7\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>⚙️</text></svg>';">
+            </div>
+
+            <h2 class="cert-sec-maintitle" id="cert-sec-title">CERTIFICADO OFICIAL DE CIUDADANÍA ACTIVA Y GARANTÍAS DEMOCRÁTICAS</h2>
+            <div class="cert-sec-subtitle" id="cert-sec-sub">Día de la Constitución Española 2026 &bull; Reto 3: El Foro de la Ciudadanía (1.º y 2.º ESO)</div>
+
+            <div class="cert-sec-award" id="cert-sec-award-text">Por la presente se certifica con distinción que el alumnado de Educación Secundaria:</div>
+            <div class="cert-sec-student" id="cert-sec-student-name" onclick="updateSecStudent()" title="Haz clic para modificar el nombre del grupo o alumno">ALUMNADO DE 1.º Y 2.º DE ESO — TRIBUNAL DE GARANTÍAS ÉTICAS</div>
+            <div class="cert-sec-school" id="cert-sec-school-name" onclick="updateSecSchool()" title="Haz clic para modificar el centro">IES COMUNIDAD DE MADRID</div>
+
+            <p class="cert-sec-body" id="cert-sec-body-text">
+              Ha superado con rigor crítico y compromiso cívico las deliberaciones éticas del <strong>Reto 3: Nuestra Constitución, cuento a cuento (Secundaria)</strong>, habiendo analizado el <strong>Preámbulo</strong> y los <strong>Artículos 9, 10, 14, 20 y 44 de la Constitución Española</strong> a través de las obras maestras de Ursula K. Le Guin, Gonzalo Moure, Jorge Luis Borges, Roberto Innocenti y Ray Bradbury, acreditando su capacidad para argumentar, defender la dignidad humana inalienable, rechazar la desinformación y proteger los valores democráticos.
+            </p>
+
+            <div class="cert-sec-pillars">
+              <div class="cert-sec-pillar-item">
+                <div class="cert-sec-pillar-icon">🗝️</div>
+                <div class="cert-sec-pillar-title" id="pill-title-1">Omelas</div>
+                <div class="cert-sec-pillar-art">Art. 10 CE</div>
+              </div>
+              <div class="cert-sec-pillar-item">
+                <div class="cert-sec-pillar-icon">🐟</div>
+                <div class="cert-sec-pillar-title" id="pill-title-2">Arenque Rojo</div>
+                <div class="cert-sec-pillar-art">Art. 20 CE</div>
+              </div>
+              <div class="cert-sec-pillar-item">
+                <div class="cert-sec-pillar-icon">📖</div>
+                <div class="cert-sec-pillar-title" id="pill-title-3">San Marcos</div>
+                <div class="cert-sec-pillar-art">Art. 9.1 CE</div>
+              </div>
+              <div class="cert-sec-pillar-item">
+                <div class="cert-sec-pillar-icon">🌹</div>
+                <div class="cert-sec-pillar-title" id="pill-title-4">Rosa Blanca</div>
+                <div class="cert-sec-pillar-art">Preámbulo CE</div>
+              </div>
+              <div class="cert-sec-pillar-item">
+                <div class="cert-sec-pillar-icon">🔥</div>
+                <div class="cert-sec-pillar-title" id="pill-title-5">Fahrenheit 451</div>
+                <div class="cert-sec-pillar-art">Art. 44 CE</div>
+              </div>
+            </div>
+
+            <div class="cert-sec-signatures">
+              <div class="cert-signature-box">
+                <div class="cert-sig-line"></div>
+                <div class="cert-sig-title" id="sec-sig-1">Profesorado / Coordinación</div>
+                <div class="cert-sig-sub" id="sec-sig-sub-1">Programa Bilingüe y Convivencia</div>
+              </div>
+              <div class="cert-sec-seal">
+                <span>MADRID</span>
+                <span style="font-size:0.5rem; color:#D4AF37;">★ 2026 ★</span>
+                <span>CIUDADANÍA</span>
+              </div>
+              <div class="cert-signature-box">
+                <div class="cert-sig-line"></div>
+                <div class="cert-sig-title" id="sec-sig-2">Representante Estudiantil</div>
+                <div class="cert-sig-sub" id="sec-sig-sub-2">Tribunal de Garantías Cívicas</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="text-align: center; margin-top: 24px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+            <button class="btn-action btn-action-primary" id="btn-print-sec" onclick="printDiplomaSecundaria()">
+              🖨️ Imprimir certificado oficial de Secundaria (A4)
+            </button>
+            <button class="btn-action btn-action-sec" id="btn-back-sec-workshop" onclick="switchSecPhase(3)">
+              ✍️ Volver al taller de manifiesto
+            </button>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <!-- PIE DE PÁGINA NORMALIZADO -->
+  <footer class="gov-footer">
+    <p id="gov-footer-inst">
+      <strong>Comunidad de Madrid</strong> &mdash; Dirección General de Bilingüismo y Calidad de la Enseñanza.
+    </p>
+    <p style="margin-top: 4px; font-size: 11.5px;" id="gov-footer-sub">
+      Recursos educativos para las Semanas Temáticas — Celebración del Día de la Constitución Española 2026.
+    </p>
+  </footer>
+
+  <!-- ========================================================
+       JAVASCRIPT: DUAL-TRACK, AUDIO, PRINT Y TRADUCCIONES
+       ======================================================== -->
+  <script>
+    /* 1. AUDIO SYNTHESIZER (WEB AUDIO API) */
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        if (type === 'click') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(520, now + 0.08);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.09);
+        } else if (type === 'chime' || type === 'correct') {
+          [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now + i * 0.08);
+            gain.gain.setValueAtTime(0.18, now + i * 0.08);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.35);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now + i * 0.08);
+            osc.stop(now + i * 0.08 + 0.36);
+          });
+        }
+      } catch (e) {}
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('btn-sound');
+      const icon = document.getElementById('sound-icon');
+      const label = document.getElementById('label-sound');
+      const t = TRANSLATIONS_R3[currentLang];
+      if (soundEnabled) {
+        btn.classList.add('active');
+        icon.innerText = '🔊';
+        label.innerText = t.labelSoundOn;
+        playSound('click');
+      } else {
+        btn.classList.remove('active');
+        icon.innerText = '🔇';
+        label.innerText = t.labelSoundOff;
+      }
+    }
+
+    /* 2. DUAL-TRACK STAGE SELECTOR */
+    let currentTrack = 'infantil'; // 'infantil' | 'secundaria'
+
+    function switchTrack(stage) {
+      currentTrack = stage;
+      playSound('click');
+
+      const heroBanner = document.getElementById('hero-banner');
+      const btnInf = document.getElementById('btn-stage-infantil');
+      const btnSec = document.getElementById('btn-stage-secundaria');
+      const trackInf = document.getElementById('track-infantil');
+      const trackSec = document.getElementById('track-secundaria');
+
+      if (stage === 'infantil') {
+        btnInf.classList.add('active');
+        btnSec.classList.remove('active');
+        trackInf.style.display = 'block';
+        trackSec.style.display = 'none';
+        heroBanner.classList.remove('theme-secundaria');
+      } else {
+        btnSec.classList.add('active');
+        btnInf.classList.remove('active');
+        trackSec.style.display = 'block';
+        trackInf.style.display = 'none';
+        heroBanner.classList.add('theme-secundaria');
+      }
+
+      applyTrackTexts();
+    }
+
+    function applyTrackTexts() {
+      const t = TRANSLATIONS_R3[currentLang];
+      if (currentTrack === 'infantil') {
+        document.getElementById('hero-badge-pill').innerText = t.heroBadgePillInf;
+        document.getElementById('hero-title').innerText = t.heroTitleInf;
+        document.getElementById('hero-subtitle').innerText = t.heroSubInf;
+        document.getElementById('meta-dest').innerText = t.metaDestInf;
+        document.getElementById('meta-cuentos').innerText = t.metaCuentosInf;
+        document.getElementById('meta-mural').innerText = t.metaMuralInf;
+      } else {
+        document.getElementById('hero-badge-pill').innerText = t.heroBadgePillSec;
+        document.getElementById('hero-title').innerText = t.heroTitleSec;
+        document.getElementById('hero-subtitle').innerText = t.heroSubSec;
+        document.getElementById('meta-dest').innerText = t.metaDestSec;
+        document.getElementById('meta-cuentos').innerText = t.metaCuentosSec;
+        document.getElementById('meta-mural').innerText = t.metaMuralSec;
+      }
+    }
+
+    /* 3. BASE DE DATOS DE CONTENIDO - ETAPA INFANTIL (BILINGÜE) */
+    const INFANTIL_STORIES = [
+      {
+        id: 1,
+        title: "1. El cazo de Lorenzo",
+        titleEn: "1. Lorenzo's Saucepan",
+        author: "Isabelle Carrier",
+        art: "Art. 14 CE (Diversidad y accesibilidad)",
+        artEn: "Art. 14 SC (Diversity & Accessibility)",
+        val: "Diversidad y apoyo",
+        valEn: "Diversity & Support",
+        icon: "🥄",
+        objName: "El cazo de hojalata",
+        objNameEn: "The Tin Saucepan",
+        pre: "Lorenzo arrastra un cazo que a veces le pesa y se le atasca, pero gracias al cariño y las adaptaciones aprende a convivir con él.",
+        preEn: "Lorenzo drags a saucepan that is sometimes heavy and gets stuck, but with affection and adjustments he learns to live with it.",
+        q: "Si un compañero lleva un 'cazo' o le cuesta más subir las escaleras, ¿qué hacemos?",
+        qEn: "If a classmate carries a 'saucepan' or struggles to climb the stairs, what should we do?",
+        opts: [
+          { text: "Le ayudamos entre todos y adaptamos el aula con rampas", textEn: "We all help each other and adapt the school with ramps", correct: true },
+          { text: "Le decimos que se quede en casa", textEn: "We tell him to stay at home", correct: false }
+        ]
+      },
+      {
+        id: 2,
+        title: "2. Por cuatro esquinitas de nada",
+        titleEn: "2. Four Little Corners of Nothing",
+        author: "Jérôme Ruillier",
+        art: "Art. 14 CE (Inclusión y no discriminación)",
+        artEn: "Art. 14 SC (Inclusion & Non-discrimination)",
+        val: "Inclusión activa",
+        valEn: "Active Inclusion",
+        icon: "🔲",
+        objName: "Las 4 esquinitas",
+        objNameEn: "The 4 Corners",
+        pre: "Cuadradito quiere jugar en la casa redonda, pero no entra por la puerta. ¿Hay que cortarle las esquinas o cambiar la puerta?",
+        preEn: "Little Square wants to play in the round house, but doesn't fit through the door. Should we cut his corners or change the door?",
+        q: "Para que Cuadradito pueda entrar a jugar con los Redonditos, ¿cuál es la solución correcta?",
+        qEn: "For Little Square to play with the Little Rounds, what is the right solution?",
+        opts: [
+          { text: "Recortar la puerta para que todos quepan sin cortarle las esquinas a nadie", textEn: "Enlarge the door so everyone fits without cutting anyone's corners", correct: true },
+          { text: "Cortarle las esquinas a Cuadradito", textEn: "Cut Little Square's corners", correct: false }
+        ]
+      },
+      {
+        id: 3,
+        title: "3. ¿Qué hace falta?",
+        titleEn: "3. What Does It Take?",
+        author: "Gianni Rodari",
+        art: "Art. 45 CE (Medio ambiente y planeta)",
+        artEn: "Art. 45 SC (Environment & Planet)",
+        val: "Cuidado del planeta",
+        valEn: "Caring for the Planet",
+        icon: "🌱",
+        objName: "La flor y la semilla",
+        objNameEn: "The Flower & The Seed",
+        pre: "Para hacer una mesa hace falta madera, para la madera un árbol, para el árbol una semilla... para todo hace falta una flor.",
+        preEn: "To make a table you need wood, for wood a tree, for a tree a seed... for everything you need a flower.",
+        q: "¿Por qué la Constitución nos pide proteger los árboles, mares y flores?",
+        qEn: "Why does the Constitution ask us to protect trees, seas, and flowers?",
+        opts: [
+          { text: "Porque la naturaleza cuida la vida y la salud de todas las personas", textEn: "Because nature sustains the life and health of all people", correct: true },
+          { text: "Porque da igual ensuciar", textEn: "Because polluting does not matter", correct: false }
+        ]
+      },
+      {
+        id: 4,
+        title: "4. El enemigo",
+        titleEn: "4. The Enemy",
+        author: "Davide Cali y Serge Bloch",
+        art: "Art. 10 y Preámbulo CE (Paz y diálogo)",
+        artEn: "Art. 10 & Preamble SC (Peace & Dialogue)",
+        val: "Paz y diálogo",
+        valEn: "Peace & Dialogue",
+        icon: "🕊️",
+        objName: "La carta de paz",
+        objNameEn: "The Peace Letter",
+        pre: "Dos soldados en trincheras opuestas descubren que el otro también ama a su familia, tiene miedos y desea la paz.",
+        preEn: "Two soldiers in opposing trenches discover that the other also loves their family, feels fear, and longs for peace.",
+        q: "Cuando dos compañeros se enfadan en el patio, ¿cómo se soluciona según la Constitución?",
+        qEn: "When two classmates argue in the playground, how is it solved according to the Constitution?",
+        opts: [
+          { text: "Hablando con calma y buscando un acuerdo de paz", textEn: "Speaking calmly and seeking a peaceful agreement", correct: true },
+          { text: "Gritando más fuerte", textEn: "Shouting louder", correct: false }
+        ]
+      },
+      {
+        id: 5,
+        title: "5. La vaca que puso un huevo",
+        titleEn: "5. The Cow That Laid an Egg",
+        author: "Andy Cutbill",
+        art: "Art. 10.1 CE (Libre desarrollo de la personalidad)",
+        artEn: "Art. 10.1 SC (Free Development of Personality)",
+        val: "Identidad y autoestima",
+        valEn: "Identity & Self-esteem",
+        icon: "🐮",
+        objName: "El huevo de Macarena",
+        objNameEn: "Marjorie's Egg",
+        pre: "La vaca Macarena se siente triste hasta que descubre que ser diferente la hace única y querida.",
+        preEn: "Marjorie the cow feels sad until she discovers that being different makes her unique and cherished.",
+        q: "¿Qué derecho garantiza la Constitución a cada niño y niña?",
+        qEn: "What right does the Constitution guarantee to every child?",
+        opts: [
+          { text: "El derecho a ser uno mismo con respeto, cariño y libertad", textEn: "The right to be oneself with respect, warmth, and freedom", correct: true },
+          { text: "La obligación de ser todos idénticos", textEn: "The obligation for everyone to be identical", correct: false }
+        ]
+      }
+    ];
+
+    let currentStoryId = 1;
+    let unlockedInfantilValues = [1];
+    let chestOpen = false;
+
+    function toggleChest() {
+      chestOpen = !chestOpen;
+      playSound('chime');
+      renderChestObjects();
+    }
+
+    function renderChestObjects() {
+      const container = document.getElementById('objects-grid');
+      container.innerHTML = '';
+      const isEn = (currentLang === 'en');
+      INFANTIL_STORIES.forEach(s => {
+        const isUnlocked = unlockedInfantilValues.includes(s.id);
+        const card = document.createElement('div');
+        card.className = 'obj-card' + (isUnlocked ? ' unlocked' : '');
+        card.onclick = () => { selectStory(s.id); switchPhase(2); };
+        card.innerHTML = `
+          <div class="obj-icon">${chestOpen || isUnlocked ? s.icon : '🔒'}</div>
+          <div class="obj-name">${isEn ? s.objNameEn : s.objName}</div>
+          <div class="obj-value-tag">${isEn ? s.valEn : s.val}</div>
+          <div class="obj-story-ref">${isEn ? s.titleEn : s.title}</div>
+        `;
+        container.appendChild(card);
+      });
+
+      const chestBox = document.getElementById('chest-box');
+      const statusText = document.getElementById('chest-status-text');
+      const subText = document.getElementById('chest-sub-text');
+      const t = TRANSLATIONS_R3[currentLang];
+      if (chestOpen) {
+        chestBox.innerText = '✨🎁✨';
+        statusText.innerText = t.chestOpenedStatus;
+        subText.innerText = t.chestOpenedSub;
+      } else {
+        chestBox.innerText = '🎁';
+        statusText.innerText = t.chestClosedStatus;
+        subText.innerText = t.chestClosedSub;
+      }
+    }
+
+    function renderStoryTabs() {
+      const bar = document.getElementById('story-select-bar');
+      bar.innerHTML = '';
+      const isEn = (currentLang === 'en');
+      INFANTIL_STORIES.forEach(s => {
+        const pill = document.createElement('button');
+        pill.className = 'story-tab-pill' + (s.id === currentStoryId ? ' active' : '');
+        pill.onclick = () => selectStory(s.id);
+        pill.innerHTML = `<span>${s.icon}</span> <span>${isEn ? s.titleEn : s.title}</span>`;
+        bar.appendChild(pill);
+      });
+    }
+
+    function selectStory(id) {
+      currentStoryId = id;
+      playSound('click');
+      renderStoryTabs();
+      renderStoryStation();
+    }
+
+    function renderStoryStation() {
+      const s = INFANTIL_STORIES.find(item => item.id === currentStoryId) || INFANTIL_STORIES[0];
+      const card = document.getElementById('story-station-card');
+      const isEn = (currentLang === 'en');
+      const t = TRANSLATIONS_R3[currentLang];
+
+      card.innerHTML = `
+        <div class="story-station-header">
+          <div>
+            <span style="font-size:2rem; margin-right:8px;">${s.icon}</span>
+            <span style="font-size:1.3rem; font-weight:800; color:var(--text-dark);">${isEn ? s.titleEn : s.title}</span>
+            <div style="font-size:0.85rem; color:var(--text-muted); font-weight:700;">${isEn ? 'Author' : 'Autoría'}: ${s.author}</div>
+          </div>
+          <span class="story-art-badge">${isEn ? s.artEn : s.art}</span>
+        </div>
+
+        <div class="story-steps-grid">
+          <div class="step-box">
+            <h4>${t.stepMoment}</h4>
+            <p>${isEn ? s.preEn : s.pre}</p>
+          </div>
+          <div class="step-box">
+            <h4>${t.stepObj}</h4>
+            <p><strong>${isEn ? s.objNameEn : s.objName}</strong>: ${t.stepObjDesc}</p>
+          </div>
+        </div>
+
+        <div class="minigame-box">
+          <div class="minigame-q">${t.minigameQPrefix} ${isEn ? s.qEn : s.q}</div>
+          <div class="minigame-options">
+            ${s.opts.map((opt, idx) => `
+              <button class="btn-option" onclick="handleMiniOption(${s.id}, ${opt.correct}, this)">
+                ${isEn ? opt.textEn : opt.text}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function handleMiniOption(storyId, isCorrect, btn) {
+      const isEn = (currentLang === 'en');
+      if (isCorrect) {
+        playSound('correct');
+        btn.classList.add('correct');
+        btn.innerText = (isEn ? '✅ CORRECT! ' : '✅ ¡CORRECTO! ') + btn.innerText;
+        if (!unlockedInfantilValues.includes(storyId)) {
+          unlockedInfantilValues.push(storyId);
+          updateGlobalProgress();
+          renderChestObjects();
+          renderMuralStamps();
+        }
+      } else {
+        playSound('click');
+        btn.style.borderColor = '#F87171';
+        btn.style.background = '#FEF2F2';
+      }
+    }
+
+    function renderMuralStamps() {
+      const grid = document.getElementById('book-pages-grid');
+      grid.innerHTML = '';
+      const isEn = (currentLang === 'en');
+      const t = TRANSLATIONS_R3[currentLang];
+      INFANTIL_STORIES.forEach(s => {
+        const stamped = unlockedInfantilValues.includes(s.id);
+        const stamp = document.createElement('div');
+        stamp.className = 'book-stamp-card' + (stamped ? ' stamped' : '');
+        stamp.innerHTML = `
+          <div class="stamp-symbol">${stamped ? s.icon : '❓'}</div>
+          <div class="stamp-title">${isEn ? s.valEn : s.val}</div>
+          <span class="stamp-badge">${stamped ? t.stampAchieved : t.stampPending}</span>
+        `;
+        grid.appendChild(stamp);
+      });
+    }
+
+    function completeAllStoriesAndUnlock() {
+      unlockedInfantilValues = [1, 2, 3, 4, 5];
+      playSound('chime');
+      updateGlobalProgress();
+      renderChestObjects();
+      renderMuralStamps();
+    }
+
+    function updateGlobalProgress() {
+      const count = unlockedInfantilValues.length;
+      const pct = (count / 5) * 100;
+      document.getElementById('progress-fill').style.width = pct + '%';
+      document.getElementById('progress-percent').innerText = `${count} / 5`;
+      const t = TRANSLATIONS_R3[currentLang];
+      if (count === 5) {
+        document.getElementById('badge-status-top').innerText = t.badgeStatusSuperado;
+      }
+    }
+
+    function switchPhase(num) {
+      playSound('click');
+      for (let i = 1; i <= 4; i++) {
+        const sec = document.getElementById(`sec-${i}`);
+        const tab = document.getElementById(`tab-${i}`);
+        if (sec && tab) {
+          if (i === num) {
+            sec.classList.add('active');
+            tab.classList.add('active');
+          } else {
+            sec.classList.remove('active');
+            tab.classList.remove('active');
+          }
+        }
+      }
+    }
+
+    function updateInfantilClass() {
+      const current = document.getElementById('cert-child-name').innerText;
+      const newName = prompt(currentLang === 'es' ? 'Introduce el nombre de la clase o estudiante:' : 'Enter classroom or student name:', current);
+      if (newName && newName.trim()) {
+        document.getElementById('cert-child-name').innerText = newName.trim();
+      }
+    }
+
+    /* 4. BASE DE DATOS DE CONTENIDO - ETAPA SECUNDARIA (1º y 2º ESO) (BILINGÜE) */
+    const SEC_STORIES = [
+      {
+        id: 1,
+        title: "Los que se alejan de Omelas",
+        titleEn: "The Ones Who Walk Away from Omelas",
+        author: "Ursula K. Le Guin",
+        objName: "La Llave Antigua",
+        objNameEn: "The Ancient Key",
+        objIcon: "🗝️",
+        art: "Preámbulo y Art. 10 CE",
+        artEn: "Preamble & Art. 10 SC",
+        artLabel: "Dignidad humana inalienable",
+        artLabelEn: "Inalienable Human Dignity",
+        synopsis: "Omelas es una ciudad donde todo es armonía, festejos y riqueza. Sin embargo, toda su prosperidad depende de un pacto silencioso: mantener a un niño inocente encerrado en un sótano miserable. Algunos ciudadanos, al conocer la verdad, deciden marcharse y no volver jamás.",
+        synopsisEn: "Omelas is a city where everything is harmony, joy, and prosperity. Yet its happiness rests on a silent bargain: an innocent child must be kept suffering in a dark basement. Some citizens, upon seeing this, walk away and never return.",
+        dilemma: "¿Es moral la felicidad y prosperidad de una ciudad entera al precio de sacrificar los derechos y la dignidad de un inocente?",
+        dilemmaEn: "Is the prosperity and joy of an entire city morally defensible if its unavoidable cost is the misery and suffering of an innocent child?",
+        debates: [
+          "¿Existen derechos individuales que jamás deban sacrificarse por la conveniencia de la mayoría?",
+          "¿Por qué los que se marchan deciden abandonar Omelas en lugar de quedarse y disfrutar del bienestar colectivo?",
+          "¿Qué paralelismos encuentras entre el sótano de Omelas y las desigualdades en el mundo contemporáneo?"
+        ],
+        debatesEn: [
+          "Are there individual rights that must never be sacrificed for the convenience of the majority?",
+          "Why do those who leave choose to walk away instead of staying and enjoying collective prosperity?",
+          "What parallels do you find between the basement of Omelas and inequalities in the modern world?"
+        ],
+        voteQ: "Tribunal Ético: ¿Qué dictamen emite la Constitución Española ante el dilema de Omelas?",
+        voteQEn: "Ethical Tribunal: What ruling does the Spanish Constitution issue regarding Omelas?",
+        voteOpts: [
+          { text: "Aceptar el sacrificio del inocente, porque la mayoría vive feliz.", textEn: "Accept the sacrifice of the innocent, because the majority lives happily.", correct: false, feedback: "Incorrecto. El Artículo 10 de la Constitución establece que la dignidad humana es inviolable y no admite excepciones utilitaristas.", feedbackEn: "Incorrect. Article 10 establishes that human dignity is inviolable and admits no utilitarian exceptions." },
+          { text: "Rechazar categóricamente el modelo: la dignidad de cada persona es un fin en sí misma.", textEn: "Categorically reject the model: each person's dignity is an end in itself.", correct: true, feedback: "¡Correcto! En el Estado social y democrático de Derecho, ningún ciudadano puede ser utilizado como instrumento para el bienestar ajeno.", feedbackEn: "Correct! In a social and democratic State of Law, no person can be used as an instrument for another's welfare." }
+        ]
+      },
+      {
+        id: 2,
+        title: "El arenque rojo",
+        titleEn: "The Red Herring",
+        author: "Gonzalo Moure y Alicia Varela",
+        objName: "El Pez Rojo (Arenque Ahumado)",
+        objNameEn: "The Red Fish (Smoked Herring)",
+        objIcon: "🐟",
+        art: "Art. 20.1.d CE",
+        artEn: "Art. 20.1.d SC",
+        artLabel: "Información veraz y espíritu crítico",
+        artLabelEn: "Truthful Information & Critical Mind",
+        synopsis: "Un libro álbum sin palabras que muestra la vida cruzada de decenas de personas en un parque. En cada página aparece un arenque rojo: una pista deliberadamente falsa para distraer la mirada y generar prejuicios apresurados sobre las vidas ajenas.",
+        synopsisEn: "A wordless picture book showcasing intersecting lives in a park. On every page swims a red herring: a deliberate false trail to divert our eyes and trigger hasty prejudices.",
+        dilemma: "¿Cómo condicionan nuestras primeras impresiones y las noticias falsas la imagen que nos formamos de los demás?",
+        dilemmaEn: "How do first impressions and false news warp our understanding of the people around us?",
+        debates: [
+          "¿Por qué resulta tan tentador creer un bulo o una pista falsa antes que contrastar la verdad?",
+          "¿Qué responsabilidad cívica tenemos al compartir publicaciones no verificadas en redes sociales?",
+          "¿Cómo protege el derecho a recibir información veraz (Art. 20) la salud de una democracia?"
+        ],
+        debatesEn: [
+          "Why is it so tempting to believe a rumor or false trail instead of verifying the truth?",
+          "What civic responsibility do we bear when sharing unverified posts on social media?",
+          "How does the right to truthful information (Art. 20) protect the health of a democracy?"
+        ],
+        voteQ: "Tribunal Ético: Al recibir una noticia sensacionalista sobre un colectivo sin contrastar fuentes:",
+        voteQEn: "Ethical Tribunal: When receiving a sensationalist claim about a group without verifying sources:",
+        voteOpts: [
+          { text: "Difundirla inmediatamente para ganar notoriedad en redes.", textEn: "Share it immediately to gain attention on social media.", correct: false, feedback: "Incorrecto. La desinformación y el clic fácil debilitan la convivencia democrática y vulneran el rigor informativo.", feedbackEn: "Incorrect. Disinformation and clickbait erode democratic coexistence and breach journalistic integrity." },
+          { text: "Detener la cadena, contrastar en fuentes fiables y aplicar el espíritu crítico.", textEn: "Stop the chain, verify through reliable sources, and apply critical judgment.", correct: true, feedback: "¡Excelente! El Artículo 20 protege la información veraz; combatir los bulos es un deber de ciudadanía activa.", feedbackEn: "Excellent! Article 20 protects truthful information; fact-checking is a core civic duty." }
+        ]
+      },
+      {
+        id: 3,
+        title: "El evangelio según San Marcos",
+        titleEn: "The Gospel According to Mark",
+        author: "Jorge Luis Borges",
+        objName: "El Libro Sobrio (Código Legal)",
+        objNameEn: "The Sober Book (Legal Code)",
+        objIcon: "📖",
+        art: "Preámbulo y Art. 9.1 CE",
+        artEn: "Preamble & Art. 9.1 SC",
+        artLabel: "Imperio de la ley y espíritu democrático",
+        artLabelEn: "Rule of Law & Democratic Spirit",
+        synopsis: "Espinosa queda aislado por una inundación con una familia analfabeta y les lee las Escrituras todas las noches. Ellos asimilan el texto de manera absolutamente literal y dogmática, preparando para él un trágico destino sacrificial sin comprender el mensaje moral profundo.",
+        synopsisEn: "Espinosa is stranded by a flood with an illiterate rural family and reads scriptures to them every night. They interpret the text with rigid, literal dogmatism, leading toward a sacrificial tragedy without understanding its humanitarian spirit.",
+        dilemma: "¿Qué ocurre cuando una norma o texto se interpreta de manera literal y fanática sin comprender el espíritu humanista de la ley?",
+        dilemmaEn: "What happens when a rule or legal text is interpreted fanatically and literally without grasping the humanist spirit of justice?",
+        debates: [
+          "¿Basta con aplicar la letra de una norma si se pervierte su propósito de justicia y derechos humanos?",
+          "¿Cómo protege el ordenamiento constitucional frente al dogmatismo y el fanatismo de grupo?",
+          "¿Cuál es la diferencia entre el cumplimiento ciego y la comprensión crítica de las normas de convivencia escolar?"
+        ],
+        debatesEn: [
+          "Is following the letter of a rule enough if its underlying purpose of justice and human rights is perverted?",
+          "How does the constitutional framework protect against group dogmatism and extremism?",
+          "What is the difference between blind compliance and critical understanding of school coexistence rules?"
+        ],
+        voteQ: "Tribunal Ético: En la aplicación de las normas de convivencia escolar:",
+        voteQEn: "Ethical Tribunal: In applying school coexistence regulations:",
+        voteOpts: [
+          { text: "Aplicar sanciones mecánicas y rígidas sin atender a las circunstancias de las personas.", textEn: "Apply rigid, mechanical penalties without considering human circumstances.", correct: false, feedback: "Incorrecto. La justicia democrática requiere proporcionalidad, equidad y respeto a la persona.", feedbackEn: "Incorrect. Democratic justice requires proportionality, fairness, and respect for the individual." },
+          { text: "Interpretar la norma con equidad, salvaguardando siempre los derechos y el fin educativo.", textEn: "Interpret rules with equity, always safeguarding human rights and educational goals.", correct: true, feedback: "¡Correcto! El imperio de la ley (Art. 9.1) se fundamenta en la justicia, la libertad y el respeto mutuo.", feedbackEn: "Correct! The rule of law (Art. 9.1) is founded on justice, freedom, and mutual respect." }
+        ]
+      },
+      {
+        id: 4,
+        title: "Rosa Blanca",
+        titleEn: "Rose Blanche",
+        author: "Roberto Innocenti",
+        objName: "La Rosa Blanca",
+        objNameEn: "The White Rose",
+        objIcon: "🌹",
+        art: "Preámbulo y Art. 10 CE",
+        artEn: "Preamble & Art. 10 SC",
+        artLabel: "Paz y memoria democrática",
+        artLabelEn: "Peace & Democratic Memory",
+        synopsis: "En una pequeña ciudad en tiempos de guerra, la niña Rosa Blanca descubre un campo de prisioneros oculto en el bosque. Sin dudarlo, burla la vigilancia para llevar comida a los niños cautivos, encarnando el coraje moral frente a la indiferencia cómplice de los adultos.",
+        synopsisEn: "In a wartime town, the young girl Rose Blanche discovers a barbed-wire prison camp hidden in the forest. Courageously, she slips through surveillance to bring food to the captive children, defying adult indifference.",
+        dilemma: "Cuando somos testigos de una injusticia o discriminación, ¿el silencio y la neutralidad nos convierten en cómplices?",
+        dilemmaEn: "When we witness injustice or discrimination, does silence and neutrality make us complicit?",
+        debates: [
+          "¿Qué diferencia a un testigo pasivo de una persona con coraje cívico?",
+          "¿Cómo podemos alzar la voz en nuestro instituto ante situaciones de acoso o exclusión cotidiana?",
+          "¿Por qué la memoria democrática es indispensable para no repetir las tragedias de la intolerancia?"
+        ],
+        debatesEn: [
+          "What separates a passive bystander from a person with civic moral courage?",
+          "How can we raise our voices against everyday bullying or discrimination in our schools?",
+          "Why is democratic memory essential to avoid repeating the tragedies of intolerance?"
+        ],
+        voteQ: "Tribunal Ético: Ante una agresión o exclusión en el entorno escolar:",
+        voteQEn: "Ethical Tribunal: When witnessing bullying or exclusion at school:",
+        voteOpts: [
+          { text: "Mirar hacia otro lado para evitar problemas personales.", textEn: "Look away to avoid getting into trouble.", correct: false, feedback: "Incorrecto. La indiferencia perpetúa la agresión y destruye el clima de convivencia segura.", feedbackEn: "Incorrect. Indifference perpetuates harm and destroys a safe community." },
+          { text: "Apoyar a la persona vulnerable y acudir a la mediación de convivencia.", textEn: "Support the vulnerable peer and reach out to school mediation.", correct: true, feedback: "¡Brillante! La defensa activa de los derechos humanos y la empatía constituyen el núcleo del Preámbulo Constitucional.", feedbackEn: "Brilliant! Active defense of human rights and empathy form the core of our Constitutional Preamble." }
+        ]
+      },
+      {
+        id: 5,
+        title: "Fahrenheit 451",
+        titleEn: "Fahrenheit 451",
+        author: "Ray Bradbury",
+        objName: "La Caja de Cerillas (El Libro Salvado)",
+        objNameEn: "The Matchbox (The Rescued Book)",
+        objIcon: "🔥",
+        art: "Arts. 20 y 44 CE",
+        artEn: "Arts. 20 & 44 SC",
+        artLabel: "Libre pensamiento y acceso a la cultura",
+        artLabelEn: "Free Speech & Access to Culture",
+        synopsis: "En una sociedad futura, los bomberos queman libros porque leer hace pensar y dudar, amenazando la felicidad obligatoria del entretenimiento superficial. Un grupo de rebeldes decide memorizar libros enteros para preservarlos en su mente como «hombres-libro».",
+        synopsisEn: "In a future society, firemen burn books because reading fosters critical questioning, disrupting the enforced tranquility of shallow screens. Rebels memorize entire books to preserve them in memory as living 'book-people'.",
+        dilemma: "En un mundo dominado por pantallas inmediatas, ¿somos verdaderamente libres si dejamos morir los libros y el pensamiento pausado?",
+        dilemmaEn: "In a world overwhelmed by immediate screens, are we truly free if we let books and deep contemplation die?",
+        debates: [
+          "Si nadie nos prohíbe leer pero nadie lee por comodidad, ¿no se ha logrado la misma censura?",
+          "¿Qué significa ser 'guardianes de la cultura' hoy en las aulas de secundaria?",
+          "¿Qué libro salvarías tú para transmitirlo a las generaciones futuras y por qué?"
+        ],
+        debatesEn: [
+          "If no one forbids us to read but no one reads out of convenience, hasn't censorship still won?",
+          "What does it mean to be 'guardians of culture' in secondary classrooms today?",
+          "What book would you save to pass on to future generations and why?"
+        ],
+        voteQ: "Tribunal Ético: Sobre el derecho al acceso universal a la cultura (Art. 44):",
+        voteQEn: "Ethical Tribunal: Regarding the right to universal access to culture (Art. 44):",
+        voteOpts: [
+          { text: "Considerar la lectura un mero pasatiempo prescindible.", textEn: "Consider reading a mere dispensable hobby.", correct: false, feedback: "Incorrecto. La cultura y el pensamiento crítico son garantías fundamentales para el ejercicio libre de la ciudadanía.", feedbackEn: "Incorrect. Culture and critical thought are vital pillars for the free exercise of citizenship." },
+          { text: "Garantizar y proteger activamente el acceso público al saber, bibliotecas y libre creación.", textEn: "Actively guarantee and protect public access to knowledge, libraries, and artistic creation.", correct: true, feedback: "¡Exacto! Los Artículos 20 y 44 consagran la libre producción cultural y el derecho irrenunciable al conocimiento.", feedbackEn: "Exactly! Articles 20 and 44 enshrine free cultural creation and the inalienable right to knowledge." }
+        ]
+      }
+    ];
+
+    let currentSecStoryId = 1;
+    let unlockedSecValues = [1];
+
+    function renderSecChestObjects() {
+      const container = document.getElementById('sec-objects-grid');
+      container.innerHTML = '';
+      const isEn = (currentLang === 'en');
+      SEC_STORIES.forEach(s => {
+        const isUnlocked = unlockedSecValues.includes(s.id);
+        const card = document.createElement('div');
+        card.className = 'obj-card' + (isUnlocked ? ' unlocked' : '');
+        card.onclick = () => { selectSecStory(s.id); switchSecPhase(2); };
+        card.innerHTML = `
+          <div class="obj-icon">${s.objIcon}</div>
+          <div class="obj-name">${isEn ? s.objNameEn : s.objName}</div>
+          <div class="obj-value-tag" style="background:#F0FDFA; color:var(--sec-teal);">${isEn ? s.artLabelEn : s.artLabel}</div>
+          <div class="obj-story-ref">${isEn ? s.titleEn : s.title} (${s.author})</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderSecStoryTabs() {
+      const bar = document.getElementById('sec-story-selector');
+      bar.innerHTML = '';
+      const isEn = (currentLang === 'en');
+      SEC_STORIES.forEach(s => {
+        const pill = document.createElement('button');
+        pill.className = 'sec-tab-pill' + (s.id === currentSecStoryId ? ' active' : '');
+        pill.onclick = () => selectSecStory(s.id);
+        pill.innerHTML = `<span>${s.objIcon}</span> <span>${s.id}. ${isEn ? s.titleEn : s.title}</span>`;
+        bar.appendChild(pill);
+      });
+    }
+
+    function selectSecStory(id) {
+      currentSecStoryId = id;
+      playSound('click');
+      renderSecStoryTabs();
+      renderSecStoryStation();
+    }
+
+    function renderSecStoryStation() {
+      const s = SEC_STORIES.find(item => item.id === currentSecStoryId) || SEC_STORIES[0];
+      const view = document.getElementById('sec-story-view');
+      const isEn = (currentLang === 'en');
+      const t = TRANSLATIONS_R3[currentLang];
+
+      view.innerHTML = `
+        <div class="sec-story-header">
+          <div class="sec-story-titles">
+            <h3>${s.objIcon} ${isEn ? s.titleEn : s.title}</h3>
+            <div class="sec-story-author">${isEn ? 'Work by' : 'Obra de'} ${s.author} &bull; ${isEn ? 'Object' : 'Objeto'}: ${isEn ? s.objNameEn : s.objName}</div>
+          </div>
+          <span class="sec-article-pill">${isEn ? s.artEn : s.art}</span>
+        </div>
+
+        <div style="font-size:0.95rem; line-height:1.5; color:var(--text-dark); margin-bottom:18px;">
+          <strong>${isEn ? 'Literary context' : 'Contexto literario'}:</strong> ${isEn ? s.synopsisEn : s.synopsis}
+        </div>
+
+        <div class="sec-dilemma-card">
+          <div class="sec-dilemma-badge">${t.dilemmaBadge}</div>
+          <div class="sec-dilemma-text">${isEn ? s.dilemmaEn : s.dilemma}</div>
+        </div>
+
+        <div class="sec-debate-box">
+          <h4>${t.debateHeading}</h4>
+          <ul class="sec-debate-list">
+            ${(isEn ? s.debatesEn : s.debates).map(d => `<li>${d}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="sec-vote-simulator">
+          <div class="sec-vote-q">🏛️ ${isEn ? s.voteQEn : s.voteQ}</div>
+          ${s.voteOpts.map((opt, idx) => `
+            <button class="sec-vote-btn" onclick="handleSecVote(${s.id}, ${opt.correct}, '${(isEn ? opt.feedbackEn : opt.feedback).replace(/'/g, "\\'")}', this)">
+              ${isEn ? opt.textEn : opt.text}
+            </button>
+          `).join('')}
+          <div class="sec-feedback-box" id="sec-fb-${s.id}"></div>
+        </div>
+
+        <div style="text-align:right;">
+          <button class="btn-action btn-action-sec" onclick="markSecComplete(${s.id})">
+            ${t.btnValidateSec}
+          </button>
+        </div>
+      `;
+    }
+
+    function handleSecVote(storyId, isCorrect, feedback, btn) {
+      const parent = btn.parentElement;
+      const allBtns = parent.querySelectorAll('.sec-vote-btn');
+      allBtns.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+
+      const fbBox = document.getElementById(`sec-fb-${storyId}`);
+      fbBox.style.display = 'block';
+      fbBox.innerHTML = (isCorrect ? '✅ ' : '⚠️ ') + feedback;
+
+      if (isCorrect) {
+        playSound('correct');
+        fbBox.style.background = '#F0FDF4';
+        fbBox.style.borderColor = '#86EFAC';
+        fbBox.style.color = '#166534';
+        markSecComplete(storyId);
+      } else {
+        playSound('click');
+        fbBox.style.background = '#FEF2F2';
+        fbBox.style.borderColor = '#FECACA';
+        fbBox.style.color = '#991B1B';
+      }
+    }
+
+    function markSecComplete(storyId) {
+      if (!unlockedSecValues.includes(storyId)) {
+        unlockedSecValues.push(storyId);
+        playSound('chime');
+        updateSecProgress();
+        renderSecChestObjects();
+      }
+    }
+
+    function updateSecProgress() {
+      const count = unlockedSecValues.length;
+      const pct = (count / 5) * 100;
+      document.getElementById('sec-progress-fill').style.width = pct + '%';
+      document.getElementById('sec-progress-percent').innerText = `${count} / 5`;
+    }
+
+    function switchSecPhase(num) {
+      playSound('click');
+      for (let i = 1; i <= 4; i++) {
+        const sec = document.getElementById(`sec-sec-${i}`);
+        const tab = document.getElementById(`tab-sec-${i}`);
+        if (sec && tab) {
+          if (i === num) {
+            sec.classList.add('active');
+            tab.classList.add('active');
+            tab.classList.add('active-sec');
+          } else {
+            sec.classList.remove('active');
+            tab.classList.remove('active');
+            tab.classList.remove('active-sec');
+          }
+        }
+      }
+    }
+
+    function updateManifestoPreview() {
+      const title = document.getElementById('sec-input-title').value;
+      const team = document.getElementById('sec-input-team').value;
+      const art = document.getElementById('sec-input-art').value;
+      const body = document.getElementById('sec-input-body').value;
+      const c1 = document.getElementById('sec-input-c1').value;
+      const c2 = document.getElementById('sec-input-c2').value;
+      const c3 = document.getElementById('sec-input-c3').value;
+      const isEn = (currentLang === 'en');
+
+      document.getElementById('prev-manifesto-title').innerText = title || (isEn ? 'Classroom Democratic Resolution' : 'Resolución Democrática de Aula');
+      document.getElementById('prev-manifesto-meta').innerText = `${team} • ${art}`;
+      document.getElementById('prev-manifesto-body').innerText = body;
+
+      const list = document.getElementById('prev-manifesto-commitments');
+      list.innerHTML = `
+        <li>${c1}</li>
+        <li>${c2}</li>
+        <li>${c3}</li>
+      `;
+    }
+
+    function updateSecStudent() {
+      const current = document.getElementById('cert-sec-student-name').innerText;
+      const res = prompt(currentLang === 'es' ? 'Introduce el nombre del grupo o alumno/a:' : 'Enter group or student name:', current);
+      if (res && res.trim()) {
+        document.getElementById('cert-sec-student-name').innerText = res.trim();
+      }
+    }
+
+    function updateSecSchool() {
+      const current = document.getElementById('cert-sec-school-name').innerText;
+      const res = prompt(currentLang === 'es' ? 'Introduce el nombre del centro educativo (IES):' : 'Enter school name (IES):', current);
+      if (res && res.trim()) {
+        document.getElementById('cert-sec-school-name').innerText = res.trim();
+      }
+    }
+
+    /* 5. GESTIÓN DE IMPRESIÓN */
+    function printActiveDiploma() {
+      if (currentTrack === 'infantil') {
+        printDiplomaInfantil();
+      } else {
+        printDiplomaSecundaria();
+      }
+    }
+
+    function printDiplomaInfantil() {
+      playSound('chime');
+      document.body.classList.add('printing-infantil');
+      if (currentTrack !== 'infantil') switchTrack('infantil');
+      switchPhase(4);
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => {
+          document.body.classList.remove('printing-infantil');
+        }, 1000);
+      }, 350);
+    }
+
+    function printDiplomaSecundaria() {
+      playSound('chime');
+      document.body.classList.add('printing-secundaria');
+      if (currentTrack !== 'secundaria') switchTrack('secundaria');
+      switchSecPhase(4);
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => {
+          document.body.classList.remove('printing-secundaria');
+        }, 1000);
+      }, 350);
+    }
+
+    /* 6. DICCIONARIO BILINGÜE Y SISTEMA DE TRADUCCIÓN COMPLETA (ES / EN) */
+    let currentLang = 'es';
+
+    const TRANSLATIONS_R3 = {
+      es: {
+        govTitle: "Semanas Temáticas",
+        govSub: "Semana de la Constitución 2026 | Recursos Digitales Interactivos",
+        govFooterInst: "<strong>Comunidad de Madrid</strong> &mdash; Dirección General de Bilingüismo y Calidad de la Enseñanza.",
+        govFooterSub: "Recursos educativos para las Semanas Temáticas — Celebración del Día de la Constitución Española 2026.",
+        stageNavTitle: "Selecciona la Etapa Educativa:",
+        btnTextInfantil: "Infantil y 1.º Ciclo Primaria",
+        btnTextSecundaria: "Educación Secundaria (1.º y 2.º ESO)",
+        labelSoundOn: "Sonido: ON",
+        labelSoundOff: "Sonido: OFF",
+        labelPrintTop: "Imprimir",
+        badgeTitleTop: "Insignia oficial",
+        badgeStatusProcess: "Reto 3: en proceso",
+        badgeStatusSuperado: "¡RETO 3 SUPERADO! 🏅",
+
+        // Hero Infantil
+        heroBadgePillInf: "✨ Preámbulo y Art. 10 CE • El Valle de las Voces",
+        heroTitleInf: "Reto 3: Nuestra Constitución, cuento a cuento",
+        heroSubInf: "Descubre el gran cofre de la convivencia. Cinco cuentos, cinco objetos mágicos y cinco valores esenciales para aprender a cuidarnos y vivir en paz.",
+        metaDestInf: "👶 Infantil (5 años) y 1.º Ciclo Primaria (6-7 años)",
+        metaCuentosInf: "📚 5 cuentos y objetos simbólicos",
+        metaMuralInf: "🎨 Creación de «La gran constitución» de aula",
+
+        // Hero Secundaria
+        heroBadgePillSec: "⚖️ Preámbulo y Arts. 9, 10, 14, 20 y 44 CE • El Foro de la Ciudadanía",
+        heroTitleSec: "Reto 3: El Foro de la Ciudadanía y los Dilemas Éticos",
+        heroSubSec: "Analiza 5 obras maestras y dilemas morales que interpelan la justicia social, la dignidad, la verdad y la libertad en el Estado de derecho.",
+        metaDestSec: "🎓 Educación Secundaria Obligatoria (1.º y 2.º ESO)",
+        metaCuentosSec: "⚖️ 5 dilemas literarios del Preámbulo",
+        metaMuralSec: "✍️ Taller de resoluciones y manifiesto cívico",
+
+        // Infantil Track
+        progressLabel: "Valores descubiertos:",
+        tabLabel1: "🎁 1. El cofre de la convivencia",
+        badgeTab1: "Apertura",
+        tabLabel2: "📖 2. Estaciones de los 5 cuentos",
+        badgeTab2: "5 valores",
+        tabLabel3: "📜 3. La gran constitución de aula",
+        badgeTab3: "Mural",
+        tabLabel4: "🏅 4. Insignia y diploma infantil",
+        badgeTab4: "Premio",
+
+        chestClosedStatus: "¡El cofre mágico de la convivencia está cerrado!",
+        chestClosedSub: "Haz clic aquí para abrirlo y descubrir los 5 objetos secretos del Preámbulo",
+        chestOpenedStatus: "¡El cofre de la convivencia está ABIERTO!",
+        chestOpenedSub: "Descubre los 5 objetos secretos y pulsa en cualquiera para leer su historia",
+        chestSecTitle: "✨ Los 5 Objetos Mágicos del Preámbulo Constitucional",
+        chestSecDesc: "Cada objeto del cofre representa una historia y una regla de oro de nuestra convivencia:",
+        btnNextStories: "Ir a las Estaciones de los 5 Cuentos 👉",
+
+        storiesTitle: "📖 Estación del cuento y actividad vivencial",
+        storiesDesc: "Selecciona un cuento para descubrir su enseñanza y superar el minijuego de aula:",
+        stepMoment: "📖 1. El Momento del Cuento",
+        stepObj: "✨ 2. Objeto Simbólico",
+        stepObjDesc: "Nos recuerda que la Constitución cuida a todas y todos sin dejar a nadie atrás.",
+        minigameQPrefix: "❓ Minijuego de convivencia:",
+        btnToMural: "📜 Ir al Gran Libro de Aula 👉",
+        btnBackChest: "🎁 Volver al cofre",
+
+        bookTitleTop: "📜 El gran libro abierto de nuestra convivencia",
+        bookDescTop: "A medida que exploramos los cuentos, estampamos los 5 sellos constitucionales en el mural colectivo de nuestra clase:",
+        muralBookTitle: "MURAL DE AULA: NUESTRA CONSTITUCIÓN EN DIBUJOS",
+        muralBookSub: "Valores acordados por todas y todos para vivir con alegría y respeto",
+        stampAchieved: "SELLO CONSEGUIDO",
+        stampPending: "POR DESCUBRIR",
+        btnToCert: "🏅 Expedir Diploma Infantil Oficial 👉",
+        btnCompleteAll: "✨ Completar todos los sellos de aula",
+
+        certInfantilTitle: "DIPLOMA DE SUPERGUARDIÁN/A",
+        certInfantilSubtitle: "🌟 Gran libro de la convivencia y la amistad 🌟",
+        certGiveTo: "Con mucho cariño y alegría, este diploma de honor se otorga a:",
+        certChildName: "AULA DE INFANTIL Y PRIMARIA — GUARDIANES DEL RESPETO",
+        certMainP: "Por haber descubierto con una gran sonrisa los <strong>5 valores de la Constitución</strong> a través de los cuentos mágicos: aprendiendo a compartir, ayudando a los compañeros, respetando que todos somos únicos y resolviendo cualquier problema hablando con el corazón.",
+        certCharTitle1: "Lorenzo", certCharVal1: "Diversidad",
+        certCharTitle2: "Cuadradito", certCharVal2: "Inclusión",
+        certCharTitle3: "Rodari", certCharVal3: "Naturaleza",
+        certCharTitle4: "Soldados", certCharVal4: "Paz",
+        certCharTitle5: "Macarena", certCharVal5: "Libertad",
+        certSigTitle1: "Maestro/a o Tutor/a", certSigSub1: "Coordinación de Convivencia",
+        certMedalText: "¡MISIÓN<br>CUMPLIDA!",
+        certSigTitle2: "Día de la Constitución", certSigSub2: "Diciembre 2026",
+        btnPrintDiploma: "🖨️ Imprimir diploma infantil de aula",
+        btnBackBook: "📜 Volver al gran libro",
+
+        // Secundaria Track
+        secProgressLabel: "Dilemas y valores éticos analizados:",
+        tabSecLabel1: "📦 1. El cofre de la ciudadanía",
+        badgeSecTab1: "5 Objetos",
+        tabSecLabel2: "⚖️ 2. Estaciones y dilemas del Preámbulo",
+        badgeSecTab2: "5 Obras",
+        tabSecLabel3: "✍️ 3. Taller: Manifiesto cívico",
+        badgeSecTab3: "Resolución",
+        tabSecLabel4: "🏅 4. Certificación oficial Secundaria",
+        badgeSecTab4: "Oficial",
+
+        secChestTitle: "📦 El cofre de los 5 objetos detonantes de la ciudadanía",
+        secChestDesc: "Cada objeto del cofre representa una obra literaria clave y abre una pregunta ética fundamental sobre los derechos y principios de nuestra Constitución:",
+        btnNextSecStories: "Explorar las 5 Estaciones Literarias y Dilemas 👉",
+
+        secStationsTitle: "⚖️ Estaciones del Preámbulo y Dilemas Morales",
+        secStationsDesc: "Selecciona una obra literaria para examinar su dilema moral, reflexionar con las preguntas de debate y posicionarte en el tribunal ético:",
+        dilemmaBadge: "⚖️ Dilema Moral para el Tribunal Ético",
+        debateHeading: "💬 Preguntas Socráticas para el Debate de Aula:",
+        btnValidateSec: "✨ Validar Análisis y Registrar Principio",
+        btnToWorkshop: "✍️ Ir al Taller de Manifiesto Cívico 👉",
+        btnBackSecChest: "📦 Volver al cofre",
+
+        secWorkshopTitle: "✍️ Taller Competencial: Manifiesto Cívico y Editorial de Aula",
+        secWorkshopDesc: "Aplica el pensamiento crítico redactando la resolución democrática de tu grupo sobre los dilemas de dignidad, información veraz y estado de derecho:",
+        lblManifestoType: "Modalidad de Proyecto:",
+        optTypeEditorial: "📰 Editorial periodístico: «Dignidad sin condiciones» (Omelas)",
+        optTypeDecalogo: "🛡️ Decálogo cívico: «Detectores del Arenque Rojo» (Anti-Bulos)",
+        optTypeManifiesto: "📚 Manifiesto de los Hombres-Libro: «Biblioteca viva» (Fahrenheit 451)",
+        lblManifestoTitle: "Título de la Propuesta:",
+        lblManifestoTeam: "Tribunal / Alumnado Redactor:",
+        lblManifestoArt: "Artículo Constitucional Eje:",
+        lblManifestoBody: "Tesis Democrática / Justificación Ética:",
+        lblManifestoCommitments: "Compromisos de Aula (3 Principios):",
+        prevCompHeading: "Compromisos de Acción Democrática:",
+        btnToSecCert: "🏅 Proceder a la Certificación Oficial 👉",
+
+        certSecTitle: "CERTIFICADO OFICIAL DE CIUDADANÍA ACTIVA Y GARANTÍAS DEMOCRÁTICAS",
+        certSecSub: "Día de la Constitución Española 2026 • Reto 3: El Foro de la Ciudadanía (1.º y 2.º ESO)",
+        certSecAwardText: "Por la presente se certifica con distinción que el alumnado de Educación Secundaria:",
+        certSecStudentName: "ALUMNADO DE 1.º Y 2.º DE ESO — TRIBUNAL DE GARANTÍAS ÉTICAS",
+        certSecSchoolName: "IES COMUNIDAD DE MADRID",
+        certSecBodyText: "Ha superado con rigor crítico y compromiso cívico las deliberaciones éticas del <strong>Reto 3: Nuestra Constitución, cuento a cuento (Secundaria)</strong>, habiendo analizado el <strong>Preámbulo</strong> y los <strong>Artículos 9, 10, 14, 20 y 44 de la Constitución Española</strong> a través de las obras maestras de Ursula K. Le Guin, Gonzalo Moure, Jorge Luis Borges, Roberto Innocenti y Ray Bradbury, acreditando su capacidad para argumentar, defender la dignidad humana inalienable, rechazar la desinformación y proteger los valores democráticos.",
+        pillTitle1: "Omelas", pillTitle2: "Arenque Rojo", pillTitle3: "San Marcos", pillTitle4: "Rosa Blanca", pillTitle5: "Fahrenheit 451",
+        secSig1: "Profesorado / Coordinación", secSigSub1: "Programa Bilingüe y Convivencia",
+        secSig2: "Representante Estudiantil", secSigSub2: "Tribunal de Garantías Cívicas",
+        btnPrintSec: "🖨️ Imprimir certificado oficial de Secundaria (A4)",
+        btnBackSecWorkshop: "✍️ Volver al taller de manifiesto"
+      },
+      en: {
+        govTitle: "Thematic Weeks",
+        govSub: "Constitution Week 2026 | Interactive Digital Resources",
+        govFooterInst: "<strong>Comunidad de Madrid</strong> &mdash; Directorate-General for Bilingualism and Quality of Education.",
+        govFooterSub: "Educational resources for Thematic Weeks — Spanish Constitution Day Celebration 2026.",
+        stageNavTitle: "Select Educational Stage:",
+        btnTextInfantil: "Early Childhood & 1st Cycle Primary",
+        btnTextSecundaria: "Compulsory Secondary Education (1st & 2nd ESO)",
+        labelSoundOn: "Sound: ON",
+        labelSoundOff: "Sound: OFF",
+        labelPrintTop: "Print",
+        badgeTitleTop: "Official Badge",
+        badgeStatusProcess: "Challenge 3: in progress",
+        badgeStatusSuperado: "CHALLENGE 3 COMPLETED! 🏅",
+
+        // Hero Infantil
+        heroBadgePillInf: "✨ Preamble & Art. 10 SC • The Valley of Voices",
+        heroTitleInf: "Challenge 3: Our Constitution, Story by Story",
+        heroSubInf: "Discover the great chest of coexistence. Five stories, five magical items and five essential values to care for one another and live in peace.",
+        metaDestInf: "👶 Early Childhood (5 years) & 1st Cycle Primary (6-7 years)",
+        metaCuentosInf: "📚 5 stories & symbolic objects",
+        metaMuralInf: "🎨 Creation of Classroom 'Great Constitution'",
+
+        // Hero Secundaria
+        heroBadgePillSec: "⚖️ Preamble & Arts. 9, 10, 14, 20 & 44 SC • The Citizenship Forum",
+        heroTitleSec: "Challenge 3: The Citizenship Forum & Ethical Dilemmas",
+        heroSubSec: "Analyze 5 literary masterpieces and moral dilemmas addressing social justice, dignity, truth, and freedom in a democratic state of law.",
+        metaDestSec: "🎓 Compulsory Secondary Education (1st & 2nd ESO)",
+        metaCuentosSec: "⚖️ 5 literary dilemmas from the Preamble",
+        metaMuralSec: "✍️ Civic resolutions & manifesto workshop",
+
+        // Infantil Track
+        progressLabel: "Values discovered:",
+        tabLabel1: "🎁 1. Coexistence Chest",
+        badgeTab1: "Opening",
+        tabLabel2: "📖 2. Five Story Stations",
+        badgeTab2: "5 values",
+        tabLabel3: "📜 3. Classroom Constitution",
+        badgeTab3: "Mural",
+        tabLabel4: "🏅 4. Badge & Diploma",
+        badgeTab4: "Award",
+
+        chestClosedStatus: "The magical coexistence chest is closed!",
+        chestClosedSub: "Click here to open it and discover the 5 secret items of the Preamble",
+        chestOpenedStatus: "The coexistence chest is OPEN!",
+        chestOpenedSub: "Discover the 5 secret items and click any to read its story",
+        chestSecTitle: "✨ The 5 Magical Items of the Constitutional Preamble",
+        chestSecDesc: "Each chest object represents a story and a golden rule of our coexistence:",
+        btnNextStories: "Go to the 5 Story Stations 👉",
+
+        storiesTitle: "📖 Story Station & Experiential Activity",
+        storiesDesc: "Select a story to discover its lesson and pass the classroom minigame:",
+        stepMoment: "📖 1. Story Time",
+        stepObj: "✨ 2. Symbolic Object",
+        stepObjDesc: "Reminds us that the Constitution cares for all of us without leaving anyone behind.",
+        minigameQPrefix: "❓ Coexistence minigame:",
+        btnToMural: "📜 Go to Classroom Big Book 👉",
+        btnBackChest: "🎁 Back to chest",
+
+        bookTitleTop: "📜 The Open Big Book of Our Coexistence",
+        bookDescTop: "As we explore the stories, we stamp the 5 constitutional seals onto our class collective mural:",
+        muralBookTitle: "CLASSROOM MURAL: OUR CONSTITUTION IN DRAWINGS",
+        muralBookSub: "Values agreed upon by all of us to live with joy and respect",
+        stampAchieved: "SEAL ACHIEVED",
+        stampPending: "TO DISCOVER",
+        btnToCert: "🏅 Issue Official Child Diploma 👉",
+        btnCompleteAll: "✨ Complete all classroom seals",
+
+        certInfantilTitle: "SUPERGUARDIAN DIPLOMA",
+        certInfantilSubtitle: "🌟 Great Book of Coexistence and Friendship 🌟",
+        certGiveTo: "With great joy and affection, this diploma of honor is awarded to:",
+        certChildName: "EARLY CHILDHOOD & PRIMARY CLASSROOM — GUARDIANS OF RESPECT",
+        certMainP: "For discovering with a big smile the <strong>5 values of the Constitution</strong> through magical stories: learning to share, helping peers, respecting that we are all unique, and resolving any problem by speaking from the heart.",
+        certCharTitle1: "Lorenzo", certCharVal1: "Diversity",
+        certCharTitle2: "Little Square", certCharVal2: "Inclusion",
+        certCharTitle3: "Rodari", certCharVal3: "Nature",
+        certCharTitle4: "Soldiers", certCharVal4: "Peace",
+        certCharTitle5: "Marjorie", certCharVal5: "Freedom",
+        certSigTitle1: "Teacher or Tutor", certSigSub1: "Coexistence Coordinator",
+        certMedalText: "MISSION<br>ACCOMPLISHED!",
+        certSigTitle2: "Constitution Day", certSigSub2: "December 2026",
+        btnPrintDiploma: "🖨️ Print classroom diploma (Early Childhood)",
+        btnBackBook: "📜 Back to big book",
+
+        // Secundaria Track
+        secProgressLabel: "Ethical dilemmas and values analyzed:",
+        tabSecLabel1: "📦 1. Citizenship Chest",
+        badgeSecTab1: "5 Objects",
+        tabSecLabel2: "⚖️ 2. Preamble Stations & Dilemmas",
+        badgeSecTab2: "5 Works",
+        tabSecLabel3: "✍️ 3. Workshop: Civic Manifesto",
+        badgeSecTab3: "Resolution",
+        tabSecLabel4: "🏅 4. Official Secondary Certificate",
+        badgeSecTab4: "Official",
+
+        secChestTitle: "📦 The Chest of the 5 Trigger Objects of Citizenship",
+        secChestDesc: "Each chest object represents a key literary work and raises a fundamental ethical question about the rights and principles of our Constitution:",
+        btnNextSecStories: "Explore the 5 Literary Stations & Dilemmas 👉",
+
+        secStationsTitle: "⚖️ Preamble Stations & Moral Dilemmas",
+        secStationsDesc: "Select a literary work to examine its moral dilemma, reflect with the debate questions, and take a stand in the ethical tribunal:",
+        dilemmaBadge: "⚖️ Moral Dilemma for the Ethical Tribunal",
+        debateHeading: "💬 Socratic Questions for Classroom Debate:",
+        btnValidateSec: "✨ Validate Analysis & Register Principle",
+        btnToWorkshop: "✍️ Go to Civic Manifesto Workshop 👉",
+        btnBackSecChest: "📦 Back to chest",
+
+        secWorkshopTitle: "✍️ Competency Workshop: Civic Manifesto & Classroom Editorial",
+        secWorkshopDesc: "Apply critical thinking by drafting your group's democratic resolution on the dilemmas of dignity, truthful information, and the rule of law:",
+        lblManifestoType: "Project Mode:",
+        optTypeEditorial: "📰 Journalistic editorial: 'Dignity Without Conditions' (Omelas)",
+        optTypeDecalogo: "🛡️ Civic decalog: 'Red Herring Detectors' (Anti-Fake News)",
+        optTypeManifiesto: "📚 Living Library Manifesto: 'The Book-People' (Fahrenheit 451)",
+        lblManifestoTitle: "Proposal Title:",
+        lblManifestoTeam: "Drafting Panel / Students:",
+        lblManifestoArt: "Core Constitutional Article:",
+        lblManifestoBody: "Democratic Thesis / Ethical Justification:",
+        lblManifestoCommitments: "Classroom Commitments (3 Principles):",
+        prevCompHeading: "Democratic Action Commitments:",
+        btnToSecCert: "🏅 Proceed to Official Certification 👉",
+
+        certSecTitle: "OFFICIAL CERTIFICATE OF ACTIVE CITIZENSHIP & DEMOCRATIC GUARANTEES",
+        certSecSub: "Spanish Constitution Day 2026 • Challenge 3: The Citizenship Forum (1st & 2nd ESO)",
+        certSecAwardText: "It is hereby certified with distinction that the Secondary Education students:",
+        certSecStudentName: "1ST & 2ND ESO STUDENTS — ETHICAL GUARANTEES PANEL",
+        certSecSchoolName: "IES COMUNIDAD DE MADRID",
+        certSecBodyText: "Has successfully passed with critical rigor and civic commitment the ethical deliberations of <strong>Challenge 3: Our Constitution, Story by Story (Secondary)</strong>, having analyzed the <strong>Preamble</strong> and <strong>Articles 9, 10, 14, 20 and 44 of the Spanish Constitution</strong> through the masterpieces of Ursula K. Le Guin, Gonzalo Moure, Jorge Luis Borges, Roberto Innocenti and Ray Bradbury, demonstrating the ability to debate, uphold inalienable human dignity, reject disinformation and protect democratic values.",
+        pillTitle1: "Omelas", pillTitle2: "Red Herring", pillTitle3: "Mark", pillTitle4: "White Rose", pillTitle5: "Fahrenheit 451",
+        secSig1: "Teaching Faculty / Coordination", secSigSub1: "Bilingual Program & Coexistence",
+        secSig2: "Student Representative", secSigSub2: "Civic Guarantees Panel",
+        btnPrintSec: "🖨️ Print official Secondary certificate (A4)",
+        btnBackSecWorkshop: "✍️ Back to manifesto workshop"
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'es' ? 'en' : 'es';
+      document.getElementById('lang-label').innerText = currentLang.toUpperCase();
+      playSound('click');
+      applyLanguage();
+    }
+
+    function applyLanguage() {
+      const t = TRANSLATIONS_R3[currentLang];
+      const isEn = (currentLang === 'en');
+
+      // 1. Header & Footer
+      document.getElementById('gov-title').innerText = t.govTitle;
+      document.getElementById('gov-sub').innerText = t.govSub;
+      document.getElementById('gov-footer-inst').innerHTML = t.govFooterInst;
+      document.getElementById('gov-footer-sub').innerText = t.govFooterSub;
+
+      document.getElementById('stage-nav-title').innerHTML = `<span>🎯</span> ${t.stageNavTitle}`;
+      document.getElementById('btn-text-infantil').innerText = t.btnTextInfantil;
+      document.getElementById('btn-text-secundaria').innerText = t.btnTextSecundaria;
+
+      const labelSound = document.getElementById('label-sound');
+      if (labelSound) labelSound.innerText = soundEnabled ? t.labelSoundOn : t.labelSoundOff;
+      document.getElementById('label-print-top').innerText = t.labelPrintTop;
+      document.getElementById('badge-title-top').innerText = t.badgeTitleTop;
+      document.getElementById('badge-status-top').innerText = (unlockedInfantilValues.length >= 5 || unlockedSecValues.length >= 5) ? t.badgeStatusSuperado : t.badgeStatusProcess;
+
+      // 2. Hero
+      applyTrackTexts();
+
+      // 3. Infantil UI
+      document.getElementById('progress-label').innerText = t.progressLabel;
+      document.getElementById('tab-label-1').innerText = t.tabLabel1;
+      document.getElementById('badge-tab-1').innerText = t.badgeTab1;
+      document.getElementById('tab-label-2').innerText = t.tabLabel2;
+      document.getElementById('badge-tab-2').innerText = t.badgeTab2;
+      document.getElementById('tab-label-3').innerText = t.tabLabel3;
+      document.getElementById('badge-tab-3').innerText = t.badgeTab3;
+      document.getElementById('tab-label-4').innerText = t.tabLabel4;
+      document.getElementById('badge-tab-4').innerText = t.badgeTab4;
+
+      document.getElementById('chest-sec-title').innerText = t.chestSecTitle;
+      document.getElementById('chest-sec-desc').innerText = t.chestSecDesc;
+      document.getElementById('btn-next-stories').innerText = t.btnNextStories;
+
+      document.getElementById('stories-title').innerText = t.storiesTitle;
+      document.getElementById('stories-desc').innerText = t.storiesDesc;
+      document.getElementById('btn-to-mural').innerText = t.btnToMural;
+      document.getElementById('btn-back-chest').innerText = t.btnBackChest;
+
+      document.getElementById('book-title-top').innerText = t.bookTitleTop;
+      document.getElementById('book-desc-top').innerText = t.bookDescTop;
+      document.getElementById('mural-book-title').innerText = t.muralBookTitle;
+      document.getElementById('mural-book-sub').innerText = t.muralBookSub;
+      document.getElementById('btn-to-cert').innerText = t.btnToCert;
+      document.getElementById('btn-complete-all').innerText = t.btnCompleteAll;
+
+      document.getElementById('cert-infantil-title').innerText = t.certInfantilTitle;
+      document.getElementById('cert-infantil-subtitle').innerText = t.certInfantilSubtitle;
+      document.getElementById('cert-give-to').innerText = t.certGiveTo;
+      document.getElementById('cert-main-p').innerHTML = t.certMainP;
+      document.getElementById('cert-char-title-1').innerText = t.certCharTitle1;
+      document.getElementById('cert-char-val-1').innerText = t.certCharVal1;
+      document.getElementById('cert-char-title-2').innerText = t.certCharTitle2;
+      document.getElementById('cert-char-val-2').innerText = t.certCharVal2;
+      document.getElementById('cert-char-title-3').innerText = t.certCharTitle3;
+      document.getElementById('cert-char-val-3').innerText = t.certCharVal3;
+      document.getElementById('cert-char-title-4').innerText = t.certCharTitle4;
+      document.getElementById('cert-char-val-4').innerText = t.certCharVal4;
+      document.getElementById('cert-char-title-5').innerText = t.certCharTitle5;
+      document.getElementById('cert-char-val-5').innerText = t.certCharVal5;
+      document.getElementById('cert-sig-title-1').innerText = t.certSigTitle1;
+      document.getElementById('cert-sig-sub-1').innerText = t.certSigSub1;
+      document.getElementById('cert-medal-text').innerHTML = t.certMedalText;
+      document.getElementById('cert-sig-title-2').innerText = t.certSigTitle2;
+      document.getElementById('cert-sig-sub-2').innerText = t.certSigSub2;
+      document.getElementById('btn-print-diploma').innerText = t.btnPrintDiploma;
+      document.getElementById('btn-back-book').innerText = t.btnBackBook;
+
+      // 4. Secundaria UI
+      document.getElementById('sec-progress-label').innerText = t.secProgressLabel;
+      document.getElementById('tab-sec-label-1').innerText = t.tabSecLabel1;
+      document.getElementById('badge-sec-tab-1').innerText = t.badgeSecTab1;
+      document.getElementById('tab-sec-label-2').innerText = t.tabSecLabel2;
+      document.getElementById('badge-sec-tab-2').innerText = t.badgeSecTab2;
+      document.getElementById('tab-sec-label-3').innerText = t.tabSecLabel3;
+      document.getElementById('badge-sec-tab-3').innerText = t.badgeSecTab3;
+      document.getElementById('tab-sec-label-4').innerText = t.tabSecLabel4;
+      document.getElementById('badge-sec-tab-4').innerText = t.badgeSecTab4;
+
+      document.getElementById('sec-chest-title').innerText = t.secChestTitle;
+      document.getElementById('sec-chest-desc').innerText = t.secChestDesc;
+      document.getElementById('btn-next-sec-stories').innerText = t.btnNextSecStories;
+
+      document.getElementById('sec-stations-title').innerText = t.secStationsTitle;
+      document.getElementById('sec-stations-desc').innerText = t.secStationsDesc;
+      document.getElementById('btn-to-workshop').innerText = t.btnToWorkshop;
+      document.getElementById('btn-back-sec-chest').innerText = t.btnBackSecChest;
+
+      document.getElementById('sec-workshop-title').innerText = t.secWorkshopTitle;
+      document.getElementById('sec-workshop-desc').innerText = t.secWorkshopDesc;
+      document.getElementById('lbl-manifesto-type').innerText = t.lblManifestoType;
+      document.getElementById('opt-type-editorial').innerText = t.optTypeEditorial;
+      document.getElementById('opt-type-decalogo').innerText = t.optTypeDecalogo;
+      document.getElementById('opt-type-manifiesto').innerText = t.optTypeManifiesto;
+      document.getElementById('lbl-manifesto-title').innerText = t.lblManifestoTitle;
+      document.getElementById('lbl-manifesto-team').innerText = t.lblManifestoTeam;
+      document.getElementById('lbl-manifesto-art').innerText = t.lblManifestoArt;
+      document.getElementById('lbl-manifesto-body').innerText = t.lblManifestoBody;
+      document.getElementById('lbl-manifesto-commitments').innerText = t.lblManifestoCommitments;
+      document.getElementById('prev-comp-heading').innerText = t.prevCompHeading;
+      document.getElementById('btn-to-sec-cert').innerText = t.btnToSecCert;
+
+      document.getElementById('cert-sec-title').innerText = t.certSecTitle;
+      document.getElementById('cert-sec-sub').innerText = t.certSecSub;
+      document.getElementById('cert-sec-award-text').innerText = t.certSecAwardText;
+      document.getElementById('cert-sec-body-text').innerHTML = t.certSecBodyText;
+      document.getElementById('pill-title-1').innerText = t.pillTitle1;
+      document.getElementById('pill-title-2').innerText = t.pillTitle2;
+      document.getElementById('pill-title-3').innerText = t.pillTitle3;
+      document.getElementById('pill-title-4').innerText = t.pillTitle4;
+      document.getElementById('pill-title-5').innerText = t.pillTitle5;
+      document.getElementById('sec-sig-1').innerText = t.secSig1;
+      document.getElementById('sec-sig-sub-1').innerText = t.secSigSub1;
+      document.getElementById('sec-sig-2').innerText = t.secSig2;
+      document.getElementById('sec-sig-sub-2').innerText = t.secSigSub2;
+      document.getElementById('btn-print-sec').innerText = t.btnPrintSec;
+      document.getElementById('btn-back-sec-workshop').innerText = t.btnBackSecWorkshop;
+
+      // Re-render dinámico de componentes activos
+      renderChestObjects();
+      renderStoryTabs();
+      renderStoryStation();
+      renderMuralStamps();
+
+      renderSecChestObjects();
+      renderSecStoryTabs();
+      renderSecStoryStation();
+      updateManifestoPreview();
+    }
+
+    // Inicialización al cargar la página
+    window.addEventListener('DOMContentLoaded', () => {
+      renderChestObjects();
+      renderStoryTabs();
+      renderStoryStation();
+      renderMuralStamps();
+      updateGlobalProgress();
+
+      renderSecChestObjects();
+      renderSecStoryTabs();
+      renderSecStoryStation();
+      updateSecProgress();
+      updateManifestoPreview();
+    });
+  </script>
+</body>
+</html>

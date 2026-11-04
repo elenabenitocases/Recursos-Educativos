@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 1: Los Guardianes del Juego — Suite Interactiva 16:9</title>
+  <style>
+    :root {
+      --madrid-red: #C7082A;
+      --madrid-dark: #8F0018;
+      --gold: #FFD166;
+      --cyan: #00F0FF;
+      --green: #10B981;
+      --purple: #8B5CF6;
+      --dark-bg: #090D16;
+      --card-bg: rgba(26, 36, 56, 0.94);
+      --border: rgba(255, 255, 255, 0.16);
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 10%, #172554 0%, #050811 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+
+    /* CONTENEDOR PRINCIPAL 16:9 */
+    .master-container {
+      width: 100%;
+      max-width: 1320px;
+      aspect-ratio: 16 / 9;
+      min-height: 620px;
+      background: #0B1120;
+      border: 3px solid rgba(0, 240, 255, 0.4);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 35px rgba(0, 240, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .view-infographic {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 32px;
+      background: linear-gradient(135deg, rgba(11, 17, 32, 0.94), rgba(5, 8, 17, 0.97)),
+                  url('Artefactos/Reto 1_El Bosque de los derechos.jpg') center/cover no-repeat;
+      background-blend-mode: overlay;
+    }
+
+    /* CABECERA */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 14px;
+    }
+    .header-branding {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-icon {
+      font-size: 32px;
+      background: var(--madrid-red);
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--gold);
+      box-shadow: 0 4px 15px rgba(199, 8, 42, 0.5);
+    }
+    .brand-title {
+      background: rgba(4, 9, 20, 0.88);
+      padding: 6px 16px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(255, 215, 0, 0.45);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    }
+    .brand-title h1 {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      color: #FFE600;
+      text-shadow: 0 2px 6px #000, 0 0 14px rgba(0,0,0,0.9), 0 0 20px rgba(255, 230, 0, 0.7);
+    }
+    .brand-title h1 span {
+      color: #00F0FF;
+      text-shadow: 0 2px 6px #000, 0 0 14px rgba(0,0,0,0.9);
+    }
+    .top-badges {
+      display: flex;
+      gap: 8px;
+    }
+    .badge-ce {
+      background: rgba(255, 209, 102, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 5px 10px;
+      border-radius: 14px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* BARRA DE PISTA / INSTRUCCIÓN */
+    .hero-hint {
+      background: rgba(4, 9, 20, 0.94);
+      border: 2px solid #FFE600;
+      border-radius: 14px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0;
+      font-size: 13.5px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.85);
+    }
+    .hero-hint span {
+      color: #FFFFFF;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .hero-hint strong {
+      color: #FFE600;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(255, 230, 0, 0.7);
+    }
+
+    /* GRID DE LAS 4 ETAPAS HORIZONTALES */
+    .stages-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      position: relative;
+      margin: 10px 0;
+      flex: 1;
+      align-items: stretch;
+    }
+    .stage-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .stage-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: var(--cyan);
+      box-shadow: 0 15px 35px rgba(0, 240, 255, 0.35);
+    }
+    .stage-card.stage-1:hover { border-color: var(--cyan); }
+    .stage-card.stage-2:hover { border-color: var(--green); }
+    .stage-card.stage-3:hover { border-color: var(--purple); }
+    .stage-card.stage-4:hover { border-color: var(--gold); }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .card-badge {
+      font-size: 10.5px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFF;
+    }
+    .card-art {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .card-icon {
+      font-size: 38px;
+      text-align: center;
+      margin: 4px 0 8px;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: #FFF;
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+    .card-desc {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .btn-play-level {
+      width: 100%;
+      background: linear-gradient(135deg, #00C4CC 0%, #7D2AE8 100%);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 12.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 15px rgba(125, 42, 232, 0.4);
+      transition: all 0.2s ease;
+    }
+    .btn-play-level:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(125, 42, 232, 0.6);
+    }
+
+    /* FOOTER */
+    .infographic-footer {
+      border-top: 2px solid var(--border);
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .footer-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-subtle {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFF;
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-subtle:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* MODAL DE MISIÓN COMPLETO INTERACTIVO */
+    .modal-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(11, 17, 32, 0.96);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      padding: 24px;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-box {
+      width: 100%;
+      max-width: 1100px;
+      max-height: 94%;
+      background: #111827;
+      border: 2px solid var(--cyan);
+      border-radius: 20px;
+      padding: 22px 26px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      animation: popIn 0.2s ease-out;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+      flex-shrink: 0;
+    }
+    .modal-title {
+      font-size: 19px;
+      font-weight: 900;
+      color: #FFE600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-close {
+      background: #334155;
+      color: white;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .modal-close:hover {
+      background: #EF4444;
+    }
+    .modal-body {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: #E2E8F0;
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+    }
+
+    /* ESTILOS ESPECÍFICOS DE LAS MISIONES DENTRO DEL MODAL */
+    /* Misión 1: Mapa */
+    .map-container-modal {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 18px;
+      align-items: start;
+    }
+    .svg-map-wrap {
+      background: #F0F9FF;
+      border-radius: 14px;
+      border: 1.5px solid #BAE6FD;
+      overflow: hidden;
+      height: 440px;
+      position: relative;
+    }
+    .spain-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .region-path {
+      fill: #CBD5E1;
+      stroke: #FFFFFF;
+      stroke-width: 2.2;
+      stroke-linejoin: round;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .region-path:hover {
+      fill: #94A3B8;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+    }
+    .region-path.rescued {
+      fill: #10B981;
+      stroke: #047857;
+      stroke-width: 2.5;
+    }
+    .region-label {
+      font-size: 11px;
+      font-weight: 700;
+      fill: #334155;
+      text-anchor: middle;
+      pointer-events: none;
+      user-select: none;
+    }
+    .region-badge-icon {
+      font-size: 16px;
+      text-anchor: middle;
+      pointer-events: none;
+    }
+    .inset-frame {
+      fill: #FFFFFF;
+      stroke: #38BDF8;
+      stroke-width: 1.5;
+      stroke-dasharray: 4 3;
+      rx: 6;
+      opacity: 0.85;
+    }
+    .inset-title {
+      font-size: 10px;
+      font-weight: 800;
+      fill: #0284C7;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .game-sidebar {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      max-height: 440px;
+      overflow-y: auto;
+    }
+    .game-sidebar h4 {
+      font-size: 15px;
+      color: #FFE600;
+      margin-bottom: 8px;
+    }
+    .game-meta-badge {
+      display: inline-block;
+      background: rgba(0, 240, 255, 0.15);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    /* Misión 2: Casos */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .case-box {
+      background: rgba(30, 41, 59, 0.8);
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .case-box h4 {
+      font-size: 15px;
+      color: #FFE600;
+      margin-bottom: 8px;
+    }
+    .case-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .case-btn {
+      background: #1E293B;
+      border: 1px solid #334155;
+      color: #F8FAFC;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .case-btn:hover {
+      background: #334155;
+      border-color: var(--cyan);
+    }
+    .case-btn.correct {
+      background: rgba(16, 185, 129, 0.25);
+      border-color: #10B981;
+      color: #A7F3D0;
+    }
+    .case-btn.incorrect {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: #EF4444;
+      color: #FECACA;
+    }
+    .case-feedback {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      display: none;
+    }
+
+    /* Misión 3: Murdoku */
+    .murdoku-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 18px;
+    }
+    .clues-box {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 12.5px;
+    }
+    .clue-p {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      border-left: 3px solid var(--purple);
+    }
+    .murdoku-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      background: #0F172A;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .murdoku-table th, .murdoku-table td {
+      border: 1px solid #334155;
+      padding: 6px 8px;
+      text-align: center;
+    }
+    .murdoku-table th {
+      background: #1E293B;
+      color: #FFE600;
+      font-weight: 800;
+    }
+    .murdoku-cell {
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 900;
+      width: 36px;
+      height: 36px;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .murdoku-cell:hover {
+      background: #334155;
+    }
+    .murdoku-cell.val-o {
+      color: #10B981;
+      background: rgba(16, 185, 129, 0.15);
+    }
+    .murdoku-cell.val-x {
+      color: #EF4444;
+      background: rgba(239, 68, 68, 0.15);
+    }
+
+    /* Misión 4: Carnet */
+    .carnet-box {
+      max-width: 620px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      color: #0F172A;
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      border: 4px solid var(--madrid-red);
+    }
+    .carnet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #E2E8F0;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+    .carnet-inst-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--madrid-red);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .carnet-tag {
+      background: #FEF3C7;
+      color: #92400E;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 8px;
+      border: 1px solid #FCD34D;
+    }
+    .carnet-main {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .carnet-photo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 4px;
+      background: #F8FAFC;
+    }
+    .carnet-inputs {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .carnet-input-group label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #475569;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .carnet-input {
+      width: 100%;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+    .carnet-articles {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      color: #166534;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MASTER VIEWPORT 16:9 -->
+  <div class="master-container" id="master-box">
+
+    <!-- ==================== TABLERO HORIZONTAL ==================== -->
+    <div class="view-infographic" id="view-info">
+      
+      <!-- CABECERA -->
+      <header class="header-bar">
+        <div class="header-branding">
+          <div class="brand-icon">🏰</div>
+          <div class="brand-title">
+            <h1>RETO 1: LOS GUARDIANES <span>DEL JUEGO</span></h1>
+          </div>
+        </div>
+        <div class="top-badges">
+          <span class="badge-ce">Art. 46 (Patrimonio)</span>
+          <span class="badge-ce">Art. 43.3 (Deporte y Salud)</span>
+          <span class="badge-ce">Art. 45 (Sostenibilidad)</span>
+          <span class="badge-ce">Art. 14 (Igualdad e Inclusión)</span>
+        </div>
+      </header>
+
+      <!-- BARRA DE PISTA / INSTRUCCIÓN -->
+      <div class="hero-hint">
+        <div>
+          <span>👉 <strong>Haz clic en cualquier nivel</strong> para explorar su misión interactiva:</span>
+        </div>
+        <div>
+          <button class="btn-subtle" onclick="openModal(1)" style="background: rgba(255, 230, 0, 0.2); border-color: #FFE600; color: #FFE600; font-weight: 800;">
+            🧭 Explorar Misiones
+          </button>
+        </div>
+      </div>
+
+      <!-- GRID DE LOS 4 NIVELES HORIZONTALES -->
+      <section class="stages-grid">
+        
+        <!-- NIVEL 1 -->
+        <article class="stage-card stage-1" onclick="openModal(1)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(0, 240, 255, 0.2); color: var(--cyan);">MISIÓN 1</span>
+              <span class="card-art">Art. 46 CE</span>
+            </div>
+            <div class="card-icon">🧭</div>
+            <h2 class="card-title">Mapa del Patrimonio</h2>
+            <p class="card-desc">
+              Pistas de 19 juegos tradicionales en las 17 CC.AA. y 2 ciudades autónomas. Pulsa en el mapa de España para salvarlos del olvido y descubrir cómo fabricarlos con reciclaje.
+            </p>
+          </div>
+          <button class="btn-play-level" onclick="event.stopPropagation(); openModal(1)">
+            <span>🧭 EXPLORAR MAPA</span>
+          </button>
+        </article>
+
+        <!-- NIVEL 2 -->
+        <article class="stage-card stage-2" onclick="openModal(2)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(16, 185, 129, 0.2); color: var(--green);">MISIÓN 2</span>
+              <span class="card-art">Arts. 14 y 45</span>
+            </div>
+            <div class="card-icon">♻️</div>
+            <h2 class="card-title">Taller de Ecodiseño</h2>
+            <p class="card-desc">
+              Resuelve los dos casos de adaptación lúdica (Chito accesible con silla de ruedas y taller de economía circular sin comprar plástico nuevo) para desbloquear los planos sostenibles.
+            </p>
+          </div>
+          <button class="btn-play-level" style="background: linear-gradient(135deg, #10B981 0%, #047857 100%);" onclick="event.stopPropagation(); openModal(2)">
+            <span>♻️ RESOLVER CASOS</span>
+          </button>
+        </article>
+
+        <!-- NIVEL 3 -->
+        <article class="stage-card stage-3" onclick="openModal(3)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(139, 92, 246, 0.2); color: var(--purple);">MISIÓN 3</span>
+              <span class="card-art">Art. 46 CE</span>
+            </div>
+            <div class="card-icon">🧩</div>
+            <h2 class="card-title">Criptograma de los Sabios</h2>
+            <p class="card-desc">
+              Murdoku lógico en el almacén escolar. Descifra qué investiga Aisha, Hugo, Lola e Iker con la matriz interactiva O / X para restaurar el orden cívico.
+            </p>
+          </div>
+          <button class="btn-play-level" style="background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);" onclick="event.stopPropagation(); openModal(3)">
+            <span>🧩 RESOLVER MURDOKU</span>
+          </button>
+        </article>
+
+        <!-- NIVEL 4 -->
+        <article class="stage-card stage-4" onclick="openModal(4)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(255, 209, 102, 0.2); color: var(--gold);">MISIÓN 4</span>
+              <span class="card-art">Arts. 14, 43.3 y 46</span>
+            </div>
+            <div class="card-icon">🎖️</div>
+            <h2 class="card-title">Juramento y Carnet Oficial</h2>
+            <p class="card-desc">
+              Consagra tu compromiso cívico con la inclusión, la salud activa y el patrimonio cultural. Obtén y personaliza tu Carnet Oficial de Guardián/a de la Comunidad de Madrid.
+            </p>
+          </div>
+          <button class="btn-play-level" style="background: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);" onclick="event.stopPropagation(); openModal(4)">
+            <span>🎖️ OBTENER CARNET</span>
+          </button>
+        </article>
+
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="infographic-footer">
+        <div>
+          <span>Comunidad de Madrid — Semana Constitucional 2026</span>
+          <span style="margin: 0 8px;">•</span>
+          <span style="color: var(--cyan);">Pizarra Digital (PDI) & Tablets</span>
+        </div>
+        <div class="footer-actions">
+          <button class="btn-subtle" onclick="openModal(4)">🎖️ Ver Carnet Oficial</button>
+          <button class="btn-subtle" onclick="toggleContainerFullscreen()">⛶ Pantalla Completa</button>
+        </div>
+      </footer>
+
+      <!-- MODAL POPUP DE MISIÓN -->
+      <div class="modal-overlay" id="modal-box-overlay">
+        <div class="modal-box">
+          <div class="modal-header">
+            <h3 class="modal-title" id="m-modal-title">Detalles de la Misión</h3>
+            <button class="modal-close" onclick="closeModal()">✕</button>
+          </div>
+          <div class="modal-body" id="m-modal-body">
+            <!-- Contenido dinámico según misión -->
+          </div>
+          <div class="modal-footer">
+            <button class="btn-subtle" onclick="closeModal()">Cerrar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Sintetizador de audio web suave
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq = 520, dur = 0.08) {
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + dur);
+      } catch(e) {}
+    }
+
+    // BASE DE DATOS DE LOS 19 JUEGOS TRADICIONALES
+    const GAMES = {
+      madrid: { name: "El Chito", region: "Comunidad de Madrid", icon: "🪙", clue: "Juego castizo donde se lanza un disco de metal contra un cilindro de madera con una moneda en su cima.", fab: "Botella de plástico rellena de arena y tapas de tarros de cristal lastradas con plastilina." },
+      galicia: { name: "A Chave (La Llave)", region: "Galicia", icon: "🔑", clue: "Se lanzan tejos circulares hacia una estructura metálica con aspas giratorias para derribarla o hacerla rotar.", fab: "Tubo de cartón resistente con aspas de cartón reciclado unidas por un encuadernador." },
+      asturias: { name: "Carrera de Panoyas", region: "Asturias", icon: "🌽", clue: "Carrera tradicional donde se recogen y apilan mazorcas de maíz una a una a gran velocidad.", fab: "Rollos de papel higiénico pintados de amarillo simulando las mazorcas." },
+      cantabria: { name: "Bolo Palma", region: "Cantabria", icon: "🎳", clue: "Deporte autóctono con 9 bolos grandes y uno pequeño llamado 'emboque' con tiradas desde gran distancia.", fab: "Botellas vacías de yogur o agua rellenas de tierra y una pelota de tenis usada." },
+      pais_vasco: { name: "Tira y afloja (Sokatira)", region: "País Vasco", icon: "🪢", clue: "Deporte rural ('herri kirola') donde dos equipos miden su fuerza tirando de una soga gruesa.", fab: "Sábanas viejas enrolladas y fuertemente trenzadas entre sí." },
+      navarra: { name: "Lanzamiento de boina", region: "Navarra", icon: "🧢", clue: "Prueba de precisión y aerodinámica lanzando la tradicional txapela hacia una diana.", fab: "Platos de cartón reutilizados pintados y lastrados con cinta adhesiva." },
+      la_rioja: { name: "La Rana", region: "La Rioja", icon: "🐸", clue: "Juego de puntería milenario lanzando fichas a la boca abierta de una figura y sus compartimentos.", fab: "Caja de zapatos con agujeros numerados y una figura de cartón recortado." },
+      aragon: { name: "Tiro de barra aragonesa", region: "Aragón", icon: "🏋️", clue: "Lanzamiento de una barra de hierro pesada manteniendo el equilibrio sin salir de la marca.", fab: "Tubo largo de cartón de embalaje relleno de periódicos apelmazados." },
+      cataluna: { name: "La Bitlla catalana", region: "Cataluña", icon: "🪵", clue: "Juego de bolos tradicional donde se lanzan bitllots para dejar en pie exactamente una sola bitlla.", fab: "Botellas de detergente vacías y limpias de diferentes tamaños." },
+      castilla_leon: { name: "La Calva", region: "Castilla y León", icon: "🪓", clue: "Se lanza una piedra plana o pieza metálica a golpear un madero angulado en el vértice.", fab: "Brik de leche doblado en ángulo de 120° fijado con cinta adhesiva y arena." },
+      castilla_mancha: { name: "El Boleche", region: "Castilla-La Mancha", icon: "🎯", clue: "Juego de puntería con bolas de madera o canicas buscando acercarse al bolo guía.", fab: "Bolas de papel de periódico compactadas con cinta adhesiva." },
+      valencia: { name: "Pelota valenciana", region: "Comunidad Valenciana", icon: "🏐", clue: "Se golpea una pelota con la palma protegida de la mano enviándola por encima de la cuerda.", fab: "Guantes viejos reforzados con cartón y pelotas de tenis sin pelo." },
+      baleares: { name: "Tir de fona (Tiro con honda)", region: "Islas Baleares", icon: "🎯", clue: "Técnica ancestral de lanzamiento de proyectiles a dianas lejanas con honda de cuerda.", fab: "Tiras de tela de camisetas viejas trenzadas con bolsillo central de cuero sintético." },
+      andalucia: { name: "Carrera de sacos", region: "Andalucía", icon: "🏃", clue: "Carrera de saltos y velocidad en ferias populares dentro de un saco resistente.", fab: "Fundas de almohada viejas o sacas de rafia reutilizadas limpias." },
+      murcia: { name: "Los Caliches", region: "Región de Murcia", icon: "🪵", clue: "Derribar con piezas metálicas un cilindro de caña o madera sobre el que se apuestan monedas.", fab: "Trozo de caña o cilindro de cartón con tapas metálicas de tarros." },
+      extremadura: { name: "La Tangana", region: "Extremadura", icon: "🏏", clue: "Similar al chito y calva, juego de precisión derribando el palo guía a larga distancia.", fab: "Tubos de patatas fritas rellenos de arena compacta." },
+      canarias: { name: "La Lucha canaria (Mañas)", region: "Canarias", icon: "🤼", clue: "Noble deporte vernáculo en arena buscando desequilibrar al oponente sin dañarlo.", fab: "Pistas blandas de colchonetas de psicomotricidad escolar." },
+      ceuta_melilla: { name: "El Trompo tradicional", region: "Ceuta y Melilla", icon: "🪀", clue: "Hacer bailar la peonza de madera lanzándola con una cuerda enrollada.", fab: "Conos de hilo textil vacíos o peonzas hechas con tapones de plástico y palillos." }
+    };
+
+    let rescuedGames = new Set();
+
+    // MURDOKU STATE (Aisha, Hugo, Lola, Iker x 8 columnas)
+    const MURDOKU_SOLUTION = {
+      0: [2, 7],
+      1: [0, 6],
+      2: [3, 5],
+      3: [1, 4]
+    };
+    let murdokuGrid = Array(4).fill(null).map(() => Array(8).fill(""));
+
+    function openModal(missionNum) {
+      playBeep(640, 0.1);
+      const titleElem = document.getElementById('m-modal-title');
+      const bodyElem = document.getElementById('m-modal-body');
+
+      if (missionNum === 1) {
+        titleElem.innerHTML = "🧭 Misión 1: Mapa del Patrimonio Lúdico (Art. 46 CE)";
+        bodyElem.innerHTML = `
+          <p style="margin-bottom: 12px; color: #94A3B8;">
+            El Art. 46 CE garantiza la conservación y enriquecimiento del patrimonio cultural. Pulsa sobre cualquier Comunidad en el mapa para descubrir su juego autóctono y las instrucciones de <strong>fabricación con materiales de reciclaje</strong>.
+          </p>
+          <div class="map-container-modal">
+            <div class="svg-map-wrap">
+              <svg class="spain-svg" viewBox="0 0 1000 680" id="modal-spain-svg">
+                <rect width="100%" height="100%" fill="#F0F9FF" />
+                <text x="140" y="240" fill="#BAE6FD" font-size="20" font-weight="900" letter-spacing="3" text-anchor="middle">OCÉANO ATLÁNTICO</text>
+                <text x="750" y="470" fill="#BAE6FD" font-size="20" font-weight="900" letter-spacing="3" text-anchor="middle">MAR MEDITERRÁNEO</text>
+                <text x="360" y="32" fill="#BAE6FD" font-size="18" font-weight="900" letter-spacing="3" text-anchor="middle">MAR CANTÁBRICO</text>
+                
+                <!-- Insets -->
+                <rect x="30" y="470" width="220" height="190" class="inset-frame" />
+                <text x="45" y="490" class="inset-title">Islas Canarias</text>
+                <rect x="270" y="580" width="210" height="85" class="inset-frame" />
+                <text x="285" y="600" class="inset-title">Ciudades Autónomas</text>
+
+                <!-- 1. Galicia -->
+                <g class="region-group" onclick="selectMapGame('galicia')">
+                  <path class="region-path ${rescuedGames.has('galicia')?'rescued':''}" id="p-galicia" d="M 120 70 L 165 45 L 205 60 L 210 115 L 185 160 L 135 155 L 115 110 Z" />
+                  <text x="160" y="105" class="region-label">Galicia</text>
+                </g>
+                <!-- 2. Asturias -->
+                <g class="region-group" onclick="selectMapGame('asturias')">
+                  <path class="region-path ${rescuedGames.has('asturias')?'rescued':''}" id="p-asturias" d="M 210 60 L 295 55 L 305 95 L 210 115 Z" />
+                  <text x="255" y="85" class="region-label">Asturias</text>
+                </g>
+                <!-- 3. Cantabria -->
+                <g class="region-group" onclick="selectMapGame('cantabria')">
+                  <path class="region-path ${rescuedGames.has('cantabria')?'rescued':''}" id="p-cantabria" d="M 295 55 L 365 55 L 360 100 L 305 95 Z" />
+                  <text x="330" y="80" class="region-label">Cantabria</text>
+                </g>
+                <!-- 4. País Vasco -->
+                <g class="region-group" onclick="selectMapGame('pais_vasco')">
+                  <path class="region-path ${rescuedGames.has('pais_vasco')?'rescued':''}" id="p-pais_vasco" d="M 365 55 L 435 60 L 420 115 L 360 100 Z" />
+                  <text x="395" y="82" class="region-label">País Vasco</text>
+                </g>
+                <!-- 5. Navarra -->
+                <g class="region-group" onclick="selectMapGame('navarra')">
+                  <path class="region-path ${rescuedGames.has('navarra')?'rescued':''}" id="p-navarra" d="M 435 60 L 495 70 L 485 140 L 425 130 L 420 115 Z" />
+                  <text x="460" y="105" class="region-label">Navarra</text>
+                </g>
+                <!-- 6. La Rioja -->
+                <g class="region-group" onclick="selectMapGame('la_rioja')">
+                  <path class="region-path ${rescuedGames.has('la_rioja')?'rescued':''}" id="p-la_rioja" d="M 370 105 L 420 115 L 425 140 L 375 140 L 365 115 Z" />
+                  <text x="396" y="130" class="region-label">La Rioja</text>
+                </g>
+                <!-- 7. Aragón -->
+                <g class="region-group" onclick="selectMapGame('aragon')">
+                  <path class="region-path ${rescuedGames.has('aragon')?'rescued':''}" id="p-aragon" d="M 495 70 L 585 90 L 565 245 L 505 265 L 455 210 L 485 140 Z" />
+                  <text x="525" y="165" class="region-label">Aragón</text>
+                </g>
+                <!-- 8. Cataluña -->
+                <g class="region-group" onclick="selectMapGame('cataluna')">
+                  <path class="region-path ${rescuedGames.has('cataluna')?'rescued':''}" id="p-cataluna" d="M 585 90 L 690 95 L 725 155 L 675 200 L 645 235 L 565 245 Z" />
+                  <text x="640" y="150" class="region-label">Cataluña</text>
+                </g>
+                <!-- 9. Castilla y León -->
+                <g class="region-group" onclick="selectMapGame('castilla_leon')">
+                  <path class="region-path ${rescuedGames.has('castilla_leon')?'rescued':''}" id="p-castilla_leon" d="M 210 115 L 305 95 L 360 100 L 365 115 L 375 140 L 425 140 L 485 140 L 455 210 L 420 225 L 385 220 L 380 270 L 295 275 L 245 285 L 185 160 Z" />
+                  <text x="295" y="185" class="region-label">Castilla y León</text>
+                </g>
+                <!-- 10. Madrid -->
+                <g class="region-group" onclick="selectMapGame('madrid')">
+                  <path class="region-path ${rescuedGames.has('madrid')?'rescued':''}" id="p-madrid" d="M 385 220 L 425 210 L 440 250 L 380 270 Z" style="stroke: #C7082A; stroke-width: 3.5;" />
+                  <text x="410" y="244" class="region-label" style="font-weight: 900; fill: #C7082A;">Madrid</text>
+                </g>
+                <!-- 11. Castilla-La Mancha -->
+                <g class="region-group" onclick="selectMapGame('castilla_mancha')">
+                  <path class="region-path ${rescuedGames.has('castilla_mancha')?'rescued':''}" id="p-castilla_mancha" d="M 380 270 L 440 250 L 455 210 L 505 265 L 545 320 L 525 390 L 440 405 L 330 380 L 310 320 L 380 270 Z" />
+                  <text x="430" y="325" class="region-label">Castilla-La Mancha</text>
+                </g>
+                <!-- 12. C. Valenciana -->
+                <g class="region-group" onclick="selectMapGame('valencia')">
+                  <path class="region-path ${rescuedGames.has('valencia')?'rescued':''}" id="p-valencia" d="M 565 245 L 645 235 L 615 320 L 585 410 L 535 410 L 525 390 L 545 320 L 505 265 Z" />
+                  <text x="575" y="315" class="region-label">C. Valenciana</text>
+                </g>
+                <!-- 13. Extremadura -->
+                <g class="region-group" onclick="selectMapGame('extremadura')">
+                  <path class="region-path ${rescuedGames.has('extremadura')?'rescued':''}" id="p-extremadura" d="M 245 285 L 295 275 L 310 320 L 330 380 L 310 440 L 225 430 L 235 340 Z" />
+                  <text x="270" y="360" class="region-label">Extremadura</text>
+                </g>
+                <!-- 14. Andalucía -->
+                <g class="region-group" onclick="selectMapGame('andalucia')">
+                  <path class="region-path ${rescuedGames.has('andalucia')?'rescued':''}" id="p-andalucia" d="M 225 430 L 310 440 L 330 380 L 440 405 L 525 390 L 535 410 L 485 520 L 380 540 L 230 520 Z" />
+                  <text x="360" y="475" class="region-label">Andalucía</text>
+                </g>
+                <!-- 15. Murcia -->
+                <g class="region-group" onclick="selectMapGame('murcia')">
+                  <path class="region-path ${rescuedGames.has('murcia')?'rescued':''}" id="p-murcia" d="M 535 410 L 585 410 L 570 465 L 515 460 Z" />
+                  <text x="550" y="440" class="region-label">Murcia</text>
+                </g>
+                <!-- 16. Baleares -->
+                <g class="region-group" onclick="selectMapGame('baleares')">
+                  <path class="region-path ${rescuedGames.has('baleares')?'rescued':''}" id="p-baleares" d="M 720 280 L 760 270 L 780 300 L 740 315 Z M 685 320 L 705 315 L 715 335 L 695 340 Z M 775 250 L 795 245 L 805 260 L 785 265 Z" />
+                  <text x="750" y="300" class="region-label">Baleares</text>
+                </g>
+                <!-- 17. Canarias -->
+                <g class="region-group" onclick="selectMapGame('canarias')">
+                  <path class="region-path ${rescuedGames.has('canarias')?'rescued':''}" id="p-canarias" d="M 50 540 L 80 535 L 75 560 Z M 95 530 L 125 525 L 120 555 Z M 140 520 L 175 515 L 170 545 Z M 190 510 L 220 505 L 215 535 Z" />
+                  <text x="135" y="590" class="region-label">Canarias</text>
+                </g>
+                <!-- 18. Ceuta -->
+                <g class="region-group" onclick="selectMapGame('ceuta_melilla')">
+                  <circle cx="330" cy="625" r="14" class="region-path ${rescuedGames.has('ceuta_melilla')?'rescued':''}" id="p-ceuta" />
+                  <text x="330" y="628" class="region-label" style="font-size:9px;">Ceuta</text>
+                </g>
+                <!-- 19. Melilla -->
+                <g class="region-group" onclick="selectMapGame('ceuta_melilla')">
+                  <circle cx="410" cy="625" r="14" class="region-path ${rescuedGames.has('ceuta_melilla')?'rescued':''}" id="p-melilla" />
+                  <text x="410" y="628" class="region-label" style="font-size:9px;">Melilla</text>
+                </g>
+              </svg>
+            </div>
+            <div class="game-sidebar" id="map-game-sidebar">
+              <h4>🎯 Selecciona una región</h4>
+              <p style="color: #94A3B8; font-size: 12.5px;">Haz clic en cualquier territorio para ver su juego tradicional, su ficha técnica y las instrucciones de fabricación con materiales de reciclaje.</p>
+            </div>
+          </div>
+        `;
+      } else if (missionNum === 2) {
+        titleElem.innerHTML = "♻️ Misión 2: Taller de Ecodiseño e Inclusión (Arts. 14 y 45 CE)";
+        bodyElem.innerHTML = `
+          <p style="margin-bottom: 14px; color: #E2E8F0; font-size: 13.5px;">
+            <strong>Instrucciones:</strong> Resuelve los dos casos para desbloquear los planos del taller sostenible.
+          </p>
+          <div class="cases-grid">
+            <!-- Caso 1 -->
+            <div class="case-box">
+              <h4>Caso 1: Inclusión motora en el chito (Art. 14 CE)</h4>
+              <p style="font-size: 12.5px; color: #CBD5E1;">
+                En el colegio queremos jugar al Chito madrileño, pero varios compañeros se desplazan en silla de ruedas o tienen dificultades para recorrer la distacia oficial de 20 metros sobre tierra irregular. ¿Cuál es la adaptación correcta?
+              </p>
+              <div class="case-options">
+                <button class="case-btn" onclick="selectCase(1, 0, this)">A) Que observen desde la grada y lleven el marcador sin jugar.</button>
+                <button class="case-btn" onclick="selectCase(1, 1, this)">B) Establecer una zona de tiro nivelada y accesible a distancia reducida, permitiendo el lanzamiento sentado con implementos adaptados (Art. 14 CE).</button>
+                <button class="case-btn" onclick="selectCase(1, 2, this)">C) Eliminar el juego tradicional y sustituirlo por una pantalla individual.</button>
+              </div>
+              <div class="case-feedback" id="fb-case-1"></div>
+            </div>
+
+            <!-- Caso 2 -->
+            <div class="case-box">
+              <h4>Caso 2: Taller de economía circular (Art. 45 CE)</h4>
+              <p style="font-size: 12.5px; color: #CBD5E1;">
+                Para practicar los juegos tradicionales en el patio sin comprar materiales de plástico nuevo en tiendas, ¿cuál es la mejor propuesta de taller sostenible e inclusivo?
+              </p>
+              <div class="case-options">
+                <button class="case-btn" onclick="selectCase(2, 0, this)">A) Comprar implementos de plástico nuevo por internet.</button>
+                <button class="case-btn" onclick="selectCase(2, 1, this)">B) Reutilizar latas, cajas de cartón y tapones de casa con cascabeles interiores para fabricar bolos y chitos sensoriales de coste cero (Art. 45 CE).</button>
+                <button class="case-btn" onclick="selectCase(2, 2, this)">C) Cancelar la actividad si no hay presupuesto oficial para comprar implementos.</button>
+              </div>
+              <div class="case-feedback" id="fb-case-2"></div>
+            </div>
+          </div>
+        `;
+      } else if (missionNum === 3) {
+        titleElem.innerHTML = "🧩 Misión 3: Criptograma de los Sabios (Murdoku Lógico · Art. 46 CE)";
+        bodyElem.innerHTML = `
+          <div style="background: rgba(139, 92, 246, 0.15); border: 1px solid var(--purple); padding: 12px 16px; border-radius: 12px; margin-bottom: 14px;">
+            <p style="color: #F8FAFC; font-size: 13px;">
+              <strong>Instrucciones:</strong> Como agentes constitucionales del Art. 46, descifrad las pistas lógicas para averiguar qué investiga cada uno. Pulsa una casilla para marcar <strong style="color:#10B981;">O</strong> (sí) o <strong style="color:#EF4444;">X</strong> (no). Si marcas "O", la fila y columna correspondientes se bloquearán automáticamente. Si pulsas sobre la casilla, puedes cambiar el signo e incluso volver a dejar la casilla vacía.
+            </p>
+          </div>
+          <div class="murdoku-layout">
+            <div class="clues-box">
+              <h4 style="color: #FFE600; margin-bottom: 10px;">🔍 Pistas de los 4 Investigadores:</h4>
+              <div class="clue-p"><strong>Pista 1:</strong> A <strong>Lola</strong> le ha tocado investigar el juego de tirar de la cuerda llamado <strong>Sokatira</strong>.</div>
+              <div class="clue-p"><strong>Pista 2:</strong> <strong>Hugo</strong> ha decidido reciclar papel y usa <strong>Revistas enrolladas</strong> para su juego.</div>
+              <div class="clue-p"><strong>Pista 3:</strong> El juego de <strong>La Llave</strong> utiliza <strong>Tapas de conservas</strong>, pero no lo investigan ni Hugo ni Iker.</div>
+              <div class="clue-p"><strong>Pista 4:</strong> El juego que utiliza una <strong>Botella rellena de arena</strong> como diana central es el <strong>Chito</strong>.</div>
+              <button class="btn-play-level" style="margin-top: 10px;" onclick="checkMurdokuModal()">
+                <span>✓ Comprobar Deducción Lógica</span>
+              </button>
+              <div id="murdoku-fb" style="margin-top: 8px; font-weight: 700; font-size: 12px;"></div>
+            </div>
+
+            <div>
+              <table class="murdoku-table">
+                <thead>
+                  <tr>
+                    <th colspan="2" rowspan="2"></th>
+                    <th colspan="4" style="color: #00F0FF;">JUEGOS TRADICIONALES</th>
+                    <th colspan="4" style="color: #10B981;">MATERIAL RECICLADO</th>
+                  </tr>
+                  <tr>
+                    <th>Bolos</th>
+                    <th>Chito</th>
+                    <th>Llave</th>
+                    <th>Sokatira</th>
+                    <th>Botella</th>
+                    <th>Cuerda</th>
+                    <th>Revistas</th>
+                    <th>Tapas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${['Aisha', 'Hugo', 'Lola', 'Iker'].map((name, r) => `
+                    <tr>
+                      ${r === 0 ? '<th rowspan="4" style="background:#1E293B; color:#FFE600;">ALUMNOS</th>' : ''}
+                      <th style="background:#1E293B; color:#FFFFFF; text-align: left; padding-left: 8px;">${name}</th>
+                      ${[0,1,2,3,4,5,6,7].map(c => `
+                        <td class="murdoku-cell" id="mc-${r}-${c}" onclick="toggleMurdokuCell(${r}, ${c})">${murdokuGrid[r][c]}</td>
+                      `).join('')}
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      } else if (missionNum === 4) {
+        titleElem.innerHTML = "🎖️ Misión 4: Juramento Constitucional y Carnet Oficial (Arts. 14, 43.3 y 46 CE)";
+        bodyElem.innerHTML = `
+          <div style="background: rgba(255, 209, 102, 0.15); border: 1.5px solid #FFE600; padding: 12px 18px; border-radius: 12px; margin-bottom: 16px;">
+            <p style="color: #FFF; font-size: 13.5px; font-weight: 600;">
+              <strong>Instrucciones:</strong> Has rescatado la memoria lúdica de los pueblos de España y defendido el Artículo 14, 43.3 y 46 de la Constitución Española con inclusión y sostenibilidad.
+            </p>
+          </div>
+
+          <div class="carnet-box" id="carnet-print-area">
+            <div class="carnet-head">
+              <div class="carnet-inst-title">Comunidad de Madrid</div>
+              <div class="carnet-tag">ACREDITACIÓN OFICIAL 2026</div>
+            </div>
+            <div class="carnet-main">
+              <img src="Artefactos/insignia_reto1.png" alt="Insignia Guardián" class="carnet-photo" onerror="this.onerror=null; this.src='logo_comunidad_transparente.png';">
+              <div class="carnet-inputs">
+                <div class="carnet-input-group">
+                  <label>Nombre del Guardián/a o Equipo:</label>
+                  <input type="text" class="carnet-input" id="c-name" value="Agente Constitucional 2026">
+                </div>
+                <div class="carnet-input-group">
+                  <label>Centro Educativo / Curso:</label>
+                  <input type="text" class="carnet-input" id="c-school" value="Colegio / IES de la Comunidad de Madrid">
+                </div>
+              </div>
+            </div>
+            <div class="carnet-articles">
+              ⚖️ Artículos Constitucionales defendidos: <strong>Art. 14</strong> (Igualdad e Inclusión) • <strong>Art. 43.3</strong> (Salud y Ocio Activo) • <strong>Art. 46</strong> (Patrimonio Cultural de los Pueblos de España).
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #64748B; border-top: 1px dashed #CBD5E1; padding-top: 8px;">
+              <span>Válido para la Semana de la Constitución 2026</span>
+              <span style="font-weight: 800; color: var(--madrid-red);">MISIÓN CUMPLIDA ✓</span>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 16px;">
+            <button class="btn-play-level" style="max-width: 320px; margin: 0 auto; background: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);" onclick="printCarnet()">
+              <span>🖨️ Imprimir Carnet Oficial</span>
+            </button>
+          </div>
+        `;
+      }
+
+      document.getElementById('modal-box-overlay').style.display = 'flex';
+    }
+
+    function closeModal() {
+      playBeep(420, 0.08);
+      document.getElementById('modal-box-overlay').style.display = 'none';
+    }
+
+    // MAPA GAME SELECTION
+    function selectMapGame(gameKey) {
+      const g = GAMES[gameKey];
+      if (!g) return;
+      playBeep(720, 0.08);
+      rescuedGames.add(gameKey);
+      const path = document.getElementById('p-' + (gameKey === 'ceuta_melilla' ? 'ceuta' : gameKey));
+      if (path) path.classList.add('rescued');
+
+      const side = document.getElementById('map-game-sidebar');
+      side.innerHTML = `
+        <span class="game-meta-badge">${g.region} — Art. 46 CE</span>
+        <h3 style="font-size: 18px; color: #FFE600; margin-bottom: 6px;">${g.icon} ${g.name}</h3>
+        <p style="font-size: 12.5px; color: #CBD5E1; margin-bottom: 12px; line-height: 1.45;">
+          ${g.clue}
+        </p>
+        <div style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; padding: 10px; border-radius: 8px; margin-bottom: 12px;">
+          <h5 style="color: #A7F3D0; font-size: 12px; margin-bottom: 4px;">♻️ Fabricación con materiales de reciclaje:</h5>
+          <p style="font-size: 12px; color: #F0FDF4;">${g.fab}</p>
+        </div>
+        <div style="background: rgba(0, 240, 255, 0.1); border: 1px solid var(--cyan); padding: 8px 10px; border-radius: 8px; font-size: 11.5px; color: #E0F2FE;">
+          ✓ ¡Juego rescatado y registrado en el patrimonio escolar!
+        </div>
+      `;
+    }
+
+    // CASOS SELECTION
+    function selectCase(caseNum, optIdx, btn) {
+      const fb = document.getElementById('fb-case-1');
+      const fb2 = document.getElementById('fb-case-2');
+      const container = btn.parentElement;
+      container.querySelectorAll('.case-btn').forEach(b => b.classList.remove('correct', 'incorrect'));
+
+      if (caseNum === 1) {
+        if (optIdx === 1) {
+          playBeep(800, 0.15);
+          btn.classList.add('correct');
+          fb.style.display = 'block';
+          fb.style.background = 'rgba(16, 185, 129, 0.2)';
+          fb.style.color = '#A7F3D0';
+          fb.style.border = '1px solid #10B981';
+          fb.innerHTML = '✓ ¡Correcto! El Art. 14 CE garantiza la inclusión real. Reducir la distancia y usar implementos adaptados permite que todos jueguen juntos en igualdad de condiciones.';
+        } else {
+          playBeep(300, 0.15);
+          btn.classList.add('incorrect');
+          fb.style.display = 'block';
+          fb.style.background = 'rgba(239, 68, 68, 0.2)';
+          fb.style.color = '#FECACA';
+          fb.style.border = '1px solid #EF4444';
+          fb.innerHTML = '✕ Respuesta inadecuada. Excluir a compañeros con movilidad reducida va en contra del principio constitucional de no discriminación (Art. 14 CE).';
+        }
+      } else if (caseNum === 2) {
+        if (optIdx === 1) {
+          playBeep(800, 0.15);
+          btn.classList.add('correct');
+          fb2.style.display = 'block';
+          fb2.style.background = 'rgba(16, 185, 129, 0.2)';
+          fb2.style.color = '#A7F3D0';
+          fb2.style.border = '1px solid #10B981';
+          fb2.innerHTML = '✓ ¡Exacto! Conforme al Art. 45 CE (protección ambiental), reutilizar latas, telas y botellas fomenta la economía circular y la creatividad lúdica con residuo cero.';
+        } else {
+          playBeep(300, 0.15);
+          btn.classList.add('incorrect');
+          fb2.style.display = 'block';
+          fb2.style.background = 'rgba(239, 68, 68, 0.2)';
+          fb2.style.color = '#FECACA';
+          fb2.style.border = '1px solid #EF4444';
+          fb2.innerHTML = '✕ Inadecuado. Comprar plástico nuevo desechable o dañar la naturaleza va en contra de la sostenibilidad del Art. 45 CE.';
+        }
+      }
+    }
+
+    // MURDOKU CELL TOGGLE (Empty -> O -> X -> Empty)
+    function toggleMurdokuCell(r, c) {
+      playBeep(580, 0.05);
+      const cell = document.getElementById(`mc-${r}-${c}`);
+      let cur = murdokuGrid[r][c];
+      if (cur === "") {
+        murdokuGrid[r][c] = "O";
+        cell.innerText = "O";
+        cell.className = "murdoku-cell val-o";
+      } else if (cur === "O") {
+        murdokuGrid[r][c] = "X";
+        cell.innerText = "X";
+        cell.className = "murdoku-cell val-x";
+      } else {
+        murdokuGrid[r][c] = "";
+        cell.innerText = "";
+        cell.className = "murdoku-cell";
+      }
+    }
+
+    function checkMurdokuModal() {
+      let correct = true;
+      for (let r = 0; r < 4; r++) {
+        const expected = MURDOKU_SOLUTION[r];
+        for (let expCol of expected) {
+          if (murdokuGrid[r][expCol] !== "O") {
+            correct = false;
+            break;
+          }
+        }
+      }
+
+      const fb = document.getElementById('murdoku-fb');
+      if (correct) {
+        playBeep(880, 0.2);
+        fb.style.color = '#10B981';
+        fb.innerHTML = '🎉 ¡Brillante! Has descifrado el Murdoku: Aisha investiga Llave con Tapas; Hugo investiga Bolos con Revistas; Lola investiga Sokatira con Cuerda; e Iker investiga Chito con Botella.';
+      } else {
+        playBeep(320, 0.15);
+        fb.style.color = '#F59E0B';
+        fb.innerHTML = '🔍 Aún quedan casillas por cuadrar. Revisa las pistas lógicas: Lola = Sokatira; Hugo = Revistas; Tapas = Llave (no Hugo ni Iker); Botella = Chito.';
+      }
+    }
+
+    function printCarnet() {
+      window.print();
+    }
+
+    function toggleContainerFullscreen() {
+      const elem = document.getElementById('master-box');
+      if (!document.fullscreenElement) {
+        elem.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+  </script>
+</body>
+</html>

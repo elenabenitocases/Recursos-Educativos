@@ -1,0 +1,3831 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 4: Patrimonio Cultural y Artístico | Día de la Constitución 2026</title>
+  <style>
+    :root {
+      --madrid-red: #C7082A;
+      --madrid-darkred: #94041C;
+      --madrid-gold: #D4AF37;
+      --madrid-darkgold: #B38E22;
+      --patrimonio-terracota: #C25E34;
+      --patrimonio-verde: #2E7D32;
+      --patrimonio-azul: #1565C0;
+      --patrimonio-purpura: #6A1B9A;
+      --text-dark: #1E293B;
+      --text-muted: #64748B;
+      --bg-warm: #FAF8F5;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-md: 0 6px 18px rgba(0,0,0,0.08);
+      --shadow-lg: 0 14px 32px rgba(0,0,0,0.12);
+      --radius-lg: 20px;
+      --radius-md: 14px;
+    }
+
+    html {
+      overflow-y: scroll;
+      scrollbar-gutter: stable;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--bg-warm);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* BARRA INSTITUCIONAL SUPERIOR */
+    .gov-bar {
+      background: #FFFFFF;
+      border-bottom: 3px solid var(--madrid-red);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      min-height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .gov-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .gov-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+      display: block;
+    }
+    .gov-title-block {
+      border-left: 2px solid #CBD5E1;
+      padding-left: 14px;
+    }
+    .gov-title-block h1 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--madrid-red);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .gov-title-block p {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin: 0;
+    }
+    .gov-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .badge-pill {
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FCD34D;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-tool {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-tool:hover {
+      background: #E2E8F0;
+      transform: translateY(-1px);
+    }
+    .btn-tool.active {
+      background: var(--madrid-red);
+      color: white;
+      border-color: var(--madrid-red);
+    }
+    .btn-sound, .btn-print-top {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .btn-sound:hover, .btn-print-top:hover {
+      background: #E2E8F0;
+      transform: translateY(-1px);
+    }
+    .btn-lang {
+      background: #FFFFFF;
+      color: var(--madrid-red);
+      border: 1.5px solid #FCA5A5;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .btn-lang:hover {
+      background: #FEF2F2;
+      border-color: var(--madrid-red);
+      transform: translateY(-1px);
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .main-container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* HERO SECTION */
+    .hero-card {
+      background: linear-gradient(135deg, #7C2D12 0%, #C7082A 50%, #94041C 100%);
+      border-radius: var(--radius-lg);
+      color: #FFFFFF;
+      padding: 36px 32px;
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 24px;
+      align-items: center;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after {
+      content: '';
+      position: absolute;
+      right: -60px;
+      bottom: -60px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(212,175,55,0.25) 0%, rgba(212,175,55,0) 70%);
+      pointer-events: none;
+    }
+    .hero-content h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .hero-tag {
+      background: var(--madrid-gold);
+      color: #5B3F02;
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+    .hero-p {
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: #FEE2E2;
+      margin-bottom: 18px;
+      max-width: 760px;
+    }
+    .hero-article-box {
+      background: rgba(0, 0, 0, 0.28);
+      border-left: 4px solid var(--madrid-gold);
+      padding: 14px 18px;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.92rem;
+      line-height: 1.45;
+      color: #FFF;
+      font-style: italic;
+    }
+    .hero-badge-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 12px;
+      z-index: 1;
+    }
+    .hero-badge-img {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.35));
+      animation: floatBadge 4s ease-in-out infinite;
+    }
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(1.5deg); }
+    }
+    .hero-badge-caption {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--madrid-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* SELECTOR DE ETAPA EDUCATIVA */
+    .stage-selector-bar {
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      flex-wrap: wrap;
+    }
+    .stage-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stage-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .stage-btn {
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .stage-btn:hover {
+      background: #EEF2F6;
+      border-color: #94A3B8;
+    }
+    .stage-btn.active {
+      background: var(--madrid-red);
+      color: #FFFFFF;
+      border-color: var(--madrid-red);
+      box-shadow: 0 4px 10px rgba(199, 8, 42, 0.3);
+    }
+
+    /* PANELES DE NAVEGACIÓN DE SUB-RETOS EN DOS FILAS (2x2) */
+    .tabs-nav {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .tab-btn {
+      background: #FFFFFF;
+      border: 2px solid #E2E8F0;
+      border-left: 5px solid #CBD5E1;
+      padding: 14px 18px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+    .tab-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: #CBD5E1;
+    }
+    .tab-btn.active {
+      border-color: var(--madrid-red);
+      border-left: 5px solid var(--madrid-red);
+      background: #FFFBFB;
+      box-shadow: 0 6px 18px rgba(199, 8, 42, 0.12);
+    }
+    .tab-btn.active::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--madrid-red);
+    }
+    @media (max-width: 640px) {
+      .tabs-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+    .tab-badge-num {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--madrid-red);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.25;
+    }
+    .tab-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    /* VISTAS DE CADA SUB-RETO */
+    .subreto-view {
+      display: none;
+      flex-direction: column;
+      gap: 28px;
+      animation: fadeIn 0.3s ease;
+    }
+    .subreto-view.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* TARJETAS CONTENEDORAS */
+    .panel-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .panel-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .panel-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    /* ================================================= */
+    /* SUB-RETO 4.1: NUESTRA HISTORIA                    */
+    /* ================================================= */
+    .interview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #334155;
+    }
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #CBD5E1;
+      font-size: 0.9rem;
+      background: #F8FAFC;
+      transition: all 0.2s ease;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--madrid-red);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(199, 8, 42, 0.1);
+    }
+    textarea.form-control {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .category-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .cat-btn {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-weight: 600;
+      color: #475569;
+      transition: all 0.15s ease;
+    }
+    .cat-btn:hover {
+      background: #E2E8F0;
+    }
+    .cat-btn.selected {
+      background: #FEF3C7;
+      border-color: #F59E0B;
+      color: #92400E;
+      font-weight: 700;
+    }
+
+    /* FICHA MUSEÍSTICA PREVIEW */
+    .museum-card-preview {
+      background: #FFFDF9;
+      border: 2px dashed #D4AF37;
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.08);
+      position: relative;
+    }
+    .museum-seal {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      border: 2px solid var(--madrid-red);
+      color: var(--madrid-red);
+      padding: 4px 8px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: 4px;
+      transform: rotate(3deg);
+    }
+    .catalog-code {
+      font-family: monospace;
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--madrid-red);
+      letter-spacing: 0.05em;
+    }
+    .museum-item-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #1E293B;
+    }
+    .museum-details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      background: #FFFFFF;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #E2E8F0;
+    }
+    .museum-prop-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .museum-prop-value {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #1E293B;
+    }
+
+    /* CARNET Y DIPLOMA PRINT PREVIEW */
+    .credential-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-action-primary {
+      background: var(--madrid-red);
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(199, 8, 42, 0.25);
+      transition: all 0.2s ease;
+    }
+    .btn-action-primary:hover {
+      background: var(--madrid-darkred);
+      transform: translateY(-1px);
+    }
+    .btn-action-secondary {
+      background: #FFFFFF;
+      color: #334155;
+      border: 1px solid #CBD5E1;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .btn-action-secondary:hover {
+      background: #F8FAFC;
+      border-color: #94A3B8;
+    }
+
+    /* CARNET DE AGENTE CONSTITUCIONAL */
+    .agent-card-badge {
+      background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+      color: #FFFFFF;
+      border: 2px solid var(--madrid-gold);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 440px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+    }
+    .agent-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(212,175,55,0.3);
+      padding-bottom: 8px;
+    }
+    .agent-org-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--madrid-gold);
+      letter-spacing: 0.05em;
+    }
+    .agent-body-grid {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+    .agent-avatar-box {
+      width: 80px;
+      height: 90px;
+      background: #334155;
+      border: 2px dashed #94A3B8;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #CBD5E1;
+    }
+    .agent-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .agent-name-display {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+    .agent-role-pill {
+      background: rgba(212,175,55,0.2);
+      color: var(--madrid-gold);
+      border: 1px solid var(--madrid-gold);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      width: fit-content;
+    }
+    .agent-id-line {
+      font-size: 0.8rem;
+      color: #94A3B8;
+      font-family: monospace;
+    }
+
+    /* ================================================= */
+    /* SUB-RETO 4.2: EL RONDÓN DE VALDEMORILLO           */
+    /* ================================================= */
+    .rondon-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .rondon-info-box {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .rondon-info-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #1E293B;
+    }
+    .rondon-quote {
+      background: #FFFFFF;
+      border-left: 3px solid var(--patrimonio-terracota);
+      padding: 12px 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: #475569;
+    }
+
+    /* INDUMENTARIA TRADICIONAL MADRILEÑA */
+    .costume-interactive {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .costume-item-btn {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+    .costume-item-btn:hover {
+      background: #F1F5F9;
+      border-color: #94A3B8;
+    }
+    .costume-item-btn.active {
+      background: #EFF6FF;
+      border-color: var(--patrimonio-azul);
+      box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.15);
+    }
+    .costume-icon {
+      font-size: 1.4rem;
+    }
+    .costume-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #1E293B;
+    }
+    .costume-desc-text {
+      font-size: 0.75rem;
+      color: #64748B;
+    }
+
+    /* REPRODUCTOR DE RITMO TERNARIO INTERACTIVO */
+    .rhythm-player-box {
+      background: linear-gradient(135deg, #FFFDF8 0%, #FFF8EE 100%);
+      border: 2px solid var(--madrid-gold);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .meter-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 8px 0;
+    }
+    .beat-circle {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 3px solid #CBD5E1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #64748B;
+      transition: all 0.1s ease;
+    }
+    .beat-circle.active {
+      transform: scale(1.18);
+      background: var(--madrid-red);
+      color: #FFFFFF;
+      border-color: var(--madrid-gold);
+      box-shadow: 0 0 16px rgba(199, 8, 42, 0.4);
+    }
+    .beat-subtext {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .rhythm-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-rhythm {
+      background: var(--madrid-red);
+      color: #FFFFFF;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 10px rgba(199, 8, 42, 0.2);
+    }
+    .btn-rhythm:hover {
+      background: var(--madrid-darkred);
+      transform: translateY(-1px);
+    }
+    .btn-castanet-solo {
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+    .btn-castanet-solo:active {
+      transform: scale(0.96);
+      background: #E2E8F0;
+    }
+
+    /* TALLER DE MÉTRICA POÉTICA Y CUARTETAS */
+    .verse-workshop-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .traditional-lyrics-card {
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 14px;
+      border-left: 3px solid var(--madrid-gold);
+      font-style: italic;
+      line-height: 1.5;
+      font-size: 0.9rem;
+      color: #334155;
+    }
+    .verse-editor-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .verse-line-row {
+      display: grid;
+      grid-template-columns: 32px 1fr 100px;
+      gap: 10px;
+      align-items: center;
+    }
+    .verse-num {
+      font-weight: 800;
+      font-size: 0.85rem;
+      color: var(--madrid-red);
+      text-align: center;
+    }
+    .verse-syllables-count {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-align: center;
+      background: #F1F5F9;
+      color: #64748B;
+    }
+    .verse-syllables-count.perfect {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    /* ================================================= */
+    /* SUB-RETO 4.3: CAMPAÑA "PROTEGE NUESTRO ARTE"      */
+    /* ================================================= */
+    .campaign-creator-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      align-items: start;
+    }
+    .format-selector {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .format-btn {
+      flex: 1;
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #475569;
+      transition: all 0.2s ease;
+    }
+    .format-btn:hover {
+      background: #EEF2F6;
+    }
+    .format-btn.active {
+      background: #EFF6FF;
+      border-color: var(--patrimonio-azul);
+      color: var(--patrimonio-azul);
+      box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.15);
+    }
+
+    /* SIMULADOR PREVIEW DE CAMPAÑA */
+    .phone-mockup-frame {
+      background: #0F172A;
+      border-radius: 28px;
+      padding: 14px 10px;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.25);
+      border: 3px solid #334155;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      color: #FFFFFF;
+      position: sticky;
+      top: 90px;
+    }
+    .phone-notch {
+      width: 70px;
+      height: 6px;
+      background: #334155;
+      border-radius: 999px;
+      margin: 0 auto;
+    }
+    .phone-screen {
+      background: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
+      border-radius: 18px;
+      padding: 16px;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+    .phone-screen-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(199,8,42,0.3) 0%, rgba(15,23,42,0.85) 100%);
+      pointer-events: none;
+    }
+    .phone-screen-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+    }
+    .phone-top-tag {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: var(--madrid-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .phone-main-message {
+      text-align: center;
+      margin: auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .phone-headline {
+      font-size: 1.25rem;
+      font-weight: 900;
+      line-height: 1.2;
+      color: #FFFFFF;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    .phone-subline {
+      font-size: 0.8rem;
+      color: #E2E8F0;
+      line-height: 1.35;
+    }
+    .phone-art46-pill {
+      background: rgba(199, 8, 42, 0.85);
+      border: 1px solid rgba(212, 175, 55, 0.6);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-top: 6px;
+    }
+    .phone-footer-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: #94A3B8;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 10px;
+    }
+
+    /* RÚBRICA DE COEVALUACIÓN OFICIAL */
+    .rubric-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .rubric-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .rubric-table th, .rubric-table td {
+      padding: 12px 14px;
+      border: 1px solid #E2E8F0;
+      text-align: left;
+    }
+    .rubric-table th {
+      background: #F8FAFC;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #334155;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .rubric-table tr:hover td {
+      background: #FAF8F5;
+    }
+    .score-radio-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .score-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+    .score-option input[type="radio"] {
+      cursor: pointer;
+      accent-color: var(--madrid-red);
+      width: 16px;
+      height: 16px;
+    }
+    .score-option-num {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #64748B;
+    }
+    .score-summary-card {
+      background: #FEF3C7;
+      border: 1px solid #FCD34D;
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .score-total-number {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #92400E;
+    }
+    .score-total-scale {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #B45309;
+    }
+    .score-feedback-text {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #78350F;
+    }
+
+    /* ================================================= */
+    /* CIERRE: EL ARCHIPIÉLAGO DE LA UNIÓN               */
+    /* ================================================= */
+    .archipielago-panel {
+      background: radial-gradient(circle at center, #1E1B4B 0%, #0F172A 100%);
+      color: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+      border: 2px solid var(--madrid-gold);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .badges-collection-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+      margin-top: 10px;
+    }
+    .badge-collection-item {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 18px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.25s ease;
+    }
+    .badge-collection-item.unlocked {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--madrid-gold);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
+    }
+    .badge-item-img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+    }
+    .badge-item-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #E2E8F0;
+    }
+    .badge-item-status {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--madrid-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* CONFETTI CANVAS */
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      display: none;
+    }
+
+    /* BANNER PEDAGÃ“GICO DE ADAPTACIÃ“N POR ETAPA */
+    .stage-pedagogical-banner {
+      background: linear-gradient(135deg, #FFFFFF 0%, #FFFDF7 100%);
+      border: 2px solid #E2E8F0;
+      border-left: 6px solid var(--madrid-red);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin-top: -6px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+    .spb-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .spb-badge {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--madrid-red);
+      background: rgba(199, 8, 42, 0.08);
+      border: 1px solid rgba(199, 8, 42, 0.2);
+      padding: 5px 14px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .spb-notice {
+      font-size: 0.82rem;
+      color: #64748B;
+      font-style: italic;
+    }
+    .spb-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 820px) {
+      .spb-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .spb-col {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .spb-col-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #1E293B;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .spb-col-desc {
+      font-size: 0.82rem;
+      color: #475569;
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    /* DIPLOMA OFICIAL ESTILOS (PANTALLA Y PRINT) */
+    .diploma-print-sheet {
+      background: #FFFDF9;
+      border: 2px solid #D4AF37;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .diploma-border-outer {
+      border: 3px double #7C2D12;
+      padding: 10px;
+      background: #FFFDF8;
+      border-radius: 8px;
+    }
+    .diploma-border-inner {
+      border: 1px solid #D4AF37;
+      padding: 24px 28px;
+      position: relative;
+      background: radial-gradient(circle at 50% 50%, #FFFFFF 0%, #FFFDF6 100%);
+    }
+    .diploma-corner {
+      position: absolute;
+      font-size: 1.3rem;
+      color: #D4AF37;
+      line-height: 1;
+    }
+    .corner-tl { top: 6px; left: 8px; }
+    .corner-tr { top: 6px; right: 8px; }
+    .corner-bl { bottom: 6px; left: 8px; }
+    .corner-br { bottom: 6px; right: 8px; }
+    .diploma-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #E2E8F0;
+      padding-bottom: 12px;
+      gap: 16px;
+    }
+    .diploma-gov-logo {
+      height: 48px;
+      object-fit: contain;
+    }
+    .diploma-header-text {
+      text-align: center;
+      flex: 1;
+    }
+    .diploma-inst-title {
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: var(--madrid-red);
+    }
+    .diploma-inst-sub {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #334155;
+      letter-spacing: 0.5px;
+    }
+    .diploma-prog-tag {
+      font-size: 0.7rem;
+      color: #64748B;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+    .diploma-insignia {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+    }
+    .diploma-body {
+      text-align: center;
+      padding: 16px 0 12px 0;
+    }
+    .diploma-main-title {
+      font-family: 'Cinzel', Georgia, serif;
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: #7C2D12;
+      letter-spacing: 3px;
+      margin: 0 0 6px 0;
+    }
+    .diploma-stage-badge {
+      display: inline-block;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #92400E;
+      background: #FEF3C7;
+      border: 1px solid #FCD34D;
+      padding: 5px 18px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .diploma-legal-citation {
+      font-size: 0.82rem;
+      font-style: italic;
+      color: #475569;
+      max-width: 680px;
+      margin: 0 auto 14px auto;
+      line-height: 1.45;
+      background: #F8FAFC;
+      border-left: 3px solid #D4AF37;
+      padding: 8px 14px;
+      text-align: left;
+    }
+    .diploma-intro {
+      font-size: 0.9rem;
+      color: #334155;
+      margin: 0 0 6px 0;
+    }
+    .diploma-student-name {
+      font-family: Georgia, serif;
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--madrid-red);
+      text-decoration: underline;
+      text-decoration-color: #D4AF37;
+      margin: 4px 0 2px 0;
+      letter-spacing: 0.5px;
+    }
+    .diploma-student-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .diploma-merit-text {
+      font-size: 0.88rem;
+      color: #334155;
+      max-width: 640px;
+      margin: 0 auto 12px auto;
+      line-height: 1.45;
+    }
+    .diploma-elder-box {
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      padding: 12px 16px;
+      max-width: 640px;
+      margin: 0 auto 16px auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 18px;
+      text-align: left;
+    }
+    .dip-elder-item {
+      display: flex;
+      flex-direction: column;
+    }
+    .dip-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #64748B;
+      text-transform: uppercase;
+    }
+    .dip-val {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #1E293B;
+    }
+    .diploma-footer {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 16px;
+      border-top: 1px solid #E2E8F0;
+      padding-top: 16px;
+    }
+    .dip-sig-block {
+      text-align: center;
+    }
+    .dip-sig-line {
+      width: 150px;
+      height: 1px;
+      background: #475569;
+      margin: 0 auto 6px auto;
+    }
+    .dip-sig-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: #334155;
+    }
+    .dip-sig-sub {
+      font-size: 0.72rem;
+      color: #64748B;
+      font-style: italic;
+    }
+    .dip-seal-block {
+      text-align: center;
+    }
+    .dip-official-seal {
+      width: 76px;
+      height: 76px;
+      border: 3px double var(--madrid-red);
+      border-radius: 50%;
+      margin: 0 auto 4px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFF5F5;
+    }
+    .seal-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.58rem;
+      font-weight: 900;
+      color: var(--madrid-red);
+      line-height: 1.15;
+      text-align: center;
+    }
+    .seal-star { font-size: 0.65rem; color: #D4AF37; }
+    .dip-date-text {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #475569;
+    }
+
+    /* CONTENEDOR DE DIBUJOS ILUSTRADOS POR ETAPA (INFANTIL Y PRIMARIA) */
+    .diploma-drawings-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 10px auto 14px auto;
+      max-width: 720px;
+      flex-wrap: wrap;
+    }
+    .dip-draw-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      text-align: left;
+      flex: 1 1 calc(25% - 10px);
+      min-width: 135px;
+    }
+    .dip-draw-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+    }
+    .dip-draw-card strong {
+      display: block;
+      font-size: 0.76rem;
+      color: #1E293B;
+      line-height: 1.2;
+    }
+    .dip-draw-card span.dip-draw-sub {
+      display: block;
+      font-size: 0.66rem;
+      color: #64748B;
+      line-height: 1.1;
+    }
+
+    /* ADAPTACIÓN DEL DIPLOMA PARA EDUCACIÓN INFANTIL (COLORES ALEGRES Y DIBUJOS) */
+    .diploma-stage-infantil.diploma-print-sheet {
+      background: #FFFDF5;
+      border: 3px solid #F59E0B;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.15);
+    }
+    .diploma-stage-infantil .diploma-border-outer {
+      border: 4px dashed #F59E0B;
+      border-radius: 16px;
+      background: #FFFBEB;
+      padding: 8px;
+    }
+    .diploma-stage-infantil .diploma-border-inner {
+      border: 2px solid #FCD34D;
+      border-radius: 12px;
+      padding: 16px 20px;
+      background: radial-gradient(circle at 50% 50%, #FFFFFF 0%, #FEF9C3 100%);
+    }
+    .diploma-stage-infantil .diploma-corner {
+      font-size: 1.6rem;
+    }
+    .diploma-stage-infantil .diploma-main-title {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #B45309;
+      letter-spacing: 0.5px;
+    }
+    .diploma-stage-infantil .diploma-stage-badge {
+      background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%);
+      color: #78350F;
+      border: 2px solid #FBBF24;
+      font-size: 0.95rem;
+      font-weight: 900;
+      box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+      border-radius: 30px;
+    }
+    .diploma-stage-infantil .diploma-legal-citation {
+      background: #FEF3C7;
+      border-left: 4px solid #F59E0B;
+      border-radius: 8px;
+      font-style: normal;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #92400E;
+      text-align: center;
+      padding: 8px 12px;
+    }
+    .diploma-stage-infantil .diploma-student-name {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 1.95rem;
+      font-weight: 900;
+      color: #C7082A;
+      text-decoration: none;
+      text-shadow: 1px 1px 0px #FDE68A;
+    }
+    .diploma-stage-infantil .diploma-elder-box {
+      background: #FEF3C7;
+      border: 2px dashed #F59E0B;
+      border-radius: 14px;
+      padding: 10px 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .diploma-stage-infantil .dip-label {
+      color: #B45309;
+      font-weight: 800;
+      font-size: 0.74rem;
+    }
+    .diploma-stage-infantil .dip-val {
+      color: #78350F;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    /* ADAPTACIÓN DEL DIPLOMA PARA EDUCACIÓN PRIMARIA (VIVOS COLORES Y DIBUJOS) */
+    .diploma-stage-primaria.diploma-print-sheet {
+      background: #FFFDF9;
+      border: 3px solid #0284C7;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(2, 132, 199, 0.15);
+    }
+    .diploma-stage-primaria .diploma-border-outer {
+      border: 4px solid #0284C7;
+      border-radius: 14px;
+      background: #F0F9FF;
+      padding: 8px;
+    }
+    .diploma-stage-primaria .diploma-border-inner {
+      border: 2px solid #D4AF37;
+      border-radius: 10px;
+      padding: 18px 24px;
+      background: radial-gradient(circle at 50% 50%, #FFFFFF 0%, #F0FDF4 100%);
+    }
+    .diploma-stage-primaria .diploma-corner {
+      font-size: 1.5rem;
+    }
+    .diploma-stage-primaria .diploma-main-title {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #0369A1;
+      letter-spacing: 0.5px;
+    }
+    .diploma-stage-primaria .diploma-stage-badge {
+      background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+      color: #FFFFFF;
+      border: 2px solid #38BDF8;
+      font-size: 0.92rem;
+      font-weight: 800;
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3);
+      border-radius: 24px;
+    }
+    .diploma-stage-primaria .diploma-legal-citation {
+      background: #E0F2FE;
+      border-left: 4px solid #0284C7;
+      border-radius: 8px;
+      color: #0369A1;
+      font-size: 0.82rem;
+    }
+    .diploma-stage-primaria .diploma-student-name {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: #C7082A;
+      text-decoration: none;
+    }
+    .diploma-stage-primaria .diploma-elder-box {
+      background: #EFF6FF;
+      border: 2px solid #38BDF8;
+      border-radius: 12px;
+      padding: 10px 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .diploma-stage-primaria .dip-label {
+      color: #0369A1;
+      font-weight: 800;
+      font-size: 0.74rem;
+    }
+    .diploma-stage-primaria .dip-val {
+      color: #0C4A6E;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+
+    footer.gov-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 18px 24px;
+      margin-top: 40px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    footer.gov-footer strong {
+      color: var(--madrid-red);
+    }
+
+    /* ESTILOS DE IMPRESIÓN (PRINT) OFICIALES */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 5mm;
+      }
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      html, body {
+        background: #FFFFFF !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+      /* Ocultar barra superior, hero, selectores, pestañas y elementos no imprimibles */
+      header.gov-bar, .hero-card, .stage-selector-bar, #stagePedagogicalBanner, .tabs-nav,
+      .btn-tool, #confettiCanvas, .credential-actions, .interview-grid,
+      .panel-card, #subreto1View, #subreto2View, #subreto3View,
+      #panelArchipielago > div:not(#diplomaPrintArea),
+      .badges-collection-grid, #btn-celebrate, #btn-print-diploma-fase4, #btn-back-top,
+      footer, .gov-footer {
+        display: none !important;
+      }
+      main.main-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        display: block !important;
+      }
+      /* Mantener el contenedor de la Fase 4.4 visible para que renderice el diploma */
+      #subreto4View, #panelArchipielago {
+        display: block !important;
+        visibility: visible !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+      /* Mostrar el diploma como única pieza impresa en A4 apaisado */
+      #diplomaPrintArea {
+        display: block !important;
+        visibility: visible !important;
+        position: relative !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: calc(100vh - 12mm) !important;
+        min-height: 185mm !important;
+        max-width: 285mm !important;
+        margin: 0 auto !important;
+        padding: 4mm !important;
+        box-sizing: border-box !important;
+        background: #FFFFFF !important;
+        box-shadow: none !important;
+        border: 2px solid #D4AF37 !important;
+        page-break-inside: avoid !important;
+        page-break-before: avoid !important;
+        page-break-after: avoid !important;
+      }
+      #diplomaPrintArea * {
+        visibility: visible !important;
+      }
+      .diploma-border-outer {
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        border: 2px solid #D4AF37 !important;
+        padding: 4mm !important;
+        box-sizing: border-box !important;
+      }
+      .diploma-border-inner {
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        box-sizing: border-box !important;
+        border: 1px dashed #CBD5E1 !important;
+        padding: 6mm !important;
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-content h1 {
+        justify-content: center;
+      }
+      .hero-badge-side {
+        margin-top: 10px;
+      }
+      .tabs-nav {
+        grid-template-columns: 1fr;
+      }
+      .interview-grid, .rondon-layout, .campaign-creator-grid {
+        grid-template-columns: 1fr;
+      }
+      .badges-collection-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CANVAS DE CONFETI -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- BARRA INSTITUCIONAL SUPERIOR -->
+  <header class="gov-bar">
+    <div class="gov-brand">
+      <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" class="gov-logo" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'48\' viewBox=\'0 0 180 48\'><rect width=\'48\' height=\'48\' fill=\'%23C7082A\'/><text x=\'56\' y=\'20\' font-family=\'sans-serif\' font-size=\'11\' font-weight=\'bold\' fill=\'%23000\'>Comunidad</text><text x=\'56\' y=\'34\' font-family=\'sans-serif\' font-size=\'11\' font-weight=\'bold\' fill=\'%23000\'>de Madrid</text></svg>';">
+      <div class="gov-title-block">
+        <h1 id="gov-title">Semanas Temáticas</h1>
+        <p id="gov-sub">Semana de la Constitución 2026 | Recursos Digitales Interactivos</p>
+      </div>
+    </div>
+    <div class="gov-actions">
+      <button class="btn-tool" id="btn-sound" onclick="toggleSound()">
+        <span id="soundIcon">🔊</span> <span id="label-sound">Sonido: ON</span>
+      </button>
+      <button class="btn-tool" id="btn-lang" onclick="toggleLanguage()">
+        🌐 Idioma: <strong id="lang-label">ES</strong>
+      </button>
+      <span class="badge-pill" id="badge-art46">🏛️ Artículo 46 C.E.</span>
+      
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <main class="main-container">
+
+    <!-- HERO CARD -->
+    <section class="hero-card">
+      <div class="hero-content">
+        <h1>
+          <span id="hero-title">Reto 4: El archipiélago de la unión</span>
+          <span class="hero-tag" id="hero-tag">Patrimonio y folclore</span>
+        </h1>
+        <p class="hero-p" id="hero-desc">
+          Investiga <strong>nuestra historia</strong> a través de los testimonios de nuestros mayores, aprende y baila <strong>el rondón de Valdemorillo</strong>, y lidera la campaña digital <em>#ProtegeNuestroArte</em> para proteger el legado cultural de los pueblos de España.
+        </p>
+        <div class="hero-article-box" id="hero-article-box">
+          <span id="hero-quote">«Los poderes públicos garantizarán la conservación y promoverán el enriquecimiento del patrimonio histórico, cultural y artístico de los pueblos de España... La ley penal sancionará los atentados contra este patrimonio.»</span>
+          <div id="hero-quote-source" style="font-style: normal; font-weight: 700; margin-top: 4px; color: var(--madrid-gold);">— Artículo 46 de la Constitución Española de 1978</div>
+        </div>
+      </div>
+      <div class="hero-badge-side">
+        <img src="Artefactos/insignia_reto4.png" alt="Insignia Reto 4" class="hero-badge-img" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'150\' height=\'150\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%237C2D12\' stroke=\'%23D4AF37\' stroke-width=\'4\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>🏛️</text></svg>';">
+        <span class="hero-badge-caption" id="hero-badge-caption">Insignia Constitucional de Patrimonio</span>
+      </div>
+    </section>
+
+    <!-- SELECTOR DE ETAPA EDUCATIVA -->
+    <section class="stage-selector-bar">
+      <div class="stage-label">
+        <span id="stage-label-text">🎒 Adaptación curricular por etapa:</span>
+      </div>
+      <div class="stage-tabs">
+        <button class="stage-btn" id="stage-btn-infantil" onclick="setStage('infantil')">🧸 Infantil (3-6 años)</button>
+        <button class="stage-btn active" id="stage-btn-primaria" onclick="setStage('primaria')">✏️ Primaria (6-12 años)</button>
+        <button class="stage-btn" id="stage-btn-secundaria" onclick="setStage('secundaria')">🎓 Secundaria (12-16+ años)</button>
+      </div>
+    </section>
+
+    <!-- BANNER PEDAGÓGICO DE ADAPTACIÓN POR ETAPA -->
+    <section class="stage-pedagogical-banner" id="stagePedagogicalBanner" aria-live="polite">
+      <!-- Se inyecta dinámicamente con updateStageContent() -->
+    </section>
+
+    <!-- TABS DE NAVEGACIÓN ENTRE SUB-RETOS EN DOS FILAS (2x2) -->
+    <nav class="tabs-nav">
+      <button class="tab-btn active" id="tabBtn1" onclick="switchSubreto(1)">
+        <span class="tab-badge-num" id="tab1-badge">Fase 4.1</span>
+        <span class="tab-title" id="tab1-title">Nuestra historia</span>
+        <span class="tab-desc" id="tab1-desc">Entrevistas intergeneracionales, catálogo museístico y carnets de guardián.</span>
+      </button>
+
+      <button class="tab-btn" id="tabBtn2" onclick="switchSubreto(2)">
+        <span class="tab-badge-num" id="tab2-badge">Fase 4.2</span>
+        <span class="tab-title" id="tab2-title">Bailando el rondón</span>
+        <span class="tab-desc" id="tab2-desc">Folclore madrileño, compás ternario (3/4), castañuelas y métrica de cuartetas.</span>
+      </button>
+
+      <button class="tab-btn" id="tabBtn3" onclick="switchSubreto(3)">
+        <span class="tab-badge-num" id="tab3-badge">Fase 4.3</span>
+        <span class="tab-title" id="tab3-title">Campaña y coevaluación</span>
+        <span class="tab-desc" id="tab3-desc">Reels / Carteles «Protege nuestro arte» y rúbrica oficial de 16 puntos.</span>
+      </button>
+
+      <button class="tab-btn" id="tabBtn4" onclick="switchSubreto(4)">
+        <span class="tab-badge-num" id="tab4-badge">Fase 4.4 / Cierre</span>
+        <span class="tab-title" id="tab4-title">El archipiélago de la unión</span>
+        <span class="tab-desc" id="tab4-desc">Mural de las 4 insignias constitucionales, celebración y gran graduación.</span>
+      </button>
+    </nav>
+
+    <!-- ============================================================== -->
+    <!-- SUB-RETO 4.1: NUESTRA HISTORIA (HISTORIA ORAL Y MAYORES)       -->
+    <!-- ============================================================== -->
+    <div class="subreto-view active" id="subreto1View">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title" id="m1-title">👵 Misión 4.1: Nuestra historia — El museo de la memoria de nuestros mayores</h2>
+            <p class="panel-subtitle" id="m1-subtitle">Nuestra historia y el patrimonio inmaterial residen en los relatos, juegos, recetas y canciones de nuestras abuelas y abuelos.</p>
+          </div>
+          <span class="badge-pill" id="m1-phase-badge">Fase 1 / 3</span>
+        </div>
+
+        <div class="interview-grid">
+          <!-- FORMULARIO DE INVESTIGACIÓN INTERGENERACIONAL -->
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <h3 style="font-size:1.05rem; font-weight:800; color:#334155; display:flex; align-items:center; gap:8px;" id="m1-form-heading">
+              📝 Ficha de entrevista a mayores
+            </h3>
+
+            <div class="form-group">
+              <label for="invName" id="lbl-invName">Nombre del investigador/a (alumno/a):</label>
+              <input type="text" id="invName" class="form-control" placeholder="Ej: Lucía García Martín" value="Lucía García">
+            </div>
+
+            <div class="form-group">
+              <label for="entName" id="lbl-entName">Nombre de la persona entrevistada (abuelo/a o mayor):</label>
+              <input type="text" id="entName" class="form-control" placeholder="Ej: Carmen Gómez (78 años)" value="Abuela Carmen (78 años)">
+            </div>
+
+            <div class="form-group">
+              <label id="lbl-cat">Ámbito temático de la memoria oral:</label>
+              <div class="category-pills">
+                <button type="button" class="cat-btn selected" id="cat-btn-1" onclick="selectMemoryCat(this, 'Juegos y calle')">🎲 Juegos y calle</button>
+                <button type="button" class="cat-btn" id="cat-btn-2" onclick="selectMemoryCat(this, 'Coplillas y bailes')">🎶 Coplillas y bailes</button>
+                <button type="button" class="cat-btn" id="cat-btn-3" onclick="selectMemoryCat(this, 'Fiestas y comidas')">🍲 Fiestas y comidas</button>
+                <button type="button" class="cat-btn" id="cat-btn-4" onclick="selectMemoryCat(this, 'Oficios de antaño')">🔨 Oficios de antaño</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="memStory" id="lbl-memStory">¿Qué te ha contado? (Relato o testimonio):</label>
+              <textarea id="memStory" class="form-control" rows="3" placeholder="Describe lo que te ha explicado de su infancia o juventud...">Jugaban al corro y a la comba en la plaza del pueblo. Para las fiestas de San Blas, todas las familias cocinaban rosquillas de anís y bailaban el Rondón con mantones bordados.</textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="objName" id="lbl-objName">Objeto o símbolo del recuerdo asociado:</label>
+              <input type="text" id="objName" class="form-control" placeholder="Ej: Mantón de lana, castañuelas de madera, libro de coplas..." value="Castañuelas de nogal y faja de lana">
+            </div>
+
+            <button class="btn-action-primary" id="btn-update-museum" onclick="updateMuseumCard()">
+              ✨ Registrar en el museo de nuestra historia
+            </button>
+          </div>
+
+          <!-- PREVIEW DE LA FICHA DE CATÁLOGO DEL MUSEO ESCOLAR -->
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <h3 style="font-size:1.05rem; font-weight:800; color:#334155; display:flex; align-items:center; gap:8px;" id="m1-preview-heading">
+              🏛️ Ficha oficial de catálogo (art. 46 CE)
+            </h3>
+
+            <div class="museum-card-preview" id="museumCardPreview">
+              <span class="museum-seal" id="museum-seal">CONSERVADO ESCOLAR</span>
+              <div class="catalog-code" id="cardCatCode">CAT-MAD-2026-042</div>
+              <div class="museum-item-title" id="cardItemTitle">Castañuelas de nogal y faja de lana</div>
+              <p style="font-size:0.85rem; color:#475569; line-height:1.45;" id="cardStory">
+                «Jugaban al corro y a la comba en la plaza del pueblo. Para las fiestas de San Blas, todas las familias cocinaban rosquillas de anís y bailaban el Rondón con mantones bordados.»
+              </p>
+
+              <div class="museum-details-grid">
+                <div>
+                  <div class="museum-prop-label" id="lbl-prop-conservador">Conservador/a escolar</div>
+                  <div class="museum-prop-value" id="cardInvName">Lucía García</div>
+                </div>
+                <div>
+                  <div class="museum-prop-label" id="lbl-prop-fuente">Fuente testimonial</div>
+                  <div class="museum-prop-value" id="cardEntName">Abuela Carmen (78 años)</div>
+                </div>
+                <div>
+                  <div class="museum-prop-label" id="lbl-prop-cat">Categoría patrimonial</div>
+                  <div class="museum-prop-value" id="cardCategory">Juegos y calle / Folclore</div>
+                </div>
+                <div>
+                  <div class="museum-prop-label" id="lbl-prop-proteccion">Protección legal</div>
+                  <div class="museum-prop-value" id="val-prop-proteccion">Art. 46 CE (Inmaterial)</div>
+                </div>
+              </div>
+
+              <!-- CREDENCIAL DEL AGENTE DEL PATRIMONIO -->
+              <div class="agent-card-badge" style="margin-top:8px;">
+                <div class="agent-card-header">
+                  <span class="agent-org-title" id="agent-org-title">Agencia de Rescate del Patrimonio Cultural</span>
+                  <span style="font-size:0.7rem; color:var(--madrid-gold); font-weight:700;">MADRID 2026</span>
+                </div>
+                <div class="agent-body-grid">
+                  <div class="agent-avatar-box">🎖️</div>
+                  <div class="agent-info">
+                    <span class="agent-name-display" id="agentCardName">Lucía García</span>
+                    <span class="agent-role-pill" id="agent-role-pill">Conservador/a de nuestra historia</span>
+                    <span class="agent-id-line">ID: RP-2026-0846 | Art. 46 C.E.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="credential-actions">
+              <button class="btn-action-secondary" id="btn-print-diploma" onclick="switchSubreto(4); setTimeout(printDiploma, 200);">
+                📜 Imprimir diploma de conservador/a de nuestra historia
+              </button>
+              <button class="btn-action-primary" id="btn-complete-sub1" onclick="completeSubreto1()">
+                ✅ Completar misión 4.1 y pasar a la danza
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- El diploma oficial se visualiza y expide en la Fase 4.4 (Cierre) -->
+      
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- SUB-RETO 4.2: BAILANDO LA CONSTITUCIÓN (EL RONDÓN)              -->
+    <!-- ============================================================== -->
+    <div class="subreto-view" id="subreto2View">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title" id="m2-title">💃 Misión 4.2: Bailando la Constitución — El rondón de Valdemorillo</h2>
+            <p class="panel-subtitle" id="m2-subtitle">Danza tradicional de corro de la Sierra Oeste de Madrid en honor a San Blas (compás ternario 3/4).</p>
+          </div>
+          <span class="badge-pill" id="m2-phase-badge">Fase 2 / 3</span>
+        </div>
+
+        <div class="rondon-layout">
+          <!-- REPRODUCTOR DE RITMO Y CASTAÑUELAS -->
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="rhythm-player-box">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="font-size:1.1rem; font-weight:800; color:#1E293B; display:flex; align-items:center; gap:8px;" id="rhythm-box-title">
+                  🥁 Caja de ritmos en compás ternario (3/4)
+                </h3>
+                <span class="badge-pill" style="background:#FFF; color:#B45309;">Tempo: 108 BPM</span>
+              </div>
+
+              <p style="font-size:0.85rem; color:#64748B;" id="rhythm-desc">
+                El Rondón se baila en compás de 3 tiempos: el <strong>golpe fuerte (1)</strong> marca el paso de avance y los tiempos <strong>(2 y 3)</strong> el repiqueteo de castañuelas y cruce.
+              </p>
+
+              <!-- INDICADOR DE COMPÁS VISUAL -->
+              <div class="meter-indicator">
+                <div class="beat-circle" id="beat1">
+                  <span>1</span>
+                  <span class="beat-subtext" id="beat-subtext-1">Golpe</span>
+                </div>
+                <div class="beat-circle" id="beat2">
+                  <span>2</span>
+                  <span class="beat-subtext" id="beat-subtext-2">Castañuela</span>
+                </div>
+                <div class="beat-circle" id="beat3">
+                  <span>3</span>
+                  <span class="beat-subtext" id="beat-subtext-3">Cruce</span>
+                </div>
+              </div>
+
+              <div class="rhythm-controls">
+                <button class="btn-rhythm" id="btnPlayRhythm" onclick="toggleRhythm()">
+                  ▶️ Iniciar compás del rondón
+                </button>
+                <button class="btn-castanet-solo" id="btn-castanet-solo" onclick="playCastanetSound()">
+                  🌰 ¡Tocar castañuela!
+                </button>
+                <button class="btn-castanet-solo" id="btn-drum-solo" onclick="playDrumSound()">
+                  🥁 Tamboril
+                </button>
+              </div>
+            </div>
+
+            <!-- INDUMENTARIA TRADICIONAL MADRILEÑA -->
+            <div class="rondon-info-box">
+              <div class="rondon-info-header">
+                <span id="costume-header-title">👗 Indumentaria tradicional madrileña</span>
+              </div>
+              <p style="font-size:0.85rem; color:#64748B;" id="costume-header-desc">
+                Haz clic en cada elemento para descubrir cómo vestían los bailarines del Rondón de Valdemorillo:
+              </p>
+
+              <div class="costume-interactive">
+                <button class="costume-item-btn active" onclick="showCostumeDetail(0)">
+                  <span class="costume-icon">🧣</span>
+                  <div>
+                    <div class="costume-name" id="costume-name-0">Mantón de Manila</div>
+                    <div class="costume-desc-text" id="costume-desc-0">Seda bordada con flecos</div>
+                  </div>
+                </button>
+
+                <button class="costume-item-btn" onclick="showCostumeDetail(1)">
+                  <span class="costume-icon">👗</span>
+                  <div>
+                    <div class="costume-name" id="costume-name-1">Saya con Guardapiés</div>
+                    <div class="costume-desc-text" id="costume-desc-1">Falda amplia de paño</div>
+                  </div>
+                </button>
+
+                <button class="costume-item-btn" onclick="showCostumeDetail(2)">
+                  <span class="costume-icon">🥋</span>
+                  <div>
+                    <div class="costume-name" id="costume-name-2">Faja de Estambre</div>
+                    <div class="costume-desc-text" id="costume-desc-2">Cinturón de lana roja</div>
+                  </div>
+                </button>
+
+                <button class="costume-item-btn" onclick="showCostumeDetail(3)">
+                  <span class="costume-icon">🦺</span>
+                  <div>
+                    <div class="costume-name" id="costume-name-3">Chaleco Bordado</div>
+                    <div class="costume-desc-text" id="costume-desc-3">Terciopelo con botones</div>
+                  </div>
+                </button>
+              </div>
+
+              <div class="rondon-quote" id="costumeDetailBox">
+                <strong>🧣 Mantón de Manila:</strong> Prenda emblemática femenina de seda bordada a mano con motivos florales y largos flecos que vuelan y acompañan el giro del corro en cada estribillo.
+              </div>
+            </div>
+          </div>
+
+          <!-- TALLER DE MÉTRICA: CUARTETAS OCTOSÍLABAS Y COPLAS -->
+          <div style="display:flex; flex-direction:column; gap:16px;">
+            <div class="verse-workshop-box">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="font-size:1.1rem; font-weight:800; color:#1E293B; display:flex; align-items:center; gap:8px;" id="verse-workshop-title">
+                  ✍️ Taller de cuartetas octosílabas
+                </h3>
+                <span class="badge-pill" id="verse-workshop-badge">Métrica tradicional</span>
+              </div>
+
+              <div class="traditional-lyrics-card">
+                <strong id="lyrics-heading">Copla clásica del rondón de Valdemorillo:</strong><br>
+                <em id="lyrics-body">«Una vieja y un candil / van por el camino, / la vieja tropezó / y se le cayó el candil.»</em><br>
+                <span style="color:var(--madrid-red); font-weight:700;" id="lyrics-refrain-tag">Estribillo:</span> <em id="lyrics-refrain-body">«Por San Blas sale lo mejor, sale lo mejor, de Valdemorillo la flor.»</em>
+              </div>
+
+              <p style="font-size:0.85rem; color:#64748B;" id="verse-instructions">
+                Crea una <strong>cuarteta octosílaba (4 versos de 8 sílabas)</strong> inspirada en el <strong>Artículo 46</strong> y el valor de proteger el patrimonio:
+              </p>
+
+              <div class="verse-editor-grid">
+                <div class="verse-line-row">
+                  <span class="verse-num">1</span>
+                  <input type="text" id="verse1" class="form-control" value="Nuestras danzas y canciones" oninput="analyzeVerses()">
+                  <span class="verse-syllables-count perfect" id="syl1">8 síl. ✨</span>
+                </div>
+                <div class="verse-line-row">
+                  <span class="verse-num">2</span>
+                  <input type="text" id="verse2" class="form-control" value="son tesoros del lugar," oninput="analyzeVerses()">
+                  <span class="verse-syllables-count perfect" id="syl2">8 síl. ✨</span>
+                </div>
+                <div class="verse-line-row">
+                  <span class="verse-num">3</span>
+                  <input type="text" id="verse3" class="form-control" value="la ley manda protegerlas" oninput="analyzeVerses()">
+                  <span class="verse-syllables-count perfect" id="syl3">8 síl. ✨</span>
+                </div>
+                <div class="verse-line-row">
+                  <span class="verse-num">4</span>
+                  <input type="text" id="verse4" class="form-control" value="para que puedan durar." oninput="analyzeVerses()">
+                  <span class="verse-syllables-count perfect" id="syl4">8 síl. ✨</span>
+                </div>
+              </div>
+
+              <!-- INSIGNIA OBTENIDA -->
+              <div style="background:#FFFDF7; border:1px solid #FCD34D; border-radius:10px; padding:12px; display:flex; align-items:center; gap:14px; margin-top:6px;">
+                <img src="Artefactos/insignia_reto4.png" alt="Insignia Folclore" style="width:60px; height:60px; object-fit:contain;" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'60\' height=\'60\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23D4AF37\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>💃</text></svg>';">
+                <div>
+                  <div style="font-size:0.9rem; font-weight:800; color:#92400E;" id="badge-folclore-title">Insignia: Maestro/a de folclore constitucional</div>
+                  <div style="font-size:0.75rem; color:#78350F;" id="badge-folclore-sub">Superaste el ritmo ternario y la lírica popular del Artículo 46 C.E.</div>
+                </div>
+              </div>
+
+              <div class="credential-actions">
+                <button class="btn-action-primary" id="btn-complete-sub2" onclick="completeSubreto2()">
+                  ✅ Completar misión 4.2 e ir a la campaña digital
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- SUB-RETO 4.3: CAMPAÑA DIGITAL Y RÚBRICA DE COEVALUACIÓN        -->
+    <!-- ============================================================== -->
+    <div class="subreto-view" id="subreto3View">
+      <div class="panel-card">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title" id="m3-title">📱 Misión 4.3: Campaña digital #ProtegeNuestroArte y coevaluación</h2>
+            <p class="panel-subtitle" id="m3-subtitle">Diseño de productos digitales (Reels / Canva) y aplicación de la rúbrica oficial de coevaluación (16 puntos).</p>
+          </div>
+          <span class="badge-pill" id="m3-phase-badge">Fase 3 / 3</span>
+        </div>
+
+        <div class="campaign-creator-grid">
+          <!-- CREADOR Y FORMULARIO DE CAMPAÑA -->
+          <div style="display:flex; flex-direction:column; gap:20px;">
+            <div style="background:#F8FAFC; border:1px solid #CBD5E1; border-radius:var(--radius-md); padding:20px;">
+              <h3 style="font-size:1.05rem; font-weight:800; color:#1E293B; margin-bottom:12px;" id="creator-heading">
+                🎨 1. Diseñador del producto digital
+              </h3>
+
+              <div class="format-selector">
+                <button class="format-btn active" id="btnFmtReel" onclick="setCampaignFormat('reel')">
+                  📹 Vídeo corto (Reel / TikTok 30-60 s)
+                </button>
+                <button class="format-btn" id="btnFmtPoster" onclick="setCampaignFormat('poster')">
+                  🖼️ Cartel infográfico (Canva / Genially)
+                </button>
+              </div>
+
+              <div class="form-group" style="margin-top:12px;">
+                <label for="campTitle" id="lbl-campTitle">Titular / eslogan de la campaña:</label>
+                <input type="text" id="campTitle" class="form-control" value="¡Baila el rondón, protege la tradición!" oninput="updatePhoneMockup()">
+              </div>
+
+              <div class="form-group" style="margin-top:10px;">
+                <label for="campMessage" id="lbl-campMessage">Mensaje central de protección constitucional:</label>
+                <textarea id="campMessage" class="form-control" rows="2" oninput="updatePhoneMockup()">El artículo 46 de la Constitución es nuestro escudo cultural: si no aprendemos nuestras danzas y canciones, se perderán para siempre.</textarea>
+              </div>
+
+              <div class="form-group" style="margin-top:10px;">
+                <label for="campHashtags" id="lbl-campHashtags">Hashtags oficiales de difusión:</label>
+                <input type="text" id="campHashtags" class="form-control" value="#ProtegeNuestroArte #Constitución2026 #RondónValdemorillo #ComunidadDeMadrid" oninput="updatePhoneMockup()">
+              </div>
+            </div>
+
+            <!-- RÚBRICA OFICIAL DE COEVALUACIÓN -->
+            <div class="rubric-box">
+              <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                <div>
+                  <h3 style="font-size:1.15rem; font-weight:800; color:#1E293B; display:flex; align-items:center; gap:8px;" id="rubric-heading">
+                    📋 Rúbrica oficial de coevaluación entre equipos
+                  </h3>
+                  <p style="font-size:0.82rem; color:#64748B;" id="rubric-sub">
+                    Evalúa con honestidad el producto de otro equipo (1: Necesita mejorar, 2: Aceptable, 3: Bueno, 4: Excelente).
+                  </p>
+                </div>
+                <span class="badge-pill" id="rubric-max-badge" style="background:#EFF6FF; color:#1D4ED8; border-color:#93C5FD;">Máx. 16 puntos</span>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div class="form-group">
+                  <label for="evaluatorTeam" id="lbl-evaluatorTeam">Equipo evaluador (quienes evalúan):</label>
+                  <input type="text" id="evaluatorTeam" class="form-control" value="Equipo 3: Los Guardianes de la Sierra">
+                </div>
+                <div class="form-group">
+                  <label for="evaluatedTeam" id="lbl-evaluatedTeam">Equipo evaluado (a quienes evalúan):</label>
+                  <input type="text" id="evaluatedTeam" class="form-control" value="Equipo 1: Cronistas de Valdemorillo">
+                </div>
+              </div>
+
+              <table class="rubric-table">
+                <thead>
+                  <tr>
+                    <th id="th-criterion">Criterio de evaluación</th>
+                    <th id="th-score" style="width:180px; text-align:center;">Puntuación (1-4)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <strong id="crit1-title">1. Mensaje constitucional (art. 46 CE)</strong>
+                      <div id="crit1-desc" style="font-size:0.75rem; color:#64748B;">Transmite con claridad el deber público y ciudadano de conservar el patrimonio cultural.</div>
+                    </td>
+                    <td>
+                      <div class="score-radio-group" style="justify-content:center;">
+                        <label class="score-option"><input type="radio" name="crit1" value="1" onchange="calculateRubricScore()"><span class="score-option-num">1</span></label>
+                        <label class="score-option"><input type="radio" name="crit1" value="2" onchange="calculateRubricScore()"><span class="score-option-num">2</span></label>
+                        <label class="score-option"><input type="radio" name="crit1" value="3" onchange="calculateRubricScore()"><span class="score-option-num">3</span></label>
+                        <label class="score-option"><input type="radio" name="crit1" value="4" checked onchange="calculateRubricScore()"><span class="score-option-num">4</span></label>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <strong id="crit2-title">2. Contenido sobre el rondón de Valdemorillo</strong>
+                      <div id="crit2-desc" style="font-size:0.75rem; color:#64748B;">Muestra pasos, copla/estribillo cantado o indumentaria tradicional fidedigna.</div>
+                    </td>
+                    <td>
+                      <div class="score-radio-group" style="justify-content:center;">
+                        <label class="score-option"><input type="radio" name="crit2" value="1" onchange="calculateRubricScore()"><span class="score-option-num">1</span></label>
+                        <label class="score-option"><input type="radio" name="crit2" value="2" onchange="calculateRubricScore()"><span class="score-option-num">2</span></label>
+                        <label class="score-option"><input type="radio" name="crit2" value="3" onchange="calculateRubricScore()"><span class="score-option-num">3</span></label>
+                        <label class="score-option"><input type="radio" name="crit2" value="4" checked onchange="calculateRubricScore()"><span class="score-option-num">4</span></label>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <strong id="crit3-title">3. Calidad técnica y digital</strong>
+                      <div id="crit3-desc" style="font-size:0.75rem; color:#64748B;">Vídeo: audio nítido, edición fluida (30-60s). Cartel: diseño legible y equilibrado.</div>
+                    </td>
+                    <td>
+                      <div class="score-radio-group" style="justify-content:center;">
+                        <label class="score-option"><input type="radio" name="crit3" value="1" onchange="calculateRubricScore()"><span class="score-option-num">1</span></label>
+                        <label class="score-option"><input type="radio" name="crit3" value="2" onchange="calculateRubricScore()"><span class="score-option-num">2</span></label>
+                        <label class="score-option"><input type="radio" name="crit3" value="3" checked onchange="calculateRubricScore()"><span class="score-option-num">3</span></label>
+                        <label class="score-option"><input type="radio" name="crit3" value="4" onchange="calculateRubricScore()"><span class="score-option-num">4</span></label>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <strong id="crit4-title">4. Creatividad e impacto comunicativo</strong>
+                      <div id="crit4-desc" style="font-size:0.75rem; color:#64748B;">Originalidad, capacidad para enganchar y potencial de concienciación escolar.</div>
+                    </td>
+                    <td>
+                      <div class="score-radio-group" style="justify-content:center;">
+                        <label class="score-option"><input type="radio" name="crit4" value="1" onchange="calculateRubricScore()"><span class="score-option-num">1</span></label>
+                        <label class="score-option"><input type="radio" name="crit4" value="2" onchange="calculateRubricScore()"><span class="score-option-num">2</span></label>
+                        <label class="score-option"><input type="radio" name="crit4" value="3" onchange="calculateRubricScore()"><span class="score-option-num">3</span></label>
+                        <label class="score-option"><input type="radio" name="crit4" value="4" checked onchange="calculateRubricScore()"><span class="score-option-num">4</span></label>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- RESUMEN DE PUNTUACIÓN -->
+              <div class="score-summary-card">
+                <div>
+                  <div class="score-total-number" id="rubricTotalDisplay">15 <span class="score-total-scale">/ 16 Ptos</span></div>
+                  <div class="score-feedback-text" id="rubricFeedbackDisplay">🌟 Nivel Excelente: ¡Campaña de Gran Impacto Cultural!</div>
+                </div>
+                <button class="btn-action-primary" id="btn-submit-rubric" onclick="submitRubric()">
+                  ✍️ Firmar y validar coevaluación
+                </button>
+              </div>
+
+              <!-- FEEDBACK CUALITATIVO -->
+              <div style="display:flex; flex-direction:column; gap:10px; margin-top:6px;">
+                <div class="form-group">
+                  <label for="fbPositive" id="lbl-fbPositive">⭐ Lo que más nos ha gustado del producto evaluado:</label>
+                  <input type="text" id="fbPositive" class="form-control" value="La fuerza del estribillo bailado con las castañuelas y la claridad con la que explican el Art. 46.">
+                </div>
+                <div class="form-group">
+                  <label for="fbImprove" id="lbl-fbImprove">💡 Una sugerencia positiva de mejora:</label>
+                  <input type="text" id="fbImprove" class="form-control" value="Subir un poco el volumen de la voz en la segunda escena para que se oiga aún mejor la copla.">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MOCKUP SIMULADOR DE MÓVIL / REDES SOCIALES -->
+          <div class="phone-mockup-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+              <div class="phone-screen-bg-overlay"></div>
+              <div class="phone-screen-content">
+                <div class="phone-top-tag">
+                  <span id="phone-tag">🏛️ CAMPAÑA CONSTITUCIONAL</span>
+                  <span id="phone-live" style="margin-left:auto; color:#F59E0B;">● EN DIRECTO</span>
+                </div>
+
+                <div class="phone-main-message">
+                  <div style="font-size:2.4rem; animation: floatBadge 3s ease-in-out infinite;">💃🎭</div>
+                  <div class="phone-headline" id="mockupHeadline">¡Baila el Rondón, Protege la Tradición!</div>
+                  <div class="phone-subline" id="mockupSubline">
+                    El Artículo 46 de la Constitución es nuestro escudo cultural: si no aprendemos nuestras danzas y canciones, se perderán para siempre.
+                  </div>
+                  <div class="phone-art46-pill" id="phone-art46-pill">
+                    ⚖️ Art. 46 C.E.: Garantía de Conservación del Patrimonio
+                  </div>
+                </div>
+
+                <div>
+                  <div style="font-size:0.75rem; color:#FCD34D; font-weight:700; line-height:1.4;" id="mockupHashtags">
+                    #ProtegeNuestroArte #Constitución2026 #RondónValdemorillo
+                  </div>
+                  <div class="phone-footer-actions">
+                    <span id="phone-stat-likes">❤️ 1.846 Me gusta</span>
+                    <span id="phone-stat-comments">💬 346 Comentarios</span>
+                    <span id="phone-stat-share">🔁 Compartir</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- SUB-RETO 4.4: CIERRE Y CULMINACIÓN: EL ARCHIPIÉLAGO DE LA UNIÓN -->
+    <!-- ============================================================== -->
+    <div class="subreto-view" id="subreto4View">
+      <section class="archipielago-panel" id="panelArchipielago">
+        <div style="max-width:760px; display:flex; flex-direction:column; gap:12px; align-items:center;">
+          <span class="badge-pill" id="arch-panel-badge" style="background:rgba(212,175,55,0.2); color:var(--madrid-gold); border-color:var(--madrid-gold);">
+            🌟 Gran cierre del Proyecto Constitución 2026
+          </span>
+          <h2 style="font-size:2rem; font-weight:900; color:#FFFFFF; line-height:1.2;" id="arch-panel-title">
+            ¡Has completado el Reto 4 y reunido los cuatro pilares constitucionales!
+          </h2>
+          <p style="font-size:1rem; color:#CBD5E1; line-height:1.5;" id="arch-panel-desc">
+            Desde el <strong>Bosque de los Derechos</strong> hasta el <strong>Archipiélago de la Unión</strong>, tu aula ha demostrado ser una auténtica comunidad de guardianes democráticos, solidarios y respetuosos con nuestra memoria.
+          </p>
+        </div>
+
+        <!-- COLECCIÓN COMPLETA DE LAS 4 INSIGNIAS -->
+        <div class="badges-collection-grid">
+          <div class="badge-collection-item unlocked">
+            <img src="Artefactos/insignia_reto1.png" alt="Reto 1" class="badge-item-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%2315803D\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>🌳</text></svg>';">
+            <div class="badge-item-title" id="b1-title">Reto 1: El bosque de los derechos</div>
+            <div class="badge-item-status" id="b1-status">✓ DESBLOQUEADO</div>
+          </div>
+
+          <div class="badge-collection-item unlocked">
+            <img src="Artefactos/insignia_reto2.png" alt="Reto 2" class="badge-item-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%234F46E5\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>🏛️</text></svg>';">
+            <div class="badge-item-title" id="b2-title">Reto 2: El templo de la responsabilidad</div>
+            <div class="badge-item-status" id="b2-status">✓ DESBLOQUEADO</div>
+          </div>
+
+          <div class="badge-collection-item unlocked">
+            <img src="Artefactos/insignia_reto3.png" alt="Reto 3" class="badge-item-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%230284C7\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>🗣️</text></svg>';">
+            <div class="badge-item-title" id="b3-title">Reto 3: El valle de las voces</div>
+            <div class="badge-item-status" id="b3-status">✓ DESBLOQUEADO</div>
+          </div>
+
+          <div class="badge-collection-item unlocked">
+            <img src="Artefactos/insignia_reto4.png" alt="Reto 4" class="badge-item-img" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'80\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23C7082A\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>💎</text></svg>';">
+            <div class="badge-item-title" id="b4-title">Reto 4: El archipiélago de la unión</div>
+            <div class="badge-item-status" id="b4-status">✓ DESBLOQUEADO</div>
+          </div>
+        </div>
+
+        
+
+        
+
+        
+
+        <!-- DIPLOMA OFICIAL IMPRIMIBLE (ARTÍCULO 46 C.E.) -->
+        <div id="diplomaPrintArea" class="diploma-print-sheet">
+          <div class="diploma-border-outer">
+            <div class="diploma-border-inner">
+              <div class="diploma-corner corner-tl" id="dipCornerTL">⚜</div>
+              <div class="diploma-corner corner-tr" id="dipCornerTR">⚜</div>
+              <div class="diploma-corner corner-bl" id="dipCornerBL">⚜</div>
+              <div class="diploma-corner corner-br" id="dipCornerBR">⚜</div>
+              
+              <header class="diploma-header">
+                <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" class="diploma-gov-logo" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'160\' height=\'48\' viewBox=\'0 0 160 48\'><rect width=\'40\' height=\'40\' fill=\'%23C7082A\'/><text x=\'48\' y=\'24\' font-family=\'sans-serif\' font-size=\'12\' font-weight=\'bold\' fill=\'%23000\'>Comunidad de Madrid</text></svg>';">
+                <div class="diploma-header-text">
+                  <div class="diploma-inst-title">COMUNIDAD DE MADRID</div>
+                  <div class="diploma-prog-tag" id="dipProgTag">DÍA DE LA CONSTITUCIÓN ESPAÑOLA 2026 · PROGRAMA DE INNOVACIÓN PEDAGÓGICA</div>
+                </div>
+                <img src="Artefactos/insignia_reto4.png" alt="Insignia Reto 4" class="diploma-insignia" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'56\' height=\'56\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%23C7082A\'/><text x=\'50\' y=\'60\' font-size=\'36\' text-anchor=\'middle\'>🏛️</text></svg>';">
+              </header>
+
+              <div class="diploma-body">
+                <h1 class="diploma-main-title" id="dipMainTitle">DIPLOMA DE HONOR</h1>
+                <div class="diploma-stage-badge" id="dipStageBadge">CONSERVADOR/A DE NUESTRA HISTORIA Y PATRIMONIO CULTURAL</div>
+                
+                <p class="diploma-legal-citation" id="dipLegalCitation">
+                  «Los poderes públicos garantizarán la conservación y promoverán el enriquecimiento del patrimonio histórico, cultural y artístico de los pueblos de España y de los bienes que lo integran...»<br>
+                  <strong>— Artículo 46 de la Constitución Española de 1978 —</strong>
+                </p>
+
+                <p class="diploma-intro" id="dipIntro">
+                  Por el presente documento oficial, se certifica y hace público reconocimiento a favor de:
+                </p>
+
+                <div class="diploma-student-name" id="dipStudentName">Lucía García</div>
+                <div class="diploma-student-title" id="dipStudentTitle">Agente de la Red Escolar para la Salvaguarda del Patrimonio Cultural</div>
+
+                <p class="diploma-merit-text" id="dipMeritText">
+                  Por su rigurosa investigación de historia oral, rescate del patrimonio inmaterial y catalogación en el Museo Escolar de las vivencias transmitidas por su mayor:
+                </p>
+
+                <!-- DIBUJOS ILUSTRADOS POR ETAPA (INFANTIL Y PRIMARIA) -->
+                <div class="diploma-drawings-container" id="dipDrawingsContainer"></div>
+
+                <div class="diploma-elder-box" id="dipElderBox">
+                  <div class="dip-elder-item">
+                    <span class="dip-label" id="dipElderLabel">Fuente testimonial / Persona mayor:</span>
+                    <span class="dip-val" id="dipElderName">Abuela Carmen (78 años)</span>
+                  </div>
+                  <div class="dip-elder-item">
+                    <span class="dip-label" id="dipObjectLabel">Bien o símbolo catalogado:</span>
+                    <span class="dip-val" id="dipObjectName">«Castañuelas de nogal y faja de lana»</span>
+                  </div>
+                  <div class="dip-elder-item">
+                    <span class="dip-label" id="dipCategoryLabel">Ámbito patrimonial:</span>
+                    <span class="dip-val" id="dipCategory">Juegos y calle / Folclore</span>
+                  </div>
+                </div>
+              </div>
+
+              <footer class="diploma-footer">
+                <div class="dip-sig-block">
+                  <div class="dip-sig-line"></div>
+                  <div class="dip-sig-label">Firma del/de la Alumno/a Conservador/a</div>
+                  <div class="dip-sig-sub" id="dipSigStudent">Lucía García</div>
+                </div>
+
+                <div class="dip-seal-block">
+                  <div class="dip-official-seal">
+                    <div class="seal-inner">
+                      <span class="seal-star">★ ★ ★</span>
+                      <span class="seal-text-top">ART. 46 C.E.</span>
+                      <span class="seal-text-center">SALVAGUARDA</span>
+                      <span class="seal-text-bottom">COMUNIDAD DE MADRID</span>
+                      <span class="seal-year">2026</span>
+                    </div>
+                  </div>
+                  <div class="dip-date-text" id="dipDateText">6 de diciembre de 2026</div>
+                </div>
+
+                <div class="dip-sig-block">
+                  <div class="dip-sig-line"></div>
+                  <div class="dip-sig-label">V.º B.º Dirección del Centro y Mayor Entrevistado/a</div>
+                  <div class="dip-sig-sub">Sello Institucional Escolar</div>
+                </div>
+              </footer>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:16px; margin-top:10px; flex-wrap:wrap; justify-content:center;">
+          <button class="btn-action-primary" id="btn-celebrate" style="background:var(--madrid-gold); color:#5B3F02; font-weight:900;" onclick="celebrateProjectEnd()">
+            🎉 ¡Celebrar gran graduación constitucional!
+          </button>
+          <button class="btn-action-primary" id="btn-print-diploma-fase4" style="background:#FFE600; color:#1E293B; font-weight:800;" onclick="printDiploma()">
+            🖨️ <span id="label-print-fase4">Imprimir diploma oficial</span>
+          </button>
+          <button class="btn-action-secondary" id="btn-back-top" style="background:transparent; color:#FFFFFF; border-color:rgba(255,255,255,0.4);" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+            ⬆️ Volver arriba
+          </button>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <footer class="gov-footer">
+    <p id="gov-footer-inst">
+      <strong>Comunidad de Madrid</strong> — Dirección General de Bilingüismo y Calidad de la Enseñanza.
+    </p>
+    <p style="margin-top: 4px; font-size: 11.5px;" id="gov-footer-sub">
+      Recursos educativos para las Semanas Temáticas — Celebración del Día de la Constitución Española 2026.
+    </p>
+  </footer>
+
+  <!-- ============================================================== -->
+  <!-- SCRIPT LÓGICO Y WEB AUDIO API SINTETIZADOR                     -->
+  <!-- ============================================================== -->
+  <script>
+    // --- ESTADO GLOBAL ---
+    let soundEnabled = true;
+    let audioCtx = null;
+    let rhythmInterval = null;
+    let rhythmPlaying = false;
+    let currentBeat = 0;
+    let currentStage = 'primaria';
+    let currentSubreto = 1;
+    let currentLang = 'ES';
+
+    // --- DICCIONARIO BILINGÜE RETO 4 (ES / EN) ---
+    const TRANSLATIONS_R4 = {
+      ES: {
+        langBtn: "🌐 Idioma: <strong id=\"lang-label\">ES</strong>",
+        govTitle: "Semanas Temáticas",
+        govSub: "Semana de la Constitución 2026 | Recursos Digitales Interactivos",
+        footerInst: "<strong>Comunidad de Madrid</strong> — Dirección General de Bilingüismo y Calidad de la Enseñanza.",
+        footerSub: "Recursos educativos para las Semanas Temáticas — Celebración del Día de la Constitución Española 2026.",
+        labelPrintFase4: "Imprimir diploma oficial de conservador/a",
+        badgeArt46: "🏛️ Artículo 46 C.E.",
+        labelSound: "Sonido",
+        labelPrint: "Imprimir",
+        heroTitle: "Reto 4: El archipiélago de la unión",
+        heroTag: "Patrimonio y folclore",
+        heroDesc: "Investiga <strong>Nuestra historia</strong> a través de los testimonios de nuestros mayores, aprende y baila <strong>el rondón de Valdemorillo</strong>, y lidera la campaña digital <em>#ProtegeNuestroArte</em> para proteger el legado cultural de los pueblos de España.",
+        heroQuote: "«Los poderes públicos garantizarán la conservación y promoverán el enriquecimiento del patrimonio histórico, cultural y artístico de los pueblos de España... La ley penal sancionará los atentados contra este patrimonio.»",
+        heroQuoteSource: "— Artículo 46 de la Constitución Española de 1978",
+        heroBadgeCaption: "Insignia constitucional de patrimonio",
+        stageLabelText: "🎒 Adaptación curricular por etapa:",
+        stageBtnInfantil: "🧸 Infantil (3-6 años)",
+        stageBtnPrimaria: "✏️ Primaria (6-12 años)",
+        stageBtnSecundaria: "🎓 Secundaria (12-16+ años)",
+        tab1Badge: "Fase 4.1",
+        tab1Title: "Nuestra historia",
+        tab1Desc: "Entrevistas intergeneracionales, catálogo museístico y carnets de guardián.",
+        tab2Badge: "Fase 4.2",
+        tab2Title: "Bailando el rondón",
+        tab2Desc: "Folclore madrileño, compás ternario (3/4), castañuelas y métrica de cuartetas.",
+        tab3Badge: "Fase 4.3",
+        tab3Title: "Campaña y coevaluación",
+        tab3Desc: "Reels / Carteles «Protege nuestro arte» y rúbrica oficial de 16 puntos.",
+        tab4Badge: "Fase 4.4 / Cierre",
+        tab4Title: "El archipiélago de la unión",
+        tab4Desc: "Mural de las 4 insignias constitucionales, celebración y gran graduación.",
+        
+        // Fase 4.1
+        m1Title: "👵 Misión 4.1: Nuestra historia — El museo de la memoria de nuestros mayores",
+        m1Subtitle: "Nuestra historia y el patrimonio inmaterial residen en los relatos, juegos, recetas y canciones de nuestras abuelas y abuelos.",
+        m1PhaseBadge: "Fase 1 / 3",
+        m1FormHeading: "📝 Ficha de entrevista a mayores",
+        lblInvName: "Nombre del investigador/a (alumno/a):",
+        lblEntName: "Nombre de la persona entrevistada (abuelo/a o mayor):",
+        lblCat: "Ámbito temático de la memoria oral:",
+        catBtn1: "🎲 Juegos y calle",
+        catBtn2: "🎶 Coplillas y bailes",
+        catBtn3: "🍲 Fiestas y comidas",
+        catBtn4: "🔨 Oficios de antaño",
+        lblMemStory: "¿Qué te ha contado? (Relato o testimonio):",
+        lblObjName: "Objeto o símbolo del recuerdo asociado:",
+        btnUpdateMuseum: "✨ Registrar en el museo de nuestra historia",
+        m1PreviewHeading: "🏛️ Ficha oficial de catálogo (art. 46 CE)",
+        museumSeal: "CONSERVADO ESCOLAR",
+        lblPropConservador: "Conservador/a escolar",
+        lblPropFuente: "Fuente testimonial",
+        lblPropCat: "Categoría patrimonial",
+        lblPropProteccion: "Protección legal",
+        valPropProteccion: "Art. 46 C.E. (Inmaterial)",
+        agentOrgTitle: "Agencia de Rescate del Patrimonio Cultural",
+        agentRolePill: "Conservador/a de nuestra historia",
+        btnPrintDiploma: "📜 Imprimir diploma de conservador/a de nuestra historia",
+        btnCompleteSub1: "✅ Completar misión 4.1 y pasar a la danza",
+        
+        // Fase 4.2
+        m2Title: "💃 Misión 4.2: Bailando la Constitución — El rondón de Valdemorillo",
+        m2Subtitle: "Danza tradicional de corro de la Sierra Oeste de Madrid en honor a San Blas (compás ternario 3/4).",
+        m2PhaseBadge: "Fase 2 / 3",
+        rhythmBoxTitle: "🥁 Caja de ritmos en compás ternario (3/4)",
+        rhythmDesc: "El Rondón se baila en compás de 3 tiempos: el <strong>golpe fuerte (1)</strong> marca el paso de avance y los tiempos <strong>(2 y 3)</strong> el repiqueteo de castañuelas y cruce.",
+        beatSubtext1: "Golpe",
+        beatSubtext2: "Castañuela",
+        beatSubtext3: "Cruce",
+        btnPlayRhythmStart: "▶️ Iniciar compás del rondón",
+        btnPlayRhythmPause: "⏸️ Pausar compás",
+        btnCastanetSolo: "🌰 ¡Tocar castañuela!",
+        btnDrumSolo: "🥁 Tamboril",
+        costumeHeaderTitle: "👗 Indumentaria tradicional madrileña",
+        costumeHeaderDesc: "Haz clic en cada elemento para descubrir cómo vestían los bailarines del Rondón de Valdemorillo:",
+        costumeName0: "Mantón de Manila",
+        costumeDesc0: "Seda bordada con flecos",
+        costumeName1: "Saya con Guardapiés",
+        costumeDesc1: "Falda amplia de paño",
+        costumeName2: "Faja de estambre",
+        costumeDesc2: "Cinturón de lana roja",
+        costumeName3: "Chaleco bordado",
+        costumeDesc3: "Terciopelo con botones",
+        verseWorkshopTitle: "✍️ Taller de cuartetas octosílabas",
+        verseWorkshopBadge: "Métrica tradicional",
+        lyricsHeading: "Copla clásica del rondón de Valdemorillo:",
+        lyricsBody: "«Una vieja y un candil / van por el camino, / la vieja tropezó / y se le cayó el candil.»",
+        lyricsRefrainTag: "Estribillo:",
+        lyricsRefrainBody: "«Por San Blas sale lo mejor, sale lo mejor, de Valdemorillo la flor.»",
+        verseInstructions: "Crea una <strong>cuarteta octosílaba (4 versos de 8 sílabas)</strong> inspirada en el <strong>Artículo 46</strong> y el valor de proteger el patrimonio:",
+        badgeFolcloreTitle: "Insignia: Maestro/a de folclore constitucional",
+        badgeFolcloreSub: "Superaste el ritmo ternario y la lírica popular del Artículo 46 C.E.",
+        btnCompleteSub2: "✅ Completar misión 4.2 e ir a la campaña digital",
+
+        // Fase 4.3
+        m3Title: "📱 Misión 4.3: Campaña digital #ProtegeNuestroArte y coevaluación",
+        m3Subtitle: "Diseño de productos digitales (Reels / Canva) y aplicación de la rúbrica oficial de coevaluación (16 puntos).",
+        m3PhaseBadge: "Fase 3 / 3",
+        creatorHeading: "🎨 1. Diseñador del producto digital",
+        btnFmtReel: "📹 Vídeo corto (Reel / TikTok 30-60 s)",
+        btnFmtPoster: "🖼️ Cartel infográfico (Canva / Genially)",
+        lblCampTitle: "Titular / eslogan de la campaña:",
+        lblCampMessage: "Mensaje central de protección constitucional:",
+        lblCampHashtags: "Hashtags oficiales de difusión:",
+        rubricHeading: "📋 Rúbrica oficial de coevaluación entre equipos",
+        rubricSub: "Evalúa con honestidad el producto de otro equipo (1: Necesita mejorar, 2: Aceptable, 3: Bueno, 4: Excelente).",
+        rubricMaxBadge: "Máx. 16 puntos",
+        lblEvaluatorTeam: "Equipo evaluador (quienes evalúan):",
+        lblEvaluatedTeam: "Equipo evaluado (a quienes evalúan):",
+        thCriterion: "Criterio de evaluación",
+        thScore: "Puntuación (1-4)",
+        crit1Title: "1. Mensaje constitucional (art. 46 CE)",
+        crit1Desc: "Transmite con claridad el deber público y ciudadano de conservar el patrimonio cultural.",
+        crit2Title: "2. Contenido sobre el rondón de Valdemorillo",
+        crit2Desc: "Muestra pasos, copla/estribillo cantado o indumentaria tradicional fidedigna.",
+        crit3Title: "3. Calidad técnica y digital",
+        crit3Desc: "Vídeo: audio nítido, edición fluida (30-60s). Cartel: diseño legible y equilibrado.",
+        crit4Title: "4. Creatividad e impacto comunicativo",
+        crit4Desc: "Originalidad, capacidad para enganchar y potencial de concienciación escolar.",
+        btnSubmitRubric: "✍️ Firmar y validar coevaluación",
+        lblFbPositive: "⭐ Lo que más nos ha gustado del producto evaluado:",
+        lblFbImprove: "💡 Una sugerencia positiva de mejora:",
+        phoneTag: "🏛️ CAMPAÑA CONSTITUCIONAL",
+        phoneLive: "● EN DIRECTO",
+        phoneArt46Pill: "⚖️ Art. 46 C.E.: Garantía de conservación del patrimonio",
+        phoneStatLikes: "❤️ 1.846 Me gusta",
+        phoneStatComments: "💬 346 Comentarios",
+        phoneStatShare: "🔁 Compartir",
+        scoreOutstanding: "🌟 Nivel sobresaliente: ¡Campaña de gran impacto y rigor constitucional!",
+        scoreNotable: "👏 Nivel notable: Muy buen trabajo con mensaje claro del Art. 46.",
+        scoreAcceptable: "👍 Nivel aceptable: Cumple lo básico pero puede enriquecerse más.",
+        scoreDeveloping: "💡 Nivel en desarrollo: Requiere mayor profundización en el folclore.",
+        alertRubricSubmitted: "✅ ¡Acta de coevaluación registrada con éxito!\n\nLas puntuaciones y propuestas de mejora han sido firmadas por el equipo evaluador.",
+
+        // Fase 4.4
+        archPanelBadge: "🌟 Gran cierre del Proyecto Constitución 2026",
+        archPanelTitle: "¡Has completado el Reto 4 y reunido los cuatro pilares constitucionales!",
+        archPanelDesc: "Desde el <strong>Bosque de los Derechos</strong> hasta el <strong>Archipiélago de la Unión</strong>, tu aula ha demostrado ser una auténtica comunidad de guardianes democráticos, solidarios y respetuosos con nuestra memoria.",
+        b1Title: "Reto 1: El bosque de los derechos",
+        b1Status: "✓ DESBLOQUEADO",
+        b2Title: "Reto 2: El templo de la responsabilidad",
+        b2Status: "✓ DESBLOQUEADO",
+        b3Title: "Reto 3: El valle de las voces",
+        b3Status: "✓ DESBLOQUEADO",
+        b4Title: "Reto 4: El archipiélago de la unión",
+        b4Status: "✓ DESBLOQUEADO",
+        btnCelebrate: "🎉 ¡Celebrar gran graduación constitucional!",
+        btnBackTop: "⬆️ Volver arriba"
+      },
+      EN: {
+        langBtn: "🌐 Language: <strong id=\"lang-label\">EN</strong>",
+        govTitle: "Thematic Weeks",
+        govSub: "Constitution Week 2026 | Interactive Digital Resources",
+        footerInst: "<strong>Community of Madrid</strong> — Directorate General for Bilingualism and Quality of Education.",
+        footerSub: "Educational resources for Thematic Weeks — Spanish Constitution Day 2026 Celebration.",
+        labelPrintFase4: "Print official conservator diploma",
+        badgeArt46: "🏛️ Article 46 SC",
+        labelSound: "Sound",
+        labelPrint: "Print",
+        heroTitle: "Challenge 4: The Archipelago of Union",
+        heroTag: "Heritage & Folklore",
+        heroDesc: "Investigate <strong>Our History</strong> through the oral testimonies of our elders, learn and dance <strong>The Rondón of Valdemorillo</strong>, and lead the digital campaign <em>#ProtectOurArt</em> to safeguard the cultural heritage of the peoples of Spain.",
+        heroQuote: "“The public authorities shall guarantee the preservation and promote the enrichment of the historic, cultural, and artistic heritage of the peoples of Spain... Criminal law shall penalize offences against this heritage.”",
+        heroQuoteSource: "— Article 46 of the Spanish Constitution of 1978",
+        heroBadgeCaption: "Constitutional Heritage Badge",
+        stageLabelText: "🎒 Curricular Stage Adaptation:",
+        stageBtnInfantil: "🧸 Early Childhood (3-6 yrs)",
+        stageBtnPrimaria: "✏️ Primary (6-12 yrs)",
+        stageBtnSecundaria: "🎓 Secondary (12-16+ yrs)",
+        tab1Badge: "Phase 4.1",
+        tab1Title: "Our History",
+        tab1Desc: "Intergenerational interviews, museum catalogue and guardian ID cards.",
+        tab2Badge: "Phase 4.2",
+        tab2Title: "Dancing the Rondón",
+        tab2Desc: "Madrid folklore, triple metre (3/4), castanets and quatrain lyrics.",
+        tab3Badge: "Phase 4.3",
+        tab3Title: "Campaign & Peer Assessment",
+        tab3Desc: "Reels / Posters “Protect our art” and official 16-point rubric.",
+        tab4Badge: "Phase 4.4 / Closing",
+        tab4Title: "The Archipelago of Union",
+        tab4Desc: "Mural of the 4 constitutional badges, celebration and grand graduation.",
+
+        // Fase 4.1
+        m1Title: "👵 Mission 4.1: Our History — The Living Memory Museum of Our Elders",
+        m1Subtitle: "Our history and intangible heritage live in the stories, games, recipes and songs of our grandmothers and grandfathers.",
+        m1PhaseBadge: "Phase 1 / 3",
+        m1FormHeading: "📝 Elder Interview Record",
+        lblInvName: "Investigator Name (Student):",
+        lblEntName: "Elder Interviewee Name (Grandparent or Elder):",
+        lblCat: "Thematic Area of Oral Memory:",
+        catBtn1: "🎲 Traditional games",
+        catBtn2: "🎶 Folk songs & dances",
+        catBtn3: "🍲 Festivals & foods",
+        catBtn4: "🔨 Traditional crafts",
+        lblMemStory: "What did they tell you? (Story or testimony):",
+        lblObjName: "Associated Keepsake or Symbol:",
+        btnUpdateMuseum: "✨ Register in Our History Museum",
+        m1PreviewHeading: "🏛️ Official Catalogue Record (Art. 46 SC)",
+        museumSeal: "PRESERVED ARCHIVE",
+        lblPropConservador: "Student Conservator",
+        lblPropFuente: "Testimonial Source",
+        lblPropCat: "Heritage Category",
+        lblPropProteccion: "Legal Protection",
+        valPropProteccion: "Art. 46 SC (Intangible)",
+        agentOrgTitle: "Cultural Heritage Rescue Agency",
+        agentRolePill: "Conservator of Our History",
+        btnPrintDiploma: "📜 Print Diploma of Conservator of Our History",
+        btnCompleteSub1: "✅ Complete Mission 4.1 & Go to Dance",
+
+        // Fase 4.2
+        m2Title: "💃 Mission 4.2: Dancing the Constitution — The Rondón of Valdemorillo",
+        m2Subtitle: "Traditional ring dance from Madrid's Western Sierra in honour of San Blas (3/4 triple metre).",
+        m2PhaseBadge: "Phase 2 / 3",
+        rhythmBoxTitle: "🥁 Triple Metre Rhythm Box (3/4)",
+        rhythmDesc: "The Rondón is danced in 3/4 time: the <strong>downbeat (1)</strong> marks the advance step, and beats <strong>(2 and 3)</strong> accompany the castanet clack and cross step.",
+        beatSubtext1: "Downbeat",
+        beatSubtext2: "Castanet",
+        beatSubtext3: "Cross step",
+        btnPlayRhythmStart: "▶️ Start Rondón Rhythm",
+        btnPlayRhythmPause: "⏸️ Pause Rhythm",
+        btnCastanetSolo: "🌰 Play Castanets!",
+        btnDrumSolo: "🥁 Pipe & Drum",
+        costumeHeaderTitle: "👗 Traditional Madrid Mountain Costumes",
+        costumeHeaderDesc: "Click each item to discover how the Rondón dancers of Valdemorillo dressed:",
+        costumeName0: "Manila Shawl",
+        costumeDesc0: "Embroidered silk with long fringes",
+        costumeName1: "Saya Skirt & Underskirt",
+        costumeDesc1: "Wide wool skirt with velvet trim",
+        costumeName2: "Worsted Wool Sash",
+        costumeDesc2: "Red wool sash tied at the waist",
+        costumeName3: "Embroidered Vest",
+        costumeDesc3: "Dark velvet with filigree silver buttons",
+        verseWorkshopTitle: "✍️ Octosyllabic Quatrain Workshop",
+        verseWorkshopBadge: "Traditional Metre",
+        lyricsHeading: "Classic Rondón Verse of Valdemorillo:",
+        lyricsBody: "“An old lady and an oil lamp / walking down the way, / the old lady tripped / and the lamp fell astray.”",
+        lyricsRefrainTag: "Refrain:",
+        lyricsRefrainBody: "“On San Blas out comes the best, out comes the best, of Valdemorillo the flower.”",
+        verseInstructions: "Create an <strong>octosyllabic quatrain (4 lines of 8 syllables)</strong> inspired by <strong>Article 46</strong> and the duty to protect heritage:",
+        badgeFolcloreTitle: "Badge: Master of Constitutional Folklore",
+        badgeFolcloreSub: "You mastered the triple metre and folk poetry of Article 46 SC.",
+        btnCompleteSub2: "✅ Complete Mission 4.2 & Go to Digital Campaign",
+
+        // Fase 4.3
+        m3Title: "📱 Mission 4.3: Digital Campaign #ProtectOurArt & Peer Assessment",
+        m3Subtitle: "Designing digital media (Reels / Canva) and applying the Official Peer Assessment Rubric (16 points).",
+        m3PhaseBadge: "Phase 3 / 3",
+        creatorHeading: "🎨 1. Digital Product Designer",
+        btnFmtReel: "📹 Short Video (Reel / TikTok 30-60s)",
+        btnFmtPoster: "🖼️ Infographic Poster (Canva / Genially)",
+        lblCampTitle: "Campaign Slogan / Headline:",
+        lblCampMessage: "Central Constitutional Protection Message:",
+        lblCampHashtags: "Official Campaign Hashtags:",
+        rubricHeading: "📋 Official Peer Assessment Rubric between Teams",
+        rubricSub: "Assess another team's product honestly (1: Needs improvement, 2: Acceptable, 3: Good, 4: Excellent).",
+        rubricMaxBadge: "Max. 16 Points",
+        lblEvaluatorTeam: "Assessing Team (Evaluators):",
+        lblEvaluatedTeam: "Assessed Team (Evaluatees):",
+        thCriterion: "Assessment Criterion",
+        thScore: "Score (1-4)",
+        crit1Title: "1. Constitutional Message (Art. 46 SC)",
+        crit1Desc: "Clearly conveys the public and civic duty to protect and preserve cultural heritage.",
+        crit2Title: "2. Rondón of Valdemorillo Content",
+        crit2Desc: "Demonstrates steps, sung verse/refrain, or authentic traditional folk costume.",
+        crit3Title: "3. Technical & Digital Quality",
+        crit3Desc: "Video: clear audio, smooth editing (30-60s). Poster: legible and balanced layout.",
+        crit4Title: "4. Creativity & Communicative Impact",
+        crit4Desc: "Originality, audience engagement, and potential for school community awareness.",
+        btnSubmitRubric: "✍️ Sign & Validate Peer Assessment",
+        lblFbPositive: "⭐ What we liked most about the evaluated product:",
+        lblFbImprove: "💡 A positive suggestion for improvement:",
+        phoneTag: "🏛️ CONSTITUTIONAL CAMPAIGN",
+        phoneLive: "● LIVE",
+        phoneArt46Pill: "⚖️ Art. 46 SC: Guarantee of Heritage Preservation",
+        phoneStatLikes: "❤️ 1,846 Likes",
+        phoneStatComments: "💬 346 Comments",
+        phoneStatShare: "🔁 Share",
+        scoreOutstanding: "🌟 Outstanding Level: High-Impact Campaign with Constitutional Rigour!",
+        scoreNotable: "👏 Notable Level: Very good work with a clear message on Art. 46.",
+        scoreAcceptable: "👍 Acceptable Level: Meets basic expectations but can be enriched.",
+        scoreDeveloping: "💡 In Development: Requires deeper exploration of local folklore.",
+        alertRubricSubmitted: "✅ Peer Assessment Record Successfully Logged!\n\nScores and improvement feedback have been signed by the evaluating team.",
+
+        // Fase 4.4
+        archPanelBadge: "🌟 Grand Finale of Constitution Project 2026",
+        archPanelTitle: "You Have Completed Challenge 4 and Gathered the 4 Constitutional Pillars!",
+        archPanelDesc: "From the <strong>Forest of Rights</strong> to the <strong>Archipelago of Union</strong>, your classroom has proven to be a true community of democratic, caring guardians respectful of our living memory.",
+        b1Title: "Challenge 1: Forest of Rights",
+        b1Status: "✓ UNLOCKED",
+        b2Title: "Challenge 2: Anti-Stereotype Temple",
+        b2Status: "✓ UNLOCKED",
+        b3Title: "Challenge 3: Valley of Voices",
+        b3Status: "✓ UNLOCKED",
+        b4Title: "Challenge 4: Archipelago of Union",
+        b4Status: "✓ UNLOCKED",
+        btnCelebrate: "🎉 Celebrate Grand Constitutional Graduation!",
+        btnBackTop: "⬆️ Back to Top"
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = (currentLang === 'ES') ? 'EN' : 'ES';
+      playSoundEffect('click');
+      applyLanguage(currentLang);
+    }
+
+    function applyLanguage(lang) {
+      const t = TRANSLATIONS_R4[lang];
+      if (!t) return;
+
+      const setT = (id, text, isHTML = false) => {
+        const el = document.getElementById(id);
+        if (el) {
+          if (isHTML) el.innerHTML = text;
+          else el.textContent = text;
+        }
+      };
+
+      setT('btn-lang', t.langBtn, true);
+      setT('gov-title', t.govTitle);
+      setT('gov-sub', t.govSub);
+      setT('badge-art46', t.badgeArt46);
+      setT('label-sound', t.labelSound);
+      setT('label-print', t.labelPrint);
+      setT('label-print-fase4', t.labelPrintFase4);
+      setT('gov-footer-inst', t.footerInst, true);
+      setT('gov-footer-sub', t.footerSub);
+
+      setT('hero-title', t.heroTitle);
+      setT('hero-tag', t.heroTag);
+      setT('hero-desc', t.heroDesc, true);
+      setT('hero-quote', t.heroQuote);
+      setT('hero-quote-source', t.heroQuoteSource);
+      setT('hero-badge-caption', t.heroBadgeCaption);
+
+      setT('stage-label-text', t.stageLabelText);
+      setT('stage-btn-infantil', t.stageBtnInfantil);
+      setT('stage-btn-primaria', t.stageBtnPrimaria);
+      setT('stage-btn-secundaria', t.stageBtnSecundaria);
+
+      setT('tab1-badge', t.tab1Badge);
+      setT('tab1-title', t.tab1Title);
+      setT('tab1-desc', t.tab1Desc);
+      setT('tab2-badge', t.tab2Badge);
+      setT('tab2-title', t.tab2Title);
+      setT('tab2-desc', t.tab2Desc);
+      setT('tab3-badge', t.tab3Badge);
+      setT('tab3-title', t.tab3Title);
+      setT('tab3-desc', t.tab3Desc);
+      setT('tab4-badge', t.tab4Badge);
+      setT('tab4-title', t.tab4Title);
+      setT('tab4-desc', t.tab4Desc);
+
+      // Subreto 4.1
+      setT('m1-title', t.m1Title);
+      setT('m1-subtitle', t.m1Subtitle);
+      setT('m1-phase-badge', t.m1PhaseBadge);
+      setT('m1-form-heading', t.m1FormHeading);
+      setT('lbl-invName', t.lblInvName);
+      setT('lbl-entName', t.lblEntName);
+      setT('lbl-cat', t.lblCat);
+      setT('cat-btn-1', t.catBtn1);
+      setT('cat-btn-2', t.catBtn2);
+      setT('cat-btn-3', t.catBtn3);
+      setT('cat-btn-4', t.catBtn4);
+      setT('lbl-memStory', t.lblMemStory);
+      setT('lbl-objName', t.lblObjName);
+      setT('btn-update-museum', t.btnUpdateMuseum);
+      setT('m1-preview-heading', t.m1PreviewHeading);
+      setT('museum-seal', t.museumSeal);
+      setT('lbl-prop-conservador', t.lblPropConservador);
+      setT('lbl-prop-fuente', t.lblPropFuente);
+      setT('lbl-prop-cat', t.lblPropCat);
+      setT('lbl-prop-proteccion', t.lblPropProteccion);
+      setT('val-prop-proteccion', t.valPropProteccion);
+      setT('agent-org-title', t.agentOrgTitle);
+      setT('agent-role-pill', t.agentRolePill);
+      setT('btn-print-diploma', t.btnPrintDiploma);
+      setT('btn-complete-sub1', t.btnCompleteSub1);
+
+      // Subreto 4.2
+      setT('m2-title', t.m2Title);
+      setT('m2-subtitle', t.m2Subtitle);
+      setT('m2-phase-badge', t.m2PhaseBadge);
+      setT('rhythm-box-title', t.rhythmBoxTitle);
+      setT('rhythm-desc', t.rhythmDesc, true);
+      setT('beat-subtext-1', t.beatSubtext1);
+      setT('beat-subtext-2', t.beatSubtext2);
+      setT('beat-subtext-3', t.beatSubtext3);
+      const btnPlay = document.getElementById('btnPlayRhythm');
+      if (btnPlay) {
+        btnPlay.textContent = rhythmPlaying ? t.btnPlayRhythmPause : t.btnPlayRhythmStart;
+      }
+      setT('btn-castanet-solo', t.btnCastanetSolo);
+      setT('btn-drum-solo', t.btnDrumSolo);
+      setT('costume-header-title', t.costumeHeaderTitle);
+      setT('costume-header-desc', t.costumeHeaderDesc);
+      setT('costume-name-0', t.costumeName0);
+      setT('costume-desc-0', t.costumeDesc0);
+      setT('costume-name-1', t.costumeName1);
+      setT('costume-desc-1', t.costumeDesc1);
+      setT('costume-name-2', t.costumeName2);
+      setT('costume-desc-2', t.costumeDesc2);
+      setT('costume-name-3', t.costumeName3);
+      setT('costume-desc-3', t.costumeDesc3);
+      showCostumeDetail(0);
+
+      setT('verse-workshop-title', t.verseWorkshopTitle);
+      setT('verse-workshop-badge', t.verseWorkshopBadge);
+      setT('lyrics-heading', t.lyricsHeading);
+      setT('lyrics-body', t.lyricsBody);
+      setT('lyrics-refrain-tag', t.lyricsRefrainTag);
+      setT('lyrics-refrain-body', t.lyricsRefrainBody);
+      setT('verse-instructions', t.verseInstructions, true);
+      setT('badge-folclore-title', t.badgeFolcloreTitle);
+      setT('badge-folclore-sub', t.badgeFolcloreSub);
+      setT('btn-complete-sub2', t.btnCompleteSub2);
+
+      // Subreto 4.3
+      setT('m3-title', t.m3Title);
+      setT('m3-subtitle', t.m3Subtitle);
+      setT('m3-phase-badge', t.m3PhaseBadge);
+      setT('creator-heading', t.creatorHeading);
+      setT('btnFmtReel', t.btnFmtReel);
+      setT('btnFmtPoster', t.btnFmtPoster);
+      setT('lbl-campTitle', t.lblCampTitle);
+      setT('lbl-campMessage', t.lblCampMessage);
+      setT('lbl-campHashtags', t.lblCampHashtags);
+      setT('rubric-heading', t.rubricHeading);
+      setT('rubric-sub', t.rubricSub);
+      setT('rubric-max-badge', t.rubricMaxBadge);
+      setT('lbl-evaluatorTeam', t.lblEvaluatorTeam);
+      setT('lbl-evaluatedTeam', t.lblEvaluatedTeam);
+      setT('th-criterion', t.thCriterion);
+      setT('th-score', t.thScore);
+      setT('crit1-title', t.crit1Title);
+      setT('crit1-desc', t.crit1Desc);
+      setT('crit2-title', t.crit2Title);
+      setT('crit2-desc', t.crit2Desc);
+      setT('crit3-title', t.crit3Title);
+      setT('crit3-desc', t.crit3Desc);
+      setT('crit4-title', t.crit4Title);
+      setT('crit4-desc', t.crit4Desc);
+      setT('btn-submit-rubric', t.btnSubmitRubric);
+      setT('lbl-fbPositive', t.lblFbPositive);
+      setT('lbl-fbImprove', t.lblFbImprove);
+      setT('phone-tag', t.phoneTag);
+      setT('phone-live', t.phoneLive);
+      setT('phone-art46-pill', t.phoneArt46Pill);
+      setT('phone-stat-likes', t.phoneStatLikes);
+      setT('phone-stat-comments', t.phoneStatComments);
+      setT('phone-stat-share', t.phoneStatShare);
+
+      // Subreto 4.4
+      setT('arch-panel-badge', t.archPanelBadge);
+      setT('arch-panel-title', t.archPanelTitle);
+      setT('arch-panel-desc', t.archPanelDesc, true);
+      setT('b1-title', t.b1Title);
+      setT('b1-status', t.b1Status);
+      setT('b2-title', t.b2Title);
+      setT('b2-status', t.b2Status);
+      setT('b3-title', t.b3Title);
+      setT('b3-status', t.b3Status);
+      setT('b4-title', t.b4Title);
+      setT('b4-status', t.b4Status);
+      setT('btn-celebrate', t.btnCelebrate);
+      setT('btn-back-top', t.btnBackTop);
+
+      calculateRubricScore();
+      setStage(currentStage);
+    }
+
+    // --- INICIALIZACIÓN DE WEB AUDIO API ---
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const icon = document.getElementById('soundIcon');
+      if (soundEnabled) {
+        icon.textContent = '🔊';
+        playSoundEffect('success');
+      } else {
+        icon.textContent = '🔇';
+        if (rhythmPlaying) toggleRhythm();
+      }
+    }
+
+    // --- EFECTOS DE SONIDO SINTETIZADOS ---
+    function playSoundEffect(type) {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+
+        if (type === 'click') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(600, now);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'castanet') {
+          // Sonido de castañuela de madera
+          const bufferSize = ctx.sampleRate * 0.05;
+          const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.008));
+          }
+          const noise = ctx.createBufferSource();
+          noise.buffer = buffer;
+
+          const filter = ctx.createBiquadFilter();
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(2200, now);
+          filter.Q.setValueAtTime(4, now);
+
+          const gain = ctx.createGain();
+          gain.gain.setValueAtTime(0.35, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+
+          noise.connect(filter);
+          filter.connect(gain);
+          gain.connect(ctx.destination);
+          noise.start(now);
+        } else if (type === 'drum') {
+          // Golpe grave de tamboril
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.frequency.setValueAtTime(150, now);
+          osc.frequency.exponentialRampToValueAtTime(45, now + 0.18);
+          gain.gain.setValueAtTime(0.4, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.22);
+        } else if (type === 'success') {
+          // Fanfarria breve de logro
+          [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+            gain.gain.setValueAtTime(0.18, now + idx * 0.08);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.35);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now + idx * 0.08);
+            osc.stop(now + idx * 0.08 + 0.35);
+          });
+        }
+      } catch (e) {
+        console.warn('Audio no disponible:', e);
+      }
+    }
+
+    function playCastanetSound() {
+      playSoundEffect('castanet');
+    }
+    function playDrumSound() {
+      playSoundEffect('drum');
+    }
+
+    // --- REPRODUCTOR DEL COMPÁS DEL RONDÓN (3/4) ---
+    function toggleRhythm() {
+      const btn = document.getElementById('btnPlayRhythm');
+      const t = TRANSLATIONS_R4[currentLang];
+      if (rhythmPlaying) {
+        clearInterval(rhythmInterval);
+        rhythmPlaying = false;
+        btn.textContent = t.btnPlayRhythmStart;
+        btn.style.background = 'var(--madrid-red)';
+        resetBeatCircles();
+      } else {
+        rhythmPlaying = true;
+        btn.textContent = t.btnPlayRhythmPause;
+        btn.style.background = '#475569';
+        playSoundEffect('drum');
+        currentBeat = 0;
+        advanceBeat();
+        rhythmInterval = setInterval(advanceBeat, 555); // ~108 BPM ternario
+      }
+    }
+
+    function resetBeatCircles() {
+      document.getElementById('beat1').classList.remove('active');
+      document.getElementById('beat2').classList.remove('active');
+      document.getElementById('beat3').classList.remove('active');
+    }
+
+    function advanceBeat() {
+      currentBeat = (currentBeat % 3) + 1;
+      resetBeatCircles();
+      const circle = document.getElementById('beat' + currentBeat);
+      if (circle) circle.classList.add('active');
+
+      if (currentBeat === 1) {
+        playSoundEffect('drum'); // Golpe fuerte
+      } else {
+        playSoundEffect('castanet'); // Repique de castañuelas en 2 y 3
+      }
+    }
+
+    // --- CAMBIO DE SUB-RETOS (TABS) ---
+    function switchSubreto(num) {
+      playSoundEffect('click');
+      currentSubreto = num;
+
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.subreto-view').forEach(view => view.classList.remove('active'));
+
+      const activeBtn = document.getElementById('tabBtn' + num);
+      const activeView = document.getElementById('subreto' + num + 'View');
+      if (activeBtn) activeBtn.classList.add('active');
+      if (activeView) activeView.classList.add('active');
+    }
+
+    // --- CONFIGURACIÓN DIDÁCTICA POR ETAPA EDUCATIVA ---
+    const STAGE_CONFIG = {
+      infantil: {
+        badge: "🧸 Itinerario Adaptado: Educación Infantil (3 a 6 años)",
+        badgeEn: "🧸 Adapted Track: Early Childhood Education (3-6 yrs)",
+        pedagogyTitle: "🎯 Enfoque vivencial y lúdico",
+        pedagogyTitleEn: "🎯 Experiential & Play-based Approach",
+        pedagogyDesc: "Centrado en el juego simbólico, las canciones de cuna, rondas de corro y los juguetes tradicionales de los abuelos.",
+        pedagogyDescEn: "Focused on symbolic play, lullabies, circle rhymes, and traditional handmade toys from grandparents.",
+        lawTitle: "⚖️ Eje constitucional (art. 46 CE)",
+        lawTitleEn: "⚖️ Constitutional Core (Art. 46 SC)",
+        lawDesc: "«Las canciones, juegos y cuentos de nuestros mayores son un tesoro de todos los niños y niñas que debemos cuidar juntos».",
+        lawDescEn: "“The songs, games and tales of our elders are shared treasures of all children that we must care for together.”",
+        tasksTitle: "📋 Propuesta didáctica",
+        tasksTitleEn: "📋 Didactic Activities",
+        tasksDesc: "• Misión 4.1: La caja de recuerdos de los abuelos • Misión 4.2: Baile en corro con palmadas 1-2-3 • Misión 4.3: Mural de dibujos colectivos.",
+        tasksDescEn: "• Mission 4.1: Grandparents’ memory box • Mission 4.2: Circle dance with hand claps 1-2-3 • Mission 4.3: Collective drawing mural.",
+        invName: "Aula de 5 Años - Los Guardianes Menudos",
+        invNameEn: "5-Year-Old Classroom - Junior Guardians",
+        entName: "Abuela Teresa (72 años)",
+        entNameEn: "Grandmother Teresa (72 yrs)",
+        memStory: "Nos enseñó a cantar la canción del corro «Al pasar la barca» y nos trajo una muñeca de trapo hecha a mano con retales. Nos contó que jugaban en la plaza con canicas de barro.",
+        memStoryEn: "She taught us the traditional circle rhyme «Al pasar la barca» and brought a handmade rag doll. She shared stories of playing marbles on the village cobblestones.",
+        objName: "Muñeca de trapo y peonza de madera",
+        objNameEn: "Handmade rag doll and wooden spinning top",
+        category: "Juegos y calle",
+        catIndex: 1,
+        campTitle: "¡Cuidamos las canciones de los abuelos!",
+        campTitleEn: "We cherish our grandparents’ songs!",
+        campMessage: "En nuestro cole cantamos y bailamos en corro porque la Constitución dice que la música y los cuentos son tesoros de todos.",
+        campMessageEn: "In our school we sing and dance in a circle because the Constitution says music and stories belong to everyone.",
+        rhythmGuide: "🧸 Guía para Infantil: Bailamos en corro agarrados de las manos. Al escuchar el tamboril (1) damos un paso al frente; con las castañuelas (2 y 3) damos dos palmadas sonoras con las manos. ¡Una, dos y tres!",
+        rhythmGuideEn: "🧸 Early Childhood Guide: We dance hand-in-hand in a big circle. On beat 1 we step forward; on beats 2 and 3 we clap our hands twice. One, two, three!",
+        verses: [
+          "En el corro del colegio",
+          "aprendemos a cantar,",
+          "las canciones de los yayos",
+          "nunca se van a olvidar."
+        ],
+        versesEn: [
+          "In our happy schoolyard circle",
+          "singing merrily today,",
+          "our grandparents' loving stories",
+          "will forever with us stay."
+        ],
+        dipTitle: "DIPLOMA DE SUPERGUARDIÁN O SUPERGUARDIANA",
+        dipTitleEn: "JUNIOR GUARDIAN DIPLOMA OF OUR HISTORY",
+        dipRole: "🌟 PEQUEÑO/A CONSERVADOR/A DE NUESTRA HISTORIA 🌟",
+        dipRoleEn: "🌟 JUNIOR GUARDIAN OF OUR HISTORY 🌟",
+        dipLegalCitation: "✨ Artículo 46 de la Constitución: ¡Cuidamos juntos las canciones, juegos y recuerdos de nuestros abuelos y abuelas! ✨",
+        dipLegalCitationEn: "✨ Article 46 of the Constitution: We lovingly preserve our grandparents' songs, games and memories! ✨",
+        dipIntro: "Se otorga este diploma con todo el cariño a:",
+        dipIntroEn: "This diploma is proudly and lovingly awarded to:",
+        dipStudentTitle: "Pequeño/a guardián/a de la memoria y el folclore de nuestra clase",
+        dipStudentTitleEn: "Junior Guardian of our classroom's folklore and living memory",
+        dipMeritText: "Por escuchar con alegría las historias de los mayores, bailar en corro con las manos y cuidar los recuerdos de nuestros pueblos como un tesoro.",
+        dipMeritTextEn: "For cheerfully listening to our elders' stories, dancing in a circle, and protecting the treasures of our shared memories.",
+        dipElderLabel: "👵 La persona mayor que nos enseñó:",
+        dipElderLabelEn: "👵 The elder who taught us:",
+        dipObjectLabel: "🪆 El recuerdo que cuidamos:",
+        dipObjectLabelEn: "🪆 The memory we cherish:",
+        dipCategoryLabel: "🎨 Qué aprendimos:",
+        dipCategoryLabelEn: "🎨 What we learned:",
+        cornerIcons: ["🧸", "👵", "💃", "🌟"]
+      },
+      primaria: {
+        badge: "✏️ Itinerario Adaptado: Educación Primaria (6 a 12 años)",
+        badgeEn: "✏️ Adapted Track: Primary Education (6-12 yrs)",
+        pedagogyTitle: "🎯 Aprendizaje cooperativo e investigación",
+        pedagogyTitleEn: "🎯 Cooperative Learning & Inquiry",
+        pedagogyDesc: "Estructurado como «Reporteros del folclore», catalogación de piezas históricas y práctica rítmica con percusión menor.",
+        pedagogyDescEn: "Structured as “Folklore Reporters”, cataloguing historical artefacts and rhythm training with castanets.",
+        lawTitle: "⚖️ Eje constitucional (art. 46 CE)",
+        lawTitleEn: "⚖️ Constitutional Core (Art. 46 SC)",
+        lawDesc: "«El deber ciudadano de investigar, catalogar y conservar las tradiciones artísticas e inmateriales de la Comunidad de Madrid».",
+        lawDescEn: "“The civic duty to investigate, catalogue and preserve the artistic and intangible traditions of the Madrid Region.”",
+        tasksTitle: "📋 Propuesta didáctica",
+        tasksTitleEn: "📋 Didactic Activities",
+        tasksDesc: "• Misión 4.1: Entrevista y ficha de catálogo escolar • Misión 4.2: Compás ternario 3/4 y cuartetas • Misión 4.3: Reel o cartel digital Canva.",
+        tasksDescEn: "• Mission 4.1: Interview & school catalogue card • Mission 4.2: 3/4 metre and quatrain lyrics • Mission 4.3: Reel or Canva digital poster.",
+        invName: "Lucía García (5.º Primaria)",
+        invNameEn: "Lucía García (5th Grade)",
+        entName: "Abuelo Antonio (76 años)",
+        entNameEn: "Grandfather Antonio (76 yrs)",
+        memStory: "Jugaban al chito y a la comba en la plaza de Valdemorillo. Para las fiestas de San Blas, todas las familias cocinaban rosquillas de anís y bailaban el Rondón con mantones bordados.",
+        memStoryEn: "They played chito and jump rope in the main square of Valdemorillo. During San Blas festivities, families baked anise doughnuts and danced the Rondón with embroidered shawls.",
+        objName: "Castañuelas de nogal y faja de lana",
+        objNameEn: "Walnut castanets and wool sash",
+        category: "Coplillas y bailes",
+        catIndex: 2,
+        campTitle: "¡Baila el rondón, protege la tradición!",
+        campTitleEn: "Dance the Rondón, protect tradition!",
+        campMessage: "El artículo 46 de la Constitución es nuestro escudo cultural: si no aprendemos nuestras danzas y canciones, se perderán para siempre.",
+        campMessageEn: "Article 46 of the Constitution is our cultural shield: if we don’t learn our songs and dances, they will fade forever.",
+        rhythmGuide: "✏️ Guía para Primaria: Compás ternario (3/4 a 108 BPM). El pulso 1 es el golpe fuerte de avance con el tamboril; los pulsos 2 y 3 corresponden al cruce de parejas y repiqueteo de castañuelas de nogal (Ta - Rra - Chin).",
+        rhythmGuideEn: "✏️ Primary Guide: Triple metre (3/4 at 108 BPM). Beat 1 is the strong forward step with the drum; beats 2 and 3 correspond to crossing partners and walnut castanets trill (Ta - Rra - Chin).",
+        verses: [
+          "Nuestras danzas y canciones",
+          "son tesoros del lugar,",
+          "la ley manda protegerlas",
+          "para que puedan durar."
+        ],
+        versesEn: [
+          "All our folk songs and traditions",
+          "are rich treasures of our land,",
+          "the law urges us to guard them",
+          "with a proud and caring hand."
+        ],
+        dipTitle: "DIPLOMA DE CONSERVADOR/A DE NUESTRA HISTORIA",
+        dipTitleEn: "CONSERVATOR OF OUR HISTORY DIPLOMA",
+        dipRole: "💃 REPORTERO/A DEL PATRIMONIO Y FOLCLORE TRADICIONAL 💃",
+        dipRoleEn: "💃 HERITAGE & TRADITIONAL FOLKLORE REPORTER 💃",
+        dipLegalCitation: "«Los poderes públicos garantizarán la conservación del patrimonio histórico, cultural y artístico...»<br><strong>— Artículo 46 de la Constitución Española —</strong>",
+        dipLegalCitationEn: "“Public authorities shall guarantee the preservation of historical, cultural and artistic heritage...”<br><strong>— Article 46 of the Spanish Constitution —</strong>",
+        dipIntro: "Por su destacada labor de investigación y salvaguarda cultural, se reconoce a:",
+        dipIntroEn: "For outstanding inquiry and cultural safeguarding, official recognition is awarded to:",
+        dipStudentTitle: "Reportero/a oficial de la Red Escolar para la Salvaguarda del Patrimonio Cultural",
+        dipStudentTitleEn: "Official Reporter of the School Network for the Safeguarding of Cultural Heritage",
+        dipMeritText: "Por investigar con entusiasmo la memoria de nuestros mayores, catalogar sus saberes en el museo escolar, asimilar el compás del rondón tradicional y promover la campaña #ProtegeNuestroArte.",
+        dipMeritTextEn: "For thoroughly researching oral memories, cataloguing traditional heritage, mastering the 3/4 rondón dance rhythm, and championing the #ProtectOurArt campaign.",
+        dipElderLabel: "🎙️ Fuente testimonial / Persona mayor:",
+        dipElderLabelEn: "🎙️ Testimonial source / Elder:",
+        dipObjectLabel: "💃 Bien o tradición rescatada:",
+        dipObjectLabelEn: "💃 Preserved tradition / Symbol:",
+        dipCategoryLabel: "🏛️ Ámbito patrimonial:",
+        dipCategoryLabelEn: "🏛️ Heritage field:",
+        cornerIcons: ["💃", "🏛️", "🎵", "🌟"]
+      },
+      secundaria: {
+        badge: "🎓 Itinerario Adaptado: Educación Secundaria (12 a 16+ años)",
+        badgeEn: "🎓 Adapted Track: Secondary Education (12-16+ yrs)",
+        pedagogyTitle: "🎯 Etnografía oral y rigor científico",
+        pedagogyTitleEn: "🎯 Oral Ethnography & Scholarly Rigour",
+        pedagogyDesc: "Metodología ABP con archivo sonoro digital, análisis métrico y sociológico del folclore rural y debate jurídico sobre el Art. 46 C.E.",
+        pedagogyDescEn: "PBL methodology with digital audio archives, metric and sociological analysis of rural folklore, and legal debate on Art. 46 SC.",
+        lawTitle: "⚖️ Eje constitucional (art. 46 CE)",
+        lawTitleEn: "⚖️ Constitutional Core (Art. 46 SC)",
+        lawDesc: "«Garantía pública de tutela y sanción penal contra el expolio o la degradación del patrimonio inmaterial ante la uniformización global».",
+        lawDescEn: "“Public guarantee of legal custody and penal sanction against spoliation or cultural degradation amidst global homogenization.”",
+        tasksTitle: "📋 Propuesta didáctica",
+        tasksTitleEn: "📋 Didactic Activities",
+        tasksDesc: "• Misión 4.1: Etnografía de campo y archivo sonoro • Misión 4.2: Polirritmia 3/4 y cuartetas de autor • Misión 4.3: Campaña transmedia y coevaluación (16 pts).",
+        tasksDescEn: "• Mission 4.1: Field ethnography and sound archiving • Mission 4.2: 3/4 polyrhythm and original quatrains • Mission 4.3: Transmedia campaign and peer review (16 pts).",
+        invName: "Marcos Serrano (3.º ESO)",
+        invNameEn: "Marcos Serrano (9th Grade)",
+        entName: "D. Mariano Ruiz (81 años, cantero jubilado)",
+        entNameEn: "Mr. Mariano Ruiz (81 yrs, retired quarryman)",
+        memStory: "Testimonio etnográfico sobre la extracción de granito en las canteras históricas de la comarca y la tradición de las rondas de quintos en San Blas, conservando cantos de laboreo transmitidos exclusivamente por vía oral.",
+        memStoryEn: "Ethnographic testimony on traditional granite quarrying in the Guadarrama foothills and the historical San Blas youth rounds, documenting oral work songs on the verge of extinction.",
+        objName: "Cincel de cantería y archivo sonoro de cantos de laboreo",
+        objNameEn: "Traditional stone chisel and oral labor songs sound archive",
+        category: "Oficios de antaño",
+        catIndex: 4,
+        campTitle: "#PatrimonioVivo: El Rondón y el art. 46 CE",
+        campTitleEn: "#LivingHeritage: The Rondón & Art. 46 SC",
+        campMessage: "Frente a la uniformización global, la Constitución Española garantiza la preservación de nuestro patrimonio inmaterial. La tradición también se innova en digital.",
+        campMessageEn: "Faced with global homogenization, the Spanish Constitution guarantees the safeguard of our intangible heritage. Tradition also innovates digitally.",
+        rhythmGuide: "🎓 Guía para Secundaria: Análisis etnomusicológico del Rondón. Compás de subdivisión ternaria 3/4. Polirritmia entre el patrón rítmico percutido del tamboril serrano y la repetición hemiolada de las castañuelas. Estructura lírica de romance popular.",
+        rhythmGuideEn: "🎓 Secondary Guide: Ethnomusicological analysis of the Rondón. 3/4 triple subdivision metre. Polyrhythm between traditional snare drum pulse and hemiola castanets trills. Popular romance poetic structure.",
+        verses: [
+          "Guarda el pueblo su memoria",
+          "en la piedra y en la voz,",
+          "el artículo cuarenta y seis",
+          "nos une a todos los dos."
+        ],
+        versesEn: [
+          "A nation keeps its living soul",
+          "in stone and song and rhyme,",
+          "our Constitution shields the flame",
+          "through every age and time."
+        ],
+        dipTitle: "DIPLOMA DE HONOR: INVESTIGADOR/A DEL PATRIMONIO HISTÓRICO",
+        dipTitleEn: "HONOR DIPLOMA: HISTORICAL HERITAGE RESEARCHER",
+        dipRole: "INVESTIGADOR/A ETNOGRÁFICO/A Y CONSERVADOR/A DEL PATRIMONIO",
+        dipRoleEn: "ETHNOGRAPHIC RESEARCHER & HERITAGE CONSERVATOR",
+        dipLegalCitation: "«Los poderes públicos garantizarán la conservación y promoverán el enriquecimiento del patrimonio histórico, cultural y artístico de los pueblos de España y de los bienes que lo integran...»<br><strong>— Artículo 46 de la Constitución Española de 1978 —</strong>",
+        dipLegalCitationEn: "“The public authorities shall guarantee the preservation and promote the enrichment of the historical, cultural and artistic heritage of the peoples of Spain...”<br><strong>— Article 46 of the Spanish Constitution of 1978 —</strong>",
+        dipIntro: "Por el presente documento oficial, se certifica y hace público reconocimiento a favor de:",
+        dipIntroEn: "By this official document, public certification and merit are hereby granted unto:",
+        dipStudentTitle: "Agente de la Red Escolar para la Salvaguarda del Patrimonio Cultural",
+        dipStudentTitleEn: "Agent of the School Network for the Safeguarding of Cultural Heritage",
+        dipMeritText: "Por su rigurosa investigación de historia oral, rescate del patrimonio inmaterial y catalogación en el Museo Escolar de las vivencias transmitidas por su mayor:",
+        dipMeritTextEn: "For rigorous oral history inquiry, rescue of intangible heritage, and school museum cataloguing of testimonies transmitted by our elders:",
+        dipElderLabel: "Fuente testimonial / Persona mayor:",
+        dipElderLabelEn: "Testimonial source / Elder:",
+        dipObjectLabel: "Bien o símbolo catalogado:",
+        dipObjectLabelEn: "Catalogued item / Symbol:",
+        dipCategoryLabel: "Ámbito patrimonial:",
+        dipCategoryLabelEn: "Heritage field:",
+        cornerIcons: ["⚜", "⚜", "⚜", "⚜"]
+      }
+    };
+
+    function updateStageBanner() {
+      const cfg = STAGE_CONFIG[currentStage] || STAGE_CONFIG.primaria;
+      const isEn = (currentLang === 'EN');
+      const banner = document.getElementById('stagePedagogicalBanner');
+      if (!banner) return;
+
+      banner.innerHTML = `
+        <div class="spb-header">
+          <span class="spb-badge">${isEn ? cfg.badgeEn : cfg.badge}</span>
+          <span class="spb-notice">${isEn ? '⚡ Activities, prompts and guidance adapt in real time' : '⚡ Las actividades, consignas y fichas se adaptan en tiempo real'}</span>
+        </div>
+        <div class="spb-grid">
+          <div class="spb-col">
+            <div class="spb-col-title">${isEn ? cfg.pedagogyTitleEn : cfg.pedagogyTitle}</div>
+            <p class="spb-col-desc">${isEn ? cfg.pedagogyDescEn : cfg.pedagogyDesc}</p>
+          </div>
+          <div class="spb-col">
+            <div class="spb-col-title">${isEn ? cfg.lawTitleEn : cfg.lawTitle}</div>
+            <p class="spb-col-desc">${isEn ? cfg.lawDescEn : cfg.lawDesc}</p>
+          </div>
+          <div class="spb-col">
+            <div class="spb-col-title">${isEn ? cfg.tasksTitleEn : cfg.tasksTitle}</div>
+            <p class="spb-col-desc">${isEn ? cfg.tasksDescEn : cfg.tasksDesc}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- ADAPTACIÓN CURRICULAR POR ETAPA ---
+    function setStage(stage) {
+      currentStage = stage;
+      playSoundEffect('click');
+
+      document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
+      const activeBtn = document.getElementById('stage-btn-' + stage);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const cfg = STAGE_CONFIG[stage] || STAGE_CONFIG.primaria;
+      const isEn = (currentLang === 'EN');
+
+      // 1. Actualizar banner pedagógico
+      updateStageBanner();
+
+      // 2. Misión 4.1: Ficha de investigación y catálogo
+      const invInput = document.getElementById('invName');
+      const entInput = document.getElementById('entName');
+      const storyInput = document.getElementById('memStory');
+      const objInput = document.getElementById('objName');
+
+      if (invInput) invInput.value = isEn ? cfg.invNameEn : cfg.invName;
+      if (entInput) entInput.value = isEn ? cfg.entNameEn : cfg.entName;
+      if (storyInput) storyInput.value = isEn ? cfg.memStoryEn : cfg.memStory;
+      if (objInput) objInput.value = isEn ? cfg.objNameEn : cfg.objName;
+
+      // Seleccionar categoría correspondiente
+      const catBtn = document.getElementById('cat-btn-' + cfg.catIndex);
+      if (catBtn) {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+        catBtn.classList.add('selected');
+        document.getElementById('cardCategory').textContent = isEn ? catBtn.textContent.trim() : cfg.category;
+      }
+
+      updateMuseumCard();
+
+      // 3. Misión 4.2: Taller rítmico y cuartetas
+      const verses = isEn ? cfg.versesEn : cfg.verses;
+      for (let i = 1; i <= 4; i++) {
+        const vInput = document.getElementById('verse' + i);
+        if (vInput && verses[i - 1]) vInput.value = verses[i - 1];
+      }
+      if (typeof analyzeVerses === 'function') analyzeVerses();
+
+      // 4. Misión 4.3: Campaña digital
+      const campTitle = document.getElementById('campTitle');
+      const campMsg = document.getElementById('campMessage');
+      if (campTitle) campTitle.value = isEn ? cfg.campTitleEn : cfg.campTitle;
+      if (campMsg) campMsg.value = isEn ? cfg.campMessageEn : cfg.campMessage;
+      updatePhoneMockup();
+
+      // 5. Actualizar diploma
+      updateDiplomaFields();
+    }
+
+    function updateDiplomaFields() {
+      const inv = (document.getElementById('invName') && document.getElementById('invName').value) || 'Investigador/a';
+      const ent = (document.getElementById('entName') && document.getElementById('entName').value) || 'Persona Mayor';
+      const obj = (document.getElementById('objName') && document.getElementById('objName').value) || 'Objeto Tradicional';
+      const cat = (document.getElementById('cardCategory') && document.getElementById('cardCategory').textContent) || 'Patrimonio Inmaterial';
+
+      const dipSheet = document.getElementById('diplomaPrintArea');
+      if (dipSheet) {
+        dipSheet.className = 'diploma-print-sheet diploma-stage-' + currentStage;
+      }
+
+      const cfg = STAGE_CONFIG[currentStage] || STAGE_CONFIG.primaria;
+      const isEn = (currentLang === 'EN');
+
+      const dipTitle = document.getElementById('dipMainTitle');
+      const dipRole = document.getElementById('dipStageBadge');
+      const dipLegal = document.getElementById('dipLegalCitation');
+      const dipIntro = document.getElementById('dipIntro');
+      const dipStudent = document.getElementById('dipStudentName');
+      const dipStudTitle = document.getElementById('dipStudentTitle');
+      const dipMerit = document.getElementById('dipMeritText');
+      const dipSig = document.getElementById('dipSigStudent');
+      const dipElder = document.getElementById('dipElderName');
+      const dipObj = document.getElementById('dipObjectName');
+      const dipCat = document.getElementById('dipCategory');
+
+      const dipElderLbl = document.getElementById('dipElderLabel');
+      const dipObjLbl = document.getElementById('dipObjectLabel');
+      const dipCatLbl = document.getElementById('dipCategoryLabel');
+
+      if (dipTitle) dipTitle.textContent = isEn ? cfg.dipTitleEn : cfg.dipTitle;
+      if (dipRole) dipRole.textContent = isEn ? cfg.dipRoleEn : cfg.dipRole;
+      if (dipLegal) dipLegal.innerHTML = isEn ? cfg.dipLegalCitationEn : cfg.dipLegalCitation;
+      if (dipIntro) dipIntro.textContent = isEn ? cfg.dipIntroEn : cfg.dipIntro;
+      if (dipStudent) dipStudent.textContent = inv;
+      if (dipStudTitle) dipStudTitle.textContent = isEn ? cfg.dipStudentTitleEn : cfg.dipStudentTitle;
+      if (dipMerit) dipMerit.textContent = isEn ? cfg.dipMeritTextEn : cfg.dipMeritText;
+      if (dipSig) dipSig.textContent = inv;
+      if (dipElder) dipElder.textContent = ent;
+      if (dipObj) dipObj.textContent = '«' + obj + '»';
+      if (dipCat) dipCat.textContent = cat;
+
+      if (dipElderLbl) dipElderLbl.textContent = isEn ? cfg.dipElderLabelEn : cfg.dipElderLabel;
+      if (dipObjLbl) dipObjLbl.textContent = isEn ? cfg.dipObjectLabelEn : cfg.dipObjectLabel;
+      if (dipCatLbl) dipCatLbl.textContent = isEn ? cfg.dipCategoryLabelEn : cfg.dipCategoryLabel;
+
+      // Esquinas según etapa
+      const corners = cfg.cornerIcons || ['⚜', '⚜', '⚜', '⚜'];
+      if (document.getElementById('dipCornerTL')) document.getElementById('dipCornerTL').textContent = corners[0];
+      if (document.getElementById('dipCornerTR')) document.getElementById('dipCornerTR').textContent = corners[1];
+      if (document.getElementById('dipCornerBL')) document.getElementById('dipCornerBL').textContent = corners[2];
+      if (document.getElementById('dipCornerBR')) document.getElementById('dipCornerBR').textContent = corners[3];
+
+      // Dibujos según etapa (Infantil y Primaria)
+      const drawContainer = document.getElementById('dipDrawingsContainer');
+      if (drawContainer) {
+        if (currentStage === 'infantil') {
+          drawContainer.innerHTML = `
+            <div class="dip-draw-card" style="background:#FEF3C7; border:2px solid #FCD34D;">
+              <span class="dip-draw-icon">👵👴</span>
+              <div>
+                <strong>${isEn ? 'Our Elders' : 'Nuestros abuelos y abuelas'}</strong>
+                <span class="dip-draw-sub">${isEn ? 'Stories & warm memories' : 'Cariño y canciones de cuna'}</span>
+              </div>
+            </div>
+            <div class="dip-draw-card" style="background:#FCE7F3; border:2px solid #F472B6;">
+              <span class="dip-draw-icon">🪆🧸</span>
+              <div>
+                <strong>${isEn ? 'Heritage Toys' : 'Juguetes de antes'}</strong>
+                <span class="dip-draw-sub">${isEn ? 'Rag doll & wooden top' : 'Muñeca de trapo y peonza'}</span>
+              </div>
+            </div>
+            <div class="dip-draw-card" style="background:#E0F2FE; border:2px solid #38BDF8;">
+              <span class="dip-draw-icon">🥁👏</span>
+              <div>
+                <strong>${isEn ? 'Circle Dance' : 'Baile en corro'}</strong>
+                <span class="dip-draw-sub">${isEn ? 'Hand claps 1 - 2 - 3' : 'Palmadas y compás 1-2-3'}</span>
+              </div>
+            </div>
+            <div class="dip-draw-card" style="background:#DCFCE7; border:2px solid #4ADE80;">
+              <span class="dip-draw-icon">🌈🌟</span>
+              <div>
+                <strong>${isEn ? 'Shared Memory' : 'Amigos y recuerdos'}</strong>
+                <span class="dip-draw-sub">${isEn ? 'Treasured in our hearts' : 'Un tesoro para siempre'}</span>
+              </div>
+            </div>
+          `;
+          drawContainer.style.display = 'flex';
+        } else if (currentStage === 'primaria') {
+          drawContainer.innerHTML = `
+            <div class="dip-draw-card" style="background:#E0F2FE; border:2px solid #0284C7;">
+              <span class="dip-draw-icon">🎙️👴</span>
+              <div>
+                <strong>${isEn ? 'Oral History' : 'Historia oral'}</strong>
+                <span class="dip-draw-sub">${isEn ? 'Interviews with elders' : 'Entrevistas a mayores'}</span>
+              </div>
+            </div>
+            <div class="dip-draw-card" style="background:#FEF3C7; border:2px solid #D97706;">
+              <span class="dip-draw-icon">💃🌰</span>
+              <div>
+                <strong>${isEn ? 'Traditional Rondón' : 'Rondón y folclore'}</strong>
+                <span class="dip-draw-sub">${isEn ? '3/4 metre & castanets' : 'Castañuelas y compás 3/4'}</span>
+              </div>
+            </div>
+            <div class="dip-draw-card" style="background:#DCFCE7; border:2px solid #16A34A;">
+              <span class="dip-draw-icon">🏰📜</span>
+              <div>
+                <strong>${isEn ? 'Shared Monuments' : 'Patrimonio de Madrid'}</strong>
+                <span class="dip-draw-sub">${isEn ? 'Castles, bridges & shrines' : 'Ermitas, puentes y plazas'}</span>
+              </div>
+            </div>
+            <div class="dip-draw-card" style="background:#F3E8FF; border:2px solid #9333EA;">
+              <span class="dip-draw-icon">📱🛡️</span>
+              <div>
+                <strong>${isEn ? '#ProtectOurArt' : '#ProtegeNuestroArte'}</strong>
+                <span class="dip-draw-sub">${isEn ? 'Digital safeguard campaign' : 'Campaña de salvaguarda'}</span>
+              </div>
+            </div>
+          `;
+          drawContainer.style.display = 'flex';
+        } else {
+          drawContainer.innerHTML = '';
+          drawContainer.style.display = 'none';
+        }
+      }
+    }
+
+    // --- SUB-RETO 4.1: NUESTRA HISTORIA ---
+    function selectMemoryCat(btn, catName) {
+      playSoundEffect('click');
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      document.getElementById('cardCategory').textContent = catName;
+      updateDiplomaFields();
+    }
+
+    function updateMuseumCard() {
+      playSoundEffect('success');
+      const inv = document.getElementById('invName').value || 'Investigador/a';
+      const ent = document.getElementById('entName').value || 'Persona entrevistada';
+      const obj = document.getElementById('objName').value || 'Objeto tradicional';
+      const story = document.getElementById('memStory').value || 'Relato tradicional...';
+
+      document.getElementById('cardInvName').textContent = inv;
+      document.getElementById('cardEntName').textContent = ent;
+      document.getElementById('cardItemTitle').textContent = obj;
+      document.getElementById('cardStory').textContent = '«' + story + '»';
+      document.getElementById('agentCardName').textContent = inv;
+
+      // Código aleatorio realista
+      if (!document.getElementById('cardCatCode').textContent.startsWith('CAT-MAD-2026-')) {
+        const rnd = Math.floor(100 + Math.random() * 900);
+        document.getElementById('cardCatCode').textContent = 'CAT-MAD-2026-' + rnd;
+      }
+      updateDiplomaFields();
+    }
+
+    function printDiploma() {
+      playSoundEffect('click');
+      updateMuseumCard();
+      updateDiplomaFields();
+      if (currentSubreto !== 4) {
+        switchSubreto(4);
+      }
+      document.body.classList.add('printing-diploma');
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => {
+          document.body.classList.remove('printing-diploma');
+        }, 1000);
+      }, 350);
+    }
+
+    function completeSubreto1() {
+      playSoundEffect('success');
+      switchSubreto(2);
+      window.scrollTo({ top: 320, behavior: 'smooth' });
+    }
+
+    // --- SUB-RETO 4.2: INDUMENTARIA Y MÉTRICA ---
+    const costumeData = [
+      { 
+        name: "Mantón de Manila", 
+        nameEn: "Manila Shawl",
+        desc: "Prenda femenina de seda bordada a mano con flores y largos flecos que vuelan en el corro al girar.",
+        descEn: "Emblematic women's silk shawl hand-embroidered with floral motifs and long flying fringes that twirl in the circle."
+      },
+      { 
+        name: "Saya con Guardapiés", 
+        nameEn: "Saya Skirt & Underskirt",
+        desc: "Falda de paño tradicional con ribetes de terciopelo que protegía del frío en las fiestas de San Blas.",
+        descEn: "Traditional heavy wool skirt with velvet trimming that kept dancers warm during San Blas winter festivities."
+      },
+      { 
+        name: "Faja de Estambre", 
+        nameEn: "Worsted Wool Sash",
+        desc: "Cinturón de lana roja o negra ajustado a la cintura masculina para sujetar el calzón y proteger los lomos al bailar.",
+        descEn: "Red or black worsted wool sash wrapped snugly around the men's waist to secure trousers and support the back."
+      },
+      { 
+        name: "Chaleco Bordado", 
+        nameEn: "Embroidered Velvet Vest",
+        desc: "Prenda de terciopelo oscuro con botones plateados de filigrana, símbolo de gala en los pueblos serranos de Madrid.",
+        descEn: "Dark velvet vest with filigree silver buttons, a hallmark of festive mountain attire across Madrid's sierra towns."
+      }
+    ];
+
+    function showCostumeDetail(index) {
+      playSoundEffect('click');
+      document.querySelectorAll('.costume-item-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === index);
+      });
+      const data = costumeData[index];
+      const name = currentLang === 'EN' ? data.nameEn : data.name;
+      const desc = currentLang === 'EN' ? data.descEn : data.desc;
+      document.getElementById('costumeDetailBox').innerHTML = '<strong>' + name + ':</strong> ' + desc;
+    }
+
+    function countSyllablesApprox(str) {
+      if (!str.trim()) return 0;
+      const clean = str.trim().toLowerCase().replace(/[^a-záéíóúüñ\s]/g, '');
+      const words = clean.split(/\s+/);
+      let count = 0;
+      words.forEach(w => {
+        const matches = w.match(/[aeiouáéíóúü]+/g);
+        if (matches) count += matches.length;
+      });
+      return Math.max(1, count);
+    }
+
+    function analyzeVerses() {
+      for (let i = 1; i <= 4; i++) {
+        const val = document.getElementById('verse' + i).value;
+        const syl = countSyllablesApprox(val);
+        const badge = document.getElementById('syl' + i);
+        badge.textContent = syl + ' síl.';
+        if (syl >= 7 && syl <= 9) {
+          badge.classList.add('perfect');
+          badge.textContent += ' ✨';
+        } else {
+          badge.classList.remove('perfect');
+        }
+      }
+    }
+
+    function completeSubreto2() {
+      playSoundEffect('success');
+      switchSubreto(3);
+      window.scrollTo({ top: 320, behavior: 'smooth' });
+    }
+
+    // --- SUB-RETO 4.3: CAMPAÑA Y COEVALUACIÓN ---
+    function setCampaignFormat(fmt) {
+      playSoundEffect('click');
+      document.getElementById('btnFmtReel').classList.toggle('active', fmt === 'reel');
+      document.getElementById('btnFmtPoster').classList.toggle('active', fmt === 'poster');
+    }
+
+    function updatePhoneMockup() {
+      const h = document.getElementById('campTitle').value;
+      const m = document.getElementById('campMessage').value;
+      const t = document.getElementById('campHashtags').value;
+
+      document.getElementById('mockupHeadline').textContent = h;
+      document.getElementById('mockupSubline').textContent = m;
+      document.getElementById('mockupHashtags').textContent = t;
+    }
+
+    function calculateRubricScore() {
+      playSoundEffect('click');
+      let total = 0;
+      for (let i = 1; i <= 4; i++) {
+        const sel = document.querySelector('input[name="crit' + i + '"]:checked');
+        if (sel) total += parseInt(sel.value, 10);
+      }
+
+      const t = TRANSLATIONS_R4[currentLang];
+      const totalDisplay = document.getElementById('rubricTotalDisplay');
+      const feedbackDisplay = document.getElementById('rubricFeedbackDisplay');
+      totalDisplay.innerHTML = total + ' <span class="score-total-scale">/ 16 ' + (currentLang === 'EN' ? 'Pts' : 'Ptos') + '</span>';
+
+      if (total >= 14) {
+        feedbackDisplay.textContent = t.scoreOutstanding;
+      } else if (total >= 11) {
+        feedbackDisplay.textContent = t.scoreNotable;
+      } else if (total >= 8) {
+        feedbackDisplay.textContent = t.scoreAcceptable;
+      } else {
+        feedbackDisplay.textContent = t.scoreDeveloping;
+      }
+    }
+
+    function submitRubric() {
+      playSoundEffect('success');
+      const t = TRANSLATIONS_R4[currentLang];
+      alert(t.alertRubricSubmitted);
+      switchSubreto(4);
+      window.scrollTo({ top: 320, behavior: 'smooth' });
+    }
+
+    // --- CELEBRACIÓN DE CIERRE Y CONFETI ---
+    function celebrateProjectEnd() {
+      playSoundEffect('success');
+      launchConfetti();
+    }
+
+    function launchConfetti() {
+      const canvas = document.getElementById('confettiCanvas');
+      canvas.style.display = 'block';
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const colors = ['#C7082A', '#D4AF37', '#2563EB', '#10B981', '#F59E0B', '#FFFFFF'];
+
+      for (let i = 0; i < 120; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 3,
+          vy: Math.random() * 4 + 3,
+          rot: Math.random() * 360,
+          vrot: (Math.random() - 0.5) * 6
+        });
+      }
+
+      let frames = 0;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.vrot;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rot * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          ctx.restore();
+        });
+
+        frames++;
+        if (frames < 240) {
+          requestAnimationFrame(animate);
+        } else {
+          canvas.style.display = 'none';
+        }
+      }
+      animate();
+    }
+
+    // Inicialización al cargar la página
+    window.addEventListener('DOMContentLoaded', () => {
+      setStage('primaria');
+      analyzeVerses();
+      calculateRubricScore();
+    });
+  </script>
+</body>
+</html>

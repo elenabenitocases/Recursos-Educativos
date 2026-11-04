@@ -1,0 +1,3683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 1: Los Guardianes del Juego | Día de la Constitución 2026</title>
+  <style>
+    :root {
+      --madrid-red: #C7082A;
+      --madrid-darkred: #94041C;
+      --madrid-gold: #D4AF37;
+      --forest-green: #107E54;
+      --forest-dark: #0A4F34;
+      --forest-light: #E8F5E9;
+      --magic-purple: #7C3AED;
+      --text-dark: #1E293B;
+      --text-muted: #64748B;
+      --bg-cream: #FDFBF7;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.12);
+      --radius: 14px;
+    }
+
+    html {
+      overflow-y: scroll;
+      scrollbar-gutter: stable;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--bg-cream);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* BARRA INSTITUCIONAL SUPERIOR */
+    .gov-bar {
+      background: #FFFFFF;
+      border-bottom: 3px solid var(--madrid-red);
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      min-height: 60px;
+    }
+    .gov-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .gov-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+      display: block;
+    }
+    .gov-title-block {
+      border-left: 2px solid #CBD5E1;
+      padding-left: 14px;
+    }
+    .gov-title-block h1 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--madrid-red);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .gov-title-block p {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .gov-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-tool {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-tool:hover {
+      background: #E2E8F0;
+      transform: translateY(-1px);
+    }
+    .btn-tool.active {
+      background: var(--madrid-red);
+      color: white;
+      border-color: var(--madrid-red);
+    }
+
+    /* HERO & NARRATIVE HEADER */
+    .reto-header {
+      background: linear-gradient(135deg, #0A4F34 0%, #15803D 50%, #047857 100%);
+      color: white;
+      padding: 24px 32px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    .reto-header::after {
+      content: "";
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(212,175,55,0.25) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .reto-header-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      position: relative;
+      z-index: 2;
+    }
+    .reto-badge-preview {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .badge-icon-wrap {
+      width: 76px;
+      height: 76px;
+      min-width: 76px;
+      min-height: 76px;
+      border-radius: 50%;
+      border: 3px solid var(--madrid-gold);
+      box-shadow: 0 0 15px rgba(212,175,55,0.4);
+      background: #064E3B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .badge-icon-top {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .reto-title-wrap {
+      flex: 1;
+      min-width: 0;
+    }
+    .reto-title-wrap h2 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0;
+      line-height: 1.25;
+    }
+    .tag-ce {
+      background: var(--madrid-gold);
+      color: #78350F;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .reto-title-wrap p {
+      font-size: 14px;
+      opacity: 0.92;
+      margin-top: 6px;
+      max-width: 650px;
+      line-height: 1.45;
+    }
+    .progress-box {
+      background: rgba(15, 23, 42, 0.45);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 12px;
+      padding: 12px 18px;
+      min-width: 260px;
+      flex-shrink: 0;
+    }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: #E2E8F0;
+    }
+    .progress-bar-track {
+      width: 100%;
+      height: 10px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #F59E0B, #10B981);
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* PESTAÑAS DE MISIÓN / ETAPA EN DOS FILAS (2x2) */
+    .tabs-bar {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6px 16px;
+      gap: 8px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    @media (max-width: 640px) {
+      .tabs-bar {
+        grid-template-columns: 1fr;
+      }
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 12px 18px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .tab-btn:hover {
+      background: #F8FAFC;
+      color: var(--text-dark);
+    }
+    .tab-btn.active {
+      color: var(--forest-green);
+      background: var(--forest-light);
+      box-shadow: inset 0 -2px 0 var(--forest-green);
+    }
+    .tab-btn .badge-pill {
+      background: #E2E8F0;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      color: var(--text-dark);
+    }
+    .tab-btn.active .badge-pill {
+      background: var(--forest-green);
+      color: white;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .main-stage {
+      max-width: 1350px;
+      margin: 20px auto;
+      padding: 0 20px;
+      flex: 1;
+      width: 100%;
+    }
+
+    .mission-section {
+      display: none !important;
+    }
+    .mission-section.active {
+      display: block !important;
+      animation: fadeIn 0.35s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ESTILO: NARRATIVA INTRO */
+    .narrative-card {
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .narrative-text h3 {
+      font-size: 22px;
+      color: var(--forest-dark);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .narrative-quote {
+      border-left: 4px solid var(--madrid-gold);
+      background: #FFFBEB;
+      padding: 14px 18px;
+      border-radius: 0 10px 10px 0;
+      font-size: 14.5px;
+      color: #78350F;
+      line-height: 1.55;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+    .narrative-goals {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .goal-box {
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 10px 14px;
+      border: 1px solid #E2E8F0;
+    }
+    .goal-box strong {
+      display: block;
+      color: var(--forest-green);
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+    .goal-box span {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .narrative-visual {
+      background: #064E3B;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      color: white;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+    .narrative-visual img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      border: 2px solid var(--madrid-gold);
+    }
+    .narrative-visual h4 {
+      font-size: 16px;
+      color: var(--madrid-gold);
+    }
+    .narrative-visual p {
+      font-size: 12px;
+      color: #D1FAE5;
+      margin-top: 4px;
+    }
+
+    /* MODO INFANTIL BANNER */
+    .infantil-banner {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border: 2px dashed #F59E0B;
+      border-radius: 14px;
+      padding: 18px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .infantil-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .infantil-icon {
+      font-size: 42px;
+    }
+    .infantil-info h4 {
+      font-size: 17px;
+      color: #92400E;
+      font-weight: 800;
+    }
+    .infantil-info p {
+      font-size: 13px;
+      color: #B45309;
+      margin-top: 2px;
+    }
+    .btn-infantil {
+      background: #F59E0B;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 13.5px;
+      font-weight: 800;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(245,158,11,0.3);
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .btn-infantil:hover {
+      background: #D97706;
+      transform: scale(1.03);
+    }
+
+    /* AREA MAPA + TARJETAS */
+    .rescue-dashboard {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    /* PANEL LATERAL DE FICHAS */
+    .games-sidebar {
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      max-height: 720px;
+      overflow: hidden;
+    }
+    .sidebar-header {
+      padding: 16px 20px;
+      background: #F8FAFC;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sidebar-header h3 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .counter-badge {
+      background: var(--forest-green);
+      color: white;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+    .sidebar-hint {
+      padding: 10px 18px;
+      background: #ECFDF5;
+      color: #065F46;
+      font-size: 12px;
+      border-bottom: 1px solid #D1FAE5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .games-list-scroll {
+      padding: 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .game-card {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      user-select: none;
+    }
+    .game-card:hover {
+      border-color: #94A3B8;
+      background: #F8FAFC;
+      transform: translateX(3px);
+    }
+    .game-card.selected {
+      border-color: var(--forest-green);
+      background: var(--forest-light);
+      box-shadow: 0 0 0 3px rgba(16, 126, 84, 0.2);
+    }
+    .game-card.rescued {
+      border-color: #10B981;
+      background: #ECFDF5;
+      opacity: 0.85;
+    }
+    .game-card-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .game-icon {
+      font-size: 26px;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #F1F5F9;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .game-card.rescued .game-icon {
+      background: #D1FAE5;
+    }
+    .game-info h5 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .game-info p {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .game-status {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* CONTENEDOR DEL MAPA VECTORIAL */
+    .map-container-card {
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      padding: 20px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .map-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .map-instruction {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--forest-dark);
+      background: var(--forest-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .map-legend {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    /* SVG MAP STYLING */
+    .spain-svg-wrap {
+      width: 100%;
+      height: 580px;
+      background: #F0F9FF;
+      border-radius: 12px;
+      border: 1px solid #BAE6FD;
+      position: relative;
+      overflow: hidden;
+    }
+    svg.spain-map {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .region-path {
+      fill: #CBD5E1;
+      stroke: #FFFFFF;
+      stroke-width: 2.2;
+      stroke-linejoin: round;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .region-path:hover {
+      fill: #94A3B8;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+    }
+    .region-path.target-hint {
+      animation: pulseTarget 1.2s infinite;
+    }
+    @keyframes pulseTarget {
+      0%, 100% { fill: #FED7AA; }
+      50% { fill: #FDBA74; }
+    }
+    .region-path.rescued {
+      fill: #34D399;
+      stroke: #065F46;
+      stroke-width: 2.5;
+    }
+    .region-path.rescued:hover {
+      fill: #10B981;
+    }
+    .region-path.highlight-madrid {
+      stroke: var(--madrid-red);
+      stroke-width: 3.5;
+    }
+
+    /* MAP LABELS & ICONS */
+    .region-label {
+      font-size: 11px;
+      font-weight: 700;
+      fill: #334155;
+      text-anchor: middle;
+      pointer-events: none;
+      user-select: none;
+    }
+    .region-badge-icon {
+      font-size: 18px;
+      text-anchor: middle;
+      pointer-events: none;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+    }
+
+    /* INSET BOXES FOR CANARIAS & CIUDADES */
+    .inset-frame {
+      fill: #FFFFFF;
+      stroke: #38BDF8;
+      stroke-width: 1.5;
+      stroke-dasharray: 4 3;
+      rx: 6;
+      opacity: 0.85;
+    }
+    .inset-title {
+      font-size: 10px;
+      font-weight: 800;
+      fill: #0284C7;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* MODAL FICHA DEL JUEGO */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeIn 0.2s ease;
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .game-modal {
+      background: #FFFFFF;
+      border-radius: 18px;
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      border: 3px solid var(--forest-green);
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-head {
+      background: linear-gradient(135deg, var(--forest-dark), var(--forest-green));
+      color: white;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .modal-head-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .modal-icon {
+      font-size: 38px;
+      background: rgba(255,255,255,0.2);
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-titles h4 {
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .modal-titles span {
+      font-size: 13px;
+      color: #A7F3D0;
+      font-weight: 600;
+    }
+    .btn-close-modal {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      font-size: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .btn-close-modal:hover {
+      background: rgba(255,255,255,0.35);
+    }
+    .modal-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .info-block {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .info-block.recycled {
+      background: #F0FDF4;
+      border-color: #86EFAC;
+    }
+    .info-block.champions {
+      background: #FEF3C7;
+      border-color: #FDE68A;
+    }
+    .info-block h6 {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dark);
+    }
+    .info-block.recycled h6 {
+      color: #166534;
+    }
+    .info-block.champions h6 {
+      color: #92400E;
+    }
+    .info-block p, .info-block ul {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-dark);
+    }
+    .info-block ul {
+      padding-left: 20px;
+    }
+    .info-block li {
+      margin-bottom: 6px;
+    }
+    .modal-foot {
+      padding: 16px 24px;
+      background: #F8FAFC;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* FASE 2: LABORATORIO INCLUSIVO */
+    .lab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 24px;
+      margin-top: 16px;
+    }
+    .lab-card {
+      background: #FFFFFF;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+    }
+    .lab-card.active-step {
+      border-color: var(--forest-green);
+      box-shadow: var(--shadow-md);
+    }
+    .lab-card h4 {
+      font-size: 17px;
+      color: var(--forest-dark);
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lab-card p.desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+    .option-btn {
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13.5px;
+      color: var(--text-dark);
+      text-align: left;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+    .option-btn:hover {
+      background: #F1F5F9;
+      border-color: #94A3B8;
+    }
+    .option-btn.correct {
+      background: #ECFDF5;
+      border-color: #10B981;
+      color: #065F46;
+    }
+    .option-btn.incorrect {
+      background: #FEF2F2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+    .feedback-box {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.45;
+      display: none;
+    }
+    .feedback-box.show {
+      display: block;
+    }
+    .feedback-box.success {
+      background: #D1FAE5;
+      color: #065F46;
+      border: 1px solid #A7F3D0;
+    }
+    .feedback-box.error {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1px solid #FECACA;
+    }
+
+    /* FASE 3: MURDOKU CONSTITUCIONAL */
+    .murdoku-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .murdoku-clues-card {
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
+    }
+    .murdoku-clues-card h4 {
+      font-size: 17px;
+      color: var(--forest-dark);
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .murdoku-story {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 16px;
+      background: #F8FAFC;
+      padding: 12px;
+      border-radius: 8px;
+    }
+    .clue-item {
+      background: #FFFBEB;
+      border-left: 3.5px solid var(--madrid-gold);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: #78350F;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .clue-item input[type="checkbox"] {
+      margin-top: 3px;
+      cursor: pointer;
+      accent-color: var(--forest-green);
+    }
+    .clue-item.used {
+      opacity: 0.55;
+      text-decoration: line-through;
+    }
+
+    .murdoku-grid-card {
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
+      overflow-x: auto;
+    }
+    .murdoku-grid-card h4 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .murdoku-grid-card p.instructions {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    /* TABLA MURDOKU */
+    table.murdoku-table {
+      border-collapse: collapse;
+      margin: 0 auto;
+      user-select: none;
+    }
+    table.murdoku-table th, table.murdoku-table td {
+      border: 1px solid #CBD5E1;
+      text-align: center;
+      padding: 6px 8px;
+      font-size: 12.5px;
+    }
+    table.murdoku-table th.header-cat {
+      background: #1E293B;
+      color: white;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 11px;
+    }
+    table.murdoku-table th.header-subcat {
+      background: #334155;
+      color: white;
+      font-weight: 700;
+      font-size: 11.5px;
+      min-width: 68px;
+    }
+    table.murdoku-table th.header-row-cat {
+      background: #1E293B;
+      color: white;
+      font-weight: 800;
+      font-size: 11px;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      padding: 12px 4px;
+    }
+    table.murdoku-table th.header-row-subcat {
+      background: #F1F5F9;
+      color: var(--text-dark);
+      font-weight: 700;
+      text-align: left;
+      padding-left: 12px;
+      min-width: 90px;
+    }
+    table.murdoku-table th.thick-right, table.murdoku-table td.thick-right {
+      border-right: 3px solid #0F172A;
+    }
+    table.murdoku-table tr.thick-bottom th, table.murdoku-table tr.thick-bottom td {
+      border-bottom: 3px solid #0F172A;
+    }
+    td.murdoku-cell {
+      width: 44px;
+      height: 44px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 800;
+      background: #FFFFFF;
+      transition: background 0.15s;
+    }
+    td.murdoku-cell:hover {
+      background: #F8FAFC;
+    }
+    td.murdoku-cell.state-no {
+      color: #DC2626;
+      background: #FEF2F2;
+    }
+    td.murdoku-cell.state-yes {
+      color: #059669;
+      background: #ECFDF5;
+    }
+    td.murdoku-cell.state-disabled {
+      background: #E2E8F0;
+      cursor: not-allowed;
+    }
+
+    .murdoku-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* FASE 4: CONSAGRACIÓN & CARNET */
+    .consecration-card {
+      background: #FFFFFF;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-md);
+      padding: 36px;
+      text-align: center;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    .badge-unlocked-anim {
+      width: 140px;
+      height: 140px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      border: 4px solid var(--madrid-gold);
+      box-shadow: 0 0 35px rgba(212,175,55,0.6);
+      animation: floatBadge 3s ease-in-out infinite;
+      object-fit: cover;
+      background: #0A4F34;
+    }
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(1deg); }
+    }
+    .consecration-card h3 {
+      font-size: 28px;
+      color: var(--forest-dark);
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .consecration-card p.subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* CARNET EDITABLE OFICIAL */
+    .carnet-wrapper {
+      background: linear-gradient(135deg, #0A4F34 0%, #15803D 100%);
+      padding: 24px;
+      border-radius: 20px;
+      max-width: 640px;
+      margin: 0 auto 28px;
+      box-shadow: var(--shadow-lg);
+      border: 3px solid var(--madrid-gold);
+      position: relative;
+      color: white;
+      text-align: left;
+    }
+    .carnet-wrapper::before {
+      content: "";
+      position: absolute;
+      top: 10px; right: 10px; bottom: 10px; left: 10px;
+      border: 1.5px dashed rgba(212,175,55,0.4);
+      border-radius: 14px;
+      pointer-events: none;
+    }
+    .carnet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+    .carnet-inst {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: var(--madrid-gold);
+    }
+    .carnet-official {
+      font-size: 13.5px;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: 0.5px;
+    }
+    .carnet-body-grid {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 18px;
+      align-items: center;
+    }
+    .carnet-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 12px;
+      border: 2px solid var(--madrid-gold);
+      object-fit: cover;
+      background: #064E3B;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .carnet-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .carnet-input-group label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #A7F3D0;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .carnet-input {
+      width: 100%;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 6px;
+      padding: 6px 10px;
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      outline: none;
+    }
+    .carnet-input:focus {
+      background: rgba(255,255,255,0.25);
+      border-color: var(--madrid-gold);
+    }
+    .carnet-footer {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #D1FAE5;
+    }
+    .carnet-motto {
+      font-style: italic;
+      max-width: 380px;
+      line-height: 1.35;
+    }
+    .stamp-badge {
+      background: var(--madrid-gold);
+      color: #78350F;
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-weight: 900;
+      font-size: 10.5px;
+      text-transform: uppercase;
+    }
+
+    .carnet-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .btn-action {
+      background: var(--forest-green);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(16, 126, 84, 0.25);
+    }
+    .btn-action:hover {
+      background: var(--forest-dark);
+      transform: translateY(-2px);
+    }
+    .btn-action.gold {
+      background: var(--madrid-gold);
+      color: #78350F;
+      box-shadow: 0 4px 12px rgba(212,175,55,0.3);
+    }
+    .btn-action.gold:hover {
+      background: #B45309;
+      color: white;
+    }
+
+    /* MODAL DE INFANTIL: EL PARAGUAS MÁGICO */
+    .infantil-modal-card {
+      background: #FFFBEB;
+      border: 3px solid #F59E0B;
+      border-radius: 18px;
+      max-width: 800px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      position: relative;
+    }
+    .infantil-modal-card h3 {
+      font-size: 24px;
+      color: #92400E;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .infantil-story-p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #78350F;
+      margin-bottom: 20px;
+      background: white;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1.5px solid #FDE68A;
+    }
+    .infantil-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .infantil-clue-card {
+      background: white;
+      border: 2px solid #FCD34D;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .infantil-clue-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 15px rgba(245,158,11,0.25);
+      border-color: #F59E0B;
+    }
+    .infantil-clue-card.solved {
+      background: #ECFDF5;
+      border-color: #10B981;
+    }
+    .infantil-card-icon {
+      font-size: 40px;
+      margin-bottom: 8px;
+    }
+    .infantil-clue-card h5 {
+      font-size: 13.5px;
+      color: #92400E;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .infantil-clue-card p {
+      font-size: 12px;
+      color: #B45309;
+      line-height: 1.35;
+    }
+
+    /* FOOTER */
+    footer.gov-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 18px 24px;
+      margin-top: 40px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    footer.gov-footer strong {
+      color: var(--madrid-red);
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 8mm;
+      }
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body {
+        background: #FFFFFF !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      header.gov-bar, .reto-header, .tabs-bar, .progress-bar-container, footer,
+      #sec-fase1, #sec-fase2, #sec-fase3, .carnet-buttons, .narrative-card, .btn-action,
+      .modal-backdrop {
+        display: none !important;
+      }
+      main.main-stage {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+      }
+      #sec-fase4 {
+        display: block !important;
+        visibility: visible !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .carnet-wrapper {
+        display: block !important;
+        visibility: visible !important;
+        position: relative !important;
+        left: 0 !important;
+        top: 0 !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 170mm !important;
+        margin: 25mm auto !important;
+        box-shadow: none !important;
+        border: 2px solid #000 !important;
+        color: #000 !important;
+        background: #FFF !important;
+        page-break-inside: avoid !important;
+      }
+      .carnet-wrapper * {
+        visibility: visible !important;
+      }
+      .carnet-wrapper::before {
+        border-color: #666 !important;
+      }
+      .carnet-input {
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 1px solid #000 !important;
+        color: #000 !important;
+      }
+      .carnet-inst, .carnet-official, .carnet-input-group label, .carnet-footer {
+        color: #000 !important;
+      }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 992px) {
+      .narrative-card {
+        grid-template-columns: 1fr;
+      }
+      .rescue-dashboard {
+        grid-template-columns: 1fr;
+      }
+      .murdoku-layout {
+        grid-template-columns: 1fr;
+      }
+      .spain-svg-wrap {
+        height: 480px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA INSTITUCIONAL -->
+  <header class="gov-bar">
+    <div class="gov-brand">
+      <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" class="gov-logo" onerror="this.onerror=null; this.style.display='none';">
+      <div class="gov-title-block">
+        <h1 id="gov-title">Semanas Temáticas</h1>
+        <p id="gov-sub">Semana de la Constitución 2026 | Recursos Digitales Interactivos</p>
+      </div>
+    </div>
+    <div class="gov-actions">
+      <button class="btn-tool" id="btn-sound" onclick="toggleSound()">
+        <span id="sound-icon">🔊</span> <span id="label-sound">Sonido: ON</span>
+      </button>
+      <button class="btn-tool" id="btn-lang" onclick="toggleLanguage()">
+        🌐 Idioma: <strong id="lang-label">ES</strong>
+      </button>
+      <button class="btn-tool" id="btn-mode-infantil" onclick="openInfantilModal()">
+        🎒 Modo Infantil (3-6 años)
+      </button>
+      <button class="btn-tool btn-print-top" onclick="printCarnetOficial()" title="Imprimir carnet oficial">
+        🖨️ <span id="label-print">Imprimir</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO NARRATIVO RETO 1 -->
+  <section class="reto-header">
+    <div class="reto-header-inner">
+      <div class="reto-badge-preview">
+        <div class="badge-icon-wrap">
+          <img src="Artefactos/insignia_reto1.png" alt="Insignia Guardián del Juego" class="badge-icon-top" onerror="this.onerror=null; this.style.display='none';">
+        </div>
+        <div class="reto-title-wrap">
+          <h2>
+            <span id="reto-title-text">Reto 1: Los Guardianes del Juego</span>
+            <span class="tag-ce" id="reto-ce-tag">Art. 46 y 43.3 CE</span>
+          </h2>
+          <p id="hero-narrative-text">
+            ¡El <strong>Bosque de los Derechos</strong> está en peligro! El olvido y las pantallas están borrando nuestros juegos populares. Con el poder que nos otorga el Artículo 46 de la Constitución para salvaguardar el patrimonio cultural, viaja por España, rescata las 19 tradiciones lúdicas y conviértete en Guardián Oficial.
+          </p>
+        </div>
+      </div>
+      <div class="progress-box">
+        <div class="progress-label">
+          <span id="progress-text">Progreso del Reto</span>
+          <span id="progress-percent">0%</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PESTAÑAS DE NAVEGACIÓN DE FASES -->
+  <nav class="tabs-bar">
+    <button class="tab-btn active" id="tab-fase1" onclick="switchPhase(1)">
+      <span id="tab-text-1">🗺️ Misión 1: Mapa del patrimonio</span>
+      <span class="badge-pill" id="badge-map-count">0/19</span>
+    </button>
+    <button class="tab-btn" id="tab-fase2" onclick="switchPhase(2)">
+      <span id="tab-text-2">🔬 Misión 2: Laboratorio inclusivo</span>
+      <span class="badge-pill" id="badge-lab-count">0/2</span>
+    </button>
+    <button class="tab-btn" id="tab-fase3" onclick="switchPhase(3)">
+      <span id="tab-text-3">🧩 Misión 3: Murdoku lógico</span>
+      <span class="badge-pill" id="badge-murdoku-status">Pendiente</span>
+    </button>
+    <button class="tab-btn" id="tab-fase4" onclick="switchPhase(4)">
+      <span id="tab-text-4">🏆 Misión 4: Carnet y consagración</span>
+      <span class="badge-pill" id="badge-final-status">Bloqueado</span>
+    </button>
+  </nav>
+
+  <!-- CONTENEDOR PRINCIPAL DE MISIONES -->
+  <main class="main-stage">
+
+    <!-- FASE 1: MAPA INTERACTIVO -->
+    <section class="mission-section active" id="sec-fase1">
+      
+      <!-- NARRATIVA Y OBJETIVOS -->
+      <div class="narrative-card">
+        <div class="narrative-text">
+          <h3 id="m1-title">Misión 1: El rescate de la brújula lúdica</h3>
+          <div class="narrative-quote" id="m1-quote">
+            "La Constitución Española en su Artículo 46 garantiza la conservación y enriquece el patrimonio cultural de los pueblos de España. ¡Los juegos tradicionales son patrimonio inmaterial vivo!"
+          </div>
+          <p style="font-size: 13.5px; color: var(--text-dark); line-height: 1.5;" id="m1-how-to">
+            <strong>¿Cómo jugar?</strong> Selecciona una de las tarjetas de juegos de la izquierda. Lee atentamente sus pistas y pulsa sobre la Comunidad o Ciudad Autónoma correspondiente en el mapa. Al acertar, desbloquearás su ficha técnica bilingüe y las instrucciones para fabricar los juegos con materiales reciclados.
+          </p>
+          <div class="narrative-goals">
+            <div class="goal-box">
+              <strong id="m1-goal1-title">🎯 Meta rápida</strong>
+              <span id="m1-goal1-desc">Rescata al menos 6 juegos clave para continuar al laboratorio.</span>
+            </div>
+            <div class="goal-box">
+              <strong id="m1-goal2-title">⭐ Maestro guardián</strong>
+              <span id="m1-goal2-desc">¡Rescata las 19 tradiciones de toda España!</span>
+            </div>
+          </div>
+        </div>
+        <div class="narrative-visual">
+          <img src="Artefactos/Reto 1_El Bosque de los derechos.jpg" alt="El Bosque de los Derechos" onerror="this.onerror=null; this.style.display='none';">
+          <h4 id="m1-visual-title">El bosque de los derechos</h4>
+          <p id="m1-visual-desc">Devuelve la luz al bosque con cada juego salvado.</p>
+        </div>
+      </div>
+
+      <!-- DASHBOARD: LISTA + MAPA -->
+      <div class="rescue-dashboard">
+        
+        <!-- SIDEBAR DE FICHAS -->
+        <aside class="games-sidebar">
+          <div class="sidebar-header">
+            <h3 id="sidebar-title"><span>📜</span> Juegos por rescatar</h3>
+            <span class="counter-badge" id="sidebar-counter">0 / 19 rescatados</span>
+          </div>
+          <div class="sidebar-hint" id="sidebar-hint-text">
+            <span>💡</span> Selecciona un juego para buscarlo en el mapa:
+          </div>
+          <div class="games-list-scroll" id="games-container">
+            <!-- Renderizado dinámico vía JS -->
+          </div>
+        </aside>
+
+        <!-- MAPA VECTORIAL -->
+        <div class="map-container-card">
+          <div class="map-toolbar">
+            <div class="map-instruction" id="map-prompt">
+              <span>👉</span> Selecciona un juego del panel izquierdo para comenzar
+            </div>
+            <div class="map-legend">
+              <div class="legend-item">
+                <span class="legend-dot" style="background: #CBD5E1;"></span> <span id="legend-unexplored">Por explorar</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot" style="background: #34D399;"></span> <span id="legend-rescued">Rescatado</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- MAPA SVG DE ESPAÑA (17 CCAA + CEUTA + MELILLA) -->
+          <div class="spain-svg-wrap">
+            <svg class="spain-map" viewBox="0 0 1000 680" id="spain-svg" xmlns="http://www.w3.org/2000/svg">
+              
+              <!-- DECORACIÓN FONDO / OCÉANO -->
+              <rect width="100%" height="100%" fill="#F0F9FF" />
+              <text x="140" y="240" id="sea-atlantic" fill="#BAE6FD" font-size="20" font-weight="900" letter-spacing="3" text-anchor="middle">OCÉANO ATLÁNTICO</text>
+              <text x="750" y="470" id="sea-mediterranean" fill="#BAE6FD" font-size="20" font-weight="900" letter-spacing="3" text-anchor="middle">MAR MEDITERRÁNEO</text>
+              <text x="360" y="32" id="sea-cantabrian" fill="#BAE6FD" font-size="18" font-weight="900" letter-spacing="3" text-anchor="middle">MAR CANTÁBRICO</text>
+
+              <!-- INSETS -->
+              <!-- Inset Canarias -->
+              <rect x="30" y="470" width="220" height="190" class="inset-frame" />
+              <text x="45" y="490" class="inset-title" id="inset-canarias-title">Islas Canarias</text>
+
+              <!-- Inset Ceuta y Melilla -->
+              <rect x="270" y="580" width="210" height="85" class="inset-frame" />
+              <text x="285" y="600" class="inset-title" id="inset-cities-title">Ciudades Autónomas</text>
+
+              <!-- ================= 1. GALICIA ================= -->
+              <g class="region-group" data-id="galicia" onclick="onRegionClick('galicia')">
+                <path class="region-path" id="path-galicia" d="M 120 70 L 165 45 L 205 60 L 210 115 L 185 160 L 135 155 L 115 110 Z" />
+                <text x="160" y="105" class="region-label" id="label-map-galicia">Galicia</text>
+                <text x="160" y="130" class="region-badge-icon" id="badge-icon-galicia"></text>
+              </g>
+
+              <!-- ================= 2. ASTURIAS ================= -->
+              <g class="region-group" data-id="asturias" onclick="onRegionClick('asturias')">
+                <path class="region-path" id="path-asturias" d="M 210 60 L 295 55 L 305 95 L 210 115 Z" />
+                <text x="255" y="85" class="region-label" id="label-map-asturias">Asturias</text>
+                <text x="255" y="105" class="region-badge-icon" id="badge-icon-asturias"></text>
+              </g>
+
+              <!-- ================= 3. CANTABRIA ================= -->
+              <g class="region-group" data-id="cantabria" onclick="onRegionClick('cantabria')">
+                <path class="region-path" id="path-cantabria" d="M 295 55 L 365 55 L 360 100 L 305 95 Z" />
+                <text x="330" y="80" class="region-label" id="label-map-cantabria">Cantabria</text>
+                <text x="330" y="98" class="region-badge-icon" id="badge-icon-cantabria"></text>
+              </g>
+
+              <!-- ================= 4. PAÍS VASCO ================= -->
+              <g class="region-group" data-id="pais_vasco" onclick="onRegionClick('pais_vasco')">
+                <path class="region-path" id="path-pais_vasco" d="M 365 55 L 435 60 L 420 115 L 360 100 Z" />
+                <text x="395" y="82" class="region-label" id="label-map-pais_vasco">País Vasco</text>
+                <text x="395" y="102" class="region-badge-icon" id="badge-icon-pais_vasco"></text>
+              </g>
+
+              <!-- ================= 5. NAVARRA ================= -->
+              <g class="region-group" data-id="navarra" onclick="onRegionClick('navarra')">
+                <path class="region-path" id="path-navarra" d="M 435 60 L 495 70 L 485 140 L 425 130 L 420 115 Z" />
+                <text x="460" y="105" class="region-label" id="label-map-navarra">Navarra</text>
+                <text x="460" y="125" class="region-badge-icon" id="badge-icon-navarra"></text>
+              </g>
+
+              <!-- ================= 6. LA RIOJA ================= -->
+              <g class="region-group" data-id="la_rioja" onclick="onRegionClick('la_rioja')">
+                <path class="region-path" id="path-la_rioja" d="M 370 105 L 420 115 L 425 140 L 375 140 L 365 115 Z" />
+                <text x="396" y="130" class="region-label" id="label-map-la_rioja">La Rioja</text>
+                <text x="396" y="145" class="region-badge-icon" id="badge-icon-la_rioja"></text>
+              </g>
+
+              <!-- ================= 7. ARAGÓN ================= -->
+              <g class="region-group" data-id="aragon" onclick="onRegionClick('aragon')">
+                <path class="region-path" id="path-aragon" d="M 495 70 L 585 90 L 565 245 L 505 265 L 455 210 L 485 140 Z" />
+                <text x="525" y="165" class="region-label" id="label-map-aragon">Aragón</text>
+                <text x="525" y="195" class="region-badge-icon" id="badge-icon-aragon"></text>
+              </g>
+
+              <!-- ================= 8. CATALUÑA ================= -->
+              <g class="region-group" data-id="cataluna" onclick="onRegionClick('cataluna')">
+                <path class="region-path" id="path-cataluna" d="M 585 90 L 690 95 L 725 155 L 675 200 L 645 235 L 565 245 Z" />
+                <text x="640" y="150" class="region-label" id="label-map-cataluna">Cataluña</text>
+                <text x="640" y="175" class="region-badge-icon" id="badge-icon-cataluna"></text>
+              </g>
+
+              <!-- ================= 9. CASTILLA Y LEÓN ================= -->
+              <g class="region-group" data-id="castilla_leon" onclick="onRegionClick('castilla_leon')">
+                <path class="region-path" id="path-castilla_leon" d="M 210 115 L 305 95 L 360 100 L 365 115 L 375 140 L 425 140 L 485 140 L 455 210 L 420 225 L 385 220 L 380 270 L 295 275 L 245 285 L 185 160 Z" />
+                <text x="295" y="185" class="region-label" id="label-map-castilla_leon">Castilla y León</text>
+                <text x="295" y="215" class="region-badge-icon" id="badge-icon-castilla_leon"></text>
+              </g>
+
+              <!-- ================= 10. COMUNIDAD DE MADRID ================= -->
+              <g class="region-group" data-id="madrid" onclick="onRegionClick('madrid')">
+                <path class="region-path highlight-madrid" id="path-madrid" d="M 385 220 L 420 225 L 430 275 L 395 295 L 380 270 Z" />
+                <text x="408" y="255" class="region-label" id="label-map-madrid" style="font-weight: 900; fill: var(--madrid-darkred);">Madrid</text>
+                <text x="408" y="278" class="region-badge-icon" id="badge-icon-madrid"></text>
+              </g>
+
+              <!-- ================= 11. CASTILLA-LA MANCHA ================= -->
+              <g class="region-group" data-id="castilla_mancha" onclick="onRegionClick('castilla_mancha')">
+                <path class="region-path" id="path-castilla_mancha" d="M 380 270 L 395 295 L 430 275 L 420 225 L 455 210 L 505 265 L 525 350 L 485 390 L 350 380 L 320 330 L 295 275 Z" />
+                <text x="415" y="340" class="region-label" id="label-map-castilla_mancha">Castilla-La Mancha</text>
+                <text x="415" y="365" class="region-badge-icon" id="badge-icon-castilla_mancha"></text>
+              </g>
+
+              <!-- ================= 12. COMUNIDAD VALENCIANA ================= -->
+              <g class="region-group" data-id="valencia" onclick="onRegionClick('valencia')">
+                <path class="region-path" id="path-valencia" d="M 565 245 L 645 235 L 635 295 L 615 350 L 565 375 L 525 350 L 505 265 Z" />
+                <text x="560" y="305" class="region-label" id="label-map-valencia">C. Valenciana</text>
+                <text x="560" y="330" class="region-badge-icon" id="badge-icon-valencia"></text>
+              </g>
+
+              <!-- ================= 13. EXTREMADURA ================= -->
+              <g class="region-group" data-id="extremadura" onclick="onRegionClick('extremadura')">
+                <path class="region-path" id="path-extremadura" d="M 245 285 L 295 275 L 320 330 L 350 380 L 275 420 L 235 370 Z" />
+                <text x="285" y="345" class="region-label" id="label-map-extremadura">Extremadura</text>
+                <text x="285" y="370" class="region-badge-icon" id="badge-icon-extremadura"></text>
+              </g>
+
+              <!-- ================= 14. REGIÓN DE MURCIA ================= -->
+              <g class="region-group" data-id="murcia" onclick="onRegionClick('murcia')">
+                <path class="region-path" id="path-murcia" d="M 525 350 L 565 375 L 540 425 L 485 390 Z" />
+                <text x="525" y="390" class="region-label" id="label-map-murcia">Murcia</text>
+                <text x="525" y="410" class="region-badge-icon" id="badge-icon-murcia"></text>
+              </g>
+
+              <!-- ================= 15. ANDALUCÍA ================= -->
+              <g class="region-group" data-id="andalucia" onclick="onRegionClick('andalucia')">
+                <path class="region-path" id="path-andalucia" d="M 235 370 L 275 420 L 350 380 L 485 390 L 540 425 L 495 500 L 375 510 L 285 500 L 210 440 Z" />
+                <text x="360" y="445" class="region-label" id="label-map-andalucia">Andalucía</text>
+                <text x="360" y="475" class="region-badge-icon" id="badge-icon-andalucia"></text>
+              </g>
+
+              <!-- ================= 16. ISLAS BALEARES ================= -->
+              <g class="region-group" data-id="baleares" onclick="onRegionClick('baleares')">
+                <!-- Mallorca -->
+                <path class="region-path" id="path-baleares" d="M 720 280 L 760 270 L 780 300 L 740 320 Z" />
+                <!-- Menorca -->
+                <path class="region-path" d="M 785 255 L 815 250 L 820 270 L 795 275 Z" />
+                <!-- Ibiza y Formentera -->
+                <path class="region-path" d="M 680 325 L 705 320 L 710 340 L 685 345 Z" />
+                <text x="750" y="340" class="region-label" id="label-map-baleares">Baleares</text>
+                <text x="750" y="360" class="region-badge-icon" id="badge-icon-baleares"></text>
+              </g>
+
+              <!-- ================= 17. CANARIAS (INSET) ================= -->
+              <g class="region-group" data-id="canarias" onclick="onRegionClick('canarias')">
+                <!-- La Palma -->
+                <path class="region-path" d="M 45 520 L 60 515 L 65 535 L 50 540 Z" />
+                <!-- El Hierro -->
+                <path class="region-path" d="M 40 565 L 55 560 L 50 580 Z" />
+                <!-- La Gomera -->
+                <path class="region-path" d="M 70 545 L 85 540 L 85 560 L 70 560 Z" />
+                <!-- Tenerife -->
+                <path class="region-path" id="path-canarias" d="M 95 525 L 135 515 L 140 545 L 105 560 Z" />
+                <!-- Gran Canaria -->
+                <path class="region-path" d="M 145 540 L 175 535 L 175 565 L 145 565 Z" />
+                <!-- Fuerteventura -->
+                <path class="region-path" d="M 185 510 L 210 505 L 205 555 L 180 545 Z" />
+                <!-- Lanzarote -->
+                <path class="region-path" d="M 210 485 L 230 480 L 225 505 L 205 510 Z" />
+                <text x="135" y="590" class="region-label" id="label-map-canarias">Canarias</text>
+                <text x="135" y="615" class="region-badge-icon" id="badge-icon-canarias"></text>
+              </g>
+
+              <!-- ================= 18. CEUTA (INSET) ================= -->
+              <g class="region-group" data-id="ceuta" onclick="onRegionClick('ceuta')">
+                <circle cx="330" cy="625" r="16" class="region-path" id="path-ceuta" />
+                <text x="330" y="655" class="region-label" id="label-map-ceuta">Ceuta</text>
+                <text x="330" y="630" class="region-badge-icon" id="badge-icon-ceuta"></text>
+              </g>
+
+              <!-- ================= 19. MELILLA (INSET) ================= -->
+              <g class="region-group" data-id="melilla" onclick="onRegionClick('melilla')">
+                <circle cx="420" cy="625" r="16" class="region-path" id="path-melilla" />
+                <text x="420" y="655" class="region-label" id="label-map-melilla">Melilla</text>
+                <text x="420" y="630" class="region-badge-icon" id="badge-icon-melilla"></text>
+              </g>
+
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FASE 2: LABORATORIO INCLUSIVO Y SOSTENIBLE -->
+    <section class="mission-section" id="sec-fase2">
+      <div class="narrative-card">
+        <div class="narrative-text">
+          <h3 id="m2-title">Misión 2: El laboratorio de ecodiseño e inclusión</h3>
+          <div class="narrative-quote" id="m2-quote">
+            "El patrimonio cultural inmaterial evoluciona para no dejar a nadie atrás. En este laboratorio, adaptaremos las reglas y crearemos materiales sostenibles según los valores constitucionales de equidad (Art. 14) y ocio saludable (Art. 43.3)."
+          </div>
+          <p style="font-size: 13.5px; color: var(--text-dark);" id="m2-desc">
+            Resuelve los dos casos para desbloquear los planos del taller sostenible.
+          </p>
+        </div>
+        <div class="narrative-visual" style="background: #1E293B;">
+          <div style="font-size: 64px; margin-bottom: 10px;">🔬♻️</div>
+          <h4 id="m2-visual-title">Laboratorio del siglo XXI</h4>
+          <p id="m2-visual-desc">Accesibilidad universal y reciclaje</p>
+        </div>
+      </div>
+
+      <div class="lab-grid">
+        <!-- Reto Inclusión 1 -->
+        <div class="lab-card active-step" id="lab-card-1">
+          <h4 id="c1-head"><span>♿</span> Caso 1: Inclusión motora en el chito</h4>
+          <p class="desc" id="c1-desc">
+            En el colegio queremos jugar al <strong>Chito</strong> madrileño, pero varios compañeros se desplazan en silla de ruedas o tienen dificultades para recorrer la distancia oficial de 20 metros sobre tierra irregular. ¿Cuál es la adaptación correcta?
+          </p>
+          <div class="options-list">
+            <button class="option-btn" id="c1-opt-0" onclick="checkLab(1, 0)">
+              <span>A)</span> No adaptar el juego: quien no pueda lanzar a 20 metros debe limitarse a mirar o aplaudir.
+            </button>
+            <button class="option-btn" id="c1-opt-1" onclick="checkLab(1, 1)">
+              <span>B)</span> Establecer una zona de tiro nivelada a distancia reducida y permitir el lanzamiento sentado con implementos adaptados.
+            </button>
+            <button class="option-btn" id="c1-opt-2" onclick="checkLab(1, 2)">
+              <span>C)</span> Sustituir el juego tradicional por un videojuego individual en una pantalla.
+            </button>
+          </div>
+          <div class="feedback-box" id="lab-fb-1"></div>
+        </div>
+
+        <!-- Reto Sostenibilidad 2 -->
+        <div class="lab-card active-step" id="lab-card-2">
+          <h4 id="c2-head"><span>♻️</span> Caso 2: Taller de economía circular</h4>
+          <p class="desc" id="c2-desc">
+            Vuestro equipo debe preparar una partida de <strong>Sokatira</strong> (País Vasco) y otra de <strong>Bolo Palma</strong> (Cantabria) sin comprar materiales de plástico nuevo en tiendas. ¿Qué combinación de materiales escolares o domésticos reutilizaremos?
+          </p>
+          <div class="options-list">
+            <button class="option-btn" id="c2-opt-0" onclick="checkLab(2, 0)">
+              <span>A)</span> Comprar una soga sintética nueva por mensajería urgente y bolos de plástico desechable.
+            </button>
+            <button class="option-btn" id="c2-opt-1" onclick="checkLab(2, 1)">
+              <span>B)</span> Trenzar fuertemente sábanas viejas de casa para la soga, y rellenar botellas vacías de agua con arena para los bolos.
+            </button>
+            <button class="option-btn" id="c2-opt-2" onclick="checkLab(2, 2)">
+              <span>C)</span> Cortar ramas vivas de los árboles del parque escolar para hacer los palos.
+            </button>
+          </div>
+          <div class="feedback-box" id="lab-fb-2"></div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 24px;" id="lab-next-box">
+        <button class="btn-action" id="btn-to-murdoku" disabled onclick="switchPhase(3)">
+          Continuar a la Misión 3: El Murdoku Lógico ➡️
+        </button>
+      </div>
+    </section>
+
+    <!-- FASE 3: MURDOKU CONSTITUCIONAL -->
+    <section class="mission-section" id="sec-fase3">
+      <div class="narrative-card">
+        <div class="narrative-text">
+          <h3 id="m3-title">Misión 3: El criptograma de los sabios (Murdoku lógico)</h3>
+          <div class="murdoku-story" id="m3-story">
+            <strong>¡El almacén de Educación Física es un caos!</strong> Cuatro estudiantes (<strong>Aisha, Hugo, Iker y Lola</strong>) estaban preparando la exposición sobre los Juegos Tradicionales de España, creando sus propios materiales con productos de reciclaje. Pero alguien ha mezclado las cajas. Como agentes constitucionales del Art. 46, descifrad las pistas lógicas para averiguar qué investiga cada uno.
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn-tool active" id="btn-hint-murdoku" onclick="autoHintMurdoku()">💡 Pedir pista lógica</button>
+            <button class="btn-tool" id="btn-reset-murdoku" onclick="resetMurdoku()">🔄 Reiniciar cuadrícula</button>
+          </div>
+        </div>
+        <div class="narrative-visual" style="background: #4338CA;">
+          <div style="font-size: 58px; margin-bottom: 6px;">🧠📊</div>
+          <h4 id="m3-visual-title">Lógica deductiva</h4>
+          <p id="m3-visual-desc">Murdoku Oficial (Anexo Secundaria/Primaria)</p>
+        </div>
+      </div>
+
+      <div class="murdoku-layout">
+        
+        <!-- PISTAS -->
+        <div class="murdoku-clues-card">
+          <h4 id="clues-title"><span>🔍</span> Pistas de la investigación</h4>
+          <div class="clue-item" id="clue-box-1">
+            <input type="checkbox" onchange="toggleClueUsed(1)">
+            <label id="clue-1-label"><strong>Pista 1:</strong> A <strong>Lola</strong> le ha tocado investigar el famoso juego tradicional de tirar de la cuerda llamado <strong>Sokatira</strong>.</label>
+          </div>
+          <div class="clue-item" id="clue-box-2">
+            <input type="checkbox" onchange="toggleClueUsed(2)">
+            <label id="clue-2-label"><strong>Pista 2:</strong> <strong>Hugo</strong> ha decidido reciclar papel y está usando las <strong>Revistas enrolladas</strong> para su juego.</label>
+          </div>
+          <div class="clue-item" id="clue-box-3">
+            <input type="checkbox" onchange="toggleClueUsed(3)">
+            <label id="clue-3-label"><strong>Pista 3:</strong> El juego de <strong>La Llave</strong> se practica apuntando a unas <strong>Tapas de conservas</strong>, pero no lo están investigando ni Hugo ni Iker.</label>
+          </div>
+          <div class="clue-item" id="clue-box-4">
+            <input type="checkbox" onchange="toggleClueUsed(4)">
+            <label id="clue-4-label"><strong>Pista 4:</strong> El juego que utiliza una <strong>Botella rellena de arena</strong> como diana central es el <strong>Chito</strong>.</label>
+          </div>
+          <div class="info-block" style="margin-top: 14px; background: #EEF2FF; border-color: #C7D2FE;">
+            <p style="font-size: 12px; color: #3730A3;" id="m3-instructions">
+              <strong>Instrucciones:</strong> Pulsa una casilla para marcar <strong style="color:#059669;">O</strong> (sí) o <strong style="color:#DC2626;">X</strong> (no). Si marcas "O", la fila y columna correspondientes se bloquearán automáticamente. Si pulsas sobre la casilla, puedes cambiar el signo e incluso volver a dejar la casilla vacía.
+            </p>
+          </div>
+        </div>
+
+        <!-- CUADRÍCULA INTERACTIVA -->
+        <div class="murdoku-grid-card">
+          <h4>
+            <span id="grid-title">Matriz de coincidencias</span>
+            <span class="counter-badge" id="murdoku-score-badge">0 / 8 encontrados</span>
+          </h4>
+          <p class="instructions" id="grid-instruct">Relaciona cada alumno con su juego y su material reciclado:</p>
+
+          <table class="murdoku-table" id="murdoku-table">
+            <thead>
+              <tr>
+                <th colspan="2" rowspan="2" style="background: transparent; border: none;"></th>
+                <th colspan="4" class="header-cat thick-right" id="th-trad-games">JUEGOS TRADICIONALES</th>
+                <th colspan="4" class="header-cat" id="th-recycled-mat">MATERIAL RECICLADO</th>
+              </tr>
+              <tr>
+                <th class="header-subcat" id="th-sub-bolos">Bolos</th>
+                <th class="header-subcat" id="th-sub-chito">Chito</th>
+                <th class="header-subcat" id="th-sub-llave">Llave</th>
+                <th class="header-subcat thick-right" id="th-sub-sokatira">Sokatira</th>
+                <th class="header-subcat" id="th-sub-botella">Botella</th>
+                <th class="header-subcat" id="th-sub-cuerda">Cuerda</th>
+                <th class="header-subcat" id="th-sub-revistas">Revistas</th>
+                <th class="header-subcat" id="th-sub-tapas">Tapas</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- FILAS DE ALUMNOS -->
+              <tr>
+                <th rowspan="4" class="header-row-cat thick-bottom" id="th-students">ALUMNOS</th>
+                <th class="header-row-subcat">Aisha</th>
+                <td class="murdoku-cell" data-r="0" data-c="0" onclick="cellClick(0,0)"></td>
+                <td class="murdoku-cell" data-r="0" data-c="1" onclick="cellClick(0,1)"></td>
+                <td class="murdoku-cell" data-r="0" data-c="2" onclick="cellClick(0,2)"></td>
+                <td class="murdoku-cell thick-right" data-r="0" data-c="3" onclick="cellClick(0,3)"></td>
+                <td class="murdoku-cell" data-r="0" data-c="4" onclick="cellClick(0,4)"></td>
+                <td class="murdoku-cell" data-r="0" data-c="5" onclick="cellClick(0,5)"></td>
+                <td class="murdoku-cell" data-r="0" data-c="6" onclick="cellClick(0,6)"></td>
+                <td class="murdoku-cell" data-r="0" data-c="7" onclick="cellClick(0,7)"></td>
+              </tr>
+              <tr>
+                <th class="header-row-subcat">Hugo</th>
+                <td class="murdoku-cell" data-r="1" data-c="0" onclick="cellClick(1,0)"></td>
+                <td class="murdoku-cell" data-r="1" data-c="1" onclick="cellClick(1,1)"></td>
+                <td class="murdoku-cell" data-r="1" data-c="2" onclick="cellClick(1,2)"></td>
+                <td class="murdoku-cell thick-right" data-r="1" data-c="3" onclick="cellClick(1,3)"></td>
+                <td class="murdoku-cell" data-r="1" data-c="4" onclick="cellClick(1,4)"></td>
+                <td class="murdoku-cell" data-r="1" data-c="5" onclick="cellClick(1,5)"></td>
+                <td class="murdoku-cell" data-r="1" data-c="6" onclick="cellClick(1,6)"></td>
+                <td class="murdoku-cell" data-r="1" data-c="7" onclick="cellClick(1,7)"></td>
+              </tr>
+              <tr>
+                <th class="header-row-subcat">Iker</th>
+                <td class="murdoku-cell" data-r="2" data-c="0" onclick="cellClick(2,0)"></td>
+                <td class="murdoku-cell" data-r="2" data-c="1" onclick="cellClick(2,1)"></td>
+                <td class="murdoku-cell" data-r="2" data-c="2" onclick="cellClick(2,2)"></td>
+                <td class="murdoku-cell thick-right" data-r="2" data-c="3" onclick="cellClick(2,3)"></td>
+                <td class="murdoku-cell" data-r="2" data-c="4" onclick="cellClick(2,4)"></td>
+                <td class="murdoku-cell" data-r="2" data-c="5" onclick="cellClick(2,5)"></td>
+                <td class="murdoku-cell" data-r="2" data-c="6" onclick="cellClick(2,6)"></td>
+                <td class="murdoku-cell" data-r="2" data-c="7" onclick="cellClick(2,7)"></td>
+              </tr>
+              <tr class="thick-bottom">
+                <th class="header-row-subcat">Lola</th>
+                <td class="murdoku-cell" data-r="3" data-c="0" onclick="cellClick(3,0)"></td>
+                <td class="murdoku-cell" data-r="3" data-c="1" onclick="cellClick(3,1)"></td>
+                <td class="murdoku-cell" data-r="3" data-c="2" onclick="cellClick(3,2)"></td>
+                <td class="murdoku-cell thick-right" data-r="3" data-c="3" onclick="cellClick(3,3)"></td>
+                <td class="murdoku-cell" data-r="3" data-c="4" onclick="cellClick(3,4)"></td>
+                <td class="murdoku-cell" data-r="3" data-c="5" onclick="cellClick(3,5)"></td>
+                <td class="murdoku-cell" data-r="3" data-c="6" onclick="cellClick(3,6)"></td>
+                <td class="murdoku-cell" data-r="3" data-c="7" onclick="cellClick(3,7)"></td>
+              </tr>
+              <!-- FILAS DE MATERIALES -->
+              <tr>
+                <th rowspan="4" class="header-row-cat" id="th-materials">MATERIALES</th>
+                <th class="header-row-subcat" id="th-row-botella">Botella</th>
+                <td class="murdoku-cell" data-r="4" data-c="0" onclick="cellClick(4,0)"></td>
+                <td class="murdoku-cell" data-r="4" data-c="1" onclick="cellClick(4,1)"></td>
+                <td class="murdoku-cell" data-r="4" data-c="2" onclick="cellClick(4,2)"></td>
+                <td class="murdoku-cell thick-right" data-r="4" data-c="3" onclick="cellClick(4,3)"></td>
+                <td colspan="4" class="murdoku-cell state-disabled"></td>
+              </tr>
+              <tr>
+                <th class="header-row-subcat" id="th-row-cuerda">Cuerda</th>
+                <td class="murdoku-cell" data-r="5" data-c="0" onclick="cellClick(5,0)"></td>
+                <td class="murdoku-cell" data-r="5" data-c="1" onclick="cellClick(5,1)"></td>
+                <td class="murdoku-cell" data-r="5" data-c="2" onclick="cellClick(5,2)"></td>
+                <td class="murdoku-cell thick-right" data-r="5" data-c="3" onclick="cellClick(5,3)"></td>
+                <td colspan="4" class="murdoku-cell state-disabled"></td>
+              </tr>
+              <tr>
+                <th class="header-row-subcat" id="th-row-revistas">Revistas</th>
+                <td class="murdoku-cell" data-r="6" data-c="0" onclick="cellClick(6,0)"></td>
+                <td class="murdoku-cell" data-r="6" data-c="1" onclick="cellClick(6,1)"></td>
+                <td class="murdoku-cell" data-r="6" data-c="2" onclick="cellClick(6,2)"></td>
+                <td class="murdoku-cell thick-right" data-r="6" data-c="3" onclick="cellClick(6,3)"></td>
+                <td colspan="4" class="murdoku-cell state-disabled"></td>
+              </tr>
+              <tr>
+                <th class="header-row-subcat" id="th-row-tapas">Tapas</th>
+                <td class="murdoku-cell" data-r="7" data-c="0" onclick="cellClick(7,0)"></td>
+                <td class="murdoku-cell" data-r="7" data-c="1" onclick="cellClick(7,1)"></td>
+                <td class="murdoku-cell" data-r="7" data-c="2" onclick="cellClick(7,2)"></td>
+                <td class="murdoku-cell thick-right" data-r="7" data-c="3" onclick="cellClick(7,3)"></td>
+                <td colspan="4" class="murdoku-cell state-disabled"></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="murdoku-actions">
+            <button class="btn-action gold" id="btn-check-murdoku" onclick="checkMurdoku()">
+              ✔️ Comprobar Deducción Lógica
+            </button>
+            <div id="murdoku-feedback" style="font-size: 13.5px; font-weight: 700;"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FASE 4: CONSAGRACIÓN Y CARNET -->
+    <section class="mission-section" id="sec-fase4">
+      <div class="consecration-card">
+        <img src="Artefactos/insignia_reto1.png" alt="Insignia Desbloqueada" class="badge-unlocked-anim" onerror="this.onerror=null; this.style.display='none';">
+        <h3 id="m4-title">¡MISIÓN CUMPLIDA, GUARDIÁN/A DEL JUEGO!</h3>
+        <p class="subtitle" id="m4-subtitle">
+          Has rescatado la memoria lúdica de los pueblos de España y defendido los Artículos 14, 43.3 y 46 de la Constitución Española con inclusión y sostenibilidad.
+        </p>
+
+        <!-- CARNET OFICIAL DIGITAL IMPRIMIBLE -->
+        <div class="carnet-wrapper" id="carnet-print-area">
+          <div class="carnet-header">
+            <div class="carnet-inst" id="carnet-inst">Comunidad de Madrid</div>
+            <div class="carnet-official" id="carnet-official">ACREDITACIÓN OFICIAL</div>
+          </div>
+          <div class="carnet-body-grid">
+            <img src="Artefactos/insignia_reto1.png" alt="Sello Guardián" class="carnet-photo" onerror="this.onerror=null; this.src='logo_comunidad_transparente.png'; this.onerror=function(){this.style.display='none';};">
+            <div class="carnet-fields">
+              <div class="carnet-input-group">
+                <label id="carnet-name-label">Nombre del Guardián/a o Equipo:</label>
+                <input type="text" class="carnet-input" id="carnet-nombre" value="Agente Constitucional 2026" placeholder="Escribe tu nombre">
+              </div>
+              <div class="carnet-input-group">
+                <label id="carnet-center-label">Curso / Centro Educativo:</label>
+                <input type="text" class="carnet-input" id="carnet-centro" value="Educación Primaria / ESO" placeholder="Ej: 5º Primaria - CEIP...">
+              </div>
+            </div>
+          </div>
+          <div class="carnet-footer">
+            <div class="carnet-motto" id="carnet-motto">
+              "Me comprometo a mantener vivos los juegos y tradiciones de nuestro patrimonio (Arts. 14, 43.3 y 46 CE)."
+            </div>
+            <div class="stamp-badge" id="carnet-stamp">MISIÓN SUPERADA 2026</div>
+          </div>
+        </div>
+
+        <div class="carnet-buttons">
+          <button class="btn-action gold" id="btn-print-carnet" onclick="printCarnetOficial()">
+            🖨️ Imprimir / Guardar Carnet Oficial (PDF)
+          </button>
+          <button class="btn-action" id="btn-restart" onclick="restartMission()">
+            🔄 Volver a Jugar
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL FICHA DE JUEGO RESCATADO -->
+  <div class="modal-backdrop" id="modal-game" onclick="closeModalOnBg(event)">
+    <div class="game-modal">
+      <div class="modal-head">
+        <div class="modal-head-title">
+          <div class="modal-icon" id="modal-icon">🎯</div>
+          <div class="modal-titles">
+            <h4 id="modal-title">El Chito</h4>
+            <span id="modal-region">Comunidad de Madrid</span>
+          </div>
+        </div>
+        <button class="btn-close-modal" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="info-block">
+          <h6 id="modal-rules-head"><span>📜</span> Reglas Tradicionales</h6>
+          <ul id="modal-rules"></ul>
+        </div>
+
+        <div class="info-block">
+          <h6 id="modal-mat-head"><span>🛠️</span> Materiales Tradicionales</h6>
+          <p id="modal-materials"></p>
+        </div>
+
+        <div class="info-block recycled">
+          <h6 id="modal-recycled-head"><span>♻️</span> Cómo fabricarlo con materiales de reciclaje</h6>
+          <p id="modal-recycled"></p>
+        </div>
+
+        <div class="info-block champions">
+          <h6 id="modal-champ-head"><span>🏆</span> Tradición y Campeones</h6>
+          <p id="modal-champions"></p>
+        </div>
+
+      </div>
+      <div class="modal-foot">
+        <span style="font-size: 12px; color: var(--text-muted);" id="modal-art-tag">Patrimonio Lúdico Inmaterial · Art. 46 CE</span>
+        <button class="btn-tool active" id="modal-btn-close" onclick="closeModal()">¡Entendido!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL INFANTIL: EL PARAGUAS MÁGICO -->
+  <div class="modal-backdrop" id="modal-infantil" onclick="closeModalOnBg(event)">
+    <div class="infantil-modal-card">
+      <button class="btn-close-modal" style="position: absolute; top: 16px; right: 16px; color: #92400E; background: #FDE68A;" onclick="closeInfantilModal()">×</button>
+      <h3 id="inf-modal-title"><span>☂️</span> El paraguas mágico (educación infantil)</h3>
+      <div class="infantil-story-p" id="inf-modal-story">
+        "Había una vez un país muy grande y bonito llamado España. Para cuidar a todos sus habitantes y sus tesoros, inventaron un paraguas mágico gigante llamado <strong>La Constitución</strong>. Este paraguas guarda debajo cosas muy valiosas: ¡Los juegos a los que jugaban vuestros abuelos y abuelas! Hoy algunos juegos se han perdido por el mapa... ¿Nos ayudas a ser detectives y devolverlos a su casa?"
+      </div>
+      <div class="infantil-cards-grid">
+        <div class="infantil-clue-card" id="inf-card-canarias" onclick="solveInfantil('canarias')">
+          <div class="infantil-card-icon">🌋</div>
+          <h5 id="inf-card1-title">Pista 1: Las islas volcánicas</h5>
+          <p id="inf-card1-desc">Un juego de bolas en unas islas donde hace calor y hay volcanes hermosos.</p>
+          <strong style="display:block; margin-top: 6px; font-size: 11px; color:#059669;" id="inf-card1-badge">👉 Canarias</strong>
+        </div>
+        <div class="infantil-clue-card" id="inf-card-pais_vasco" onclick="solveInfantil('pais_vasco')">
+          <div class="infantil-card-icon">🪢</div>
+          <h5 id="inf-card2-title">Pista 2: La cuerda fuerte</h5>
+          <p id="inf-card2-desc">Para este juego hay que agarrar una cuerda y tirar muy fuerte todos juntos.</p>
+          <strong style="display:block; margin-top: 6px; font-size: 11px; color:#059669;" id="inf-card2-badge">👉 País Vasco</strong>
+        </div>
+        <div class="infantil-clue-card" id="inf-card-asturias" onclick="solveInfantil('asturias')">
+          <div class="infantil-card-icon">🐸</div>
+          <h5 id="inf-card3-title">Pista 3: La ranita glotona</h5>
+          <p id="inf-card3-desc">En este lugar verde llueve mucho y le damos de comer fichas a una ranita.</p>
+          <strong style="display:block; margin-top: 6px; font-size: 11px; color:#059669;" id="inf-card3-badge">👉 Asturias</strong>
+        </div>
+        <div class="infantil-clue-card" id="inf-card-castilla_leon" onclick="solveInfantil('castilla_leon')">
+          <div class="infantil-card-icon">🤼</div>
+          <h5 id="inf-card4-title">Pista 4: El cinturón noble</h5>
+          <p id="inf-card4-desc">En este juego nos agarramos del cinturón para derribar al otro con maña.</p>
+          <strong style="display:block; margin-top: 6px; font-size: 11px; color:#059669;" id="inf-card4-badge">👉 Castilla y León</strong>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <button class="btn-infantil" id="inf-modal-btn" onclick="closeInfantilModal(); switchPhase(1);">
+          ¡Ver estos 4 juegos en el Mapa! 🗺️
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIE INSTITUCIONAL -->
+  <footer class="gov-footer">
+    <p id="gov-footer-inst">
+      <strong>Comunidad de Madrid</strong> · Dirección General de Bilingüismo y Calidad de la Enseñanza.
+    </p>
+    <p style="margin-top: 4px; font-size: 11.5px;" id="gov-footer-sub">
+      Recursos educativos para las Semanas Temáticas · Celebración del Día de la Constitución Española 2026.
+    </p>
+  </footer>
+
+  <!-- JAVASCRIPT DE GAMIFICACIÓN, AUDIO Y LOGICA -->
+  <script>
+    /* ========================================================
+       1. BASE DE DATOS DE LOS 19 JUEGOS TRADICIONALES
+       ======================================================== */
+    const GAMES = [
+      {
+        id: "madrid",
+        name: "El Chito",
+        nameEn: "The Chito",
+        region: "Comunidad de Madrid",
+        regionEn: "Community of Madrid",
+        icon: "🎯",
+        clue: "Juego castizo donde se lanza un disco de metal contra un cilindro de madera con una moneda en su cima.",
+        clueEn: "Traditional game throwing a metal disc at a wooden cylinder topped with a coin.",
+        rules: [
+          "El juego consiste en lanzar un disco metálico contra un cilindro de madera (chito) sobre el cual se coloca una moneda.",
+          "Se traza una línea de lanzamiento a unos 20 metros de distancia.",
+          "El jugador lanza el tejo intentando derribar el chito.",
+          "Para ganar la moneda, tras el impacto, el tejo lanzado debe quedar más cerca de la moneda que el propio chito derribado."
+        ],
+        rulesEn: [
+          "Throw a metal disc at a wooden cylinder (chito) topped with a coin.",
+          "Throwing line is drawn 20 meters away.",
+          "The player tries to knock down the cylinder.",
+          "To win the coin, the disc must land closer to the coin than the fallen cylinder."
+        ],
+        materials: "Un cilindro de madera (chito), tejos metálicos, una moneda.",
+        materialsEn: "A wooden cylinder (chito), metal discs, a coin.",
+        recycled: "Botella de plástico rellena de arena y tapas de tarros de cristal lastradas.",
+        recycledEn: "A sand-filled plastic bottle and weighted jar lids.",
+        champions: "Se practica en ligas de mayores, destacando clubes de municipios como Alcalá de Henares o Getafe.",
+        championsEn: "Practiced in municipal senior leagues with top clubs in Alcalá or Getafe."
+      },
+      {
+        id: "pais_vasco",
+        name: "Tira y afloja (Sokatira)",
+        nameEn: "Tug of War (Sokatira)",
+        region: "País Vasco",
+        regionEn: "Basque Country",
+        icon: "🪢",
+        clue: "Deporte rural ('herri kirola') donde dos equipos miden su fuerza y compenetración tirando de una cuerda gruesa.",
+        clueEn: "Rural sport where two teams test strength and rhythm pulling a thick rope.",
+        rules: [
+          "Cada equipo (generalmente de 8 personas) se agarra a la cuerda.",
+          "El objetivo es tirar al unísono hasta arrastrar al equipo contrario y hacer que la marca cruce la línea central del suelo.",
+          "Está terminantemente prohibido soltar la cuerda de golpe por seguridad."
+        ],
+        rulesEn: [
+          "Each team (usually 8 members) grips the rope tightly.",
+          "Pull in unison until the opponent's rope mark crosses the center line.",
+          "Strictly forbidden to release the rope abruptly."
+        ],
+        materials: "Una cuerda gruesa y larga, cinta adhesiva para las marcas.",
+        materialsEn: "A long thick rope and marking tape.",
+        recycled: "Sábanas viejas enrolladas y trenzadas fuertemente entre sí.",
+        recycledEn: "Old bedsheets tightly braided together.",
+        champions: "Existen campeonatos mundiales. Clubes vascos como Goiherri o Abadiño son referentes internacionales.",
+        championsEn: "World championship sport. Basque clubs Goiherri and Abadiño are global references."
+      },
+      {
+        id: "andalucia",
+        name: "Carrera de sacos",
+        nameEn: "Sack Race",
+        region: "Andalucía",
+        regionEn: "Andalusia",
+        icon: "🏃",
+        clue: "Juego de velocidad, equilibrio y saltos presente en ferias y fiestas populares de toda Andalucía.",
+        clueEn: "Game of speed and balance inside a sack, famous at fairs and pilgrimages.",
+        rules: [
+          "Los participantes se meten dentro de un saco resistente que les llega hasta la cintura.",
+          "Agarrando los bordes con las manos, deben desplazarse saltando con ambos pies juntos.",
+          "Gana el primero en cruzar la meta. Se penaliza sacar los pies o empujar a los rivales."
+        ],
+        rulesEn: [
+          "Step inside a strong cloth sack up to the waist.",
+          "Hop forward with both feet together holding the sack edges.",
+          "First to cross the finish line wins."
+        ],
+        materials: "Sacos de yute o tela resistente.",
+        materialsEn: "Jute or durable cloth sacks.",
+        recycled: "Fundas de almohada viejas o sacas de rafia limpias.",
+        recycledEn: "Old pillowcases or clean woven rubble bags.",
+        champions: "Práctica lúdica popular infantil sin ligas profesionales. ¡Los campeones son las niñas y niños de las fiestas!",
+        championsEn: "Purely recreational childhood game. Schoolchildren are the real champions!"
+      },
+      {
+        id: "cantabria",
+        name: "Bolo Palma",
+        nameEn: "Palma Bowling",
+        region: "Cantabria",
+        regionEn: "Cantabria",
+        icon: "🎳",
+        clue: "Deporte autóctono con 9 bolos grandes y uno pequeño llamado 'emboque' con tiradas desde gran distancia.",
+        clueEn: "Native sport with 9 large pins and 1 small pin called 'emboque'.",
+        rules: [
+          "Se juega con bolas de madera pesadas y 9 bolos más el pequeño emboque.",
+          "La tirada tiene dos fases: el 'tiro' (lanzar desde lejos) y el 'birle' (lanzar desde donde quedó la bola).",
+          "Derribar el emboque suma muchos puntos si la bola pasa por la ruta reglamentaria."
+        ],
+        rulesEn: [
+          "Played with 9 large pins and 1 small target pin (emboque).",
+          "Two phases: the 'tiro' (from distance) and 'birle' (from where the ball stopped).",
+          "Knocking the emboque scores maximum points."
+        ],
+        materials: "Bolos de madera grandes, un emboque, bolas pesadas de madera.",
+        materialsEn: "Large wooden pins, emboque, heavy wooden balls.",
+        recycled: "Botellas de agua vacías decoradas y botes redondos lastrados con arena.",
+        recycledEn: "Decorated empty plastic bottles weighted with sand.",
+        champions: "Leyendas como Tete Rodríguez o Jesús Salmón, y referentes actuales como Judit Bueno.",
+        championsEn: "Legends like Tete Rodríguez and contemporary female champions like Judit Bueno."
+      },
+      {
+        id: "cataluna",
+        name: "Bolos catalanes (Bitlles)",
+        nameEn: "Catalan Bowling (Bitlles)",
+        region: "Cataluña",
+        regionEn: "Catalonia",
+        icon: "🪵",
+        clue: "Modalidad estratégica de bolos donde la jugada perfecta consiste en derribar 5 de los 6 bolos, dejando solo 1 en pie.",
+        clueEn: "Strategic bowling where the perfect play is knocking 5 pins down and leaving exactly 1 standing.",
+        rules: [
+          "Se plantan 6 bolos de madera (bitlles) en dos filas de tres.",
+          "El jugador dispone de 3 mazas (bitllots) para lanzarlas desde la distancia reglamentaria.",
+          "La jugada perfecta o 'Bitlla' consiste en derribar 5 bolos y dejar exactamente 1 en pie (10 puntos)."
+        ],
+        rulesEn: [
+          "6 wooden pins in two rows of three.",
+          "The player throws 3 wooden clubs (bitllots).",
+          "Knocking 5 down and leaving 1 standing scores the perfect 10 points."
+        ],
+        materials: "6 bolos de madera (bitlles) y 3 mazas de lanzamiento (bitllots).",
+        materialsEn: "6 wooden pins (bitlles) and 3 throwing clubs (bitllots).",
+        recycled: "Tubos de cartón de papel de cocina y revistas enrolladas fuertemente con cinta adhesiva.",
+        recycledEn: "Kitchen paper towel cardboard tubes and tightly rolled magazines."
+      },
+      {
+        id: "galicia",
+        name: "La llave (A Chave)",
+        nameEn: "The Key (A Chave)",
+        region: "Galicia",
+        regionEn: "Galicia",
+        icon: "🔑",
+        clue: "Juego de puntería ancestral donde se lanzan discos pesados ('pellos') a una pieza metálica en forma de aspa.",
+        clueEn: "Ancestral target game throwing heavy iron discs at a cross-shaped metal key.",
+        rules: [
+          "Se planta una figura metálica en forma de aspa clavada en el suelo ('chave').",
+          "Los jugadores lanzan discos gruesos de hierro ('pellos') desde unos 14 metros.",
+          "El objetivo es que el disco golpee directamente la llave antes de tocar el suelo para sumar puntos."
+        ],
+        rulesEn: [
+          "A cross-shaped metal key is planted into the ground.",
+          "Players throw round iron discs ('pellos') from 14 meters.",
+          "The disc must strike the key directly before hitting the grass."
+        ],
+        materials: "Llave metálica en forma de aspa, discos de hierro (pellos).",
+        materialsEn: "Cross-shaped metal key and heavy iron discs.",
+        recycled: "Cartón duro recortado en aspa y tapas metálicas de botes de conservas.",
+        recycledEn: "Sturdy cardboard cut in cross shape and large metal jar lids."
+      },
+      {
+        id: "castilla_leon",
+        name: "Lucha leonesa (Aluche)",
+        nameEn: "Leonese Wrestling (Aluche)",
+        region: "Castilla y León",
+        regionEn: "Castile and León",
+        icon: "🤼",
+        clue: "Combate tradicional cuerpo a cuerpo donde los luchadores se agarran al cinturón del adversario para derribarlo.",
+        clueEn: "Traditional wrestling where competitors grip each other's belt to cause a takedown.",
+        rules: [
+          "Los luchadores (alucheros) se agarran a un cinturón de cuero que viste el contrincante.",
+          "El objetivo es hacer que el rival toque el suelo con cualquier parte por encima de las rodillas mediante técnica y desequilibrio.",
+          "Se prohíben golpes y llaves asfixiantes; prima la nobleza y la técnica ('maña')."
+        ],
+        rulesEn: [
+          "Wrestlers grab onto a leather belt worn by the opponent.",
+          "Goal is to bring the rival down using balance and technique.",
+          "No strikes or chokeholds; honor and dexterity prevail."
+        ],
+        materials: "Cinturón de cuero ancho y resistente.",
+        materialsEn: "A wide, strong leather belt.",
+        recycled: "Cinturones viejos unidos o tiras recortadas de pantalones vaqueros rotos.",
+        recycledEn: "Old belts joined together or thick strips of old denim jeans."
+      },
+      {
+        id: "canarias",
+        name: "Bola canaria",
+        nameEn: "Canarian Boules",
+        region: "Canarias",
+        regionEn: "Canary Islands",
+        icon: "🥎",
+        clue: "Juego de puntería y estrategia jugado con bolas pesadas en canchas de arena volcánica.",
+        clueEn: "Game of precision and tactics with heavy boules targeting a small marker ball.",
+        rules: [
+          "Se lanza una bola pequeña llamada 'bliche' que sirve de referencia central.",
+          "Los jugadores lanzan sus bolas intentando arrimarlas lo máximo posible al bliche o despejar las del rival.",
+          "Puntúa el equipo que tenga bolas más cerca del bliche que la mejor del contrario."
+        ],
+        rulesEn: [
+          "A small target ball ('bliche') is thrown first.",
+          "Players roll heavy boules to finish closest to the target.",
+          "The team with the closest boules scores points."
+        ],
+        materials: "Bolas pesadas de pasta o madera noble, bola pequeña ('bliche').",
+        materialsEn: "Heavy resin or wood boules, small target ball ('bliche').",
+        recycled: "Pelotas de tenis rajadas y rellenadas con arena fina, y un tapón de corcho.",
+        recycledEn: "Slit tennis balls filled with sand and a cork stopper."
+      },
+      {
+        id: "murcia",
+        name: "El Caliche",
+        nameEn: "The Caliche",
+        region: "Región de Murcia",
+        regionEn: "Region of Murcia",
+        icon: "📀",
+        clue: "Tradición de la huerta murciana donde se derriba un cilindro con discos de metal ('moneos') sin alejar la moneda.",
+        clueEn: "Orchard tradition knocking down a wooden cylinder so the thrown disc ends closer to the coin.",
+        rules: [
+          "Se planta un cilindro de madera (el caliche) coronado por una moneda en su parte superior.",
+          "Los jugadores lanzan piezas metálicas redondas ('moneos').",
+          "Regla de oro: tras el impacto, el moneo debe quedar más cerca de la moneda que de la madera derribada."
+        ],
+        rulesEn: [
+          "A wooden cylinder with a coin on top is set upright.",
+          "Players throw metal discs ('moneos').",
+          "The thrown piece must rest closer to the coin than the fallen stick."
+        ],
+        materials: "Cilindro de madera (caliche), tejos metálicos (moneos), una moneda.",
+        materialsEn: "Wooden cylinder, metal discs, a coin.",
+        recycled: "Trozo de un palo de escoba viejo, tapas metálicas aplastadas y un botón.",
+        recycledEn: "Piece of a wooden broomstick, flattened bottle tops, and a button."
+      },
+      {
+        id: "asturias",
+        name: "Juego de la rana (La Xaronca)",
+        nameEn: "The Frog Game (La Xaronca)",
+        region: "Principado de Asturias",
+        regionEn: "Asturias",
+        icon: "🐸",
+        clue: "Juego de puntería donde se lanzan fichas de hierro a la boca abierta de una figura de rana en una mesa.",
+        clueEn: "Aiming game throwing metal tokens into the open mouth of a bronze frog table.",
+        rules: [
+          "Se utiliza una mesa de madera con agujeros, puentes y una rana central con la boca abierta.",
+          "Los jugadores lanzan 10 fichas o discos de hierro ('petancos') desde 3 metros.",
+          "Introducir la ficha en la boca de la rana otorga la máxima puntuación del juego."
+        ],
+        rulesEn: [
+          "Played on a wooden table with holes and a central bronze frog.",
+          "Players toss 10 iron tokens ('petancos') from 3 meters away.",
+          "Landing inside the frog's mouth yields maximum score."
+        ],
+        materials: "Mesa especial de rana con herrajes de bronce, discos de hierro.",
+        materialsEn: "Special frog table with bronze castings, iron tokens.",
+        recycled: "Caja de zapatos con agujeros recortados y un vaso de plástico incrustado, chapas de botellas.",
+        recycledEn: "Shoebox with cutouts, a plastic cup for the mouth, and bottle caps."
+      },
+      {
+        id: "valencia",
+        name: "Pelota valenciana (Pilota)",
+        nameEn: "Valencian Pilota",
+        region: "Comunidad Valenciana",
+        regionEn: "Valencian Community",
+        icon: "⚾",
+        clue: "Deporte de pelota golpeada con la mano protegida en calles o en recintos históricos llamados 'trinquets'.",
+        clueEn: "Traditional handball sport played in streets or enclosed courts called 'trinquets'.",
+        rules: [
+          "Dos equipos se enfrentan golpeando una pequeña pelota de cuero duro con la mano.",
+          "La pelota debe pasar por encima de una cuerda central o rebasar una raya divisoria.",
+          "El tanteo sigue la tradición del tenis medieval: 15, 30, val y joc."
+        ],
+        rulesEn: [
+          "Teams strike a small hard leather ball with hands.",
+          "The ball must clear a net or line without double bounce.",
+          "Scores follow medieval tennis: 15, 30, val, and joc."
+        ],
+        materials: "Pelota de vaqueta y protecciones de cuero o esparadrapo para la mano.",
+        materialsEn: "Hard leather ball (vaqueta) and hand protections.",
+        recycled: "Pelota de hojas de periódico apretadas con cinta aislante y guantes viejos de lana.",
+        recycledEn: "Tight newspaper ball bound with electrical tape and old gloves."
+      },
+      {
+        id: "aragon",
+        name: "Tiro de barra",
+        nameEn: "Bar Throwing",
+        region: "Aragón",
+        regionEn: "Aragon",
+        icon: "🏋️",
+        clue: "Deporte de fuerza nacido de los labradores aragoneses que lanzaban una barra de hierro sin que gire en el aire.",
+        clueEn: "Strength sport throwing a heavy solid iron bar so that it flies straight without spinning.",
+        rules: [
+          "Se utiliza una barra maciza de hierro (de entre 4 kg y 7.2 kg según categoría).",
+          "El tirador apoya la barra en la palma, hace un giro de cadera y la lanza lo más lejos posible.",
+          "La barra debe volar recta y caer clavada o plana; no puede voltear como aspa de molino."
+        ],
+        rulesEn: [
+          "Solid iron lever (4 to 7.2 kg).",
+          "Thrower rests it on the palm, twists the hip and launches it.",
+          "Must fly straight without helicopter spinning."
+        ],
+        materials: "Barra de hierro macizo (palanca tradicional).",
+        materialsEn: "Solid iron bar.",
+        recycled: "Tubo de PVC relleno de arena y sellado, o un palo de escoba en versión infantil.",
+        recycledEn: "PVC pipe filled with sand and sealed with tape, or a broomstick."
+      },
+      {
+        id: "castilla_mancha",
+        name: "La Tanga",
+        nameEn: "The Tanga",
+        region: "Castilla-La Mancha",
+        regionEn: "Castilla-La Mancha",
+        icon: "🪵",
+        clue: "Tradición manchega donde se lanza un disco ('tostón') para derribar un palo de madera y llevarse las monedas.",
+        clueEn: "Manchego game throwing metal discs ('tostones') at an upright wooden stick.",
+        rules: [
+          "Se coloca un palo vertical de madera ('la tanga') con monedas o chapas encima.",
+          "Los jugadores lanzan sus piezas metálicas ('tostones') desde la línea de tiro.",
+          "Para sumar puntos, el tostón debe quedar más cerca del dinero caído que del propio palo."
+        ],
+        rulesEn: [
+          "An upright wooden cylinder (tanga) holds coins on top.",
+          "Players throw round metal plates ('tostones').",
+          "Score points if the tostón lies closer to the coin than to the tanga."
+        ],
+        materials: "Palo de madera cilíndrico, tostones metálicos y monedas/chapas.",
+        materialsEn: "Wooden stick, metal plates, coins.",
+        recycled: "Lata de refresco vacía y tapaderas metálicas de botes de conserva.",
+        recycledEn: "Empty soda can and metal jar lids."
+      },
+      {
+        id: "extremadura",
+        name: "La cuarta (Canicas)",
+        nameEn: "Marbles (La Cuarta)",
+        region: "Extremadura",
+        regionEn: "Extremadura",
+        icon: "🎱",
+        clue: "Juego infantil de recreo donde se mide con el palmo ('la cuarta') la distancia tras golpear la canica rival.",
+        clueEn: "Schoolyard marbles game measuring distance with the hand span ('cuarta').",
+        rules: [
+          "El jugador lanza su canica con el pulgar intentando impactar en la canica del rival.",
+          "Si impacta, mide con la mano abierta (desde el pulgar al meñique) si hay menos de una 'cuarta' de distancia.",
+          "Si la distancia es menor, el jugador captura la canica ('bolindre')."
+        ],
+        rulesEn: [
+          "Flick marble to hit the opponent's marble.",
+          "Measure distance using the open hand span ('cuarta').",
+          "If closer than a hand span, the rival marble is won."
+        ],
+        materials: "Canicas de cristal o de barro cocido.",
+        materialsEn: "Glass or clay marbles.",
+        recycled: "Bolitas compactadas con papel de aluminio reciclado o pequeñas bolitas de arcilla.",
+        recycledEn: "Compacted aluminum foil pellets or sun-dried clay balls."
+      },
+      {
+        id: "baleares",
+        name: "Tiro con honda (Tir de Fona)",
+        nameEn: "Sling Shooting (Tir de Fona)",
+        region: "Islas Baleares",
+        regionEn: "Balearic Islands",
+        icon: "🪃",
+        clue: "Deporte milenario balear herencia directa de los célebres honderos de la Antigüedad.",
+        clueEn: "Millenary sport descended from the renowned ancient Balearic slingers.",
+        rules: [
+          "El lanzador utiliza una honda tejida de esparto o pita para impulsar un proyectil esférico.",
+          "Se dispara hacia una diana situada a una distancia de entre 15 y 45 metros.",
+          "Acertar en el centro metálico de la diana otorga la máxima puntuación."
+        ],
+        rulesEn: [
+          "Slinger uses an esparto braided sling to launch a round projectile.",
+          "Targets placed between 15 and 45 meters away.",
+          "Striking the metal center earns maximum score."
+        ],
+        materials: "Honda de esparto, piedras redondas o pelotas, diana de madera.",
+        materialsEn: "Esparto sling, round stones or balls, wooden target.",
+        recycled: "Honda hecha con cordones viejos de zapatilla y tela vaquera; pelotas de papel.",
+        recycledEn: "Sling made with old shoelaces and denim pouch; paper balls."
+      },
+      {
+        id: "la_rioja",
+        name: "Bolo riojano",
+        nameEn: "Riojan Bowling",
+        region: "La Rioja",
+        regionEn: "La Rioja",
+        icon: "🎳",
+        clue: "Juego de 9 bolos y uno pequeño ('miche') donde las piezas derribadas deben cruzar una línea llamada 'el rayo'.",
+        clueEn: "Bowling with 9 pins and 1 'miche' where struck pins must fly past a back line.",
+        rules: [
+          "Se plantan 9 bolos en filas y un bolo especial llamado 'miche'.",
+          "Los jugadores lanzan bolas pesadas de madera con hendiduras para los dedos.",
+          "Para que el derribo compute, el bolo debe salir impulsado y sobrepasar la línea del fondo ('el rayo')."
+        ],
+        rulesEn: [
+          "9 regular pins plus one special small pin ('miche').",
+          "Bowlers roll heavy wooden balls with finger holes.",
+          "Pins must cross the rear boundary line ('rayo') to count."
+        ],
+        materials: "9 bolos grandes de madera, un miche y bolas de madera con orificios.",
+        materialsEn: "9 wooden pins, one miche, drilled balls.",
+        recycled: "Envases de plástico de leche como bolos y pelotas de tenis o goma agujereadas.",
+        recycledEn: "Plastic milk bottles as pins and old rubber balls."
+      },
+      {
+        id: "navarra",
+        name: "Pelota mano (Esku Pilota)",
+        nameEn: "Hand Pelota (Esku Pilota)",
+        region: "Navarra",
+        regionEn: "Navarre",
+        icon: "🤚",
+        clue: "El deporte rey de los frontones navarros, golpeando con la palma protegida una pelota de cuero contra el frontis.",
+        clueEn: "Fronton sport striking a hard leather ball with taped hands against the court front wall.",
+        rules: [
+          "Se juega en frontón golpeando la pelota exclusivamente con la mano desnuda o protegida por tacos y esparadrapo.",
+          "La pelota debe rebotar en el frontis por encima de la chapa metálica reglamentaria.",
+          "El oponente debe devolverla antes de que bote dos veces en el suelo."
+        ],
+        rulesEn: [
+          "Played in a fronton striking the ball with taped hands.",
+          "The ball must hit above the metal line on the front wall.",
+          "Must return before second ground bounce."
+        ],
+        materials: "Pelota dura de cuero y lana, pared lisa de frontón, esparadrapos.",
+        materialsEn: "Hard leather ball, fronton wall, athletic tape.",
+        recycled: "Pelota de tenis enfundada en globos pinchados para moderar el bote, jugando en la pared del patio.",
+        recycledEn: "A tennis ball sleeved in broken balloons played against a schoolyard wall."
+      },
+      {
+        id: "ceuta",
+        name: "El trompo (La peonza)",
+        nameEn: "Spinning Top (El Trompo)",
+        region: "Ceuta",
+        regionEn: "Ceuta",
+        icon: "🪀",
+        clue: "Habilidad clásica callejera de enrollar la lienza y hacer bailar la peonza realizando piruetas y trucos.",
+        clueEn: "Skillful street toy spun by pulling a wound cord, performing tricks and catches in hand.",
+        rules: [
+          "Se enrolla la cuerda (lienza) alrededor del cuerpo cónico de la peonza de madera.",
+          "Se lanza con fuerza hacia el suelo tirando de la cuerda para hacerla girar sobre su púa metálica.",
+          "La competición incluye hacerla subir a la palma de la mano girando o el 'rompetrompos'."
+        ],
+        rulesEn: [
+          "Wind cord around the wooden cone top.",
+          "Flick towards the floor pulling the string to set it dancing on its metal tip.",
+          "Perform tricks like catching it spinning in the hand."
+        ],
+        materials: "Peonza de madera con punta metálica y cuerda de algodón resistente.",
+        materialsEn: "Wooden top with metal point and cotton string.",
+        recycled: "CD viejo con una canica pegada en el centro y una tapa de botella arriba para girar con los dedos.",
+        recycledEn: "Old CD with a marble glued to center hole and a bottle cap on top."
+      },
+      {
+        id: "melilla",
+        name: "La rayuela (Inchas)",
+        nameEn: "Hopscotch (La Rayuela)",
+        region: "Melilla",
+        regionEn: "Melilla",
+        icon: "👣",
+        clue: "Juego universal de equilibrio y agilidad dibujado en las calles y patios multiculturales de Melilla.",
+        clueEn: "Universal hopscotch jumping through numbered chalk squares on one foot.",
+        rules: [
+          "Se dibuja un esquema con casillas numeradas del 1 al 10 en el suelo.",
+          "El jugador lanza un tejo de piedra plana a la casilla que le corresponde por turno.",
+          "Debe completar el recorrido a la pata coja sin pisar las líneas ni la casilla que contiene el tejo."
+        ],
+        rulesEn: [
+          "Draw numbered squares 1 to 10 on the ground.",
+          "Toss marker stone into the square in turn.",
+          "Hop on one foot through the grid without touching lines or the square with the stone."
+        ],
+        materials: "Tiza de colores y una piedra plana (tejo).",
+        materialsEn: "Chalk and a flat marker stone.",
+        recycled: "Trozos de yeso de obra o restos de ladrillo para marcar el suelo, y una chapa de botella aplastada.",
+        recycledEn: "Plaster chunks to draw and a flattened bottle cap as the marker."
+      }
+    ];
+
+    /* ========================================================
+       2. ESTADO DE LA APLICACIÓN
+       ======================================================== */
+    let currentLanguage = "ES";
+    let soundEnabled = true;
+    let selectedGameId = null;
+    let rescuedGames = new Set();
+    let currentPhase = 1;
+
+    // Estado del Murdoku: Matriz 8x8
+    // Filas: 0: Aisha, 1: Hugo, 2: Iker, 3: Lola, 4: Botella, 5: Cuerda, 6: Revistas, 7: Tapas
+    // Columnas: 0: Bolos, 1: Chito, 2: Llave, 3: Sokatira, 4: Botella, 5: Cuerda, 6: Revistas, 7: Tapas
+    let murdokuMatrix = Array(8).fill(null).map(() => Array(8).fill(""));
+
+    // Solución correcta del Murdoku:
+    // Aisha -> Llave (col 2), Tapas (col 7)
+    // Hugo -> Bolos (col 0), Revistas (col 6)
+    // Iker -> Chito (col 1), Botella (col 4)
+    // Lola -> Sokatira (col 3), Cuerda (col 5)
+    // Relación Material vs Juego:
+    // Botella -> Chito (col 1)
+    // Cuerda -> Sokatira (col 3)
+    // Revistas -> Bolos (col 0)
+    // Tapas -> Llave (col 2)
+    const MURDOKU_SOLUTION = {
+      0: { 2: "O", 7: "O" }, // Aisha
+      1: { 0: "O", 6: "O" }, // Hugo
+      2: { 1: "O", 4: "O" }, // Iker
+      3: { 3: "O", 5: "O" }, // Lola
+      4: { 1: "O" },          // Botella -> Chito
+      5: { 3: "O" },          // Cuerda -> Sokatira
+      6: { 0: "O" },          // Revistas -> Bolos
+      7: { 2: "O" }           // Tapas -> Llave
+    };
+
+    /* ========================================================
+       3. SINTETIZADOR DE AUDIO (WEB AUDIO API NATIVO)
+       ======================================================== */
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'click') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(600, now);
+          osc.frequency.exponentialRampToValueAtTime(300, now + 0.06);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.06);
+          osc.start(now);
+          osc.stop(now + 0.06);
+        } else if (type === 'success') {
+          // Arpegio mayor alegre
+          const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+          notes.forEach((freq, idx) => {
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.type = 'triangle';
+            o.frequency.value = freq;
+            o.connect(g);
+            g.connect(ctx.destination);
+            const startTime = now + idx * 0.08;
+            g.gain.setValueAtTime(0.15, startTime);
+            g.gain.exponentialRampToValueAtTime(0.001, startTime + 0.22);
+            o.start(startTime);
+            o.stop(startTime + 0.22);
+          });
+        } else if (type === 'error') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.setValueAtTime(180, now + 0.1);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+          osc.start(now);
+          osc.stop(now + 0.25);
+        } else if (type === 'fanfare') {
+          // Melodía triunfal
+          const melody = [
+            { f: 523.25, d: 0.14 },
+            { f: 659.25, d: 0.14 },
+            { f: 783.99, d: 0.18 },
+            { f: 1046.50, d: 0.35 }
+          ];
+          let curTime = now;
+          melody.forEach(item => {
+            const o = ctx.createOscillator();
+            const g = ctx.createGain();
+            o.type = 'sine';
+            o.frequency.value = item.f;
+            o.connect(g);
+            g.connect(ctx.destination);
+            g.gain.setValueAtTime(0.2, curTime);
+            g.gain.exponentialRampToValueAtTime(0.001, curTime + item.d);
+            o.start(curTime);
+            o.stop(curTime + item.d);
+            curTime += item.d + 0.04;
+          });
+        }
+      } catch (e) {
+        console.warn("Audio Context no disponible:", e);
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('btn-sound');
+      const icon = document.getElementById('sound-icon');
+      if (soundEnabled) {
+        btn.classList.add('active');
+        btn.innerHTML = '🔊 <span id="label-sound">Sonido: ON</span>';
+        playSound('click');
+      } else {
+        btn.classList.remove('active');
+        btn.innerHTML = '🔇 Sonido: OFF';
+      }
+    }
+
+        /* ========================================================
+       DICCIONARIO BILINGÜE RETO 1 (ES / EN)
+       ======================================================== */
+    const TRANSLATIONS_R1 = {
+      ES: {
+        langBtn: '🌐 Idioma: <strong id="lang-label">ES</strong>',
+        soundOn: '🔊 Sonido: ON',
+        soundOff: '🔇 Sonido: OFF',
+        labelPrint: 'Imprimir',
+        btnInfantil: '🎒 Modo Infantil (3-6 años)',
+        govTitle: 'Semanas Temáticas',
+        govSub: 'Semana de la Constitución 2026 | Recursos Digitales Interactivos',
+        govFooterInst: '<strong>Comunidad de Madrid</strong> · Dirección General de Bilingüismo y Calidad de la Enseñanza.',
+        govFooterSub: 'Recursos educativos para las Semanas Temáticas · Celebración del Día de la Constitución Española 2026.',
+
+        // Hero
+        heroTitle: 'Reto 1: Los Guardianes del Juego',
+        ceTag: 'Arts. 14, 43.3 y 46 CE',
+        heroNarrative: '¡El <strong>Bosque de los Derechos</strong> está en peligro! El olvido y las pantallas están borrando nuestros juegos populares. Con el poder que nos otorga el Artículo 46 de la Constitución para salvaguardar el patrimonio cultural, viaja por España, rescata las 19 tradiciones lúdicas y conviértete en Guardián Oficial.',
+        progressText: 'Progreso del Reto',
+
+        // Tabs
+        tab1: '🗺️ Misión 1: Mapa del patrimonio',
+        tab2: '🔬 Misión 2: Laboratorio inclusivo',
+        tab3: '🧩 Misión 3: Murdoku lógico',
+        tab4: '🏆 Misión 4: Carnet y consagración',
+        badgePending: 'Pendiente',
+        badgeCompleted: '¡Completado!',
+        badgeLocked: 'Bloqueado',
+        badgeUnlocked: '¡Desbloqueado!',
+
+        // Misión 1
+        m1Title: 'Misión 1: El rescate de la brújula lúdica',
+        m1Quote: '"La Constitución Española en su Artículo 46 garantiza la conservación y enriquece el patrimonio cultural de los pueblos de España. ¡Los juegos tradicionales son patrimonio inmaterial vivo!"',
+        m1HowTo: '<strong>¿Cómo jugar?</strong> Selecciona una de las tarjetas de juegos de la izquierda. Lee atentamente sus pistas y pulsa sobre la Comunidad o Ciudad Autónoma correspondiente en el mapa. Al acertar, desbloquearás su ficha técnica bilingüe y las instrucciones para fabricar los juegos con materiales reciclados.',
+        m1Goal1Title: '🎯 Meta rápida',
+        m1Goal1Desc: 'Rescata al menos 6 juegos clave para continuar al laboratorio.',
+        m1Goal2Title: '⭐ Maestro guardián',
+        m1Goal2Desc: '¡Rescata las 19 tradiciones de toda España!',
+        m1VisualTitle: 'El bosque de los derechos',
+        m1VisualDesc: 'Devuelve la luz al bosque con cada juego salvado.',
+
+        sidebarTitle: '<span>📜</span> Juegos por rescatar',
+        sidebarRescuedSuffix: 'rescatados',
+        sidebarHint: '💡 Selecciona un juego para buscarlo en el mapa:',
+        mapPromptDefault: '👉 Selecciona un juego del panel izquierdo para comenzar',
+        mapLegendUnexplored: 'Por explorar',
+        mapLegendRescued: 'Rescatado',
+        seaAtlantic: 'OCÉANO ATLÁNTICO',
+        seaCantabrian: 'MAR CANTÁBRICO',
+        seaMediterranean: 'MAR MEDITERRÁNEO',
+        insetCanarias: 'Islas Canarias',
+        insetCities: 'Ciudades Autónomas',
+
+        // Modal Ficha
+        modalRulesHead: '<span>📜</span> Reglas Tradicionales',
+        modalMatHead: '<span>🛠️</span> Materiales Tradicionales',
+        modalRecycledHead: '<span>♻️</span> Cómo fabricarlo con materiales de reciclaje',
+        modalChampHead: '<span>🏆</span> Tradición y Campeones',
+        modalArtTag: 'Patrimonio Lúdico Inmaterial · Art. 46 CE',
+        modalBtnClose: '¡Entendido!',
+
+        // Modal Infantil
+        infModalTitle: '<span>☂️</span> El paraguas mágico (educación infantil)',
+        infModalStory: '"Había una vez un país muy grande y bonito llamado España. Para cuidar a todos sus habitantes y sus tesoros, inventaron un paraguas mágico gigante llamado <strong>La Constitución</strong>. Este paraguas guarda debajo cosas muy valiosas: ¡Los juegos a los que jugaban vuestros abuelos y abuelas! Hoy algunos juegos se han perdido por el mapa... ¿Nos ayudas a ser detectives y devolverlos a su casa?"',
+        infCard1Title: 'Pista 1: Las islas volcánicas',
+        infCard1Desc: 'Un juego de bolas en unas islas donde hace calor y hay volcanes hermosos.',
+        infCard2Title: 'Pista 2: La cuerda fuerte',
+        infCard2Desc: 'Para este juego hay que agarrar una cuerda y tirar muy fuerte todos juntos.',
+        infCard3Title: 'Pista 3: La ranita glotona',
+        infCard3Desc: 'En este lugar verde llueve mucho y le damos de comer fichas a una ranita.',
+        infCard4Title: 'Pista 4: El cinturón noble',
+        infCard4Desc: 'En este juego nos agarramos del cinturón para derribar al otro con maña.',
+        infModalBtn: '¡Ver estos 4 juegos en el Mapa! 🗺️',
+
+        // Misión 2
+        m2Title: 'Misión 2: El laboratorio de ecodiseño e inclusión',
+        m2Quote: '"El patrimonio cultural inmaterial evoluciona para no dejar a nadie atrás. En este laboratorio, adaptaremos las reglas y crearemos materiales sostenibles según los valores constitucionales de equidad (Art. 14) y ocio saludable (Art. 43.3)."',
+        m2Desc: 'Resuelve los dos casos para desbloquear los planos del taller sostenible.',
+        m2VisualTitle: 'Laboratorio del siglo XXI',
+        m2VisualDesc: 'Accesibilidad universal y reciclaje',
+
+        c1Head: '<span>♿</span> Caso 1: Inclusión motora en el chito',
+        c1Desc: 'En el colegio queremos jugar al <strong>Chito</strong> madrileño, pero varios compañeros se desplazan en silla de ruedas o tienen dificultades para recorrer la distancia oficial de 20 metros sobre tierra irregular. ¿Cuál es la adaptación correcta?',
+        c1OptA: '<span>A)</span> No adaptar el juego: quien no pueda lanzar a 20 metros debe limitarse a mirar o aplaudir.',
+        c1OptB: '<span>B)</span> Establecer una zona de tiro nivelada a distancia reducida y permitir el lanzamiento sentado con implementos adaptados.',
+        c1OptC: '<span>C)</span> Sustituir el juego tradicional por un videojuego individual en una pantalla.',
+        c1FbSuccess: '<strong>¡CORRECTO!</strong> La Constitución en su Artículo 14 (Igualdad sin discriminación) y Artículo 43.3 (Fomento del deporte y tiempo libre) exige adecuar los espacios y reglas para garantizar la participación de todos. Reducir la distancia y habilitar una zona nivelada mantiene vivo el juego en igualdad.',
+        c1FbError: '<strong>OPCIÓN NO VÁLIDA:</strong> Excluir a un compañero o aislarlo contradice los valores de inclusión y cohesión social del patrimonio cultural.',
+
+        c2Head: '<span>♻️</span> Caso 2: Taller de economía circular',
+        c2Desc: 'Vuestro equipo debe preparar una partida de <strong>Sokatira</strong> (País Vasco) y otra de <strong>Bolo Palma</strong> (Cantabria) sin comprar materiales de plástico nuevo en tiendas. ¿Qué combinación de materiales escolares o domésticos reutilizaremos?',
+        c2OptA: '<span>A)</span> Comprar una soga sintética nueva por mensajería urgente y bolos de plástico desechable.',
+        c2OptB: '<span>B)</span> Trenzar fuertemente sábanas viejas de casa para la soga, y rellenar botellas vacías de agua con arena para los bolos.',
+        c2OptC: '<span>C)</span> Cortar ramas vivas de los árboles del parque escolar para hacer los palos.',
+        c2FbSuccess: '<strong>¡MAGNÍFICO!</strong> El ecodiseño fomenta la economía circular y protege el medio ambiente (Art. 45 CE). Los abuelos y abuelas siempre aprovechaban los recursos cotidianos para fabricar sus propios juegos.',
+        c2FbError: '<strong>OPCIÓN NO VÁLIDA:</strong> Comprar plástico nuevo o dañar el arbolado vivo vulnera la protección del medio ambiente (Art. 45 CE).',
+        btnToMurdoku: 'Continuar a la Misión 3: El Murdoku Lógico ➡️',
+
+        // Misión 3
+        m3Title: 'Misión 3: El criptograma de los sabios (Murdoku lógico)',
+        m3Story: '<strong>¡El almacén de Educación Física es un caos!</strong> Cuatro estudiantes (<strong>Aisha, Hugo, Iker y Lola</strong>) estaban preparando la exposición sobre los Juegos Tradicionales de España, creando sus propios materiales con productos de reciclaje. Pero alguien ha mezclado las cajas. Como agentes constitucionales del Art. 46, descifrad las pistas lógicas para averiguar qué investiga cada uno.',
+        btnHintMurdoku: '💡 Pedir pista lógica',
+        btnResetMurdoku: '🔄 Reiniciar cuadrícula',
+        m3VisualTitle: 'Lógica deductiva',
+        m3VisualDesc: 'Murdoku Oficial (Anexo Secundaria/Primaria)',
+        cluesTitle: '<span>🔍</span> Pistas de la investigación',
+        clue1: '<strong>Pista 1:</strong> A <strong>Lola</strong> le ha tocado investigar el famoso juego tradicional de tirar de la cuerda llamado <strong>Sokatira</strong>.',
+        clue2: '<strong>Pista 2:</strong> <strong>Hugo</strong> ha decidido reciclar papel y está usando las <strong>Revistas enrolladas</strong> para su juego.',
+        clue3: '<strong>Pista 3:</strong> El juego de <strong>La Llave</strong> se practica apuntando a unas <strong>Tapas de conservas</strong>, pero no lo están investigando ni Hugo ni Iker.',
+        clue4: '<strong>Pista 4:</strong> El juego que utiliza una <strong>Botella rellena de arena</strong> como diana central es el <strong>Chito</strong>.',
+        m3Instructions: '<strong>Instrucciones:</strong> Pulsa una casilla para marcar <strong style="color:#059669;">O</strong> (sí) o <strong style="color:#DC2626;">X</strong> (no). Si marcas "O", la fila y columna correspondientes se bloquearán automáticamente. Si pulsas sobre la casilla, puedes cambiar el signo e incluso volver a dejar la casilla vacía.',
+        gridTitle: 'Matriz de coincidencias',
+        gridFoundSuffix: 'encontrados',
+        gridInstruct: 'Relaciona cada alumno con su juego y su material reciclado:',
+        thTradGames: 'JUEGOS TRADICIONALES',
+        thRecycledMat: 'MATERIAL RECICLADO',
+        thStudents: 'ALUMNOS',
+        thMaterials: 'MATERIALES',
+        subcatBolos: 'Bolos',
+        subcatChito: 'Chito',
+        subcatLlave: 'Llave',
+        subcatSokatira: 'Sokatira',
+        subcatBotella: 'Botella',
+        subcatCuerda: 'Cuerda',
+        subcatRevistas: 'Revistas',
+        subcatTapas: 'Tapas',
+        btnCheckMurdoku: '✔️ Comprobar Deducción Lógica',
+        murdokuSuccess: '🎉 ¡EXTRAORDINARIO! Has descifrado el Murdoku Constitucional a la perfección.',
+        murdokuError: 'Llevas {count}/8 asociaciones clave. Revisa las 4 pistas y las marcas "O".',
+
+        // Misión 4
+        m4Title: '¡MISIÓN CUMPLIDA, GUARDIÁN/A DEL JUEGO!',
+        m4Subtitle: 'Has rescatado la memoria lúdica de los pueblos de España y defendido los Artículos 14, 43.3 y 46 de la Constitución Española con inclusión y sostenibilidad.',
+        carnetInst: 'Comunidad de Madrid',
+        carnetOfficial: 'ACREDITACIÓN OFICIAL',
+        carnetNameLabel: 'Nombre del Guardián/a o Equipo:',
+        carnetNamePlaceholder: 'Escribe tu nombre',
+        carnetCenterLabel: 'Curso / Centro Educativo:',
+        carnetCenterPlaceholder: 'Ej: 5º Primaria - CEIP...',
+        carnetMotto: '"Me comprometo a mantener vivos los juegos y tradiciones de nuestro patrimonio (Arts. 14, 43.3 y 46 CE)."',
+        carnetStamp: 'MISIÓN SUPERADA 2026',
+        btnPrintCarnet: '🖨️ Imprimir / Guardar Carnet Oficial (PDF)',
+        btnRestart: '🔄 Volver a Jugar'
+      },
+      EN: {
+        langBtn: '🌐 Language: <strong id="lang-label">EN</strong>',
+        soundOn: '🔊 Sound: ON',
+        soundOff: '🔇 Sound: OFF',
+        labelPrint: 'Print',
+        btnInfantil: '🎒 Early Childhood Mode (Ages 3-6)',
+        govTitle: 'Thematic Weeks',
+        govSub: 'Constitution Week 2026 | Interactive Digital Resources',
+        govFooterInst: '<strong>Community of Madrid</strong> · General Directorate for Bilingualism and Quality of Education.',
+        govFooterSub: 'Educational resources for Thematic Weeks · Celebration of the Spanish Constitution Day 2026.',
+
+        // Hero
+        heroTitle: 'Challenge 1: The Guardians of Play',
+        ceTag: 'Arts. 14, 43.3 & 46 SC',
+        heroNarrative: 'The <strong>Forest of Rights</strong> is in danger! Screen overuse and neglect are erasing our traditional folk games. Empowered by Article 46 of the Spanish Constitution to safeguard cultural heritage, travel across Spain, rescue the 19 folk play traditions, and become an Official Guardian.',
+        progressText: 'Challenge Progress',
+
+        // Tabs
+        tab1: '🗺️ Mission 1: Heritage Map',
+        tab2: '🔬 Mission 2: Inclusive Lab',
+        tab3: '🧩 Mission 3: Logic Murdoku',
+        tab4: '🏆 Mission 4: ID Card & Award',
+        badgePending: 'Pending',
+        badgeCompleted: 'Completed!',
+        badgeLocked: 'Locked',
+        badgeUnlocked: 'Unlocked!',
+
+        // Misión 1
+        m1Title: 'Mission 1: The Rescue of the Playful Compass',
+        m1Quote: '"The Spanish Constitution in Article 46 guarantees the conservation and promotes the enrichment of the cultural heritage of the peoples of Spain. Traditional games are living intangible heritage!"',
+        m1HowTo: '<strong>How to play?</strong> Select one of the game cards on the left. Read its clues carefully and click on the corresponding Autonomous Community or City on the map. When correct, you will unlock its bilingual profile sheet and instructions to craft the games using recycled materials.',
+        m1Goal1Title: '🎯 Quick Goal',
+        m1Goal1Desc: 'Rescue at least 6 key games to proceed to the lab.',
+        m1Goal2Title: '⭐ Master Guardian',
+        m1Goal2Desc: 'Rescue all 19 traditions across Spain!',
+        m1VisualTitle: 'The Forest of Rights',
+        m1VisualDesc: 'Restore light to the forest with every rescued game.',
+
+        sidebarTitle: '<span>📜</span> Games to Rescue',
+        sidebarRescuedSuffix: 'rescued',
+        sidebarHint: '💡 Select a game to locate it on the map:',
+        mapPromptDefault: '👉 Select a game from the left panel to begin',
+        mapLegendUnexplored: 'Unexplored',
+        mapLegendRescued: 'Rescued',
+        seaAtlantic: 'ATLANTIC OCEAN',
+        seaCantabrian: 'CANTABRIAN SEA',
+        seaMediterranean: 'MEDITERRANEAN SEA',
+        insetCanarias: 'Canary Islands',
+        insetCities: 'Autonomous Cities',
+
+        // Modal Ficha
+        modalRulesHead: '<span>📜</span> Traditional Rules',
+        modalMatHead: '<span>🛠️</span> Traditional Materials',
+        modalRecycledHead: '<span>♻️</span> How to craft it with recycled materials',
+        modalChampHead: '<span>🏆</span> Tradition & Champions',
+        modalArtTag: 'Intangible Cultural Heritage · Art. 46 SC',
+        modalBtnClose: 'Got it!',
+
+        // Modal Infantil
+        infModalTitle: '<span>☂️</span> The Magic Umbrella (Early Childhood)',
+        infModalStory: '"Once upon a time, there was a great and beautiful country called Spain. To protect all its inhabitants and treasures, they created a giant magic umbrella called <strong>The Constitution</strong>. Under this umbrella, very precious things are kept: the games your grandparents used to play! Today some games were lost on the map... Will you help us become detectives and bring them home?"',
+        infCard1Title: 'Clue 1: The Volcanic Islands',
+        infCard1Desc: 'A game of boules on warm islands with beautiful volcanoes.',
+        infCard2Title: 'Clue 2: The Strong Rope',
+        infCard2Desc: 'For this game you must hold a rope and pull together with all your strength.',
+        infCard3Title: 'Clue 3: The Greedy Frog',
+        infCard3Desc: 'In this green land it rains often and we feed tokens to a little frog.',
+        infCard4Title: 'Clue 4: The Noble Belt',
+        infCard4Desc: 'In this game we grab each other\'s belt to skillfully wrestle to the ground.',
+        infModalBtn: 'See these 4 games on the Map! 🗺️',
+
+        // Misión 2
+        m2Title: 'Mission 2: The Eco-design & Inclusion Lab',
+        m2Quote: '"Intangible cultural heritage evolves so no one is left behind. In this lab, we adapt rules and create sustainable gear following constitutional values of equality (Art. 14) and healthy leisure (Art. 43.3)."',
+        m2Desc: 'Solve the two cases to unlock the sustainable workshop blueprints.',
+        m2VisualTitle: '21st Century Laboratory',
+        m2VisualDesc: 'Universal accessibility & recycling',
+
+        c1Head: '<span>♿</span> Case 1: Motor Inclusion in Chito',
+        c1Desc: 'At school we want to play the Madrid <strong>Chito</strong>, but several classmates use wheelchairs or have difficulty covering the official distance of 20 meters over uneven terrain. What is the correct adaptation?',
+        c1OptA: '<span>A)</span> Do not adapt the game: anyone unable to throw 20 meters should just watch or applaud.',
+        c1OptB: '<span>B)</span> Set up a level throwing zone at a reduced distance and allow seated throwing with adapted equipment.',
+        c1OptC: '<span>C)</span> Replace the traditional game with an individual video game on a screen.',
+        c1FbSuccess: '<strong>CORRECT!</strong> The Constitution in Article 14 (Equality without discrimination) and Article 43.3 (Promotion of sports and leisure) requires adapting spaces and rules to ensure everyone\'s participation. Shortening the distance and leveling the area keeps the game alive in equality.',
+        c1FbError: '<strong>INVALID OPTION:</strong> Excluding or isolating a classmate contradicts the inclusion and social cohesion values of cultural heritage.',
+
+        c2Head: '<span>♻️</span> Case 2: Circular Economy Workshop',
+        c2Desc: 'Your team must prepare a match of <strong>Sokatira</strong> (Basque Country) and another of <strong>Bolo Palma</strong> (Cantabria) without buying new plastic materials from stores. Which combination of school or household materials shall we reuse?',
+        c2OptA: '<span>A)</span> Buy a new synthetic rope with express delivery and disposable plastic bowling pins.',
+        c2OptB: '<span>B)</span> Braid old household bedsheets tightly for the rope, and fill empty water bottles with sand for the bowling pins.',
+        c2OptC: '<span>C)</span> Cut living branches from the school park trees to make the pins.',
+        c2FbSuccess: '<strong>MAGNIFICENT!</strong> Eco-design fosters the circular economy and protects the environment (Art. 45 SC). Grandparents always made the most of everyday resources to craft their own games.',
+        c2FbError: '<strong>INVALID OPTION:</strong> Buying disposable plastic or damaging living trees violates environmental conservation (Art. 45 SC).',
+        btnToMurdoku: 'Continue to Mission 3: Logic Murdoku ➡️',
+
+        // Misión 3
+        m3Title: 'Mission 3: The Sages\' Cryptogram (Logic Murdoku)',
+        m3Story: '<strong>The Physical Education storage room is in chaos!</strong> Four students (<strong>Aisha, Hugo, Iker, and Lola</strong>) were preparing the exhibition on Spain\'s Traditional Games, creating their own equipment with recycled products. But someone mixed up the boxes. As constitutional agents of Art. 46, decipher the logic clues to find out what each one is investigating.',
+        btnHintMurdoku: '💡 Request Logic Hint',
+        btnResetMurdoku: '🔄 Reset Grid',
+        m3VisualTitle: 'Deductive Logic',
+        m3VisualDesc: 'Official Murdoku (Primary/Secondary Annex)',
+        cluesTitle: '<span>🔍</span> Investigation Clues',
+        clue1: '<strong>Clue 1:</strong> <strong>Lola</strong> has been assigned to investigate the famous traditional tug-of-war game called <strong>Sokatira</strong>.',
+        clue2: '<strong>Clue 2:</strong> <strong>Hugo</strong> has decided to recycle paper and is using <strong>Rolled Magazines</strong> for his game.',
+        clue3: '<strong>Clue 3:</strong> The game of <strong>La Llave</strong> is played aiming at <strong>Jar Lids</strong>, but neither Hugo nor Iker is investigating it.',
+        clue4: '<strong>Clue 4:</strong> The game that uses a <strong>Sand-filled Bottle</strong> as the central target is <strong>Chito</strong>.',
+        m3Instructions: '<strong>Instructions:</strong> Click a cell to mark <strong style="color:#059669;">O</strong> (yes) or <strong style="color:#DC2626;">X</strong> (no). If you mark "O", the corresponding row and column will be locked automatically. If you click on the cell again, you can change the mark or clear it back to empty.',
+        gridTitle: 'Matching Matrix',
+        gridFoundSuffix: 'found',
+        gridInstruct: 'Match each student with their game and recycled material:',
+        thTradGames: 'TRADITIONAL GAMES',
+        thRecycledMat: 'RECYCLED MATERIAL',
+        thStudents: 'STUDENTS',
+        thMaterials: 'MATERIALS',
+        subcatBolos: 'Bowls',
+        subcatChito: 'Chito',
+        subcatLlave: 'Key',
+        subcatSokatira: 'Tug-of-War',
+        subcatBotella: 'Bottle',
+        subcatCuerda: 'Rope',
+        subcatRevistas: 'Magazines',
+        subcatTapas: 'Lids',
+        btnCheckMurdoku: '✔️ Check Logic Deduction',
+        murdokuSuccess: '🎉 EXTRAORDINARY! You have solved the Constitutional Murdoku to perfection.',
+        murdokuError: 'You have {count}/8 key matches. Review the 4 clues and your "O" marks.',
+
+        // Misión 4
+        m4Title: 'MISSION ACCOMPLISHED, GUARDIAN OF PLAY!',
+        m4Subtitle: 'You have rescued the playful heritage of the peoples of Spain and defended Articles 14, 43.3, and 46 of the Spanish Constitution with inclusion and sustainability.',
+        carnetInst: 'Community of Madrid',
+        carnetOfficial: 'OFFICIAL ACCREDITATION',
+        carnetNameLabel: 'Guardian / Team Name:',
+        carnetNamePlaceholder: 'Enter your name',
+        carnetCenterLabel: 'Grade / Educational Center:',
+        carnetCenterPlaceholder: 'E.g., 5th Grade - School...',
+        carnetMotto: '"I pledge to keep alive the games and traditions of our cultural heritage (Arts. 14, 43.3 & 46 SC)."',
+        carnetStamp: 'MISSION ACCOMPLISHED 2026',
+        btnPrintCarnet: '🖨️ Print / Save Official ID Card (PDF)',
+        btnRestart: '🔄 Play Again'
+      }
+    };
+
+    function applyLanguageR1() {
+      const t = TRANSLATIONS_R1[currentLanguage];
+      if (!t) return;
+      const isEn = (currentLanguage === "EN");
+
+      const setEl = (id, val, isHtml = false) => {
+        const el = document.getElementById(id);
+        if (el) { if (isHtml) el.innerHTML = val; else el.innerText = val; }
+      };
+
+      // Header & Controls
+      setEl('btn-lang', t.langBtn, true);
+      const soundBtn = document.getElementById('btn-sound');
+      if (soundBtn) soundBtn.innerHTML = soundEnabled ? t.soundOn : t.soundOff;
+      setEl('label-print', t.labelPrint);
+      setEl('btn-mode-infantil', t.btnInfantil, true);
+
+      // Gov bar & footer
+      setEl('gov-title', t.govTitle);
+      setEl('gov-sub', t.govSub);
+      setEl('gov-footer-inst', t.govFooterInst, true);
+      setEl('gov-footer-sub', t.govFooterSub);
+
+      // Hero
+      setEl('reto-title-text', t.heroTitle);
+      setEl('reto-ce-tag', t.ceTag);
+      setEl('hero-narrative-text', t.heroNarrative, true);
+      setEl('progress-text', t.progressText);
+
+      // Tabs
+      setEl('tab-text-1', t.tab1, true);
+      setEl('tab-text-2', t.tab2, true);
+      setEl('tab-text-3', t.tab3, true);
+      setEl('tab-text-4', t.tab4, true);
+      const murdokuBadge = document.getElementById('badge-murdoku-status');
+      if (murdokuBadge) murdokuBadge.innerText = murdokuSolved ? t.badgeCompleted : t.badgePending;
+      const finalBadge = document.getElementById('badge-final-status');
+      if (finalBadge) {
+        const isUnlocked = (rescuedGames.size >= 6 && labCompleted[1] && labCompleted[2] && murdokuSolved);
+        finalBadge.innerText = isUnlocked ? t.badgeUnlocked : t.badgeLocked;
+      }
+
+      // Misión 1
+      setEl('m1-title', t.m1Title);
+      setEl('m1-quote', t.m1Quote);
+      setEl('m1-how-to', t.m1HowTo, true);
+      setEl('m1-goal1-title', t.m1Goal1Title);
+      setEl('m1-goal1-desc', t.m1Goal1Desc);
+      setEl('m1-goal2-title', t.m1Goal2Title);
+      setEl('m1-goal2-desc', t.m1Goal2Desc);
+      setEl('m1-visual-title', t.m1VisualTitle);
+      setEl('m1-visual-desc', t.m1VisualDesc);
+
+      setEl('sidebar-title', t.sidebarTitle, true);
+      setEl('sidebar-hint-text', t.sidebarHint);
+      setEl('legend-unexplored', t.mapLegendUnexplored);
+      setEl('legend-rescued', t.mapLegendRescued);
+      setEl('sea-atlantic', t.seaAtlantic);
+      setEl('sea-cantabrian', t.seaCantabrian);
+      setEl('sea-mediterranean', t.seaMediterranean);
+      setEl('inset-canarias-title', t.insetCanarias);
+      setEl('inset-cities-title', t.insetCities);
+
+      // Modal Ficha
+      setEl('modal-rules-head', t.modalRulesHead, true);
+      setEl('modal-mat-head', t.modalMatHead, true);
+      setEl('modal-recycled-head', t.modalRecycledHead, true);
+      setEl('modal-champ-head', t.modalChampHead, true);
+      setEl('modal-art-tag', t.modalArtTag);
+      setEl('modal-btn-close', t.modalBtnClose);
+
+      // Modal Infantil
+      setEl('inf-modal-title', t.infModalTitle, true);
+      setEl('inf-modal-story', t.infModalStory, true);
+      setEl('inf-card1-title', t.infCard1Title);
+      setEl('inf-card1-desc', t.infCard1Desc);
+      setEl('inf-card2-title', t.infCard2Title);
+      setEl('inf-card2-desc', t.infCard2Desc);
+      setEl('inf-card3-title', t.infCard3Title);
+      setEl('inf-card3-desc', t.infCard3Desc);
+      setEl('inf-card4-title', t.infCard4Title);
+      setEl('inf-card4-desc', t.infCard4Desc);
+      setEl('inf-modal-btn', t.infModalBtn);
+
+      // Misión 2
+      setEl('m2-title', t.m2Title);
+      setEl('m2-quote', t.m2Quote);
+      setEl('m2-desc', t.m2Desc, true);
+      setEl('m2-visual-title', t.m2VisualTitle);
+      setEl('m2-visual-desc', t.m2VisualDesc);
+
+      setEl('c1-head', t.c1Head, true);
+      setEl('c1-desc', t.c1Desc, true);
+      setEl('c1-opt-0', t.c1OptA, true);
+      setEl('c1-opt-1', t.c1OptB, true);
+      setEl('c1-opt-2', t.c1OptC, true);
+
+      setEl('c2-head', t.c2Head, true);
+      setEl('c2-desc', t.c2Desc, true);
+      setEl('c2-opt-0', t.c2OptA, true);
+      setEl('c2-opt-1', t.c2OptB, true);
+      setEl('c2-opt-2', t.c2OptC, true);
+      setEl('btn-to-murdoku', t.btnToMurdoku);
+
+      // Misión 3
+      setEl('m3-title', t.m3Title);
+      setEl('m3-story', t.m3Story, true);
+      setEl('btn-hint-murdoku', t.btnHintMurdoku);
+      setEl('btn-reset-murdoku', t.btnResetMurdoku);
+      setEl('m3-visual-title', t.m3VisualTitle);
+      setEl('m3-visual-desc', t.m3VisualDesc);
+      setEl('clues-title', t.cluesTitle, true);
+      setEl('clue-1-label', t.clue1, true);
+      setEl('clue-2-label', t.clue2, true);
+      setEl('clue-3-label', t.clue3, true);
+      setEl('clue-4-label', t.clue4, true);
+      setEl('m3-instructions', t.m3Instructions, true);
+      setEl('grid-title', t.gridTitle);
+      setEl('grid-instruct', t.gridInstruct);
+
+      // Murdoku table headers
+      setEl('th-trad-games', t.thTradGames);
+      setEl('th-recycled-mat', t.thRecycledMat);
+      setEl('th-students', t.thStudents);
+      setEl('th-materials', t.thMaterials);
+      setEl('th-sub-bolos', t.subcatBolos);
+      setEl('th-sub-chito', t.subcatChito);
+      setEl('th-sub-llave', t.subcatLlave);
+      setEl('th-sub-sokatira', t.subcatSokatira);
+      setEl('th-sub-botella', t.subcatBotella);
+      setEl('th-sub-cuerda', t.subcatCuerda);
+      setEl('th-sub-revistas', t.subcatRevistas);
+      setEl('th-sub-tapas', t.subcatTapas);
+      setEl('th-row-botella', t.subcatBotella);
+      setEl('th-row-cuerda', t.subcatCuerda);
+      setEl('th-row-revistas', t.subcatRevistas);
+      setEl('th-row-tapas', t.subcatTapas);
+      setEl('btn-check-murdoku', t.btnCheckMurdoku);
+
+      // Misión 4
+      setEl('m4-title', t.m4Title);
+      setEl('m4-subtitle', t.m4Subtitle);
+      setEl('carnet-inst', t.carnetInst);
+      setEl('carnet-official', t.carnetOfficial);
+      setEl('carnet-name-label', t.carnetNameLabel);
+      const nameInp = document.getElementById('carnet-nombre');
+      if (nameInp) nameInp.placeholder = t.carnetNamePlaceholder;
+      setEl('carnet-center-label', t.carnetCenterLabel);
+      const centerInp = document.getElementById('carnet-centro');
+      if (centerInp) centerInp.placeholder = t.carnetCenterPlaceholder;
+      setEl('carnet-motto', t.carnetMotto);
+      setEl('carnet-stamp', t.carnetStamp);
+      setEl('btn-print-carnet', t.btnPrintCarnet);
+      setEl('btn-restart', t.btnRestart);
+
+      // Region labels on map
+      GAMES.forEach(g => {
+        const lbl = document.getElementById(`label-map-${g.id}`);
+        if (lbl) lbl.textContent = isEn ? g.regionEn : g.region;
+      });
+
+      renderGamesList();
+      updateSidebarCounter();
+      updateMurdokuScore();
+    }
+
+    function updateSidebarCounter() {
+      const t = TRANSLATIONS_R1[currentLanguage];
+      const counterEl = document.getElementById('sidebar-counter');
+      if (counterEl && t) {
+        counterEl.innerText = `${rescuedGames.size} / 19 ${t.sidebarRescuedSuffix}`;
+      }
+      const badgeCountEl = document.getElementById('badge-map-count');
+      if (badgeCountEl) {
+        badgeCountEl.innerText = `${rescuedGames.size}/19`;
+      }
+    }
+
+    function toggleLanguage() {
+      currentLanguage = (currentLanguage === "ES") ? "EN" : "ES";
+      playSound('click');
+      applyLanguageR1();
+      if (selectedGameId) {
+        selectGame(selectedGameId);
+      }
+    }
+
+    /* ========================================================
+       4. CONTROL DE PESTAÑAS Y FASES
+       ======================================================== */
+    function switchPhase(phaseNum) {
+      playSound('click');
+      currentPhase = phaseNum;
+      
+      // Actualizar botones de pestaña
+      for (let i = 1; i <= 4; i++) {
+        const tab = document.getElementById(`tab-fase${i}`);
+        const sec = document.getElementById(`sec-fase${i}`);
+        if (i === phaseNum) {
+          tab.classList.add('active');
+          sec.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+          sec.classList.remove('active');
+        }
+      }
+      updateGlobalProgress();
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    function updateGlobalProgress() {
+      // 19 juegos = 50%, Laboratorio = 25%, Murdoku = 25%
+      const mapPoints = (rescuedGames.size / 19) * 50;
+      const labPoints = (labCompleted[1] && labCompleted[2]) ? 25 : (labCompleted[1] || labCompleted[2] ? 12.5 : 0);
+      const murdokuPoints = murdokuSolved ? 25 : 0;
+      
+      const total = Math.min(100, Math.round(mapPoints + labPoints + murdokuPoints));
+      document.getElementById('progress-fill').style.width = total + '%';
+      document.getElementById('progress-percent').innerText = total + '%';
+
+      const t = TRANSLATIONS_R1[currentLanguage];
+      if (total >= 90) {
+        const b = document.getElementById('badge-final-status');
+        b.innerText = t ? t.badgeUnlocked : '¡DESBLOQUEADO!';
+        b.style.background = '#10B981';
+      }
+    }
+
+    /* ========================================================
+       5. FASE 1: MAPA Y RESCATE DE TRADICIONES
+       ======================================================== */
+    function renderGamesList() {
+      const container = document.getElementById('games-container');
+      if (!container) return;
+      container.innerHTML = "";
+
+      GAMES.forEach(game => {
+        const isRescued = rescuedGames.has(game.id);
+        const isSelected = (selectedGameId === game.id);
+
+        const card = document.createElement('div');
+        card.className = `game-card ${isRescued ? 'rescued' : ''} ${isSelected ? 'selected' : ''}`;
+        card.id = `card-game-${game.id}`;
+        card.onclick = () => selectGame(game.id);
+
+        const name = (currentLanguage === "ES") ? game.name : game.nameEn;
+        const clue = (currentLanguage === "ES") ? game.clue : game.clueEn;
+        const region = (currentLanguage === "ES") ? game.region : game.regionEn;
+
+        card.innerHTML = `
+          <div class="game-card-left">
+            <div class="game-icon">${game.icon}</div>
+            <div class="game-info">
+              <h5>${name}</h5>
+              <p>${isRescued ? `📍 <strong>${region}</strong>` : clue}</p>
+            </div>
+          </div>
+          <div class="game-status">
+            ${isRescued ? '✅' : '🔒'}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      updateSidebarCounter();
+    }
+
+    function selectGame(gameId) {
+      playSound('click');
+      selectedGameId = gameId;
+      const game = GAMES.find(g => g.id === gameId);
+      if (!game) return;
+      
+      // Actualizar estilos en tarjetas
+      document.querySelectorAll('.game-card').forEach(c => c.classList.remove('selected'));
+      const activeCard = document.getElementById(`card-game-${gameId}`);
+      if (activeCard) activeCard.classList.add('selected');
+
+      const name = (currentLanguage === "ES") ? game.name : game.nameEn;
+      const region = (currentLanguage === "ES") ? game.region : game.regionEn;
+      const promptEl = document.getElementById('map-prompt');
+      const isEn = (currentLanguage === "EN");
+      
+      if (rescuedGames.has(gameId)) {
+        promptEl.innerHTML = isEn
+          ? `<span>⭐</span> <strong>${name}</strong> has already been rescued in <strong>${region}</strong>. Click to view its profile.`
+          : `<span>⭐</span> <strong>${name}</strong> ya fue rescatado en <strong>${region}</strong>. Pulsa para ver su ficha.`;
+        openGameModal(game);
+      } else {
+        promptEl.innerHTML = isEn
+          ? `<span>🎯</span> Locating on the map: <strong>${name}</strong> (${game.icon}). Where is it played?`
+          : `<span>🎯</span> Buscando en el mapa: <strong>${name}</strong> (${game.icon}). ¿Dónde se juega?`;
+      }
+    }
+
+    function onRegionClick(regionId) {
+      const isEn = (currentLanguage === "EN");
+      if (!selectedGameId) {
+        if (rescuedGames.has(regionId)) {
+          const game = GAMES.find(g => g.id === regionId);
+          if (game) openGameModal(game);
+        } else {
+          playSound('error');
+          document.getElementById('map-prompt').innerHTML = isEn
+            ? `<span>⚠️</span> First select a game from the left column.`
+            : `<span>⚠️</span> Primero selecciona un juego en la columna izquierda.`;
+        }
+        return;
+      }
+
+      const targetGame = GAMES.find(g => g.id === selectedGameId);
+
+      if (targetGame.id === regionId) {
+        // ¡ACIERTO!
+        playSound('success');
+        rescuedGames.add(regionId);
+        
+        const path = document.getElementById(`path-${regionId}`);
+        if (path) path.classList.add('rescued');
+
+        const iconLabel = document.getElementById(`badge-icon-${regionId}`);
+        if (iconLabel) iconLabel.textContent = targetGame.icon;
+
+        renderGamesList();
+        updateGlobalProgress();
+
+        const name = isEn ? targetGame.nameEn : targetGame.name;
+        const region = isEn ? targetGame.regionEn : targetGame.region;
+
+        document.getElementById('map-prompt').innerHTML = isEn
+          ? `<span>🎉</span> Correct! You have rescued <strong>${name}</strong> in <strong>${region}</strong>.`
+          : `<span>🎉</span> ¡Correcto! Has rescatado <strong>${name}</strong> en <strong>${region}</strong>.`;
+
+        setTimeout(() => {
+          openGameModal(targetGame);
+        }, 350);
+
+        if (rescuedGames.size === 6) {
+          setTimeout(() => {
+            alert(isEn
+              ? "🌟 Outstanding! You have rescued 6 key games. You may continue exploring all 19 or proceed to Mission 2 (Inclusive Lab)."
+              : "🌟 ¡Excelente trabajo! Ya has rescatado 6 juegos clave. Puedes seguir explorando los 19 o avanzar a la Misión 2 (Laboratorio Inclusivo).");
+          }, 800);
+        }
+
+      } else {
+        // FALLO
+        playSound('error');
+        const clickedGame = GAMES.find(g => g.id === regionId);
+        const targetName = isEn ? targetGame.nameEn : targetGame.name;
+        const clickedName = clickedGame ? (isEn ? clickedGame.regionEn : clickedGame.region) : regionId;
+        document.getElementById('map-prompt').innerHTML = isEn
+          ? `<span>❌</span> <strong>${targetName}</strong> is not from <em>${clickedName}</em>. Read the clue and try again!`
+          : `<span>❌</span> <strong>${targetName}</strong> no es de <em>${clickedName}</em>. ¡Lee bien la pista y vuelve a intentarlo!`;
+      }
+    }
+
+    function openGameModal(game) {
+      const isEn = (currentLanguage === "EN");
+      document.getElementById('modal-icon').innerText = game.icon;
+      document.getElementById('modal-title').innerText = isEn ? game.nameEn : game.name;
+      document.getElementById('modal-region').innerText = isEn ? game.regionEn : game.region;
+
+      const rulesList = document.getElementById('modal-rules');
+      rulesList.innerHTML = "";
+      const rules = isEn ? game.rulesEn : game.rules;
+      rules.forEach(r => {
+        const li = document.createElement('li');
+        li.innerText = r;
+        rulesList.appendChild(li);
+      });
+
+      document.getElementById('modal-materials').innerText = isEn ? game.materialsEn : game.materials;
+      document.getElementById('modal-recycled').innerText = isEn ? game.recycledEn : game.recycled;
+      document.getElementById('modal-champions').innerText = isEn ? (game.championsEn || game.champions) : (game.champions || "Tradición arraigada popularmente.");
+
+      document.getElementById('modal-game').classList.add('open');
+    }
+
+    function closeModal() {
+      playSound('click');
+      document.getElementById('modal-game').classList.remove('open');
+    }
+
+    function closeModalOnBg(event) {
+      if (event.target.classList.contains('modal-backdrop')) {
+        closeModal();
+        closeInfantilModal();
+      }
+    }
+
+    /* ========================================================
+       6. FASE 2: LABORATORIO INCLUSIVO
+       ======================================================== */
+    const labCompleted = { 1: false, 2: false };
+
+    function checkLab(caseNum, optionIdx) {
+      const fb = document.getElementById(`lab-fb-${caseNum}`);
+      fb.className = 'feedback-box show';
+      const t = TRANSLATIONS_R1[currentLanguage];
+
+      if (caseNum === 1) {
+        if (optionIdx === 1) {
+          playSound('success');
+          fb.className = 'feedback-box show success';
+          fb.innerHTML = t.c1FbSuccess;
+          labCompleted[1] = true;
+        } else {
+          playSound('error');
+          fb.className = 'feedback-box show error';
+          fb.innerHTML = t.c1FbError;
+        }
+      } else if (caseNum === 2) {
+        if (optionIdx === 1) {
+          playSound('success');
+          fb.className = 'feedback-box show success';
+          fb.innerHTML = t.c2FbSuccess;
+          labCompleted[2] = true;
+        } else {
+          playSound('error');
+          fb.className = 'feedback-box show error';
+          fb.innerHTML = t.c2FbError;
+        }
+      }
+
+      document.getElementById('badge-lab-count').innerText = `${(labCompleted[1] ? 1 : 0) + (labCompleted[2] ? 1 : 0)}/2`;
+      updateGlobalProgress();
+
+      if (labCompleted[1] && labCompleted[2]) {
+        document.getElementById('btn-to-murdoku').disabled = false;
+        document.getElementById('btn-to-murdoku').classList.add('gold');
+      }
+    }
+
+    /* ========================================================
+       7. FASE 3: MURDOKU CONSTITUCIONAL
+       ======================================================== */
+    let murdokuSolved = false;
+
+    function cellClick(r, c) {
+      if (murdokuSolved) return;
+      playSound('click');
+
+      const cur = murdokuMatrix[r][c];
+      let nextState = "";
+      // Ciclo: vacío -> O -> X -> vacío
+      if (cur === "") nextState = "O";
+      else if (cur === "O") nextState = "X";
+      else nextState = "";
+
+      murdokuMatrix[r][c] = nextState;
+      updateMurdokuCellUI(r, c, nextState);
+
+      // Si marca "O", auto-bloquear fila y columna correspondientes dentro del cuadrante de 4
+      if (nextState === "O") {
+        const colStart = (c < 4) ? 0 : 4;
+        const colEnd = (c < 4) ? 4 : 8;
+        const rowStart = (r < 4) ? 0 : 4;
+        const rowEnd = (r < 4) ? 4 : 8;
+
+        for (let j = colStart; j < colEnd; j++) {
+          if (j !== c && murdokuMatrix[r][j] === "") {
+            murdokuMatrix[r][j] = "X";
+            updateMurdokuCellUI(r, j, "X");
+          }
+        }
+        for (let i = rowStart; i < rowEnd; i++) {
+          if (i !== r && murdokuMatrix[i][c] === "") {
+            murdokuMatrix[i][c] = "X";
+            updateMurdokuCellUI(i, c, "X");
+          }
+        }
+      }
+
+      updateMurdokuScore();
+    }
+
+    function updateMurdokuCellUI(r, c, val) {
+      const cell = document.querySelector(`td[data-r="${r}"][data-c="${c}"]`);
+      if (!cell) return;
+      cell.innerText = val;
+      cell.classList.remove('state-no', 'state-yes');
+      if (val === 'X') cell.classList.add('state-no');
+      if (val === 'O') cell.classList.add('state-yes');
+    }
+
+    function toggleClueUsed(clueNum) {
+      playSound('click');
+      const box = document.getElementById(`clue-box-${clueNum}`);
+      if (box) box.classList.toggle('used');
+    }
+
+    function autoHintMurdoku() {
+      playSound('click');
+      const isEn = (currentLanguage === "EN");
+      if (murdokuMatrix[3][3] !== "O") {
+        alert(isEn
+          ? "💡 Deduction Step 1 (Clue 1): Clue 1 states that Lola is investigating Sokatira. Mark 'O' at Lola x Sokatira!"
+          : "💡 Deducción Paso 1 (Pista 1): La Pista 1 dice claramente que Lola investiga Sokatira. ¡Marca 'O' en el cruce de Lola y Sokatira!");
+        cellClick(3, 3);
+        return;
+      }
+      if (murdokuMatrix[1][6] !== "O") {
+        alert(isEn
+          ? "💡 Deduction Step 2 (Clue 2): Hugo is using Rolled Magazines. Mark 'O' at Hugo x Magazines!"
+          : "💡 Deducción Paso 2 (Pista 2): Hugo está usando Revistas enrolladas. ¡Marca 'O' en el cruce de Hugo y Revistas!");
+        cellClick(1, 6);
+        return;
+      }
+      if (murdokuMatrix[0][2] !== "O") {
+        alert(isEn
+          ? "💡 Deduction Step 3 (Clue 3): La Llave uses Jar Lids and is not investigated by Hugo or Iker. Therefore, Aisha must investigate La Llave with Lids!"
+          : "💡 Deducción Paso 3 (Pista 3): La Llave usa Tapas de conservas y no la investigan Hugo ni Iker (y Lola tiene Sokatira). Por tanto, ¡Aisha debe investigar La Llave con Tapas!");
+        cellClick(0, 2);
+        cellClick(0, 7);
+        return;
+      }
+      if (murdokuMatrix[2][1] !== "O") {
+        alert(isEn
+          ? "💡 Deduction Step 4 (Clue 4): Chito uses the sand Bottle. Only Iker is available. Iker investigates Chito with Bottle!"
+          : "💡 Deducción Paso 4 (Pista 4): El Chito usa Botella de arena. Solo queda libre para Iker. ¡Iker investiga El Chito con Botella!");
+        cellClick(2, 1);
+        cellClick(2, 4);
+        cellClick(1, 0);
+        cellClick(3, 5);
+        return;
+      }
+      alert(isEn
+        ? "💡 All primary deductions are in place! Click 'Check Logic Deduction'!"
+        : "💡 Todas las deducciones principales han sido colocadas. ¡Pulsa en 'Comprobar Deducción Lógica'!");
+    }
+
+    function resetMurdoku() {
+      playSound('click');
+      murdokuMatrix = Array(8).fill(null).map(() => Array(8).fill(""));
+      document.querySelectorAll('td.murdoku-cell').forEach(td => {
+        td.innerText = "";
+        td.classList.remove('state-no', 'state-yes');
+      });
+      document.getElementById('murdoku-feedback').innerHTML = "";
+      murdokuSolved = false;
+      const t = TRANSLATIONS_R1[currentLanguage];
+      document.getElementById('badge-murdoku-status').innerText = t ? t.badgePending : 'Pendiente';
+      document.getElementById('badge-murdoku-status').style.background = '';
+      updateGlobalProgress();
+      updateMurdokuScore();
+    }
+
+    function updateMurdokuScore() {
+      const required = [
+        [0, 2], [0, 7],
+        [1, 0], [1, 6],
+        [2, 1], [2, 4],
+        [3, 3], [3, 5]
+      ];
+      let correctCount = 0;
+      required.forEach(([r, c]) => {
+        if (murdokuMatrix[r][c] === "O") correctCount++;
+      });
+      const t = TRANSLATIONS_R1[currentLanguage];
+      const badge = document.getElementById('murdoku-score-badge');
+      if (badge && t) {
+        badge.innerText = `${correctCount} / 8 ${t.gridFoundSuffix}`;
+      }
+      return correctCount;
+    }
+
+    function checkMurdoku() {
+      const correctCount = updateMurdokuScore();
+      const t = TRANSLATIONS_R1[currentLanguage];
+      const fb = document.getElementById('murdoku-feedback');
+      if (correctCount === 8) {
+        playSound('fanfare');
+        fb.innerHTML = `<span style="color:#059669;">${t.murdokuSuccess}</span>`;
+        murdokuSolved = true;
+        const b = document.getElementById('badge-murdoku-status');
+        b.innerText = t.badgeCompleted;
+        b.style.background = '#10B981';
+        updateGlobalProgress();
+        setTimeout(() => {
+          switchPhase(4);
+        }, 1200);
+      } else {
+        playSound('error');
+        fb.innerHTML = `<span style="color:#DC2626;">${t.murdokuError.replace('{count}', correctCount)}</span>`;
+      }
+    }
+
+    /* ========================================================
+       8. MODAL DE INFANTIL
+       ======================================================== */
+    function openInfantilModal() {
+      playSound('click');
+      document.getElementById('modal-infantil').classList.add('open');
+    }
+
+    function closeInfantilModal() {
+      playSound('click');
+      document.getElementById('modal-infantil').classList.remove('open');
+    }
+
+    function solveInfantil(regionId) {
+      playSound('success');
+      const card = document.getElementById(`inf-card-${regionId}`);
+      if (card) card.classList.add('solved');
+      rescuedGames.add(regionId);
+      
+      const path = document.getElementById(`path-${regionId}`);
+      if (path) path.classList.add('rescued');
+
+      const targetGame = GAMES.find(g => g.id === regionId);
+      const iconLabel = document.getElementById(`badge-icon-${regionId}`);
+      if (iconLabel && targetGame) iconLabel.textContent = targetGame.icon;
+
+      renderGamesList();
+      updateGlobalProgress();
+      const isEn = (currentLanguage === "EN");
+      const reg = targetGame ? (isEn ? targetGame.regionEn : targetGame.region) : regionId;
+      alert(isEn
+        ? `🎉 Well done, little detective! You brought the game from ${reg} back home on the map.`
+        : `🎉 ¡Bien hecho pequeño/a detective! Devolviste el juego de ${reg} a su casa en el mapa.`);
+    }
+
+    function printCarnetOficial() {
+      playSound('fanfare');
+      switchPhase(4);
+      setTimeout(() => {
+        window.print();
+      }, 120);
+    }
+
+    function restartMission() {
+      const isEn = (currentLanguage === "EN");
+      if (confirm(isEn
+        ? "Do you want to reset the challenge and start the mission over?"
+        : "¿Quieres reiniciar el reto y volver a empezar la misión?")) {
+        location.reload();
+      }
+    }
+
+    /* ========================================================
+       9. INICIALIZACIÓN
+       ======================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      applyLanguageR1();
+      renderGamesList();
+      updateGlobalProgress();
+    });
+  </script>
+</body>
+</html>

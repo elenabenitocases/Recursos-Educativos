@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 2: Campaña Exprés Anti-Etiquetas — Suite Interactiva 16:9</title>
+  <style>
+    :root {
+      --madrid-red: #C7082A;
+      --cyber-blue: #3B82F6;
+      --cyber-cyan: #06B6D4;
+      --gold: #FFD166;
+      --green: #10B981;
+      --dark-bg: #090D16;
+      --card-bg: rgba(23, 37, 84, 0.92);
+      --border: rgba(59, 130, 246, 0.35);
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 10%, #1E1B4B 0%, #050811 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+
+    .master-container {
+      width: 100%;
+      max-width: 1320px;
+      aspect-ratio: 16 / 9;
+      min-height: 620px;
+      background: #0B1120;
+      border: 3px solid rgba(59, 130, 246, 0.5);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 35px rgba(59, 130, 246, 0.3);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .view-infographic {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 32px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(5, 8, 17, 0.97)),
+                  url('Artefactos/Reto 2_La Galería de las etiquetas.jpg') center/cover no-repeat;
+      background-blend-mode: overlay;
+    }
+
+    /* CABECERA */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 14px;
+    }
+    .header-branding {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-icon {
+      font-size: 30px;
+      background: var(--madrid-red);
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--gold);
+      box-shadow: 0 4px 15px rgba(199, 8, 42, 0.5);
+    }
+    .brand-title {
+      background: rgba(4, 9, 20, 0.88);
+      padding: 6px 16px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(255, 215, 0, 0.45);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    }
+    .brand-title h1 {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      color: #FFE600;
+      text-shadow: 0 2px 6px #000, 0 0 14px rgba(0,0,0,0.9), 0 0 20px rgba(255, 230, 0, 0.7);
+    }
+    .brand-title h1 span {
+      color: #38BDF8;
+      text-shadow: 0 2px 6px #000, 0 0 14px rgba(0,0,0,0.9);
+    }
+    .top-badges {
+      display: flex;
+      gap: 8px;
+    }
+    .badge-ce {
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid var(--cyber-blue);
+      color: #93C5FD;
+      padding: 5px 10px;
+      border-radius: 14px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    /* BARRA DE PISTA */
+    .hero-hint {
+      background: rgba(4, 9, 20, 0.94);
+      border: 2px solid #FFE600;
+      border-radius: 14px;
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0;
+      font-size: 13.5px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.85);
+    }
+    .hero-hint span {
+      color: #FFFFFF;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .hero-hint strong {
+      color: #FFE600;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(255, 230, 0, 0.7);
+    }
+
+    /* GRID DE LAS 4 FASES */
+    .stages-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      position: relative;
+      margin: 10px 0;
+      flex: 1;
+      align-items: stretch;
+    }
+    .stage-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .stage-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: #38BDF8;
+      box-shadow: 0 15px 35px rgba(56, 189, 248, 0.35);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .card-badge {
+      font-size: 10.5px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFF;
+    }
+    .card-art {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .card-icon {
+      font-size: 38px;
+      text-align: center;
+      margin: 4px 0 8px;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: #FFF;
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+    .card-desc {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .btn-play-level {
+      width: 100%;
+      background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 12.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+      transition: all 0.2s ease;
+    }
+    .btn-play-level:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.6);
+    }
+
+    /* FOOTER */
+    .infographic-footer {
+      border-top: 2px solid var(--border);
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .footer-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-subtle {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFF;
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn-subtle:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(11, 17, 32, 0.96);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      padding: 24px;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-box {
+      width: 100%;
+      max-width: 1080px;
+      max-height: 94%;
+      background: #0F172A;
+      border: 2px solid #38BDF8;
+      border-radius: 20px;
+      padding: 22px 26px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      animation: popIn 0.2s ease-out;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+      flex-shrink: 0;
+    }
+    .modal-title {
+      font-size: 19px;
+      font-weight: 900;
+      color: #FFE600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-close {
+      background: #334155;
+      color: white;
+      border: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close:hover {
+      background: #EF4444;
+    }
+    .modal-body {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: #E2E8F0;
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="master-container" id="master-box">
+
+    <div class="view-infographic" id="view-info">
+      
+      <!-- CABECERA -->
+      <header class="header-bar">
+        <div class="header-branding">
+          <div class="brand-icon">🛡️</div>
+          <div class="brand-title">
+            <h1>RETO 2: CAMPAÑA EXPRÉS <span>ANTI-ETIQUETAS</span></h1>
+          </div>
+        </div>
+        <div class="top-badges">
+          <span class="badge-ce">Art. 14 (Igualdad y No Discriminación)</span>
+          <span class="badge-ce">Art. 20 (Libertad de Expresión y Límites)</span>
+        </div>
+      </header>
+
+      <!-- BARRA DE PISTA -->
+      <div class="hero-hint">
+        <div>
+          <span>👉 <strong>Haz clic en cualquier fase</strong> para explorar su misión interactiva:</span>
+        </div>
+        <div>
+          <button class="btn-subtle" onclick="openModal(1)" style="background: rgba(56, 189, 248, 0.2); border-color: #38BDF8; color: #38BDF8; font-weight: 800;">
+            🔍 Explorar Fases
+          </button>
+        </div>
+      </div>
+
+      <!-- GRID DE LAS 4 FASES -->
+      <section class="stages-grid">
+        
+        <!-- FASE 1 -->
+        <article class="stage-card" onclick="openModal(1)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge">FASE 1</span>
+              <span class="card-art">Arts. 14 y 20</span>
+            </div>
+            <div class="card-icon">⚖️</div>
+            <h2 class="card-title">Marco Legal y Roles</h2>
+            <p class="card-desc">
+              Descubre las bases constitucionales de la convivencia: la igualdad ante la ley (Art. 14) y los límites de la libertad de expresión frente al respeto a la dignidad ajena (Art. 20).
+            </p>
+          </div>
+          <button class="btn-play-level" onclick="event.stopPropagation(); openModal(1)">
+            <span>⚖️ VER MARCO LEGAL</span>
+          </button>
+        </article>
+
+        <!-- FASE 2 -->
+        <article class="stage-card" onclick="openModal(2)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(16, 185, 129, 0.2); color: var(--green);">FASE 2</span>
+              <span class="card-art">Casos Reales</span>
+            </div>
+            <div class="card-icon">🔍</div>
+            <h2 class="card-title">Tarjetas de Situaciones</h2>
+            <p class="card-desc">
+              Analiza los 6 dilemas cotidianos del patio y las redes (rumores, apodos, exclusión en juegos) y activa las fórmulas antietiquetas para transformar los conflictos.
+            </p>
+          </div>
+          <button class="btn-play-level" style="background: linear-gradient(135deg, #10B981 0%, #047857 100%);" onclick="event.stopPropagation(); openModal(2)">
+            <span>🔍 ANALIZAR CASOS</span>
+          </button>
+        </article>
+
+        <!-- FASE 3 -->
+        <article class="stage-card" onclick="openModal(3)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(139, 92, 246, 0.2); color: #C084FC;">FASE 3</span>
+              <span class="card-art">Diseño Gráfico</span>
+            </div>
+            <div class="card-icon">🎨</div>
+            <h2 class="card-title">Estudio de Cartelería</h2>
+            <p class="card-desc">
+              Diseña carteles digitales antietiquetas de gran impacto. Combina eslóganes rompedores, compromisos de aula y el respaldo normativo del Art. 14 y 20 CE.
+            </p>
+          </div>
+          <button class="btn-play-level" style="background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);" onclick="event.stopPropagation(); openModal(3)">
+            <span>🎨 CREAR CARTELES</span>
+          </button>
+        </article>
+
+        <!-- FASE 4 -->
+        <article class="stage-card" onclick="openModal(4)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(255, 209, 102, 0.2); color: var(--gold);">FASE 4</span>
+              <span class="card-art">Pacto Cívico</span>
+            </div>
+            <div class="card-icon">🤝</div>
+            <h2 class="card-title">Pacto Constitucional</h2>
+            <p class="card-desc">
+              Firma el Gran Pacto del Aula contra las etiquetas, autoevalúa la campaña con la rúbrica oficial y genera la Acreditación de Activista Constitucional de la Comunidad de Madrid.
+            </p>
+          </div>
+          <button class="btn-play-level" style="background: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);" onclick="event.stopPropagation(); openModal(4)">
+            <span>🤝 FIRMAR PACTO</span>
+          </button>
+        </article>
+
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="infographic-footer">
+        <div>
+          <span>Comunidad de Madrid — Semana Constitucional 2026</span>
+          <span style="margin: 0 8px;">•</span>
+          <span style="color: #38BDF8;">Pizarra Digital (PDI) & Tablets</span>
+        </div>
+        <div class="footer-actions">
+          <button class="btn-subtle" onclick="openModal(4)">🤝 Ver Gran Pacto</button>
+          <button class="btn-subtle" onclick="toggleContainerFullscreen()">⛶ Pantalla Completa</button>
+        </div>
+      </footer>
+
+      <!-- MODAL DE MISIÓN -->
+      <div class="modal-overlay" id="modal-box-overlay">
+        <div class="modal-box">
+          <div class="modal-header">
+            <h3 class="modal-title" id="m-modal-title">Detalles de la Misión</h3>
+            <button class="modal-close" onclick="closeModal()">✕</button>
+          </div>
+          <div class="modal-body" id="m-modal-body"></div>
+          <div class="modal-footer">
+            <button class="btn-subtle" onclick="closeModal()">Cerrar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    const SITUATIONS = [
+      { id: 1, title: "Tarjeta 1: El rumor en el grupo de chat", text: "En un grupo de mensajería del aula se comparte una foto de un compañero con un texto burlón sobre su aspecto físico.", art: "Art. 18.1 y 20.4 CE (Derecho al honor e intimidad)", sol: "Interrumpir la cadena, no reenviar, apoyar al afectado y recordar las normas de respeto digital." },
+      { id: 2, title: "Tarjeta 2: 'Es solo humor, no te piques'", text: "Un grupo de alumnos utiliza un apodo peyorativo hacia una alumna por su procedencia cultural.", art: "Art. 14 CE (Prohibición de discriminación)", sol: "La libertad de expresión no ampara la humillación. Llamar a las personas por su nombre y valorar la diversidad." },
+      { id: 3, title: "Tarjeta 3: La etiqueta invisible en educación física", text: "Al elegir equipos en el patio, siempre dejan al final al mismo compañero porque 'es torpe'.", art: "Art. 14 y 43.3 CE (Igualdad y ocio saludable)", sol: "Rotar capitanes, usar sorteos inclusivos y valorar la cooperación por encima del resultado competitivo." },
+      { id: 4, title: "Tarjeta 4: 'Las chicas a un lado, los chicos a otro'", text: "Se reserva la pista principal de fútbol solo para los chicos, desplazando a las chicas a un rincón.", art: "Art. 14 CE (Igualdad de género y no discriminación)", sol: "Organizar cuadrantes compartidos, partidos mixtos y dinamizar otros deportes alternativos." },
+      { id: 5, title: "Tarjeta 5: El juicio rápido por la ropa", text: "Comentarios despectivos hacia un compañero por llevar ropa heredada o zapatillas no de marca.", art: "Art. 10.1 CE (Dignidad inviolable de la persona)", sol: "El valor de las personas reside en su calidad humana, no en marcas ni estatus económico." },
+      { id: 6, title: "Tarjeta 6: El compañero que no habla en público", text: "Risas cuando un alumno tímido o con dificultades en el habla se equivoca al leer en voz alta.", art: "Art. 14 y 27 CE (Derecho a una educación en ambiente seguro)", sol: "Fomentar la escucha activa, dar tiempo sin presionar y aplaudir el esfuerzo cívico." }
+    ];
+
+    function openModal(phaseNum) {
+      const titleElem = document.getElementById('m-modal-title');
+      const bodyElem = document.getElementById('m-modal-body');
+
+      if (phaseNum === 1) {
+        titleElem.innerHTML = "⚖️ Fase 1: Marco Legal Constitucional (Lectura Fácil)";
+        bodyElem.innerHTML = `
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div style="background: rgba(30, 41, 59, 0.9); border: 2px solid #3B82F6; padding: 18px; border-radius: 14px;">
+              <span style="background: rgba(59, 130, 246, 0.2); color: #93C5FD; padding: 4px 10px; border-radius: 8px; font-weight: 800; font-size: 11px;">ARTÍCULO 14 CE</span>
+              <h4 style="color: #FFE600; margin: 10px 0 6px;">Principio de Igualdad y No Discriminación</h4>
+              <blockquote style="font-style: italic; font-size: 12.5px; color: #CBD5E1; border-left: 3px solid #3B82F6; padding-left: 10px; margin-bottom: 12px;">
+                "Los españoles son iguales ante la ley, sin que pueda prevalecer discriminación alguna por razón de nacimiento, raza, sexo, religión, opinión o cualquier otra condición o circunstancia personal o social."
+              </blockquote>
+              <p style="font-size: 12px; color: #A7F3D0; font-weight: 600;">
+                ✓ En el aula: Nadie puede ser tratado peor ni excluido por su origen, acento, aspecto o ritmo de aprendizaje.
+              </p>
+            </div>
+
+            <div style="background: rgba(30, 41, 59, 0.9); border: 2px solid #8B5CF6; padding: 18px; border-radius: 14px;">
+              <span style="background: rgba(139, 92, 246, 0.2); color: #C084FC; padding: 4px 10px; border-radius: 8px; font-weight: 800; font-size: 11px;">ARTÍCULO 20 CE</span>
+              <h4 style="color: #FFE600; margin: 10px 0 6px;">Libertad de Expresión y sus Límites</h4>
+              <blockquote style="font-style: italic; font-size: 12.5px; color: #CBD5E1; border-left: 3px solid #8B5CF6; padding-left: 10px; margin-bottom: 12px;">
+                "Se reconocen y protegen los derechos a expresar y difundir libremente los pensamientos, ideas y opiniones... Estas libertades tienen su límite en el respeto a los derechos y a la dignidad de los demás."
+              </blockquote>
+              <p style="font-size: 12px; color: #FCD34D; font-weight: 600;">
+                ✓ En el aula: Eres libre de opinar, pero tu libertad termina cuando daña, humilla o difama a otra persona. El acoso no es humor.
+              </p>
+            </div>
+          </div>
+        `;
+      } else if (phaseNum === 2) {
+        titleElem.innerHTML = "🔍 Fase 2: Tarjetas de Situaciones Reales y Fórmulas Antietiquetas";
+        bodyElem.innerHTML = `
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 12px;">
+            ${SITUATIONS.map(s => `
+              <div style="background: rgba(30, 41, 59, 0.9); border: 1.5px solid rgba(255, 255, 255, 0.12); padding: 14px; border-radius: 12px;">
+                <h5 style="color: #FFE600; font-size: 13.5px; margin-bottom: 6px;">${s.title}</h5>
+                <p style="font-size: 12px; color: #CBD5E1; margin-bottom: 8px;">${s.text}</p>
+                <div style="font-size: 11px; color: #38BDF8; font-weight: 700; margin-bottom: 4px;">⚖️ ${s.art}</div>
+                <div style="font-size: 11.5px; color: #A7F3D0; background: rgba(16, 185, 129, 0.15); padding: 6px 10px; border-radius: 8px;">
+                  💡 <strong>Solución:</strong> ${s.sol}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (phaseNum === 3) {
+        titleElem.innerHTML = "🎨 Fase 3: Estudio Exprés de Diseño de Carteles Antietiquetas";
+        bodyElem.innerHTML = `
+          <div style="display: grid; grid-template-columns: 340px 1fr; gap: 18px;">
+            <div style="background: rgba(30, 41, 59, 0.9); padding: 16px; border-radius: 14px; border: 1px solid var(--border);">
+              <h4 style="color: #FFE600; margin-bottom: 10px;">Configura tu cartel de aula:</h4>
+              <div style="margin-bottom: 10px;">
+                <label style="font-size: 11.5px; color: #94A3B8; display: block; margin-bottom: 4px;">Lema / Eslogan:</label>
+                <input type="text" id="cartel-lema" value="Menos etiquetas, más personas" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #334155; background: #0F172A; color: #FFF; font-weight: 700;" oninput="updateCartelPreview()">
+              </div>
+              <div style="margin-bottom: 10px;">
+                <label style="font-size: 11.5px; color: #94A3B8; display: block; margin-bottom: 4px;">Compromiso del equipo:</label>
+                <textarea id="cartel-desc" style="width: 100%; height: 60px; padding: 8px; border-radius: 8px; border: 1px solid #334155; background: #0F172A; color: #FFF; font-size: 12px;" oninput="updateCartelPreview()">En nuestra clase nadie se queda fuera. Respetamos la diversidad de talentos y ritmos.</textarea>
+              </div>
+              <div style="margin-bottom: 12px;">
+                <label style="font-size: 11.5px; color: #94A3B8; display: block; margin-bottom: 4px;">Artículo Constitucional:</label>
+                <select id="cartel-art" style="width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #334155; background: #0F172A; color: #FFF;" onchange="updateCartelPreview()">
+                  <option value="Art. 14 CE (Igualdad y No Discriminación)">Art. 14 CE (Igualdad y No Discriminación)</option>
+                  <option value="Art. 20 CE (Libertad de Expresión y Límites)">Art. 20 CE (Libertad de Expresión y Límites)</option>
+                  <option value="Art. 10.1 CE (Dignidad inviolable)">Art. 10.1 CE (Dignidad inviolable)</option>
+                </select>
+              </div>
+              <button class="btn-play-level" onclick="window.print()">
+                <span>🖨️ Imprimir Cartel</span>
+              </button>
+            </div>
+
+            <!-- Previsualización -->
+            <div id="cartel-preview" style="background: linear-gradient(135deg, #1E3A8A, #0F172A); border: 4px solid #38BDF8; border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.7);">
+              <div>
+                <span style="font-size: 11px; font-weight: 800; color: #FFE600; letter-spacing: 1px; text-transform: uppercase;">Comunidad de Madrid • Reto 2</span>
+                <h2 id="prev-lema" style="font-size: 24px; font-weight: 900; color: #FFFFFF; margin: 16px 0; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">Menos etiquetas, más personas</h2>
+                <div style="font-size: 54px; margin: 8px 0;">🚫🏷️✨</div>
+                <p id="prev-desc" style="font-size: 13.5px; color: #E2E8F0; max-width: 480px; margin: 0 auto 16px; line-height: 1.5;">En nuestra clase nadie se queda fuera. Respetamos la diversidad de talentos y ritmos.</p>
+              </div>
+              <div style="border-top: 2px solid rgba(255, 255, 255, 0.15); padding-top: 10px; font-size: 12px; font-weight: 800; color: #38BDF8;" id="prev-art">
+                ⚖️ Amparado por el Art. 14 CE (Igualdad y No Discriminación)
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (phaseNum === 4) {
+        titleElem.innerHTML = "🤝 Fase 4: Gran Pacto Constitucional y Acreditación Oficial";
+        bodyElem.innerHTML = `
+          <div style="max-width: 650px; margin: 0 auto; background: #FFFFFF; color: #0F172A; border-radius: 16px; padding: 22px; border: 4px solid var(--madrid-red); box-shadow: 0 10px 30px rgba(0,0,0,0.6);">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 12px; margin-bottom: 14px;">
+              <div style="font-size: 16px; font-weight: 900; color: var(--madrid-red); text-transform: uppercase;">Comunidad de Madrid</div>
+              <div style="background: #FEF3C7; color: #92400E; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 8px; border: 1px solid #FCD34D;">ACREDITACIÓN CONSTITUCIONAL</div>
+            </div>
+            
+            <div style="background: #F8FAFC; border: 1.5px solid #CBD5E1; border-radius: 12px; padding: 14px; margin-bottom: 14px; text-align: center;">
+              <h4 style="color: #1E3A8A; font-size: 15px; margin-bottom: 6px;">📜 Gran Pacto del Aula contra las Etiquetas</h4>
+              <p style="font-style: italic; font-size: 12.5px; color: #475569; line-height: 1.5;">
+                "Nos comprometemos solemnemente a hacer de nuestra aula y de nuestro centro un espacio seguro, donde nadie sea juzgado por su procedencia, su ritmo o su identidad, y donde la libertad de expresión sea siempre el puente para enriquecernos juntos y jamás un arma para herir a nadie."
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+              <div>
+                <label style="font-size: 11.5px; font-weight: 700; color: #475569; display: block; margin-bottom: 2px;">Equipo / Alumnado:</label>
+                <input type="text" value="Comisión de Convivencia" style="width: 100%; border: 1.5px solid #CBD5E1; border-radius: 8px; padding: 6px 10px; font-size: 12.5px; font-weight: 700;">
+              </div>
+              <div>
+                <label style="font-size: 11.5px; font-weight: 700; color: #475569; display: block; margin-bottom: 2px;">Centro Educativo:</label>
+                <input type="text" value="Colegio / IES de la Comunidad de Madrid" style="width: 100%; border: 1.5px solid #CBD5E1; border-radius: 8px; padding: 6px 10px; font-size: 12.5px; font-weight: 700;">
+              </div>
+            </div>
+
+            <div style="background: #F0FDF4; border: 1px solid #BBF7D0; padding: 8px 12px; border-radius: 8px; font-size: 11.5px; color: #166534; font-weight: 600; margin-bottom: 14px;">
+              ⚖️ Principios defendidos: <strong>Art. 14 CE</strong> (Igualdad) • <strong>Art. 20 CE</strong> (Límites éticos de la expresión) • <strong>Art. 10.1 CE</strong> (Dignidad inviolable).
+            </div>
+
+            <div style="text-align: center;">
+              <button class="btn-play-level" style="max-width: 280px; margin: 0 auto; background: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);" onclick="window.print()">
+                <span>🖨️ Imprimir Acreditación Oficial</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      document.getElementById('modal-box-overlay').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modal-box-overlay').style.display = 'none';
+    }
+
+    function updateCartelPreview() {
+      const lema = document.getElementById('cartel-lema').value;
+      const desc = document.getElementById('cartel-desc').value;
+      const art = document.getElementById('cartel-art').value;
+      document.getElementById('prev-lema').innerText = lema;
+      document.getElementById('prev-desc').innerText = desc;
+      document.getElementById('prev-art').innerText = '⚖️ Amparado por el ' + art;
+    }
+
+    function toggleContainerFullscreen() {
+      const elem = document.getElementById('master-box');
+      if (!document.fullscreenElement) elem.requestFullscreen().catch(() => {});
+      else document.exitFullscreen().catch(() => {});
+    }
+  </script>
+</body>
+</html>

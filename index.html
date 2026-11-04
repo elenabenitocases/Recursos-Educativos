@@ -1,0 +1,555 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Entrega Oficial · Subdirección General de Formación del Profesorado</title>
+  <style>
+    :root {
+      --madrid-red: #C7082A;
+      --madrid-dark: #8E051D;
+      --gold: #D4AF37;
+      --gold-light: #FFF0C2;
+      --bg-page: #0F172A;
+      --card-bg: #1E293B;
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-color: #334155;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    /* HEADER */
+    .top-bar {
+      background: linear-gradient(135deg, var(--madrid-red) 0%, var(--madrid-dark) 100%);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .top-logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .top-logo img {
+      height: 48px;
+    }
+    .top-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+    }
+    .top-sub {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.85);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .main-wrap {
+      max-width: 1300px;
+      margin: 40px auto 0;
+      padding: 0 24px;
+    }
+
+    .intro-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .intro-badge {
+      display: inline-block;
+      background: rgba(199,8,42,0.2);
+      color: #FF6B81;
+      border: 1px solid rgba(199,8,42,0.4);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .intro-title {
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 12px;
+    }
+    .intro-p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 950px;
+      margin-bottom: 20px;
+    }
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .stat-card {
+      background: rgba(15,23,42,0.6);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* CARRUSEL SHOWCASE */
+    .carrusel-showcase {
+      margin-bottom: 48px;
+    }
+    .section-h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .carrusel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .carrusel-thumb-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s;
+    }
+    .carrusel-thumb-card:hover {
+      transform: translateY(-4px);
+    }
+    .carrusel-img-wrap {
+      aspect-ratio: 16 / 9;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+    }
+    .carrusel-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .carrusel-info {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .carrusel-info h4 {
+      font-size: 0.95rem;
+      color: white;
+    }
+    .carrusel-info p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* GRID RETOS */
+    .retos-container {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .reto-row {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    @media (max-width: 900px) {
+      .reto-row { grid-template-columns: 1fr; }
+    }
+    .reto-cover {
+      position: relative;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .reto-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .reto-details {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .reto-kicker {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 6px;
+    }
+    .reto-h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 10px;
+    }
+    .reto-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+    .reto-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .rtag {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #CBD5E1;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+    .rtag.red {
+      background: rgba(199,8,42,0.15);
+      border-color: rgba(199,8,42,0.3);
+      color: #FFA4B2;
+    }
+    .reto-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+    }
+    .btn {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-main {
+      background: var(--madrid-red);
+      color: white;
+    }
+    .btn-main:hover {
+      background: #E50931;
+    }
+    .btn-web {
+      background: #2563EB;
+      color: white;
+    }
+    .btn-web:hover {
+      background: #1D4ED8;
+    }
+    .btn-canva {
+      background: linear-gradient(135deg, #7D2AE8 0%, #00C4CC 100%);
+      color: white;
+    }
+    .btn-canva:hover {
+      opacity: 0.92;
+    }
+    .btn-zip {
+      background: #334155;
+      color: white;
+    }
+    .btn-zip:hover {
+      background: #475569;
+    }
+
+    /* FOOTER */
+    .master-footer {
+      max-width: 1300px;
+      margin: 48px auto 0;
+      padding: 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA SUPERIOR -->
+  <header class="top-bar">
+    <div class="top-logo">
+      <img src="logo_comunidad_bordeblanco.png" alt="Comunidad de Madrid">
+      <div>
+        <div class="top-sub">Consejería de Educación, Ciencia y Universidades</div>
+        <div class="top-title">Subdirección General de Formación del Profesorado</div>
+      </div>
+    </div>
+    <div style="font-size: 0.85rem; font-weight: 600; color: white; background: rgba(0,0,0,0.25); padding: 8px 16px; border-radius: 20px;">
+      Semanas Temáticas EducaMadrid · Constitución Española 2026
+    </div>
+  </header>
+
+  <div class="main-wrap">
+
+    <!-- INTRODUCCIÓN GENERAL -->
+    <section class="intro-box">
+      <div class="intro-badge">🏛️ REPOSITORIO CENTRAL DE ENTREGA · EDICIÓN CONSTITUCIÓN 2026</div>
+      <h1 class="intro-title">Materiales Didácticos Multimedia y Gamificados</h1>
+      <p class="intro-p">
+        Este panel centraliza la entrega definitiva de los <strong>4 Retos Educativos</strong> para las Semanas Temáticas de la Constitución Española 2026. Cada reto se presenta en dos formatos completos e independientes: el <strong>Recurso 1 (Portal Web Institucional + Dossieres Imprimibles)</strong> y el <strong>Recurso 2 (Suite Interactiva Canva con Infografía 16:9 y Retos Educativos)</strong>, acompañados por las <strong>4 imágenes de carrusel oficiales (1920 × 1080 px)</strong> con la identidad corporativa de la Comunidad de Madrid.
+      </p>
+
+      <div class="summary-stats">
+        <div class="stat-card">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Carpetas de Entrega</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Formatos por Reto (Web + Canva)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Imágenes Carrusel 16:9 (1080p)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Funcional Offline y Online</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERÍA DE IMÁGENES DE CARRUSEL -->
+    <section class="carrusel-showcase">
+      <h2 class="section-h2">🖼️ Imágenes Oficiales para el Carrusel de EducaMadrid (1920 × 1080 px · 16:9)</h2>
+      <div class="carrusel-grid">
+        
+        <!-- PORTADA GENERAL / COLLAGE -->
+        <div class="carrusel-thumb-card" style="grid-column: 1 / -1; background: linear-gradient(135deg, #FFF1F2 0%, #FFFFFF 100%); border: 2px solid var(--madrid-red);">
+          <div class="carrusel-img-wrap" style="aspect-ratio: 16 / 9; max-height: 380px;">
+            <img src="IMAGENES_CARRUSEL_EDUCAMADRID/portada_general_constitucion2026.jpg" alt="Portada General Constitución 2026">
+          </div>
+          <div class="carrusel-info" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+            <div>
+              <span class="badge" style="background:var(--madrid-red); color:white; font-size:0.75rem; font-weight:800; padding:2px 8px; border-radius:6px;">PORTADA GENERAL WEB (COLLAGE)</span>
+              <h4 style="font-size:1.15rem; margin-top:4px;">Día de la Constitución 2026: 4 Retos Educativos</h4>
+              <p>1920 × 1080 px (16:9) · Composición general con los 4 retos y logo oficial de la Comunidad de Madrid</p>
+            </div>
+            <a href="IMAGENES_CARRUSEL_EDUCAMADRID/portada_general_constitucion2026.jpg" download class="btn btn-main" style="padding: 10px 18px; font-size: 0.88rem;">📥 Descargar Portada General JPG</a>
+          </div>
+        </div>
+        
+        <div class="carrusel-thumb-card">
+          <div class="carrusel-img-wrap">
+            <img src="IMAGENES_CARRUSEL_EDUCAMADRID/reto1_carrusel_educamadrid.jpg" alt="Carrusel Reto 1">
+          </div>
+          <div class="carrusel-info">
+            <h4>Reto 1: Los Guardianes del Juego</h4>
+            <p>1920 × 1080 px · Logo Top-Right</p>
+            <a href="IMAGENES_CARRUSEL_EDUCAMADRID/reto1_carrusel_educamadrid.jpg" download class="btn btn-zip" style="padding: 6px 12px; font-size: 0.8rem; justify-content: center; margin-top: 4px;">📥 Descargar JPG</a>
+          </div>
+        </div>
+
+        <div class="carrusel-thumb-card">
+          <div class="carrusel-img-wrap">
+            <img src="IMAGENES_CARRUSEL_EDUCAMADRID/reto2_carrusel_educamadrid.jpg" alt="Carrusel Reto 2">
+          </div>
+          <div class="carrusel-info">
+            <h4>Reto 2: Campaña Anti-Etiquetas</h4>
+            <p>1920 × 1080 px · Logo Top-Right</p>
+            <a href="IMAGENES_CARRUSEL_EDUCAMADRID/reto2_carrusel_educamadrid.jpg" download class="btn btn-zip" style="padding: 6px 12px; font-size: 0.8rem; justify-content: center; margin-top: 4px;">📥 Descargar JPG</a>
+          </div>
+        </div>
+
+        <div class="carrusel-thumb-card">
+          <div class="carrusel-img-wrap">
+            <img src="IMAGENES_CARRUSEL_EDUCAMADRID/reto3_carrusel_educamadrid.jpg" alt="Carrusel Reto 3">
+          </div>
+          <div class="carrusel-info">
+            <h4>Reto 3: Cuento a Cuento</h4>
+            <p>1920 × 1080 px · Logo Top-Right</p>
+            <a href="IMAGENES_CARRUSEL_EDUCAMADRID/reto3_carrusel_educamadrid.jpg" download class="btn btn-zip" style="padding: 6px 12px; font-size: 0.8rem; justify-content: center; margin-top: 4px;">📥 Descargar JPG</a>
+          </div>
+        </div>
+
+        <div class="carrusel-thumb-card">
+          <div class="carrusel-img-wrap">
+            <img src="IMAGENES_CARRUSEL_EDUCAMADRID/reto4_carrusel_educamadrid.jpg" alt="Carrusel Reto 4">
+          </div>
+          <div class="carrusel-info">
+            <h4>Reto 4: Patrimonio y Folclore</h4>
+            <p>1920 × 1080 px · Logo Top-Right</p>
+            <a href="IMAGENES_CARRUSEL_EDUCAMADRID/reto4_carrusel_educamadrid.jpg" download class="btn btn-zip" style="padding: 6px 12px; font-size: 0.8rem; justify-content: center; margin-top: 4px;">📥 Descargar JPG</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LISTADO DE LOS 4 RETOS -->
+    <section>
+      <h2 class="section-h2">📁 Acceso a las 4 Carpetas de Entrega Oficiales</h2>
+      
+      <div class="retos-container">
+
+        <!-- RETO 1 -->
+        <div class="reto-row">
+          <div class="reto-cover">
+            <img src="IMAGENES_CARRUSEL_EDUCAMADRID/reto1_carrusel_educamadrid.jpg" alt="Reto 1">
+          </div>
+          <div class="reto-details">
+            <div>
+              <div class="reto-kicker">Reto 1 · Primaria y 1º-2º ESO</div>
+              <h3 class="reto-h3">Los Guardianes del Juego y el Deporte Tradicional</h3>
+              <p class="reto-desc">
+                Promoción del deporte, inclusión y preservación de juegos autóctonos madrileños (rayuela, calva, pañuelo, chapas).
+              </p>
+              <div class="reto-tags">
+                <span class="rtag red">Art. 43.3 CE (Deporte)</span>
+                <span class="rtag red">Art. 46 CE (Patrimonio)</span>
+                <span class="rtag red">Art. 14 CE (Igualdad)</span>
+                <span class="rtag">9 Dossieres Imprimibles</span>
+                <span class="rtag">Infografía 16:9 Interactiva</span>
+              </div>
+            </div>
+            <div class="reto-actions">
+              <a href="CANVA_RECURSOS_VIDEOJUEGO/RETO_1_LOS_GUARDIANES_DEL_JUEGO/INFOGRAFIA_HORIZONTAL_INTERACTIVA.html" class="btn btn-canva" target="_blank">🎮 Infografía Canva (16:9)</a>
+              <a href="RECURSOS_WEB/VERSION_WEB_INTERACTIVA/RETO_1_LOS_GUARDIANES_DEL_JUEGO/index.html" class="btn btn-web" target="_blank">🌐 Web Original</a>
+              <a href="RECURSOS_WEB/VERSION_VIDEOJUEGOS_GENIALLY/RETO_1_LOS_GUARDIANES_DEL_JUEGO/index.html" class="btn btn-main" target="_blank">👾 Videojuego Genially</a>
+              <a href="CANVA_RECURSOS_VIDEOJUEGO/RETO_1_LOS_GUARDIANES_DEL_JUEGO/CUADERNO_JUEGO_RETO1_CANVA.pdf" class="btn btn-zip" target="_blank">📄 Cuaderno PDF</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RETO 2 -->
+        <div class="reto-row">
+          <div class="reto-cover">
+            <img src="IMAGENES_CARRUSEL_EDUCAMADRID/reto2_carrusel_educamadrid.jpg" alt="Reto 2">
+          </div>
+          <div class="reto-details">
+            <div>
+              <div class="reto-kicker">Reto 2 · 5º-6º Primaria, ESO, Bachillerato y FP</div>
+              <h3 class="reto-h3">Campaña Exprés Anti-Etiquetas y Ciudadanía Digital</h3>
+              <p class="reto-desc">
+                Pensamiento crítico, verificación de noticias falsas (fake news) y defensa de los derechos individuales y el respeto en redes sociales.
+              </p>
+              <div class="reto-tags">
+                <span class="rtag red">Art. 14 CE (No discriminación)</span>
+                <span class="rtag red">Art. 20 CE (Libertad de expresión)</span>
+                <span class="rtag red">Art. 18 CE (Honor y privacidad)</span>
+                <span class="rtag">Simulador de Decisiones</span>
+              </div>
+            </div>
+            <div class="reto-actions">
+              <a href="CANVA_RECURSOS_VIDEOJUEGO/RETO_2_CAMPANA_ANTIETIQUETAS/INFOGRAFIA_HORIZONTAL_INTERACTIVA.html" class="btn btn-canva" target="_blank">🎮 Infografía Canva (16:9)</a>
+              <a href="RECURSOS_WEB/VERSION_WEB_INTERACTIVA/RETO_2_CAMPANA_ANTI_ETIQUETAS/index.html" class="btn btn-web" target="_blank">🌐 Web Original</a>
+              <a href="RECURSOS_WEB/VERSION_VIDEOJUEGOS_GENIALLY/RETO_2_CAMPANA_ANTI_ETIQUETAS/index.html" class="btn btn-main" target="_blank">👾 Videojuego Genially</a>
+              <a href="CANVA_RECURSOS_VIDEOJUEGO/RETO_2_CAMPANA_ANTIETIQUETAS/CUADERNO_JUEGO_RETO2_CANVA.pdf" class="btn btn-zip" target="_blank">📄 Cuaderno PDF</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RETO 3 -->
+        <div class="reto-row">
+          <div class="reto-cover">
+            <img src="IMAGENES_CARRUSEL_EDUCAMADRID/reto3_carrusel_educamadrid.jpg" alt="Reto 3">
+          </div>
+          <div class="reto-details">
+            <div>
+              <div class="reto-kicker">Reto 3 · Infantil, Primaria y Secundaria (1º-2º ESO)</div>
+              <h3 class="reto-h3">Nuestra Constitución, Cuento a Cuento: La Aldea de la Convivencia y el Cofre de la Ciudadanía</h3>
+              <p class="reto-desc">
+                Propuesta dual con 5 cuentos de asamblea para Infantil/Primaria y 5 obras literarias con dilemas éticos y retos competenciales (Canva, Genially, Padlet) para 1º y 2º ESO. Incluye 4 PDFs curriculares y conmutador bilingüe completo (ES/EN).
+              </p>
+              <div class="reto-tags">
+                <span class="rtag red">Art. 10 CE (Dignidad humana)</span>
+                <span class="rtag red">Art. 14 CE (Igualdad)</span>
+                <span class="rtag red">Art. 27 CE (Educación)</span>
+                <span class="rtag">Cuento Interactivo PDI</span>
+              </div>
+            </div>
+            <div class="reto-actions">
+              <a href="CANVA_RECURSOS_VIDEOJUEGO/RETO_3_CUENTO_A_CUENTO/INFOGRAFIA_HORIZONTAL_INTERACTIVA.html" class="btn btn-canva" target="_blank">🎮 Infografía Canva (16:9)</a>
+              <a href="RECURSOS_WEB/VERSION_WEB_INTERACTIVA/RETO_3_CUENTO_A_CUENTO/index.html" class="btn btn-web" target="_blank">🌐 Web Original</a>
+              <a href="RECURSOS_WEB/VERSION_VIDEOJUEGOS_GENIALLY/RETO_3_CUENTO_A_CUENTO/index.html" class="btn btn-main" target="_blank">👾 Videojuego Genially</a>
+              <a href="CANVA_RECURSOS_VIDEOJUEGO/RETO_3_CUENTO_A_CUENTO/CUADERNO_JUEGO_RETO3_CANVA.pdf" class="btn btn-zip" target="_blank">📄 Cuaderno PDF</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RETO 4 -->
+        <div class="reto-row">
+          <div class="reto-cover">
+            <img src="IMAGENES_CARRUSEL_EDUCAMADRID/reto4_carrusel_educamadrid.jpg" alt="Reto 4">
+          </div>
+          <div class="reto-details">
+            <div>
+              <div class="reto-kicker">Reto 4 · Primaria, Secundaria, Bachillerato y Familias</div>
+              <h3 class="reto-h3">El Archipiélago de la Memoria · Patrimonio, Tradición y Folclore</h3>
+              <p class="reto-desc">
+                Proyecto intergeneracional de Aprendizaje-Servicio para investigar, rescatar y proteger el patrimonio cultural material e inmaterial de Madrid.
+              </p>
+              <div class="reto-tags">
+                <span class="rtag red">Art. 46 CE (Patrimonio histórico)</span>
+                <span class="rtag red">Art. 44 CE (Acceso a la cultura)</span>
+                <span class="rtag red">Art. 2 CE (Solidaridad)</span>
+                <span class="rtag">13 Imprimibles y Fichas</span>
+                <span class="rtag">Expedición 4 Islas</span>
+              </div>
+            </div>
+            <div class="reto-actions">
+              <a href="CANVA_RECURSOS_VIDEOJUEGO/RETO_4_PATRIMONIO_MEMORIA_FOLCLORE/INFOGRAFIA_HORIZONTAL_INTERACTIVA.html" class="btn btn-canva" target="_blank">🎮 Infografía Canva (16:9)</a>
+              <a href="RECURSOS_WEB/VERSION_WEB_INTERACTIVA/RETO_4_PATRIMONIO_MEMORIA_FOLCLORE/index.html" class="btn btn-web" target="_blank">🌐 Web Original</a>
+              <a href="RECURSOS_WEB/VERSION_VIDEOJUEGOS_GENIALLY/RETO_4_PATRIMONIO_MEMORIA_FOLCLORE/index.html" class="btn btn-main" target="_blank">👾 Videojuego Genially</a>
+              <a href="CANVA_RECURSOS_VIDEOJUEGO/RETO_4_PATRIMONIO_MEMORIA_FOLCLORE/CUADERNO_JUEGO_RETO4_CANVA.pdf" class="btn btn-zip" target="_blank">📄 Cuaderno PDF</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="master-footer">
+      <p>Subdirección General de Formación del Profesorado · Consejería de Educación, Ciencia y Universidades · Comunidad de Madrid</p>
+      <p style="margin-top: 4px; font-size: 0.8rem; color: #64748B;">Semanas Temáticas EducaMadrid 2026 · Entrega Técnica Definitiva</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

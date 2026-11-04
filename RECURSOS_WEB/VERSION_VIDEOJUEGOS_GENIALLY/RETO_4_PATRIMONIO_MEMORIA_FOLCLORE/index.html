@@ -1,0 +1,1603 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 4: Nuestra historia y el archipiélago de la unión · Modo videojuego arcade</title>
+  <style>
+    /* ==========================================================================
+       ESTILOS RETO 4: MODO VIDEOJUEGO ARCADE (TIPO GENIALLY)
+       Tema: Patrimonio cultural, memoria oral, folclore y art. 46 CE
+       ========================================================================== */
+    :root {
+      --madrid-red: #C7082A;
+      --madrid-dark: #8F061E;
+      --heritage-gold: #D4AF37;
+      --heritage-amber: #D97706;
+      --ocean-blue: #0284C7;
+      --terracotta: #C2410C;
+      --emerald: #059669;
+      --game-dark: #070D18;
+      --game-card: #0F172A;
+      --game-border: #334155;
+      --text-light: #F8FAFC;
+      --text-muted: #94A3B8;
+      --genially-ui-bg: rgba(15, 23, 42, 0.95);
+      --font-game: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background: #040812 radial-gradient(circle at center, #0F1D38 0%, #03060B 100%);
+      color: var(--text-light);
+      font-family: var(--font-game);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .genially-stage-wrapper {
+      width: 100%;
+      max-width: 1240px;
+      margin: 12px auto;
+      padding: 0 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .genially-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 590px;
+      max-height: 790px;
+      background: var(--game-dark);
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 0 2px #334155, 0 0 40px rgba(212, 175, 55, 0.25);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HUD SUPERIOR */
+    .genially-hud-top {
+      height: 52px;
+      background: var(--genially-ui-bg);
+      border-bottom: 2px solid #334155;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .hud-left, .hud-center, .hud-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hud-logo {
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .hud-game-title {
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hud-tag {
+      background: linear-gradient(135deg, #D97706, #C7082A);
+      color: #FFF;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+    }
+
+    .hud-stat-item {
+      background: #1E293B;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-xp {
+      color: var(--heritage-gold);
+      border-color: #D4AF37;
+    }
+
+    .hud-btn {
+      background: #1E293B;
+      border: 1px solid #475569;
+      color: #E2E8F0;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .hud-btn:hover {
+      background: #334155;
+      color: #FFF;
+      border-color: var(--heritage-gold);
+      transform: translateY(-1px);
+    }
+
+    .hud-btn.active {
+      background: var(--madrid-red);
+      border-color: #F87171;
+      color: #FFF;
+    }
+
+    /* VIEWPORT DE DIAPOSITIVAS */
+    .game-viewport {
+      position: relative;
+      flex: 1;
+      height: calc(100% - 104px);
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 30%, #152238 0%, #060B14 100%);
+    }
+
+    .game-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      padding: 20px 26px;
+      display: none !important;
+      flex-direction: column;
+      overflow-y: auto;
+      background: transparent;
+    }
+
+    .game-slide.active {
+      display: flex !important;
+      animation: slideFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes slideFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.98) translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* BARRA INFERIOR DE NAVEGACIÓN */
+    .genially-toolbar-bottom {
+      height: 52px;
+      background: var(--genially-ui-bg);
+      border-top: 2px solid #334155;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .toolbar-left, .toolbar-center, .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-arrow-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #1E293B;
+      border: 1px solid #475569;
+      color: var(--heritage-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+
+    .nav-arrow-btn:hover:not(:disabled) {
+      background: var(--heritage-gold);
+      color: #000;
+      transform: scale(1.1);
+    }
+
+    .nav-arrow-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .slide-page-badge {
+      font-size: 12px;
+      font-weight: 800;
+      color: #94A3B8;
+      background: #0F172A;
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid #334155;
+    }
+
+    .slide-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .slide-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #334155;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .slide-dot.active {
+      background: var(--heritage-gold);
+      box-shadow: 0 0 10px var(--heritage-gold);
+      transform: scale(1.3);
+    }
+
+    /* BOTONES PRIMARIOS */
+    .btn-heritage-primary {
+      background: linear-gradient(135deg, #D4AF37 0%, #B45309 100%);
+      color: #0F172A;
+      font-weight: 900;
+      font-size: 13.5px;
+      padding: 10px 22px;
+      border-radius: 24px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+      transition: all 0.2s;
+    }
+
+    .btn-heritage-primary:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+      background: linear-gradient(135deg, #FDE68A 0%, #D4AF37 100%);
+    }
+
+    /* SLIDE 1: PORTADA EXPEDICIÓN */
+    .slide-intro-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .expedition-emblem {
+      font-size: 60px;
+      animation: floatEmblem 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.6));
+    }
+
+    @keyframes floatEmblem {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .heritage-main-title {
+      font-size: 28px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #FFFBEB 0%, #FDE68A 40%, #D4AF37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .heritage-subtitle {
+      font-size: 13.5px;
+      color: #CBD5E1;
+      max-width: 680px;
+      line-height: 1.5;
+    }
+
+    /* SLIDE 2: SELECCIÓN DE CRONISTA */
+    .chronicle-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+      width: 100%;
+      max-width: 950px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .chronicle-card {
+      background: rgba(30, 41, 59, 0.85);
+      border: 2px solid #334155;
+      border-radius: 16px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chronicle-card:hover {
+      border-color: var(--heritage-gold);
+      transform: translateY(-4px);
+      background: rgba(51, 65, 85, 0.95);
+    }
+
+    .chronicle-card.selected {
+      border-color: var(--heritage-gold);
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.15) 0%, rgba(30, 41, 59, 0.95) 100%);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+      transform: scale(1.04);
+    }
+
+    .chronicle-avatar {
+      font-size: 42px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+    }
+
+    /* SLIDE 3: CRIPTA DEL TIEMPO Y ART. 46 CE */
+    .crypt-dialogue-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 850px;
+      margin: 10px auto 0 auto;
+      width: 100%;
+    }
+
+    .rpg-dialogue-box {
+      background: rgba(15, 23, 42, 0.95);
+      border: 2px solid var(--heritage-gold);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .guardian-avatar {
+      font-size: 54px;
+      filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
+    }
+
+    .gems-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .gem-card {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid #475569;
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .gem-card.unlocked {
+      border-color: var(--heritage-gold);
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.2) 0%, rgba(30, 41, 59, 0.9) 100%);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.35);
+    }
+
+    /* SLIDE 4: NIVEL 1 - MEMORIA ORAL Y ARCHIVO VIVO */
+    .interview-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      flex: 1;
+      margin-top: 10px;
+    }
+
+    .interview-box {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid #475569;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .catalog-card-preview {
+      background: #FFFDF9;
+      color: #1E293B;
+      border: 2px solid var(--heritage-gold);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* SLIDE 5: NIVEL 2 - RONDÓN Y RITMO EN 3/4 */
+    .rhythm-stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .beat-indicators-row {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .beat-circle {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #1E293B;
+      border: 3px solid #475569;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 18px;
+      color: #94A3B8;
+      transition: all 0.15s;
+    }
+
+    .beat-circle.pulse {
+      background: #D97706;
+      border-color: #FDE68A;
+      color: #FFF;
+      box-shadow: 0 0 25px rgba(217, 119, 6, 0.8);
+      transform: scale(1.15);
+    }
+
+    .castanet-btn {
+      background: #78350F;
+      color: #FFF;
+      border: 2px solid var(--heritage-gold);
+      padding: 14px 26px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .castanet-btn:hover {
+      background: #92400E;
+      transform: scale(1.05);
+    }
+
+    /* SLIDE 6: NIVEL 3 - ESTUDIO DE SALVAGUARDA */
+    .poster-studio-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      flex: 1;
+      margin-top: 10px;
+    }
+
+    .poster-preview-canvas {
+      background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+      border: 3px solid var(--heritage-gold);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+
+    /* SLIDE 7: EL ALTAR DE LA UNIÓN (4 INSIGNIAS) */
+    .altar-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      text-align: center;
+    }
+
+    .four-badges-altar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      width: 100%;
+      max-width: 820px;
+    }
+
+    .altar-badge-slot {
+      background: rgba(30, 41, 59, 0.9);
+      border: 2px dashed #475569;
+      border-radius: 16px;
+      padding: 16px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+
+    .altar-badge-slot.lit {
+      border: 2px solid var(--heritage-gold);
+      border-style: solid;
+      background: linear-gradient(180deg, rgba(212, 175, 55, 0.25) 0%, rgba(30, 41, 59, 0.95) 100%);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+      transform: scale(1.05);
+    }
+
+    /* SLIDE 8: DIPLOMA OFICIAL IMPRIMIBLE */
+    .diploma-heritage-canvas {
+      width: 100%;
+      max-width: 820px;
+      background: #FFFDF7;
+      color: #1E293B;
+      border: 6px double #B45309;
+      border-radius: 14px;
+      padding: 20px 28px;
+      margin: 0 auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .diploma-heritage-title {
+      font-size: 20px;
+      font-weight: 900;
+      color: #78350F;
+      letter-spacing: 0.5px;
+    }
+
+    /* ESTILOS POR ETAPA PARA EL DIPLOMA EN EL VIDEOJUEGO */
+    .diploma-heritage-canvas.game-stage-infantil {
+      border: 6px solid #F59E0B !important;
+      border-radius: 20px !important;
+      background: radial-gradient(circle at 50% 50%, #FFFFFF 0%, #FEF9C3 100%) !important;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4) !important;
+    }
+    .diploma-heritage-canvas.game-stage-infantil .diploma-heritage-title {
+      color: #B45309 !important;
+    }
+
+    .diploma-heritage-canvas.game-stage-primaria {
+      border: 6px solid #0284C7 !important;
+      border-radius: 16px !important;
+      background: radial-gradient(circle at 50% 50%, #FFFFFF 0%, #F0FDF4 100%) !important;
+      box-shadow: 0 10px 30px rgba(2, 132, 199, 0.4) !important;
+    }
+    .diploma-heritage-canvas.game-stage-primaria .diploma-heritage-title {
+      color: #0369A1 !important;
+    }
+
+    .game-dip-drawings {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 4px 0;
+      flex-wrap: wrap;
+    }
+    .game-draw-item {
+      background: #FFFFFF;
+      border-radius: 10px;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #1E293B;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    /* MODAL */
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-window {
+      background: #1E293B;
+      border: 2px solid var(--heritage-gold);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 600px;
+      padding: 22px;
+      color: #F8FAFC;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: #334155;
+      color: #FFF;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* ESTILOS DE IMPRESIÓN DIRECTA NÍTIDA */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+
+      body, html {
+        background: #FFFFFF !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .genially-stage-wrapper,
+      .genially-container,
+      .game-viewport,
+      #slide-8,
+      .diploma-heritage-canvas,
+      .diploma-heritage-canvas * {
+        visibility: visible !important;
+        display: block !important;
+      }
+
+      .genially-container {
+        border: none !important;
+        box-shadow: none !important;
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: auto !important;
+      }
+
+      .genially-hud-top,
+      .genially-toolbar-bottom,
+      .modal-backdrop,
+      .no-print {
+        display: none !important;
+      }
+
+      .diploma-heritage-canvas {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        border: 4px double #78350F !important;
+        padding: 24px !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+      }
+
+      @page {
+        size: landscape A4;
+        margin: 8mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="genially-stage-wrapper">
+    <main class="genially-container" id="game-container">
+      
+      <!-- HUD SUPERIOR -->
+      <header class="genially-hud-top">
+        <div class="hud-left">
+          <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" class="hud-logo" onerror="this.style.display='none'">
+          <div class="hud-game-title">
+            <span>Reto 4: Nuestra historia y el archipiélago de la unión</span>
+            <span class="hud-tag">Art. 46 CE</span>
+          </div>
+        </div>
+
+        <div class="hud-center">
+          <div class="hud-stat-item stat-xp">
+            <span>🏛️</span>
+            <span id="hud-xp-count">0 XP</span>
+          </div>
+          <div class="hud-stat-item" id="hud-char-badge" style="color: var(--heritage-gold);">
+            <span>🎙️ Lucía</span>
+          </div>
+        </div>
+
+        <div class="hud-right">
+          <button class="hud-btn" id="btn-bgm" onclick="toggleBgm()" title="Música folclórica">🎵 Música: OFF</button>
+          <button class="hud-btn active" id="btn-sound" onclick="toggleSound()" title="Efectos sonoros">🔊 Sonido: ON</button>
+          <button class="hud-btn" onclick="toggleFullScreen()" title="Pantalla completa">⛶</button>
+        </div>
+      </header>
+
+      <!-- VIEWPORT DE DIAPOSITIVAS (8 SLIDES) -->
+      <section class="game-viewport">
+
+        <!-- SLIDE 1: PORTADA EXPEDICIÓN -->
+        <section class="game-slide active" id="slide-1">
+          <div class="slide-intro-content">
+            <div class="expedition-emblem">🏛️✨</div>
+            <h1 class="heritage-main-title">Nuestra historia y el archipiélago de la unión</h1>
+            <p class="heritage-subtitle">
+              Una expedición etnográfica e interactiva para rescatar los testimonios de nuestros mayores, bailar el rondón tradicional y unir las cuatro insignias constitucionales en el Faro de la Concordia (Art. 46 CE).
+            </p>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 6px;">
+              <span class="hud-stat-item" style="font-size: 11px;">👵 Memoria oral de mayores</span>
+              <span class="hud-stat-item" style="font-size: 11px;">💃 Folclore tradicional madrileño</span>
+              <span class="hud-stat-item" style="font-size: 11px;">🛡️ Campaña #ProtegeNuestroArte</span>
+            </div>
+            <div style="margin-top: 16px; display: flex; gap: 12px; align-items: center; justify-content: center;">
+              <button class="btn-heritage-primary" onclick="goToSlide(2)">
+                <span>¡INICIAR EXPEDICIÓN PATRIMONIAL!</span>
+                <span>➔</span>
+              </button>
+              <button class="hud-btn" onclick="openModal('guia')" style="padding: 10px 16px; border-radius: 20px;">
+                📖 Guía de misión
+              </button>
+              <button class="hud-btn" onclick="openModal('pdf')" style="padding: 10px 16px; border-radius: 20px;">
+                📂 Materiales imprimibles
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 2: SELECCIÓN DE CRONISTA Y FICHA DE EQUIPO -->
+        <section class="game-slide" id="slide-2">
+          <div style="text-align: center;">
+            <h2 style="font-size: 18px; color: var(--heritage-gold);">Elige a tu cronista y registra a tu equipo</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">Selecciona tu rol en la expedición y escribe los nombres para el diploma oficial:</p>
+          </div>
+
+          <div class="chronicle-grid">
+            <div class="chronicle-card selected" id="cron-1" onclick="selectRole('Lucía', '🎙️ Lucía', 'Cronista oral')">
+              <div class="chronicle-avatar">🎙️</div>
+              <strong style="font-size: 13px;">Lucía</strong>
+              <span style="font-size: 11px; color:#93C5FD;">Cronista oral<br>Graba la memoria viva.</span>
+            </div>
+            <div class="chronicle-card" id="cron-2" onclick="selectRole('Mateo', '💃 Mateo', 'Musicólogo')">
+              <div class="chronicle-avatar">💃</div>
+              <strong style="font-size: 13px;">Mateo</strong>
+              <span style="font-size: 11px; color:#93C5FD;">Musicólogo<br>Maestro del compás 3/4.</span>
+            </div>
+            <div class="chronicle-card" id="cron-3" onclick="selectRole('Elena', '🏛️ Elena', 'Arqueóloga')">
+              <div class="chronicle-avatar">🏛️</div>
+              <strong style="font-size: 13px;">Elena</strong>
+              <span style="font-size: 11px; color:#93C5FD;">Arqueóloga<br>Custodia monumentos.</span>
+            </div>
+            <div class="chronicle-card" id="cron-4" onclick="selectRole('Dani', '📱 Dani', 'Documentalista')">
+              <div class="chronicle-avatar">📱</div>
+              <strong style="font-size: 13px;">Dani</strong>
+              <span style="font-size: 11px; color:#93C5FD;">Documentalista<br>Campaña #ProtegeArte.</span>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 680px; margin: 16px auto 0 auto; width: 100%;">
+            <input type="text" id="input-student-name" placeholder="Nombre del alumno/a o aula (ej. 3.º B)" value="Equipo Cronista" 
+                   style="padding: 10px 14px; border-radius: 10px; border: 1px solid #475569; background: #0F172A; color: #FFF; font-size: 12px;">
+            <input type="text" id="input-elder-name" placeholder="Persona mayor entrevistada (ej. Abuela Carmen)" value="Nuestros Mayores" 
+                   style="padding: 10px 14px; border-radius: 10px; border: 1px solid #475569; background: #0F172A; color: #FFF; font-size: 12px;">
+          </div>
+
+          <div style="text-align: center; margin-top: 12px;">
+            <button class="btn-heritage-primary" onclick="confirmTeamAndProceed()">
+              <span>¡ENTRAR A LA CRIPTA DEL TIEMPO!</span>
+              <span>➔</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- SLIDE 3: CRIPTA DEL TIEMPO Y ART. 46 CE -->
+        <section class="game-slide" id="slide-3">
+          <div style="text-align: center;">
+            <h2 style="font-size: 18px; color: var(--heritage-gold);">La cripta del tiempo y el mandato constitucional</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">Activa las tres gemas patrimoniales para abrir el archivo histórico:</p>
+          </div>
+
+          <div class="crypt-dialogue-wrap">
+            <div class="rpg-dialogue-box">
+              <div class="guardian-avatar">🧙‍♂️</div>
+              <div>
+                <strong style="color: var(--heritage-gold); font-size: 14px;">El Custodio del Tiempo dice:</strong>
+                <p style="font-size: 12.5px; line-height: 1.5; color: #E2E8F0; margin-top: 4px;">
+                  «El artículo 46 de la Constitución proclama que los poderes públicos garantizarán la conservación del patrimonio histórico, cultural y artístico. Vuestra misión es recuperar las tres gemas antes de que se pierdan en el olvido.»
+                </p>
+              </div>
+            </div>
+
+            <div class="gems-grid">
+              <div class="gem-card" id="gem-1" onclick="unlockGem(1)">
+                <span style="font-size: 30px;">💎</span>
+                <strong style="display:block; margin:6px 0 2px 0; font-size:12px; color:#FDE68A;">1. Memoria oral</strong>
+                <span style="font-size: 10.5px; color:#94A3B8;">Testimonios de vida de mayores</span>
+              </div>
+              <div class="gem-card" id="gem-2" onclick="unlockGem(2)">
+                <span style="font-size: 30px;">🎵</span>
+                <strong style="display:block; margin:6px 0 2px 0; font-size:12px; color:#FDE68A;">2. Folclore vivo</strong>
+                <span style="font-size: 10.5px; color:#94A3B8;">Danzas, compás 3/4 y coplas</span>
+              </div>
+              <div class="gem-card" id="gem-3" onclick="unlockGem(3)">
+                <span style="font-size: 30px;">🛡️</span>
+                <strong style="display:block; margin:6px 0 2px 0; font-size:12px; color:#FDE68A;">3. Salvaguarda</strong>
+                <span style="font-size: 10.5px; color:#94A3B8;">Campaña ciudadana y rúbrica</span>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 6px;">
+              <button class="btn-heritage-primary" id="btn-crypt-continue" onclick="goToSlide(4)" style="display: none;">
+                <span>¡ABRIR EL ARCHIVO VIVO!</span>
+                <span>➔</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 4: NIVEL 1 - MEMORIA ORAL Y ARCHIVO VIVO -->
+        <section class="game-slide" id="slide-4">
+          <div style="text-align: center;">
+            <h2 style="font-size: 18px; color: var(--heritage-gold);">Nivel 1: El museo vivo de la memoria oral</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">Escucha el testimonio de la persona mayor y regístralo en la ficha del catálogo:</p>
+          </div>
+
+          <div class="interview-split-grid">
+            <div class="interview-box">
+              <div>
+                <strong style="color: var(--heritage-gold); font-size: 13px;">🎙️ Testimonio registrado:</strong>
+                <p style="font-size: 12px; color: #CBD5E1; margin: 8px 0; line-height: 1.5; font-style: italic;" id="quote-display">
+                  «De niños jugábamos en la plaza al chito y a la peonza. La vida era más dura, pero todos los vecinos nos ayudábamos como una sola familia.»
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
+                  <button class="hud-btn" onclick="catalogItem('Juego tradicional: El chito', 'Patrimonio inmaterial lúdico')">
+                    📌 Catalogar: El chito y juegos de plaza
+                  </button>
+                  <button class="hud-btn" onclick="catalogItem('Oficio artesano: Bordado y mimbre', 'Patrimonio inmaterial del trabajo')">
+                    📌 Catalogar: Saberes y oficios de antes
+                  </button>
+                  <button class="hud-btn" onclick="catalogItem('Cancionero popular: Jotas y rondones', 'Patrimonio musical oral')">
+                    📌 Catalogar: Canciones de corro y cuna
+                  </button>
+                </div>
+              </div>
+              <div id="catalog-feedback" style="font-size: 11px; color: #34D399; font-weight: 700; margin-top: 8px;"></div>
+            </div>
+
+            <div class="catalog-card-preview">
+              <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #CBD5E1; padding-bottom: 4px;">
+                <strong style="font-size: 11px; color: #78350F;">FICHA DE INVENTARIO ETNOGRÁFICO</strong>
+                <span style="font-size: 10px; color: #64748B;">Art. 46 CE</span>
+              </div>
+              <div style="font-size: 12px; font-weight: 800; color: #1E293B;" id="cat-title-preview">Elemento en curso...</div>
+              <div style="font-size: 11px; color: #475569;" id="cat-type-preview">Selecciona una categoría a la izquierda</div>
+              <div style="margin-top: 10px; background: #FEF3C7; padding: 8px; border-radius: 6px; font-size: 10.5px; color: #92400E;">
+                <strong>Cronista:</strong> <span id="cat-reporter-label">Equipo Cronista</span><br>
+                <strong>Informante mayor:</strong> <span id="cat-elder-label">Nuestros Mayores</span>
+              </div>
+              <div style="text-align: right; margin-top: 6px;">
+                <span style="font-size: 18px;">🏛️📜✅</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 5: NIVEL 2 - RONDÓN Y RITMO EN 3/4 -->
+        <section class="game-slide" id="slide-5">
+          <div style="text-align: center;">
+            <h2 style="font-size: 18px; color: var(--heritage-gold);">Nivel 2: Bailando la Constitución — El rondón de Valdemorillo</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">Acompaña el compás tradicional ternario (3/4) con el repique de castañuelas:</p>
+          </div>
+
+          <div class="rhythm-stage">
+            <div class="beat-indicators-row">
+              <div class="beat-circle" id="beat-1">1<br><span style="font-size:10px;">FUERTE</span></div>
+              <div class="beat-circle" id="beat-2">2<br><span style="font-size:10px;">DÉBIL</span></div>
+              <div class="beat-circle" id="beat-3">3<br><span style="font-size:10px;">DÉBIL</span></div>
+            </div>
+
+            <div>
+              <button class="castanet-btn" onclick="clickCastanet()">
+                <span>👏 ¡TOCAR CASTAÑUELA AL COMPÁS!</span>
+              </button>
+            </div>
+
+            <div style="background: rgba(15, 23, 42, 0.9); border: 1px solid var(--heritage-gold); border-radius: 12px; padding: 12px 20px; max-width: 580px;">
+              <strong style="color: #FDE68A; font-size: 12px;">Cuarteta popular madrileña:</strong>
+              <p style="font-size: 13px; font-style: italic; color: #FFF; margin-top: 4px;">
+                «En los pueblos de Madrid / bailamos en hermandad, / la historia nos une a todos / con respeto y libertad.»
+              </p>
+            </div>
+
+            <div id="rhythm-score-display" style="font-size: 12px; color: #FDE68A; font-weight: 700;">
+              Repiques completados: <span id="rhythm-count">0</span> / 6
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 6: NIVEL 3 - ESTUDIO DE SALVAGUARDA -->
+        <section class="game-slide" id="slide-6">
+          <div style="text-align: center;">
+            <h2 style="font-size: 18px; color: var(--heritage-gold);">Nivel 3: Campaña digital #ProtegeNuestroArte y rúbrica</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">Diseña el cartel digital de concienciación ciudadana y aplícale la rúbrica oficial:</p>
+          </div>
+
+          <div class="poster-studio-wrap">
+            <div style="background: rgba(30, 41, 59, 0.85); border: 1px solid #475569; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+              <strong style="color: var(--heritage-gold); font-size: 13px;">🎨 Selecciona el elemento a salvaguardar:</strong>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <button class="hud-btn" onclick="setPosterAsset('🏛️', 'Ermita y puente histórico', 'Protege nuestros monumentos frente al abandono')">
+                  🏛️ Patrimonio monumental de Madrid
+                </button>
+                <button class="hud-btn" onclick="setPosterAsset('💃', 'Danza tradicional del rondón', 'Que la música de nuestros pueblos nunca se apague')">
+                  💃 Folclore y danzas tradicionales
+                </button>
+                <button class="hud-btn" onclick="setPosterAsset('🧵', 'Oficio artesano del mimbre', 'Saberes antiguos para las generaciones del futuro')">
+                  🧵 Oficios y artesanía popular
+                </button>
+              </div>
+
+              <strong style="color: var(--heritage-gold); font-size: 13px; margin-top: 6px;">⚖️ Coevaluación con la rúbrica oficial:</strong>
+              <div style="display: flex; gap: 8px;">
+                <button class="hud-btn" onclick="ratePoster(8)" style="flex: 1;">Notable (8 pts)</button>
+                <button class="hud-btn" onclick="ratePoster(10)" style="flex: 1; border-color: #34D399;">Excelente (10 pts)</button>
+              </div>
+              <div id="rubric-result" style="font-size: 11px; color: #34D399; font-weight: 700; min-height: 16px;"></div>
+            </div>
+
+            <div class="poster-preview-canvas" id="poster-box">
+              <div>
+                <span class="hud-tag" style="background: #0284C7;">#ProtegeNuestroArte · Art. 46 CE</span>
+                <div id="poster-icon" style="font-size: 48px; margin: 12px 0;">🏛️</div>
+                <h3 id="poster-title" style="font-size: 16px; color: #FFFBEB;">Ermita y puente histórico</h3>
+                <p id="poster-motto" style="font-size: 12px; color: #BAE6FD; margin-top: 6px;">
+                  «Quien cuida su pasado protege la memoria de su pueblo.»
+                </p>
+              </div>
+              <div style="border-top: 1px solid #475569; padding-top: 8px; font-size: 10.5px; color: #94A3B8;">
+                Campaña creada por: <strong style="color:#FFF;" id="poster-author">Equipo Cronista</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 7: EL ALTAR DE LA UNIÓN (4 INSIGNIAS) -->
+        <section class="game-slide" id="slide-7">
+          <div style="text-align: center;">
+            <h2 style="font-size: 18px; color: var(--heritage-gold);">El altar de la unión y el faro de la concordia</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">Une las cuatro insignias de los retos para iluminar el mapa constitucional completo:</p>
+          </div>
+
+          <div class="altar-container">
+            <div class="four-badges-altar">
+              <div class="altar-badge-slot lit" id="slot-1">
+                <span style="font-size: 32px;">🛡️</span>
+                <strong style="font-size: 11px; color: #FFF;">Reto 1</strong>
+                <span style="font-size: 9.5px; color: #94A3B8;">Juego Inclusivo</span>
+              </div>
+              <div class="altar-badge-slot lit" id="slot-2">
+                <span style="font-size: 32px;">🏷️</span>
+                <strong style="font-size: 11px; color: #FFF;">Reto 2</strong>
+                <span style="font-size: 9.5px; color: #94A3B8;">Igualdad Real</span>
+              </div>
+              <div class="altar-badge-slot lit" id="slot-3">
+                <span style="font-size: 32px;">📖</span>
+                <strong style="font-size: 11px; color: #FFF;">Reto 3</strong>
+                <span style="font-size: 9.5px; color: #94A3B8;">Cuento a Cuento</span>
+              </div>
+              <div class="altar-badge-slot lit" id="slot-4">
+                <span style="font-size: 32px;">🏛️</span>
+                <strong style="font-size: 11px; color: #FFF;">Reto 4</strong>
+                <span style="font-size: 9.5px; color: #94A3B8;">Nuestra Historia</span>
+              </div>
+            </div>
+
+            <div style="background: rgba(15, 23, 42, 0.95); border: 2px solid var(--heritage-gold); border-radius: 14px; padding: 14px 24px; max-width: 620px;">
+              <span style="font-size: 26px;">🗼✨</span>
+              <p style="font-size: 12.5px; color: #FDE68A; margin-top: 4px; font-weight: 700;">
+                ¡El archipiélago de la unión brilla con fuerza! Las cuatro insignias constitucionales han sido reunidas.
+              </p>
+            </div>
+
+            <div>
+              <button class="btn-heritage-primary" onclick="goToSlide(8)">
+                <span>¡ABRIR SALÓN DE HONOR Y DIPLOMA!</span>
+                <span>🏆</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 8: DIPLOMA OFICIAL IMPRIMIBLE -->
+        <section class="game-slide" id="slide-8">
+          <div class="no-print" style="text-align: center; margin-bottom: 6px;">
+            <h2 style="font-size: 18px; color: var(--heritage-gold);">¡Expedición completada con honor! 🏆</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">Habéis salvaguardado nuestra memoria viva conforme al artículo 46 de la Constitución:</p>
+            <div style="display: flex; justify-content: center; gap: 8px; margin-top: 6px;">
+              <button class="hud-btn" id="game-btn-infantil" onclick="setGameDiplomaStage('infantil')" style="border-radius: 20px; font-size: 11px;">🧸 Infantil</button>
+              <button class="hud-btn active" id="game-btn-primaria" onclick="setGameDiplomaStage('primaria')" style="border-radius: 20px; font-size: 11px;">✏️ Primaria</button>
+              <button class="hud-btn" id="game-btn-secundaria" onclick="setGameDiplomaStage('secundaria')" style="border-radius: 20px; font-size: 11px;">🎓 Secundaria</button>
+            </div>
+          </div>
+
+          <div class="diploma-heritage-canvas game-stage-primaria" id="diploma-print-target">
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #D4AF37; padding-bottom: 6px;">
+              <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" style="height: 28px;" onerror="this.style.display='none'">
+              <div class="diploma-heritage-title" id="game-dip-title">DIPLOMA DE CONSERVADOR O CONSERVADORA DE NUESTRA HISTORIA</div>
+              <span style="font-size: 22px;" id="game-dip-icon">🏛️📜🏛️</span>
+            </div>
+
+            <p style="font-size: 12px; color: #475569; margin: 4px 0;" id="game-dip-citation">
+              En cumplimiento del <strong>artículo 46 de la Constitución Española</strong> y por haber rescatado la memoria viva, el folclore y las tradiciones de nuestros pueblos:
+            </p>
+
+            <div style="background: #FEF3C7; border: 2px solid #D97706; border-radius: 10px; padding: 10px; margin: 4px 0;" id="game-dip-box">
+              <div style="font-size: 10.5px; color: #92400E; font-weight: 700;">SE OTORGA ESTE RECONOCIMIENTO A:</div>
+              <div style="font-size: 20px; font-weight: 900; color: #78350F; text-transform: uppercase;" id="dip-student-display">
+                Equipo Cronista
+              </div>
+              <div style="font-size: 11px; color: #475569; margin-top: 2px;">
+                Con la valiosa colaboración de la persona mayor: <strong id="dip-elder-display" style="color:#78350F;">Nuestros Mayores</strong>
+              </div>
+            </div>
+
+            <!-- DIBUJOS ILUSTRADOS POR ETAPA -->
+            <div class="game-dip-drawings" id="game-dip-drawings-row">
+              <div class="game-draw-item">🎙️ Historia oral</div>
+              <div class="game-draw-item">💃 Rondón 3/4</div>
+              <div class="game-draw-item">🏛️ Monumentos</div>
+              <div class="game-draw-item">📱 #ProtegeNuestroArte</div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; padding: 0 20px; margin-top: 4px;">
+              <div style="text-align: center; font-size: 10px; color: #475569;">
+                <div style="border-top: 1px solid #78350F; width: 140px; margin-bottom: 2px;"></div>
+                Por la persona mayor consultada
+              </div>
+              <div style="font-size: 30px;" id="game-dip-seal-icon">🌟</div>
+              <div style="text-align: center; font-size: 10px; color: #475569;">
+                <div style="border-top: 1px solid #78350F; width: 140px; margin-bottom: 2px;"></div>
+                Comisión de Patrimonio Escolar
+              </div>
+            </div>
+          </div>
+
+          <div class="no-print" style="margin-top: 12px; display: flex; gap: 12px; justify-content: center;">
+            <button class="btn-heritage-primary" onclick="printDiplomaHeritage()">
+              <span>🖨️ IMPRIMIR DIPLOMA OFICIAL (A4)</span>
+            </button>
+            <button class="hud-btn" onclick="goToSlide(1)">
+              <span>🔄 Volver al inicio</span>
+            </button>
+          </div>
+        </section>
+
+      </section>
+
+      <!-- BARRA INFERIOR DE NAVEGACIÓN -->
+      <footer class="genially-toolbar-bottom">
+        <div class="toolbar-left">
+          <button class="nav-arrow-btn" id="btn-prev-slide" onclick="changeSlide(-1)" title="Anterior">◀</button>
+          <span class="slide-page-badge" id="slide-page-indicator">1 / 8</span>
+          <button class="nav-arrow-btn" id="btn-next-slide" onclick="changeSlide(1)" title="Siguiente">▶</button>
+        </div>
+
+        <div class="toolbar-center">
+          <div class="slide-dots">
+            <div class="slide-dot active" onclick="goToSlide(1)" title="Portada"></div>
+            <div class="slide-dot" onclick="goToSlide(2)" title="Cronista"></div>
+            <div class="slide-dot" onclick="goToSlide(3)" title="Cripta"></div>
+            <div class="slide-dot" onclick="goToSlide(4)" title="Memoria Oral"></div>
+            <div class="slide-dot" onclick="goToSlide(5)" title="Rondón"></div>
+            <div class="slide-dot" onclick="goToSlide(6)" title="Salvaguarda"></div>
+            <div class="slide-dot" onclick="goToSlide(7)" title="El Altar"></div>
+            <div class="slide-dot" onclick="goToSlide(8)" title="Diploma"></div>
+          </div>
+        </div>
+
+        <div class="toolbar-right">
+          <button class="hud-btn" onclick="openModal('interactivos')" style="font-size: 11px;">
+            👁️ Interactivos
+          </button>
+        </div>
+      </footer>
+
+      <!-- MODAL DE AYUDA -->
+      <div class="modal-backdrop" id="modal-info">
+        <div class="modal-window">
+          <button class="modal-close-btn" onclick="closeModal()">✕</button>
+          <div id="modal-info-content"></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- CONFETI PARA CELEBRACIÓN -->
+  <canvas id="confetti-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:999; display:none;"></canvas>
+
+  <script>
+    /* ==========================================================================
+       LÓGICA DEL VIDEOJUEGO DE PATRIMONIO Y MEMORIA (RETO 4)
+       ========================================================================== */
+    (function() {
+      let currentSlide = 1;
+      const totalSlides = 8;
+      let xpPoints = 0;
+      let audioCtx = null;
+      let soundEnabled = true;
+      let bgmEnabled = false;
+      let bgmTimer = null;
+
+      let studentName = 'Equipo Cronista';
+      let elderName = 'Nuestros Mayores';
+
+      // AUDIO CHIPTUNE & RITMO
+      function initAudio() {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+      }
+
+      window.toggleSound = function() {
+        soundEnabled = !soundEnabled;
+        const btn = document.getElementById('btn-sound');
+        btn.innerText = soundEnabled ? '🔊 Sonido: ON' : '🔇 Sonido: OFF';
+        btn.classList.toggle('active', soundEnabled);
+        if (soundEnabled) playSound('click');
+      };
+
+      window.toggleBgm = function() {
+        initAudio();
+        bgmEnabled = !bgmEnabled;
+        const btn = document.getElementById('btn-bgm');
+        if (bgmEnabled) {
+          btn.classList.add('active');
+          btn.innerText = '🎵 Música: ON';
+          startFolkLoop();
+        } else {
+          btn.classList.remove('active');
+          btn.innerText = '🎵 Música: OFF';
+          stopFolkLoop();
+        }
+      };
+
+      function stopFolkLoop() {
+        if (bgmTimer) {
+          clearInterval(bgmTimer);
+          bgmTimer = null;
+        }
+      }
+
+      function startFolkLoop() {
+        stopFolkLoop();
+        // Compás 3/4 tradicional
+        const chords = [220, 261.63, 329.63, 293.66]; // Am / Dm
+        let step = 0;
+        bgmTimer = setInterval(() => {
+          if (!bgmEnabled || !soundEnabled) return;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = (step % 3 === 0) ? 'triangle' : 'sine';
+          osc.frequency.setValueAtTime(chords[Math.floor(step / 3) % chords.length], audioCtx.currentTime);
+          const vol = (step % 3 === 0) ? 0.08 : 0.04;
+          gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+          gain.gain.linearRampToValueAtTime(0.005, audioCtx.currentTime + 0.25);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.28);
+          step++;
+        }, 320);
+      }
+
+      function playSound(type) {
+        if (!soundEnabled) return;
+        initAudio();
+        const now = audioCtx.currentTime;
+
+        if (type === 'click') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(450, now);
+          osc.frequency.exponentialRampToValueAtTime(750, now + 0.08);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'castanuela') {
+          // Sonido nítido percusivo de castañuela
+          const bufferSize = audioCtx.sampleRate * 0.06;
+          const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.01));
+          }
+          const noise = audioCtx.createBufferSource();
+          noise.buffer = buffer;
+          const filter = audioCtx.createBiquadFilter();
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(1400, now);
+          noise.connect(filter);
+          filter.connect(audioCtx.destination);
+          noise.start(now);
+        } else if (type === 'xp') {
+          [523.25, 659.25, 783.99].forEach((f, idx) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(f, now + idx * 0.07);
+            gain.gain.setValueAtTime(0.2, now + idx * 0.07);
+            gain.gain.linearRampToValueAtTime(0.01, now + idx * 0.07 + 0.2);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now + idx * 0.07);
+            osc.stop(now + idx * 0.07 + 0.22);
+          });
+        }
+      }
+
+      // NAVEGACIÓN
+      window.goToSlide = function(num) {
+        if (num < 1 || num > totalSlides) return;
+        playSound('click');
+        document.querySelectorAll('.game-slide').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.slide-dot').forEach(d => d.classList.remove('active'));
+
+        const target = document.getElementById(`slide-${num}`);
+        if (target) target.classList.add('active');
+
+        const dot = document.querySelectorAll('.slide-dot')[num - 1];
+        if (dot) dot.classList.add('active');
+
+        currentSlide = num;
+        document.getElementById('slide-page-indicator').innerText = `${num} / ${totalSlides}`;
+        document.getElementById('btn-prev-slide').disabled = (num === 1);
+        document.getElementById('btn-next-slide').disabled = (num === totalSlides);
+
+        if (num === 8) {
+          triggerConfetti();
+        }
+      };
+
+      window.changeSlide = function(delta) {
+        goToSlide(currentSlide + delta);
+      };
+
+      // SELECCIÓN DE ROL
+      window.selectRole = function(name, badge, desc) {
+        playSound('click');
+        document.querySelectorAll('.chronicle-card').forEach(c => c.classList.remove('selected'));
+        if (name === 'Lucía') document.getElementById('cron-1').classList.add('selected');
+        if (name === 'Mateo') document.getElementById('cron-2').classList.add('selected');
+        if (name === 'Elena') document.getElementById('cron-3').classList.add('selected');
+        if (name === 'Dani') document.getElementById('cron-4').classList.add('selected');
+
+        document.getElementById('hud-char-badge').innerText = badge;
+      };
+
+      window.confirmTeamAndProceed = function() {
+        const stInput = document.getElementById('input-student-name');
+        const elInput = document.getElementById('input-elder-name');
+        if (stInput && stInput.value.trim() !== '') studentName = stInput.value.trim();
+        if (elInput && elInput.value.trim() !== '') elderName = elInput.value.trim();
+
+        document.getElementById('cat-reporter-label').innerText = studentName;
+        document.getElementById('cat-elder-label').innerText = elderName;
+        document.getElementById('poster-author').innerText = studentName;
+        document.getElementById('dip-student-display').innerText = studentName;
+        document.getElementById('dip-elder-display').innerText = elderName;
+
+        goToSlide(3);
+      };
+
+      // CRIPTA Y GEMAS
+      let gemsUnlocked = 0;
+      window.unlockGem = function(id) {
+        const gem = document.getElementById(`gem-${id}`);
+        if (!gem.classList.contains('unlocked')) {
+          gem.classList.add('unlocked');
+          playSound('xp');
+          gemsUnlocked++;
+          addXP(25);
+          if (gemsUnlocked >= 3) {
+            document.getElementById('btn-crypt-continue').style.display = 'inline-flex';
+          }
+        }
+      };
+
+      function addXP(val) {
+        xpPoints += val;
+        document.getElementById('hud-xp-count').innerText = `${xpPoints} XP`;
+      }
+
+      // CATALOGAR MEMORIA ORAL
+      window.catalogItem = function(title, type) {
+        playSound('xp');
+        addXP(20);
+        document.getElementById('cat-title-preview').innerText = title;
+        document.getElementById('cat-type-preview').innerText = type;
+        document.getElementById('catalog-feedback').innerText = '✅ ¡Elemento catalogado con éxito en el archivo histórico!';
+      };
+
+      // MINIJUEGO DEL RONDÓN
+      let castanetCount = 0;
+      let currentBeat = 1;
+      window.clickCastanet = function() {
+        playSound('castanuela');
+        castanetCount++;
+        addXP(10);
+        document.getElementById('rhythm-count').innerText = castanetCount;
+
+        // Pulso visual
+        document.querySelectorAll('.beat-circle').forEach(b => b.classList.remove('pulse'));
+        const activeBeat = document.getElementById(`beat-${currentBeat}`);
+        if (activeBeat) activeBeat.classList.add('pulse');
+
+        currentBeat = (currentBeat % 3) + 1;
+      };
+
+      // SALVAGUARDA
+      window.setPosterAsset = function(icon, title, motto) {
+        playSound('click');
+        document.getElementById('poster-icon').innerText = icon;
+        document.getElementById('poster-title').innerText = title;
+        document.getElementById('poster-motto').innerText = `«${motto}»`;
+        addXP(15);
+      };
+
+      window.ratePoster = function(score) {
+        playSound('xp');
+        addXP(score * 2);
+        document.getElementById('rubric-result').innerText = `✅ Coevaluación guardada: ${score} / 10 pts acumulados.`;
+      };
+
+      // CAMBIO DE ETAPA EN EL DIPLOMA DEL VIDEOJUEGO
+      window.setGameDiplomaStage = function(stage) {
+        playSound('click');
+        ['infantil', 'primaria', 'secundaria'].forEach(s => {
+          const btn = document.getElementById('game-btn-' + s);
+          if (btn) btn.classList.toggle('active', s === stage);
+        });
+
+        const target = document.getElementById('diploma-print-target');
+        if (target) {
+          target.className = 'diploma-heritage-canvas game-stage-' + stage;
+        }
+
+        const title = document.getElementById('game-dip-title');
+        const citation = document.getElementById('game-dip-citation');
+        const box = document.getElementById('game-dip-box');
+        const drawings = document.getElementById('game-dip-drawings-row');
+        const icon = document.getElementById('game-dip-icon');
+
+        if (stage === 'infantil') {
+          if (title) title.textContent = 'DIPLOMA DE SUPERGUARDIÁN O SUPERGUARDIANA';
+          if (icon) icon.textContent = '🧸⭐🎈';
+          if (citation) citation.innerHTML = '✨ <strong>Artículo 46 de la Constitución:</strong> ¡Cuidamos juntos las canciones, juegos y recuerdos de nuestros abuelos y abuelas! ✨';
+          if (box) {
+            box.style.background = '#FEF3C7';
+            box.style.border = '2px dashed #F59E0B';
+          }
+          if (drawings) {
+            drawings.innerHTML = `
+              <div class="game-draw-item" style="background:#FFF; border:1px solid #FCD34D;">👵👴 Abuelitos y canciones</div>
+              <div class="game-draw-item" style="background:#FFF; border:1px solid #F472B6;">🪆🧸 Juguetes de antes</div>
+              <div class="game-draw-item" style="background:#FFF; border:1px solid #38BDF8;">🥁👏 Danza en corro 1-2-3</div>
+              <div class="game-draw-item" style="background:#FFF; border:1px solid #4ADE80;">🌈⭐ Recuerdos felices</div>
+            `;
+          }
+        } else if (stage === 'primaria') {
+          if (title) title.textContent = 'DIPLOMA DE CONSERVADOR O CONSERVADORA DE NUESTRA HISTORIA';
+          if (icon) icon.textContent = '💃🏛️🎵';
+          if (citation) citation.innerHTML = 'En cumplimiento del <strong>artículo 46 de la Constitución Española</strong> y por haber rescatado la memoria viva, el folclore y las tradiciones de nuestros pueblos:';
+          if (box) {
+            box.style.background = '#EFF6FF';
+            box.style.border = '2px solid #0284C7';
+          }
+          if (drawings) {
+            drawings.innerHTML = `
+              <div class="game-draw-item" style="background:#FFF; border:1px solid #0284C7;">🎙️ Historia oral</div>
+              <div class="game-draw-item" style="background:#FFF; border:1px solid #D97706;">💃 Rondón 3/4</div>
+              <div class="game-draw-item" style="background:#FFF; border:1px solid #16A34A;">🏰 Monumentos</div>
+              <div class="game-draw-item" style="background:#FFF; border:1px solid #9333EA;">📱 #ProtegeNuestroArte</div>
+            `;
+          }
+        } else {
+          if (title) title.textContent = 'DIPLOMA OFICIAL DE INVESTIGADOR/A DEL PATRIMONIO HISTÓRICO';
+          if (icon) icon.textContent = '🏛️📜🏛️';
+          if (citation) citation.innerHTML = 'En cumplimiento del <strong>artículo 46 de la Constitución Española</strong> y por haber rescatado la memoria viva, el folclore y las tradiciones de nuestros pueblos:';
+          if (box) {
+            box.style.background = '#FFFDF7';
+            box.style.border = '2px solid #D97706';
+          }
+          if (drawings) {
+            drawings.innerHTML = `
+              <div class="game-draw-item">📜 Memoria Oral catalogada</div>
+              <div class="game-draw-item">💃 Compás 3/4 del rondón asimilado</div>
+              <div class="game-draw-item">📱 Salvaguarda #ProtegeNuestroArte</div>
+            `;
+          }
+        }
+      };
+
+      // IMPRESIÓN DEL DIPLOMA
+      window.printDiplomaHeritage = function() {
+        playSound('click');
+        window.print();
+      };
+
+      // MODAL
+      window.openModal = function(type) {
+        playSound('click');
+        const modal = document.getElementById('modal-info');
+        const box = document.getElementById('modal-info-content');
+
+        if (type === 'guia') {
+          box.innerHTML = `
+            <h3 style="color:var(--heritage-gold); margin-bottom:8px;">📖 Guía didáctica: Art. 46 de la Constitución</h3>
+            <p style="font-size:12.5px; line-height:1.5; color:#CBD5E1;">
+              El Reto 4 conecta el aula con la comunidad mediante tres pilares:
+            </p>
+            <ul style="font-size:12px; line-height:1.6; color:#CBD5E1; padding-left:18px; margin-top:8px;">
+              <li><strong>Memoria oral intergeneracional:</strong> Diálogo y aprendizaje con personas mayores.</li>
+              <li><strong>Folclore tradicional:</strong> Práctica activa del compás 3/4 y las coplas madrileñas.</li>
+              <li><strong>Salvaguarda activa:</strong> Creación de campañas de sensibilización ciudadana.</li>
+            </ul>
+          `;
+        } else if (type === 'pdf') {
+          const base = (window.location.pathname.toLowerCase().indexOf('entrega_educamadrid') !== -1) ? 'PDFs_Imprimibles_Aula/' : 'ENTREGA_EDUCAMADRID_RETO_4/PDFs_Imprimibles_Aula/';
+          box.innerHTML = `
+            <h3 style="color:var(--heritage-gold); margin-bottom:8px;">📂 Cuadernos imprimibles de aula</h3>
+            <div style="display:flex; flex-direction:column; gap:8px; font-size:12px; margin-top:8px;">
+              <a href="${base}RETO 4_ACTIVIDADES PRIMARIA_PATRIMONIO CULTURAL Y ARTÍSTICO.pdf" target="_blank" style="color:#38BDF8;">📄 Cuaderno de Primaria (PDF)</a>
+              <a href="${base}RETO 4_ ACTIVIDADES SECUNDARIA_PATRIMONIO CULTURAL Y ARTÍSTICO.pdf" target="_blank" style="color:#38BDF8;">📄 Cuaderno de Secundaria (PDF)</a>
+              <a href="${base}RETO 4_INSTRUCCIONES GENERALES_PATRIMONIO CULTURAL Y ARTÍSTICO.pdf" target="_blank" style="color:#38BDF8;">📄 Guía Docente (PDF)</a>
+            </div>
+          `;
+        } else if (type === 'interactivos') {
+          box.innerHTML = `
+            <h3 style="color:var(--heritage-gold); margin-bottom:8px;">👁️ Elementos interactivos de aula</h3>
+            <p style="font-size:12px; line-height:1.5; color:#CBD5E1;">
+              La experiencia cuenta con simulación rítmica de castañuelas, catálogo de transcripción oral, taller de cartelería y el altar final de las cuatro insignias constitucionales.
+            </p>
+          `;
+        }
+        modal.classList.add('open');
+      };
+
+      window.closeModal = function() {
+        document.getElementById('modal-info').classList.remove('open');
+      };
+
+      window.toggleFullScreen = function() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      };
+
+      // CONFETI
+      function triggerConfetti() {
+        const canvas = document.getElementById('confetti-canvas');
+        if (!canvas) return;
+        canvas.style.display = 'block';
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const pieces = [];
+        const colors = ['#D4AF37', '#B45309', '#0284C7', '#C7082A', '#10B981'];
+        for (let i = 0; i < 90; i++) {
+          pieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * -canvas.height,
+            size: Math.random() * 8 + 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            speedY: Math.random() * 3 + 2,
+            rot: Math.random() * 360
+          });
+        }
+
+        let animFrame;
+        function update() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          pieces.forEach(p => {
+            p.y += p.speedY;
+            p.rot += 2;
+            ctx.fillStyle = p.color;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot * Math.PI / 180);
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.restore();
+          });
+          animFrame = requestAnimationFrame(update);
+        }
+        update();
+
+        setTimeout(() => {
+          cancelAnimationFrame(animFrame);
+          canvas.style.display = 'none';
+        }, 5000);
+      }
+
+      // TECLADO
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') changeSlide(1);
+        if (e.key === 'ArrowLeft') changeSlide(-1);
+        if (e.key === 'm' || e.key === 'M') toggleBgm();
+        if (e.key === 'f' || e.key === 'F') toggleFullScreen();
+        if (e.code === 'Space') {
+          if (currentSlide === 5) clickCastanet();
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>

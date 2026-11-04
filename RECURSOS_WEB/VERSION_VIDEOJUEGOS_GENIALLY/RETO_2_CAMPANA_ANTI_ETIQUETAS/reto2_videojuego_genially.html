@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 2: Cazadores de etiquetas · Modo videojuego arcade</title>
+  <style>
+    /* ==========================================================================
+       ESTILOS RETO 2: MODO VIDEOJUEGO ARCADE TIPO GENIALLY
+       Tema: Ciber-Urbano, Igualdad y Derechos Constitucionales (Art. 14 y 20 CE)
+       ========================================================================== */
+    :root {
+      --madrid-red: #C7082A;
+      --madrid-dark: #8F061E;
+      --arcade-gold: #FFD700;
+      --arcade-amber: #F59E0B;
+      --neon-cyan: #06B6D4;
+      --neon-pink: #EC4899;
+      --neon-purple: #8B5CF6;
+      --neon-green: #10B981;
+      --game-dark: #0B1120;
+      --game-card: #1E293B;
+      --game-border: #334155;
+      --text-light: #F8FAFC;
+      --text-muted: #94A3B8;
+      --danger-red: #EF4444;
+      --genially-ui-bg: rgba(15, 23, 42, 0.94);
+      --font-pixel: 'Courier New', monospace;
+      --font-game: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background: #060913;
+      color: var(--text-light);
+      font-family: var(--font-game);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .genially-stage-wrapper {
+      width: 100%;
+      max-width: 1240px;
+      margin: 12px auto;
+      padding: 0 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .genially-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 580px;
+      max-height: 780px;
+      background: var(--game-dark);
+      border-radius: 18px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 0 2px #334155, 0 0 35px rgba(6, 182, 212, 0.25);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HUD SUPERIOR */
+    .genially-hud-top {
+      height: 52px;
+      background: var(--genially-ui-bg);
+      border-bottom: 1px solid var(--game-border);
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .hud-left, .hud-center, .hud-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hud-logo {
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .hud-game-title {
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hud-tag {
+      background: linear-gradient(135deg, #EC4899, #8B5CF6);
+      color: #FFF;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 7px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+
+    .hud-stat-item {
+      background: #1E293B;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-xp {
+      color: var(--arcade-gold);
+      border-color: #D4AF37;
+    }
+
+    .stat-hearts {
+      color: var(--danger-red);
+      letter-spacing: 2px;
+    }
+
+    .hud-btn {
+      background: #1E293B;
+      border: 1px solid #475569;
+      color: #E2E8F0;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .hud-btn:hover {
+      background: #334155;
+      color: #FFF;
+      border-color: var(--neon-cyan);
+      transform: translateY(-1px);
+    }
+
+    .hud-btn.active {
+      background: var(--madrid-red);
+      border-color: #F87171;
+      color: #FFF;
+    }
+
+    /* VIEWPORT DE DIAPOSITIVAS */
+    .game-viewport {
+      position: relative;
+      flex: 1;
+      height: calc(100% - 104px);
+      overflow: hidden;
+      background: var(--game-dark);
+    }
+
+    .game-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      padding: 22px 26px;
+      display: none !important;
+      flex-direction: column;
+      overflow-y: auto;
+      background: var(--game-dark);
+    }
+
+    .game-slide.active {
+      display: flex !important;
+      animation: slideFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes slideFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.98) translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* BARRA INFERIOR DE NAVEGACIÓN */
+    .genially-toolbar-bottom {
+      height: 52px;
+      background: var(--genially-ui-bg);
+      border-top: 1px solid var(--game-border);
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .toolbar-left, .toolbar-center, .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-arrow-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #1E293B;
+      border: 1px solid #475569;
+      color: var(--arcade-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .nav-arrow-btn:hover:not(:disabled) {
+      background: var(--neon-cyan);
+      color: #000;
+      transform: scale(1.08);
+    }
+
+    .nav-arrow-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .slide-page-badge {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--arcade-gold);
+      background: #1E293B;
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid #334155;
+    }
+
+    .stage-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #475569;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .stage-dot:hover {
+      background: #94A3B8;
+      transform: scale(1.3);
+    }
+
+    .stage-dot.active {
+      background: var(--arcade-gold);
+      box-shadow: 0 0 10px var(--arcade-gold);
+      transform: scale(1.4);
+    }
+
+    .stage-dot.visited {
+      background: var(--neon-cyan);
+    }
+
+    /* ==========================================================================
+       SLIDE 1: PORTADA ARCADE
+       ========================================================================== */
+    .slide-intro {
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+      background: radial-gradient(circle at center, #1E1B4B 0%, #030712 100%);
+    }
+
+    .arcade-badge-top {
+      display: inline-block;
+      background: rgba(199, 8, 42, 0.25);
+      border: 1px solid var(--madrid-red);
+      color: #FCA5A5;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .arcade-main-title {
+      font-size: 44px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #38BDF8 0%, #818CF8 50%, #F472B6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+    }
+
+    .arcade-subtitle {
+      font-size: 14px;
+      color: #CBD5E1;
+      max-width: 720px;
+      line-height: 1.5;
+      margin: 0 auto 20px auto;
+    }
+
+    .arcade-btn-start {
+      background: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%);
+      color: #FFF;
+      border: 2px solid #F472B6;
+      padding: 12px 36px;
+      font-size: 15px;
+      font-weight: 900;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+      transition: all 0.25s;
+      letter-spacing: 0.5px;
+    }
+
+    .arcade-btn-start:hover {
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 15px 35px rgba(236, 72, 153, 0.6);
+    }
+
+    .arcade-quick-options {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .btn-secondary-arcade {
+      background: #1E293B;
+      border: 1px solid #475569;
+      color: #CBD5E1;
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary-arcade:hover {
+      background: #334155;
+      color: #FFF;
+      border-color: var(--neon-cyan);
+    }
+
+    /* ==========================================================================
+       SLIDE 2: SELECCIÓN DE PERSONAJE
+       ========================================================================== */
+    .char-select-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+      flex: 1;
+    }
+
+    .char-card {
+      background: #1E293B;
+      border: 2px solid #334155;
+      border-radius: 14px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .char-card:hover {
+      border-color: var(--neon-cyan);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(6, 182, 212, 0.25);
+    }
+
+    .char-card.selected {
+      border-color: var(--arcade-gold);
+      background: linear-gradient(180deg, #1E293B 0%, rgba(212, 175, 55, 0.15) 100%);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.35);
+    }
+
+    .char-avatar-box {
+      font-size: 46px;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+    }
+
+    .char-name {
+      font-size: 15px;
+      font-weight: 900;
+      color: #FFF;
+    }
+
+    .char-role-tag {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+      margin-bottom: 6px;
+    }
+
+    .char-desc {
+      font-size: 11px;
+      color: #94A3B8;
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    .char-badge-power {
+      background: rgba(6, 182, 212, 0.2);
+      border: 1px solid var(--neon-cyan);
+      color: #A5F3FC;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 10px;
+      margin-top: 8px;
+    }
+
+    .name-input-bar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    .name-input-bar input {
+      background: #0F172A;
+      border: 2px solid #475569;
+      color: #FFF;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      width: 220px;
+    }
+
+    /* ==========================================================================
+       SLIDE 3: PRÓLOGO Y CRISTALES DE LA IGUALDAD
+       ========================================================================== */
+    .crystals-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 16px 0;
+      flex: 1;
+    }
+
+    .crystal-card {
+      background: #1E293B;
+      border: 2px dashed #475569;
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .crystal-card:hover {
+      border-color: var(--neon-cyan);
+      transform: translateY(-3px);
+    }
+
+    .crystal-card.active {
+      border-style: solid;
+      border-color: var(--arcade-gold);
+      background: linear-gradient(180deg, #1E293B 0%, rgba(245, 158, 11, 0.15) 100%);
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+    }
+
+    .crystal-icon {
+      font-size: 38px;
+      margin-bottom: 6px;
+    }
+
+    .crystal-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--arcade-gold);
+    }
+
+    .crystal-sub {
+      font-size: 11px;
+      color: var(--neon-cyan);
+      margin-bottom: 6px;
+    }
+
+    .rpg-dialog-box {
+      background: #0F172A;
+      border: 1px solid #334155;
+      border-left: 4px solid var(--neon-pink);
+      padding: 10px 14px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .rpg-portrait {
+      font-size: 32px;
+    }
+
+    /* ==========================================================================
+       SLIDE 4: RADAR ANTIETIQUETAS (NIVEL 1)
+       ========================================================================== */
+    .radar-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+      flex: 1;
+    }
+
+    .radar-case-card {
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .radar-case-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .radar-tag-pill {
+      background: #EF4444;
+      color: #FFF;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    .radar-question {
+      font-size: 11.5px;
+      color: #E2E8F0;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .radar-options {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .btn-radar-opt {
+      background: #0F172A;
+      border: 1px solid #475569;
+      color: #CBD5E1;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-radar-opt:hover {
+      background: #334155;
+      border-color: var(--neon-cyan);
+      color: #FFF;
+    }
+
+    .btn-radar-opt.correct {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10B981;
+      color: #34D399;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       SLIDE 5: TALLER DE DISEÑO DEL CARTEL (NIVEL 2)
+       ========================================================================== */
+    .studio-grid-2col {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 16px;
+      margin-top: 8px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .studio-controls {
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+    }
+
+    .studio-group-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--arcade-gold);
+    }
+
+    .theme-picker-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .btn-theme-chip {
+      background: #0F172A;
+      border: 1px solid #475569;
+      color: #CBD5E1;
+      padding: 5px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .btn-theme-chip.active {
+      border-color: var(--neon-pink);
+      background: #831843;
+      color: #FFF;
+    }
+
+    /* CANVAS DEL CARTEL */
+    .poster-render-frame {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .poster-box {
+      width: 100%;
+      height: 100%;
+      max-height: 380px;
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      border: 2px solid #CBD5E1;
+      transition: all 0.3s;
+    }
+
+    .poster-box.theme-neon {
+      background: #090D16;
+      border-color: #EC4899;
+      box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+    }
+
+    .poster-box.theme-urban {
+      background: #18181B;
+      border-color: #EAB308;
+      box-shadow: 0 0 20px rgba(234, 179, 8, 0.25);
+    }
+
+    .poster-box.theme-madrid {
+      background: #8F061E;
+      border-color: #FFD700;
+      color: #FFF;
+    }
+
+    .poster-box.theme-editorial {
+      background: #FFFBEB;
+      border-color: #D97706;
+      color: #1E293B;
+    }
+
+    .poster-sticker-show {
+      font-size: 38px;
+    }
+
+    .poster-slogan-show {
+      font-size: 16px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 6px 0;
+    }
+
+    .poster-commit-show {
+      font-size: 11px;
+      font-style: italic;
+      line-height: 1.4;
+      opacity: 0.9;
+    }
+
+    .poster-art-tag {
+      font-size: 10px;
+      font-weight: 800;
+      background: rgba(0,0,0,0.3);
+      padding: 3px 8px;
+      border-radius: 12px;
+      align-self: center;
+      margin-top: 4px;
+    }
+
+    /* ==========================================================================
+       SLIDE 6: RÚBRICA Y EVALUACIÓN (NIVEL 3)
+       ========================================================================== */
+    .rubric-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+      flex: 1;
+    }
+
+    .rubric-card {
+      background: #1E293B;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .rubric-card-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--neon-cyan);
+    }
+
+    .rubric-options {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .btn-rubric-score {
+      background: #0F172A;
+      border: 1px solid #475569;
+      color: #94A3B8;
+      padding: 6px;
+      border-radius: 6px;
+      font-size: 10.5px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .btn-rubric-score.active {
+      background: #065F46;
+      border-color: #10B981;
+      color: #ECFDF5;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       SLIDE 7: BOSS BATTLE - EL MEGÁFONO DEL PREJUICIO
+       ========================================================================== */
+    .boss-arena-box {
+      background: radial-gradient(circle at center, #312E81 0%, #030712 100%);
+      border-radius: 12px;
+      border: 1px solid #4338CA;
+      padding: 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .boss-hud-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .boss-hp-track {
+      width: 180px;
+      height: 14px;
+      background: #374151;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #4B5563;
+    }
+
+    .boss-hp-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #EF4444, #F59E0B);
+      width: 100%;
+      transition: width 0.4s ease;
+    }
+
+    .boss-stage-visual {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin: 12px 0;
+    }
+
+    .boss-sprite-box {
+      font-size: 64px;
+      filter: drop-shadow(0 0 25px rgba(239, 68, 68, 0.5));
+      animation: bossFloat 2s ease-in-out infinite;
+    }
+
+    @keyframes bossFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .player-sprite-box {
+      font-size: 54px;
+      filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.4));
+    }
+
+    .boss-question-banner {
+      background: #1E1B4B;
+      border: 1px solid #6366F1;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .boss-attacks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn-attack-arg {
+      background: #1E293B;
+      border: 1px solid #475569;
+      color: #E2E8F0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 11px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-attack-arg:hover {
+      background: #4338CA;
+      border-color: #818CF8;
+      color: #FFF;
+    }
+
+    /* ==========================================================================
+       SLIDE 8: SALÓN DEL GRAN PACTO & CERTIFICADO
+       ========================================================================== */
+    .slide-victory {
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .cert-frame-official {
+      background: #FFFDF9;
+      border: 2px solid #D4AF37;
+      border-radius: 12px;
+      padding: 18px 24px;
+      color: #1E293B;
+      max-width: 680px;
+      margin: 10px auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      position: relative;
+    }
+
+    .cert-gov-top {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--madrid-red);
+      letter-spacing: 1px;
+    }
+
+    .cert-main-head {
+      font-size: 20px;
+      font-weight: 900;
+      color: #1E293B;
+      margin: 4px 0;
+    }
+
+    .cert-player-tag {
+      font-size: 18px;
+      font-weight: 900;
+      color: #4F46E5;
+      background: #EEF2FF;
+      padding: 4px 16px;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 6px 0;
+    }
+
+    .cert-text-body {
+      font-size: 11.5px;
+      line-height: 1.45;
+      color: #475569;
+    }
+
+    .cert-footer-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 14px;
+      padding-top: 8px;
+      border-top: 1px dashed #CBD5E1;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #64748B;
+    }
+
+    /* ==========================================================================
+       MODAL Y POPUPS
+       ========================================================================== */
+    .genially-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .genially-modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #1E293B;
+      border: 1px solid var(--game-border);
+      border-radius: 14px;
+      width: 100%;
+      max-width: 580px;
+      padding: 20px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #334155;
+      border: none;
+      color: #FFF;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* CANVAS DE CONFETI */
+    #confetti-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 90;
+    }
+
+    /* ==========================================================================
+       PRINT STYLES
+       ========================================================================== */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 6mm;
+      }
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body {
+        background: #FFFFFF !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .genially-hud-top, .genially-toolbar-bottom, .genially-modal,
+      #slide-1, #slide-2, #slide-3, #slide-4, #slide-5, #slide-6, #slide-7,
+      .arcade-quick-options, #confetti-canvas, .btn-action {
+        display: none !important;
+      }
+      .genially-container {
+        box-shadow: none !important;
+        border: none !important;
+        max-height: none !important;
+        height: auto !important;
+        background: transparent !important;
+      }
+      .game-viewport {
+        height: auto !important;
+        background: transparent !important;
+      }
+      #slide-8 {
+        display: block !important;
+        visibility: visible !important;
+        position: relative !important;
+        background: transparent !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .cert-frame-official {
+        display: block !important;
+        visibility: visible !important;
+        position: relative !important;
+        width: 100% !important;
+        max-width: 275mm !important;
+        margin: 15mm auto !important;
+        box-shadow: none !important;
+        border: 3px solid #D4AF37 !important;
+        background: #FFFDF9 !important;
+        color: #000 !important;
+        page-break-inside: avoid !important;
+      }
+      .cert-frame-official * {
+        visibility: visible !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="genially-stage-wrapper">
+    <div class="genially-container" id="genially-box">
+      <canvas id="confetti-canvas"></canvas>
+
+      <!-- BARRA SUPERIOR HUD ARCADE -->
+      <header class="genially-hud-top">
+        <div class="hud-left">
+          <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" class="hud-logo" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'120\' height=\'32\' viewBox=\'0 0 120 32\'><rect width=\'32\' height=\'32\' fill=\'%23C7082A\'/><text x=\'38\' y=\'20\' font-family=\'sans-serif\' font-size=\'11\' font-weight=\'bold\' fill=\'%23FFF\'>Madrid</text></svg>';">
+          <div class="hud-game-title">
+            <span>⚖️ CAZADORES DE ETIQUETAS</span>
+            <span class="hud-tag">ARCADE</span>
+          </div>
+        </div>
+
+        <div class="hud-center">
+          <div class="hud-stat-item" id="hud-player-tag">
+            <span id="hud-avatar">🛡️</span>
+            <span id="hud-name">Aisha</span>
+          </div>
+          <div class="hud-stat-item stat-hearts" id="hud-hearts">❤️❤️❤️</div>
+          <div class="hud-stat-item stat-xp">⭐ <span id="hud-xp">0</span> XP</div>
+        </div>
+
+        <div class="hud-right">
+          <button class="hud-btn" id="btn-bgm" onclick="toggleBgm()" title="Música Chiptune (Tecla M)">
+            🎵 Música: OFF
+          </button>
+          <button class="hud-btn" id="btn-sound" onclick="toggleSound()" title="Efectos de Sonido">
+            🔊 FX: ON
+          </button>
+          <button class="hud-btn" id="btn-print-top" onclick="printArcadeCertificate()" title="Imprimir certificado oficial">
+            🖨️ Imprimir
+          </button>
+          <button class="hud-btn" onclick="toggleFullscreen()" title="Pantalla completa (Tecla F)">
+            ⛶
+          </button>
+        </div>
+      </header>
+
+      <!-- VIEWPORT DE DIAPOSITIVAS INTERACTIVAS (8 PANTALLAS) -->
+      <main class="game-viewport">
+
+        <!-- SLIDE 1: PORTADA -->
+        <section class="game-slide active slide-intro" id="slide-1">
+          <div class="arcade-badge-top">Comunidad de Madrid · Día de la Constitución 2026</div>
+          <h1 class="arcade-main-title">CAZADORES DE ETIQUETAS</h1>
+          <p class="arcade-subtitle">
+            Campaña exprés contra los prejuicios. Transforma juicios precipitados en derechos constitucionales (Artículos 14 y 20 de la Constitución Española).
+          </p>
+          <button class="arcade-btn-start" onclick="goToSlide(2)">
+            ▶ INICIAR MISIÓN
+          </button>
+          <div class="arcade-quick-options">
+            <button class="btn-secondary-arcade" onclick="openInfoModal('guia')">📖 Guía y controles</button>
+            <button class="btn-secondary-arcade" onclick="openInfoModal('articulos')">⚖️ Artículos 14 y 20 CE</button>
+            <button class="btn-secondary-arcade" onclick="openInfoModal('pdf')">📂 Cuadernos de aula (PDF)</button>
+          </div>
+        </section>
+
+        <!-- SLIDE 2: SELECCIÓN DE PERSONAJE -->
+        <section class="game-slide" id="slide-2">
+          <h2 style="font-size: 20px; color: var(--arcade-gold); text-align: center; text-transform: uppercase;">
+            Elige a tu agente constitucional
+          </h2>
+          <p style="font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 2px;">
+            Cada rol aporta un escudo para erradicar las etiquetas y fomentar la convivencia escolar.
+          </p>
+
+          <div class="char-select-grid">
+            <div class="char-card selected" onclick="selectCharacter('Aisha', '🛡️', 'Coordinación')">
+              <div class="char-avatar-box">🛡️</div>
+              <div class="char-name">Aisha</div>
+              <div class="char-role-tag">Coordinación de Igualdad</div>
+              <div class="char-desc">Asegura que todas las voces participen y nadie quede al margen.</div>
+              <div class="char-badge-power">Poder: Escudo Cívico</div>
+            </div>
+
+            <div class="char-card" onclick="selectCharacter('Hugo', '✍️', 'Redacción')">
+              <div class="char-avatar-box">✍️</div>
+              <div class="char-name">Hugo</div>
+              <div class="char-role-tag">Redacción de Lemas</div>
+              <div class="char-desc">Convierte palabras hirientes en fórmulas positivas de respeto.</div>
+              <div class="char-badge-power">Poder: Palabra Veraz</div>
+            </div>
+
+            <div class="char-card" onclick="selectCharacter('Lola', '🎨', 'Diseño')">
+              <div class="char-avatar-box">🎨</div>
+              <div class="char-name">Lola</div>
+              <div class="char-role-tag">Diseño Gráfico</div>
+              <div class="char-desc">Crea impacto visual con tipografías y colores que derriban barreras.</div>
+              <div class="char-badge-power">Poder: Impacto Visual</div>
+            </div>
+
+            <div class="char-card" onclick="selectCharacter('Iker', '📢', 'Portavoz')">
+              <div class="char-avatar-box">📢</div>
+              <div class="char-name">Iker</div>
+              <div class="char-role-tag">Portavoz Constitucional</div>
+              <div class="char-desc">Comunica el pacto ante el aula y defiende los derechos con firmeza.</div>
+              <div class="char-badge-power">Poder: Voz Inclusiva</div>
+            </div>
+          </div>
+
+          <div class="name-input-bar">
+            <span style="font-size: 12px; color: var(--arcade-gold); font-weight: 800;">Nombre del agente / equipo:</span>
+            <input type="text" id="player-input-name" value="Aisha" maxlength="20" oninput="updatePlayerName(this.value)">
+            <button class="arcade-btn-start" style="padding: 7px 18px; font-size: 12px;" onclick="goToSlide(3)">
+              ¡CONFIRMAR Y AVANZAR! ▶
+            </button>
+          </div>
+        </section>
+
+        <!-- SLIDE 3: PRÓLOGO Y CRISTALES CONSTITUCIONALES -->
+        <section class="game-slide" id="slide-3">
+          <div style="text-align: center;">
+            <h3 style="font-size: 18px; color: var(--arcade-gold);">⚡ El código de la convivencia</h3>
+            <p style="font-size: 12px; color: #CBD5E1;">Toca los 3 cristales de la justicia ética para cargar el escudo antietiquetas.</p>
+          </div>
+
+          <div class="crystals-grid">
+            <div class="crystal-card" id="cryst-1" onclick="activateCrystal(1)">
+              <div class="crystal-icon">⚖️</div>
+              <div class="crystal-title">Artículo 14 C.E.</div>
+              <div class="crystal-sub">Igualdad Real</div>
+              <p style="font-size: 11px; color: #CBD5E1;">Todos somos iguales ante la ley sin discriminación por nacimiento, raza, sexo o religión.</p>
+              <span id="badge-cryst-1" style="font-size: 10px; color: var(--arcade-gold); margin-top: 6px;">⚪ Tocar para activar</span>
+            </div>
+
+            <div class="crystal-card" id="cryst-2" onclick="activateCrystal(2)">
+              <div class="crystal-icon">🗣️</div>
+              <div class="crystal-title">Artículo 20.1 C.E.</div>
+              <div class="crystal-sub">Libertad de Expresión</div>
+              <p style="font-size: 11px; color: #CBD5E1;">Derecho a expresar ideas y opiniones libremente de forma constructiva.</p>
+              <span id="badge-cryst-2" style="font-size: 10px; color: var(--arcade-gold); margin-top: 6px;">⚪ Tocar para activar</span>
+            </div>
+
+            <div class="crystal-card" id="cryst-3" onclick="activateCrystal(3)">
+              <div class="crystal-icon">🛑</div>
+              <div class="crystal-title">Artículo 20.4 C.E.</div>
+              <div class="crystal-sub">Límites y Dignidad</div>
+              <p style="font-size: 11px; color: #CBD5E1;">La libertad tiene como límite el respeto a los demás, su honor y su dignidad.</p>
+              <span id="badge-cryst-3" style="font-size: 10px; color: var(--arcade-gold); margin-top: 6px;">⚪ Tocar para activar</span>
+            </div>
+          </div>
+
+          <div class="rpg-dialog-box">
+            <div class="rpg-portrait">🏛️</div>
+            <div>
+              <strong style="color: var(--arcade-gold); font-size: 12px;">La Dama de la Justicia:</strong>
+              <p style="font-size: 11.5px; color: #CBD5E1;" id="rpg-speech">
+                «Una etiqueta reduce a una persona a un solo rasgo. La Constitución nos recuerda que cada persona es única y posee dignidad inviolable. ¡Carga los cristales y derriba las etiquetas!»
+              </p>
+            </div>
+            <button class="arcade-btn-start" id="btn-to-radar" style="margin-left: auto; padding: 8px 16px; font-size: 11px; display: none;" onclick="goToSlide(4)">
+              ¡IR AL RADAR! ➔
+            </button>
+          </div>
+        </section>
+
+        <!-- SLIDE 4: RADAR ANTIETIQUETAS (NIVEL 1) -->
+        <section class="game-slide" id="slide-4">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h3 style="font-size: 18px; color: var(--arcade-gold);">🔍 Radar de prejuicios cotidianos</h3>
+              <p style="font-size: 11.5px; color: var(--text-muted);">Detecta la etiqueta y selecciona la fórmula constitucional que la desactiva.</p>
+            </div>
+            <div style="font-size: 12px; color: var(--neon-cyan); font-weight: 800;">
+              Desactivadas: <span id="radar-count">0</span> / 4
+            </div>
+          </div>
+
+          <div class="radar-grid">
+            <!-- CASO 1 -->
+            <div class="radar-case-card" id="radar-c1">
+              <div>
+                <div class="radar-case-header">
+                  <strong style="font-size: 12px; color: #FCA5A5;">Caso 1: En el patio</strong>
+                  <span class="radar-tag-pill">Etiqueta: «Es torpe»</span>
+                </div>
+                <p class="radar-question">Alguien no acierta una canasta y dicen: «No le paséis, no sabe jugar».</p>
+              </div>
+              <div class="radar-options">
+                <button class="btn-radar-opt" onclick="solveRadar(1, false)">A) Ignorarle y jugar solo con los mejores.</button>
+                <button class="btn-radar-opt" onclick="solveRadar(1, true)">B) «Su perspectiva suma: adaptemos el pase para aprender en equipo» (Art. 14).</button>
+              </div>
+            </div>
+
+            <!-- CASO 2 -->
+            <div class="radar-case-card" id="radar-c2">
+              <div>
+                <div class="radar-case-header">
+                  <strong style="font-size: 12px; color: #FCA5A5;">Caso 2: En redes sociales</strong>
+                  <span class="radar-tag-pill">Etiqueta: «Raro/a»</span>
+                </div>
+                <p class="radar-question">Un meme se burla de la forma de vestir o peinarse de un compañero.</p>
+              </div>
+              <div class="radar-options">
+                <button class="btn-radar-opt" onclick="solveRadar(2, true)">A) «La libertad de expresión no ampara la humillación» (Art. 20.4).</button>
+                <button class="btn-radar-opt" onclick="solveRadar(2, false)">B) Reenviarlo porque «solo es una broma».</button>
+              </div>
+            </div>
+
+            <!-- CASO 3 -->
+            <div class="radar-case-card" id="radar-c3">
+              <div>
+                <div class="radar-case-header">
+                  <strong style="font-size: 12px; color: #FCA5A5;">Caso 3: Trabajo en equipo</strong>
+                  <span class="radar-tag-pill">Etiqueta: «Va muy lento»</span>
+                </div>
+                <p class="radar-question">Un alumno necesita más tiempo para leer o redactar un informe.</p>
+              </div>
+              <div class="radar-options">
+                <button class="btn-radar-opt" onclick="solveRadar(3, false)">A) Hacer su parte sin él para terminar antes.</button>
+                <button class="btn-radar-opt" onclick="solveRadar(3, true)">B) «Cada ritmo enriquece: repartimos tareas con equidad» (Art. 9.2 y 14).</button>
+              </div>
+            </div>
+
+            <!-- CASO 4 -->
+            <div class="radar-case-card" id="radar-c4">
+              <div>
+                <div class="radar-case-header">
+                  <strong style="font-size: 12px; color: #FCA5A5;">Caso 4: Origen y acento</strong>
+                  <span class="radar-tag-pill">Etiqueta: «El de fuera»</span>
+                </div>
+                <p class="radar-question">Llega un nuevo estudiante con acento diferente o costumbres distintas.</p>
+              </div>
+              <div class="radar-options">
+                <button class="btn-radar-opt" onclick="solveRadar(4, true)">A) «La diversidad lingüística y cultural es un patrimonio que nos hace mejores» (Art. 3 y 14).</button>
+                <button class="btn-radar-opt" onclick="solveRadar(4, false)">B) Imitar su acento para hacer reír a los demás.</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 5: ESTUDIO DE DISEÑO DE CARTELES (NIVEL 2) -->
+        <section class="game-slide" id="slide-5">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 18px; color: var(--arcade-gold);">🎨 Estudio de carteles antietiquetas</h3>
+            <span style="font-size: 11px; color: var(--text-muted);">Configura tu cartel con impacto visual</span>
+          </div>
+
+          <div class="studio-grid-2col">
+            <div class="studio-controls">
+              <div>
+                <div class="studio-group-title">1. Estilo visual del cartel:</div>
+                <div class="theme-picker-row">
+                  <button class="btn-theme-chip active" id="btn-theme-neon" onclick="setPosterTheme('neon')">⚡ Neón</button>
+                  <button class="btn-theme-chip" id="btn-theme-urban" onclick="setPosterTheme('urban')">🏙️ Urbano</button>
+                  <button class="btn-theme-chip" id="btn-theme-madrid" onclick="setPosterTheme('madrid')">⭐ Madrid</button>
+                  <button class="btn-theme-chip" id="btn-theme-editorial" onclick="setPosterTheme('editorial')">📜 Editorial</button>
+                </div>
+              </div>
+
+              <div>
+                <div class="studio-group-title">2. Lema rompedor (máximo 10 palabras):</div>
+                <input type="text" id="arcade-slogan-input" style="width: 100%; background: #0F172A; border: 1px solid #475569; color: #FFF; padding: 6px 10px; border-radius: 6px; font-size: 12px; margin-top: 4px;" value="Su perspectiva me enriquece" oninput="updateLivePoster()">
+              </div>
+
+              <div>
+                <div class="studio-group-title">3. Compromiso de aula:</div>
+                <input type="text" id="arcade-commit-input" style="width: 100%; background: #0F172A; border: 1px solid #475569; color: #FFF; padding: 6px 10px; border-radius: 6px; font-size: 12px; margin-top: 4px;" value="Nos comprometemos a escuchar sin juzgar." oninput="updateLivePoster()">
+              </div>
+
+              <div>
+                <div class="studio-group-title">4. Emblema o icono:</div>
+                <div style="display: flex; gap: 8px; margin-top: 4px;">
+                  <button class="btn-theme-chip active" onclick="setSticker('⚖️')">⚖️</button>
+                  <button class="btn-theme-chip" onclick="setSticker('📢')">📢</button>
+                  <button class="btn-theme-chip" onclick="setSticker('🛡️')">🛡️</button>
+                  <button class="btn-theme-chip" onclick="setSticker('🤝')">🤝</button>
+                  <button class="btn-theme-chip" onclick="setSticker('🕊️')">🕊️</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- PREVISUALIZACIÓN DEL CARTEL -->
+            <div class="poster-render-frame">
+              <div class="poster-box theme-neon" id="poster-box-live">
+                <div style="font-size: 10px; letter-spacing: 1px; font-weight: 800; opacity: 0.8;">CAMPAÑA OFICIAL · RETO 2</div>
+                <div class="poster-sticker-show" id="poster-sticker">⚖️</div>
+                <div class="poster-slogan-show" id="poster-slogan">SU PERSPECTIVA ME ENRIQUECE</div>
+                <div class="poster-commit-show" id="poster-commit">«Nos comprometemos a escuchar sin juzgar.»</div>
+                <div class="poster-art-tag">Artículo 14 y 20 CE</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 6: RÚBRICA Y AUTOEVALUACIÓN (NIVEL 3) -->
+        <section class="game-slide" id="slide-6">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h3 style="font-size: 18px; color: var(--arcade-gold);">📊 Rúbrica exprés de la comisión</h3>
+              <p style="font-size: 11.5px; color: var(--text-muted);">Evalúa la solidez y el impacto de vuestra campaña constitucional.</p>
+            </div>
+            <div style="font-size: 14px; font-weight: 900; color: #10B981;">
+              Puntuación: <span id="rubric-points">10</span> / 10 pts
+            </div>
+          </div>
+
+          <div class="rubric-grid-4">
+            <div class="rubric-card">
+              <div class="rubric-card-title">1. Impacto del lema</div>
+              <p style="font-size: 10.5px; color: #94A3B8;">¿Es conciso, memorable y transformador?</p>
+              <div class="rubric-options">
+                <button class="btn-rubric-score active" onclick="setRubricScore(1, 2.5)">⭐⭐⭐ Excelente (2.5 pts)</button>
+                <button class="btn-rubric-score" onclick="setRubricScore(1, 1.5)">⭐⭐ Adecuado (1.5 pts)</button>
+              </div>
+            </div>
+
+            <div class="rubric-card">
+              <div class="rubric-card-title">2. Respaldo legal</div>
+              <p style="font-size: 10.5px; color: #94A3B8;">¿Conecta con los Art. 14 y 20 de la CE?</p>
+              <div class="rubric-options">
+                <button class="btn-rubric-score active" onclick="setRubricScore(2, 2.5)">⭐⭐⭐ Muy claro (2.5 pts)</button>
+                <button class="btn-rubric-score" onclick="setRubricScore(2, 1.5)">⭐⭐ Básico (1.5 pts)</button>
+              </div>
+            </div>
+
+            <div class="rubric-card">
+              <div class="rubric-card-title">3. Compromiso de aula</div>
+              <p style="font-size: 10.5px; color: #94A3B8;">¿Plantea una acción real cotidiana?</p>
+              <div class="rubric-options">
+                <button class="btn-rubric-score active" onclick="setRubricScore(3, 2.5)">⭐⭐⭐ Concreto (2.5 pts)</button>
+                <button class="btn-rubric-score" onclick="setRubricScore(3, 1.5)">⭐⭐ General (1.5 pts)</button>
+              </div>
+            </div>
+
+            <div class="rubric-card">
+              <div class="rubric-card-title">4. Cooperación</div>
+              <p style="font-size: 10.5px; color: #94A3B8;">¿Han participado todos los roles?</p>
+              <div class="rubric-options">
+                <button class="btn-rubric-score active" onclick="setRubricScore(4, 2.5)">⭐⭐⭐ Plena (2.5 pts)</button>
+                <button class="btn-rubric-score" onclick="setRubricScore(4, 1.5)">⭐⭐ Parcial (1.5 pts)</button>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 10px;">
+            <button class="arcade-btn-start" style="padding: 9px 24px; font-size: 13px;" onclick="goToSlide(7)">
+              ⚔️ ¡ENFRENTAR AL MEGÁFONO DEL PREJUICIO!
+            </button>
+          </div>
+        </section>
+
+        <!-- SLIDE 7: BOSS BATTLE - EL MEGÁFONO DEL PREJUICIO -->
+        <section class="game-slide" id="slide-7">
+          <div class="boss-arena-box">
+            <div class="boss-hud-bar">
+              <div style="font-size: 12px; font-weight: 800; color: #F87171;">
+                📢 MEGÁFONO DEL PREJUICIO (BOSS)
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="boss-hp-track">
+                  <div class="boss-hp-fill" id="boss-hp-bar"></div>
+                </div>
+                <span style="font-size: 11px; font-weight: 800; color: #FCA5A5;" id="boss-hp-txt">100 HP</span>
+              </div>
+            </div>
+
+            <div class="boss-stage-visual">
+              <div class="player-sprite-box" id="player-boss-icon">🛡️</div>
+              <div style="font-size: 24px; color: #F43F5E; font-weight: 900;">VS</div>
+              <div class="boss-sprite-box" id="boss-icon">📢⚡</div>
+            </div>
+
+            <div>
+              <div class="boss-question-banner" id="boss-challenge-text">
+                «¡El Megáfono ruge: "En internet puedo insultar a quien quiera porque existe la libertad de expresión!" ¿Cómo respondes?»
+              </div>
+
+              <div class="boss-attacks-grid" id="boss-actions-grid">
+                <button class="btn-attack-arg" onclick="bossAttack(true, '¡Ataque certero! El Artículo 20.4 CE establece que la libertad de expresión tiene como límite el respeto al honor y la dignidad.')">
+                  ⚔️ «El Art. 20.4 fija el límite en la dignidad y el honor ajeno.»
+                </button>
+                <button class="btn-attack-arg" onclick="bossAttack(false, '¡Fallo! Responder con insultos alimenta el megáfono del prejuicio.')">
+                  🛡️ «Insultar también al megáfono para que aprenda.»
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 8: SALÓN DEL GRAN PACTO & CERTIFICADO IMPRIMIBLE -->
+        <section class="game-slide slide-victory" id="slide-8">
+          <h2 style="font-size: 20px; color: var(--arcade-gold); text-transform: uppercase;">
+            ¡ENHORABUENA, EQUIPO CAZADORES DE ETIQUETAS!
+          </h2>
+          <p style="font-size: 12px; color: #CBD5E1; margin-top: 2px;">
+            Habéis silenciado los prejuicios y forjado una campaña ejemplar de igualdad y convivencia.
+          </p>
+
+          <!-- CERTIFICADO OFICIAL A4 IMPRIMIBLE -->
+          <div class="cert-frame-official">
+            <div class="cert-gov-top">COMUNIDAD DE MADRID</div>
+            <h3 class="cert-main-head">CERTIFICADO DE IMPACTO CONSTITUCIONAL</h3>
+            <div style="font-size: 11px; color: #64748B;">Otorgado con distinción al agente / equipo de aula:</div>
+            <div class="cert-player-tag" id="cert-agent-name">AISHA · COMISIÓN DE IGUALDAD</div>
+            <p class="cert-text-body">
+              Por haber superado con éxito el <strong>Reto 2: Campaña exprés antietiquetas</strong>, demostrando un compromiso activo con los <strong>Artículos 14 y 20 de la Constitución Española</strong>, desmontando prejuicios cotidianos y creando un cartel de impacto cívico que fomenta la igualdad y el respeto escolar.
+            </p>
+            <div class="cert-footer-row">
+              <span>📅 6 de Diciembre · Día de la Constitución</span>
+              <span>🔒 Código: CE-2026-RETO2-MAD</span>
+              <span>⭐ Calificación: Rango Sobresaliente (10/10)</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; justify-content: center; margin-top: 10px;">
+            <button class="arcade-btn-start" style="padding: 8px 22px; font-size: 12px;" onclick="printArcadeCertificate()">
+              🖨️ IMPRIMIR / GUARDAR CERTIFICADO (PDF)
+            </button>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- BARRA INFERIOR DE NAVEGACIÓN -->
+      <footer class="genially-toolbar-bottom">
+        <div class="toolbar-left">
+          <button class="nav-arrow-btn" id="btn-prev-slide" onclick="prevSlide()" title="Anterior">◀</button>
+          <span class="slide-page-badge" id="slide-page-indicator">1 / 8</span>
+          <button class="nav-arrow-btn" id="btn-next-slide" onclick="nextSlide()" title="Siguiente">▶</button>
+        </div>
+
+        <div class="toolbar-center">
+          <div class="stage-dot active" onclick="goToSlide(1)" title="1. Portada"></div>
+          <div class="stage-dot" onclick="goToSlide(2)" title="2. Agente"></div>
+          <div class="stage-dot" onclick="goToSlide(3)" title="3. Cristales"></div>
+          <div class="stage-dot" onclick="goToSlide(4)" title="4. Radar"></div>
+          <div class="stage-dot" onclick="goToSlide(5)" title="5. Cartel"></div>
+          <div class="stage-dot" onclick="goToSlide(6)" title="6. Rúbrica"></div>
+          <div class="stage-dot" onclick="goToSlide(7)" title="7. Boss Battle"></div>
+          <div class="stage-dot" onclick="goToSlide(8)" title="8. Certificado"></div>
+        </div>
+
+        <div class="toolbar-right">
+          <button class="hud-btn" onclick="openInfoModal('interactivos')" title="Destacar interactivos">
+            👁️ Ver interactivos
+          </button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- MODAL DE AYUDA Y MARCO LEGAL -->
+  <div class="genially-modal" id="modal-info">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeModal('modal-info')">✕</button>
+      <div id="modal-info-content"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       LÓGICA DEL VIDEOJUEGO ARCADE RETO 2 (TIPO GENIALLY)
+       ========================================================================== */
+    const TOTAL_SLIDES = 8;
+    let currentSlide = 1;
+    let playerName = 'Aisha';
+    let playerAvatar = '🛡️';
+    let playerHearts = 3;
+    let playerXP = 0;
+    let soundEnabled = true;
+    let bgmEnabled = false;
+    let audioCtx = null;
+    let bgmInterval = null;
+    let activatedCrystals = new Set();
+    let solvedRadarCases = new Set();
+    let bossHP = 100;
+    let bossRound = 1;
+
+    function initAudio() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('btn-sound');
+      btn.innerText = soundEnabled ? '🔊 FX: ON' : '🔇 FX: OFF';
+      btn.classList.toggle('active', soundEnabled);
+      if (soundEnabled) playSound('click');
+    }
+
+    function toggleBgm() {
+      initAudio();
+      bgmEnabled = !bgmEnabled;
+      const btn = document.getElementById('btn-bgm');
+      if (bgmEnabled) {
+        btn.classList.add('active');
+        btn.innerText = '🎵 Música: ON';
+        startChiptuneLoop();
+      } else {
+        btn.classList.remove('active');
+        btn.innerText = '🎵 Música: OFF';
+        stopChiptuneLoop();
+      }
+    }
+
+    function stopChiptuneLoop() {
+      if (bgmInterval) clearInterval(bgmInterval);
+      bgmInterval = null;
+    }
+
+    function startChiptuneLoop() {
+      if (bgmInterval) clearInterval(bgmInterval);
+      const notes = [293.66, 329.63, 369.99, 440.00, 369.99, 329.63, 293.66, 246.94];
+      let idx = 0;
+      bgmInterval = setInterval(() => {
+        if (!bgmEnabled || !soundEnabled) return;
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(notes[idx % notes.length], now);
+        gain.gain.setValueAtTime(0.025, now);
+        gain.gain.linearRampToValueAtTime(0.001, now + 0.2);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.2);
+        idx++;
+      }, 230);
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      initAudio();
+      const now = audioCtx.currentTime;
+
+      if (type === 'click') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.08);
+      } else if (type === 'coin') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(987.77, now);
+        osc.frequency.setValueAtTime(1318.51, now + 0.08);
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.25);
+      } else if (type === 'fanfare') {
+        [523.25, 659.25, 783.99, 1046.50].forEach((freq, i) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, now + i * 0.1);
+          gain.gain.setValueAtTime(0.2, now + i * 0.1);
+          gain.gain.linearRampToValueAtTime(0.01, now + i * 0.1 + 0.2);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now + i * 0.1);
+          osc.stop(now + i * 0.1 + 0.22);
+        });
+      } else if (type === 'hit') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(180, now);
+        osc.frequency.linearRampToValueAtTime(60, now + 0.15);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.15);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.15);
+      } else if (type === 'error') {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(140, now);
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.2);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.2);
+      }
+    }
+
+    function goToSlide(num) {
+      if (num < 1 || num > TOTAL_SLIDES) return;
+      playSound('click');
+      currentSlide = num;
+
+      document.querySelectorAll('.game-slide').forEach(s => {
+        s.classList.remove('active');
+        s.style.display = 'none';
+      });
+
+      const target = document.getElementById(`slide-${num}`);
+      if (target) {
+        target.classList.add('active');
+        target.style.display = 'flex';
+      }
+
+      document.querySelectorAll('.stage-dot').forEach((dot, idx) => {
+        dot.classList.toggle('active', idx + 1 === num);
+        if (idx + 1 < num) dot.classList.add('visited');
+        else dot.classList.remove('visited');
+      });
+
+      document.getElementById('slide-page-indicator').innerText = `${num} / ${TOTAL_SLIDES}`;
+      document.getElementById('btn-prev-slide').disabled = (num === 1);
+      document.getElementById('btn-next-slide').disabled = (num === TOTAL_SLIDES);
+
+      if (num === 8) {
+        playSound('fanfare');
+        startConfetti();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < TOTAL_SLIDES) goToSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) goToSlide(currentSlide - 1);
+    }
+
+    function printArcadeCertificate() {
+      playSound('fanfare');
+      goToSlide(8);
+      setTimeout(() => {
+        window.print();
+      }, 120);
+    }
+
+    function toggleFullscreen() {
+      const box = document.getElementById('genially-box');
+      if (!document.fullscreenElement) {
+        box.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    /* PERSONAJE */
+    function selectCharacter(name, avatar, role) {
+      playSound('click');
+      playerName = name;
+      playerAvatar = avatar;
+      document.getElementById('player-input-name').value = name;
+      updatePlayerName(name);
+
+      document.querySelectorAll('.char-card').forEach(c => c.classList.remove('selected'));
+      event.currentTarget.classList.add('selected');
+    }
+
+    function updatePlayerName(val) {
+      playerName = val.trim() || 'Aisha';
+      document.getElementById('hud-name').innerText = playerName;
+      document.getElementById('hud-avatar').innerText = playerAvatar;
+      document.getElementById('cert-agent-name').innerText = `${playerName.toUpperCase()} · COMISIÓN DE IGUALDAD`;
+      document.getElementById('player-boss-icon').innerText = playerAvatar;
+    }
+
+    function addXP(pts) {
+      playerXP += pts;
+      playSound('coin');
+      document.getElementById('hud-xp').innerText = playerXP;
+    }
+
+    /* CRISTALES */
+    function activateCrystal(num) {
+      if (activatedCrystals.has(num)) return;
+      activatedCrystals.add(num);
+      playSound('coin');
+      addXP(15);
+
+      const card = document.getElementById(`cryst-${num}`);
+      const badge = document.getElementById(`badge-cryst-${num}`);
+      card.classList.add('active');
+      badge.innerText = '✅ ACTIVADO';
+      badge.style.color = '#10B981';
+
+      if (activatedCrystals.size === 3) {
+        document.getElementById('btn-to-radar').style.display = 'inline-block';
+        document.getElementById('rpg-speech').innerText = '«¡Excelente! Los 3 cristales de los Artículos 14 y 20 están sintonizados. Ya tienes el escudo necesario para entrar al radar antietiquetas.»';
+      }
+    }
+
+    /* RADAR */
+    function solveRadar(caseId, isCorrect) {
+      if (solvedRadarCases.has(caseId)) return;
+      if (isCorrect) {
+        solvedRadarCases.add(caseId);
+        addXP(20);
+        document.getElementById(`radar-c${caseId}`).style.borderColor = '#10B981';
+        event.currentTarget.classList.add('correct');
+        document.getElementById('radar-count').innerText = solvedRadarCases.size;
+
+        if (solvedRadarCases.size === 4) {
+          playSound('fanfare');
+          setTimeout(() => {
+            alert('🎉 ¡Las 4 situaciones han sido desactivadas con éxito! Avanzas al estudio de diseño de carteles.');
+            goToSlide(5);
+          }, 400);
+        }
+      } else {
+        playSound('error');
+        alert('⚠️ ¡Atención! Esa opción perpetúa la etiqueta o vulnera los derechos. Piensa en el respeto y la igualdad.');
+      }
+    }
+
+    /* ESTUDIO DE CARTELES */
+    function setPosterTheme(theme) {
+      playSound('click');
+      document.querySelectorAll('.btn-theme-chip').forEach(b => b.classList.remove('active'));
+      document.getElementById(`btn-theme-${theme}`).classList.add('active');
+      const box = document.getElementById('poster-box-live');
+      box.className = `poster-box theme-${theme}`;
+    }
+
+    function setSticker(icon) {
+      playSound('click');
+      document.getElementById('poster-sticker').innerText = icon;
+    }
+
+    function updateLivePoster() {
+      const slogan = document.getElementById('arcade-slogan-input').value.trim() || 'SU PERSPECTIVA ME ENRIQUECE';
+      const commit = document.getElementById('arcade-commit-input').value.trim() || 'Nos comprometemos a escuchar sin juzgar.';
+      document.getElementById('poster-slogan').innerText = slogan.toUpperCase();
+      document.getElementById('poster-commit').innerText = `«${commit}»`;
+    }
+
+    /* RÚBRICA */
+    let rubricScores = [2.5, 2.5, 2.5, 2.5];
+    function setRubricScore(criterion, pts) {
+      playSound('click');
+      rubricScores[criterion - 1] = pts;
+      const total = rubricScores.reduce((a, b) => a + b, 0);
+      document.getElementById('rubric-points').innerText = total;
+    }
+
+    /* BOSS BATTLE */
+    const BOSS_QUESTIONS = [
+      {
+        q: '«¡El Megáfono ruge: "Si alguien es diferente, tenemos derecho a burlarnos porque es humor!" ¿Qué respondes?»',
+        opt1: '«El Art. 14 garantiza la igualdad y prohíbe cualquier trato discriminatorio.»',
+        opt2: '«Reírse con la masa para no ser el siguiente atacado.»',
+        correct1: true,
+        feedback: '¡Impacto demoledor! La igualdad real destierra la humillación.'
+      },
+      {
+        q: '«¡El Megáfono ataca de nuevo: "En un grupo de WhatsApp puedo reenviar fotos sin permiso porque no hace daño!" ¿Cómo contraatacas?»',
+        opt1: '«El Art. 20.4 CE protege el derecho al honor y la intimidad de las personas.»',
+        opt2: '«El silencio es lo más fácil para no buscar problemas.»',
+        correct1: true,
+        feedback: '¡Golpe crítico! El respeto y la intimidad son barreras inviolables.'
+      }
+    ];
+
+    function bossAttack(isCorrect, feedback) {
+      if (isCorrect) {
+        playSound('hit');
+        bossHP = Math.max(0, bossHP - 50);
+        document.getElementById('boss-hp-bar').style.width = `${bossHP}%`;
+        document.getElementById('boss-hp-txt').innerText = `${bossHP} HP`;
+        addXP(30);
+
+        if (bossHP <= 0) {
+          playSound('fanfare');
+          document.getElementById('boss-icon').innerText = '✨🤝✨';
+          setTimeout(() => {
+            goToSlide(8);
+          }, 1000);
+        } else {
+          bossRound++;
+          const roundData = BOSS_QUESTIONS[bossRound - 1];
+          if (roundData) {
+            document.getElementById('boss-challenge-text').innerText = roundData.q;
+            document.getElementById('boss-actions-grid').innerHTML = `
+              <button class="btn-attack-arg" onclick="bossAttack(true, '¡Impacto!')">⚔️ ${roundData.opt1}</button>
+              <button class="btn-attack-arg" onclick="bossAttack(false, '¡Fallo!')">🛡️ ${roundData.opt2}</button>
+            `;
+          }
+        }
+      } else {
+        playSound('error');
+        playerHearts = Math.max(1, playerHearts - 1);
+        document.getElementById('hud-hearts').innerText = '❤️'.repeat(playerHearts);
+        alert(feedback);
+      }
+    }
+
+    /* MODALES DE INFORMACIÓN */
+    function openInfoModal(type) {
+      playSound('click');
+      const modal = document.getElementById('modal-info');
+      const box = document.getElementById('modal-info-content');
+
+      if (type === 'guia') {
+        box.innerHTML = `
+          <h3 style="color:var(--arcade-gold); margin-bottom:8px;">📖 Guía de Misión y Controles</h3>
+          <p style="font-size:12px; line-height:1.5; color:#CBD5E1;">
+            Bienvenido/a a <strong>Cazadores de Etiquetas</strong>. Tu objetivo es transformar los estereotipos en derechos cívicos mediante 4 fases: radar ético, taller de carteles, rúbrica de comisión y combate argumental contra el Megáfono del Prejuicio.
+          </p>
+          <div style="background:#0F172A; padding:8px 10px; border-radius:8px; margin-top:8px; font-size:11px;">
+            <strong>⌨️ Controles de Teclado:</strong><br>
+            • <strong>Flechas Izq / Dcha:</strong> Cambiar pantalla.<br>
+            • <strong>Tecla M:</strong> Música 8-Bit.<br>
+            • <strong>Tecla F:</strong> Pantalla completa para PDI.
+          </div>
+        `;
+      } else if (type === 'articulos') {
+        box.innerHTML = `
+          <h3 style="color:var(--arcade-gold); margin-bottom:8px;">⚖️ Marco Constitucional (Reto 2)</h3>
+          <ul style="font-size:12px; line-height:1.6; color:#CBD5E1; padding-left:18px;">
+            <li><strong>Artículo 14 CE:</strong> Igualdad ante la ley sin que prevalezca discriminación por nacimiento, raza, sexo o cualquier condición personal.</li>
+            <li><strong>Artículo 20.1 CE:</strong> Libertad de expresión e ideas libremente emitidas.</li>
+            <li><strong>Artículo 20.4 CE:</strong> Los derechos tienen como límite el respeto a los derechos reconocidos en este Título y la protección de la juventud y la infancia.</li>
+          </ul>
+        `;
+      } else if (type === 'pdf') {
+        const base = (window.location.pathname.toLowerCase().indexOf('entrega_educamadrid') !== -1) ? 'PDFs_Imprimibles_Aula/' : 'ENTREGA_EDUCAMADRID_RETO_2/PDFs_Imprimibles_Aula/';
+        box.innerHTML = `
+          <h3 style="color:var(--arcade-gold); margin-bottom:8px;">📂 Cuadernos Imprimibles de Aula</h3>
+          <div style="display:flex; flex-direction:column; gap:6px; font-size:12px; margin-top:8px;">
+            <a href="${base}RETO 2_ACTIVIDADES CAMPAÑA_EXPRÉS ANTI-ETIQUETAS.pdf" target="_blank" style="color:#38BDF8;">📄 Cuaderno de Actividades (PDF)</a>
+            <a href="${base}RETO 2_INSTRUCCIONES GENERALES_CAMPAÑA EXPRÉS ANTI-ETIQUETAS.pdf" target="_blank" style="color:#38BDF8;">📄 Guía Docente (PDF)</a>
+            <a href="${base}RETO 2_MATERIALES_CAMPAÑA EXPRÉS ANTI-ETIQUETAS.pdf" target="_blank" style="color:#38BDF8;">📄 Fichas de Casos y Rúbricas (PDF)</a>
+          </div>
+        `;
+      } else if (type === 'interactivos') {
+        box.innerHTML = `
+          <h3 style="color:var(--arcade-gold); margin-bottom:8px;">👁️ Elementos Interactivos</h3>
+          <p style="font-size:12px; line-height:1.5; color:#CBD5E1;">
+            Todos los botones, cartas de personajes, tarjetas del radar, controles del cartel y opciones de rúbrica son interactivos con ratón o pizarra digital táctil.
+          </p>
+        `;
+      }
+      modal.classList.add('open');
+    }
+
+    function closeModal(id) {
+      playSound('click');
+      document.getElementById(id).classList.remove('open');
+    }
+
+    /* CONFETI */
+    function startConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+
+      const pieces = [];
+      const colors = ['#EC4899', '#8B5CF6', '#06B6D4', '#FFD700', '#10B981'];
+
+      for (let i = 0; i < 70; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 8 + 4,
+          speed: Math.random() * 3 + 2,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+      }
+
+      let frames = 0;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          p.y += p.speed;
+          ctx.fillStyle = p.color;
+          ctx.fillRect(p.x, p.y, p.size, p.size);
+        });
+        frames++;
+        if (frames < 200) requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') nextSlide();
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+      else if (e.key.toLowerCase() === 'f') toggleFullscreen();
+      else if (e.key.toLowerCase() === 'm') toggleBgm();
+    });
+  </script>
+</body>
+</html>

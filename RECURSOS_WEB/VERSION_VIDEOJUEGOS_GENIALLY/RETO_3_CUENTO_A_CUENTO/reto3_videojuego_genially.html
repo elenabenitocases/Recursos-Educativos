@@ -1,0 +1,1744 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 3: Nuestra Constitución, cuento a cuento · Modo videojuego infantil</title>
+  <style>
+    /* ==========================================================================
+       ESTILOS RETO 3: MODO VIDEOJUEGO INFANTIL (TIPO GENIALLY)
+       Tema: Cuentos mágicos, Preámbulo y art. 10 de la Constitución
+       ========================================================================== */
+    :root {
+      --madrid-red: #C7082A;
+      --madrid-gold: #F59E0B;
+      --magic-blue: #2563EB;
+      --sky-light: #E0F2FE;
+      --magic-purple: #8B5CF6;
+      --pastel-green: #10B981;
+      --soft-pink: #F472B6;
+      --warm-cream: #FFFBEB;
+      --cloud-white: #FFFFFF;
+      --text-dark: #1E293B;
+      --text-muted: #64748B;
+      --border-soft: #CBD5E1;
+      --game-dark-bg: #0C1A30;
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      background: #081224 radial-gradient(circle at center, #11284d 0%, #060d1a 100%);
+      color: var(--text-dark);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .genially-stage-wrapper {
+      width: 100%;
+      max-width: 1240px;
+      margin: 12px auto;
+      padding: 0 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .genially-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 590px;
+      max-height: 790px;
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 0 2px #3B82F6, 0 0 40px rgba(59, 130, 246, 0.35);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HUD SUPERIOR */
+    .genially-hud-top {
+      height: 52px;
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 2px solid #334155;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .hud-left, .hud-center, .hud-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hud-logo {
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .hud-game-title {
+      color: #F8FAFC;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hud-tag {
+      background: linear-gradient(135deg, #F59E0B, #EC4899);
+      color: #FFF;
+      font-size: 10px;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+    }
+
+    .hud-stat-item {
+      background: #1E293B;
+      color: #F8FAFC;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid #334155;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-stars {
+      color: var(--madrid-gold);
+      border-color: #F59E0B;
+    }
+
+    .hud-btn {
+      background: #1E293B;
+      border: 1px solid #475569;
+      color: #E2E8F0;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .hud-btn:hover {
+      background: #334155;
+      color: #FFF;
+      border-color: #38BDF8;
+      transform: translateY(-1px);
+    }
+
+    .hud-btn.active {
+      background: #2563EB;
+      border-color: #60A5FA;
+      color: #FFF;
+    }
+
+    /* VIEWPORT DE DIAPOSITIVAS */
+    .game-viewport {
+      position: relative;
+      flex: 1;
+      height: calc(100% - 104px);
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 30%, #172554 0%, #0A1128 100%);
+    }
+
+    .game-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      padding: 20px 26px;
+      display: none !important;
+      flex-direction: column;
+      overflow-y: auto;
+      color: #F8FAFC;
+    }
+
+    .game-slide.active {
+      display: flex !important;
+      animation: slideFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes slideFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.97) translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* BARRA INFERIOR DE NAVEGACIÓN */
+    .genially-toolbar-bottom {
+      height: 52px;
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 2px solid #334155;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+
+    .toolbar-left, .toolbar-center, .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-arrow-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #1E293B;
+      border: 1px solid #475569;
+      color: #F59E0B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+
+    .nav-arrow-btn:hover:not(:disabled) {
+      background: #3B82F6;
+      color: #FFF;
+      transform: scale(1.1);
+    }
+
+    .nav-arrow-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .slide-page-badge {
+      font-size: 12px;
+      font-weight: 800;
+      color: #94A3B8;
+      background: #0F172A;
+      padding: 4px 10px;
+      border-radius: 12px;
+      border: 1px solid #334155;
+    }
+
+    .slide-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .slide-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #334155;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .slide-dot.active {
+      background: #F59E0B;
+      box-shadow: 0 0 10px #F59E0B;
+      transform: scale(1.3);
+    }
+
+    /* BOTONES DE ACCIÓN MÁGICA */
+    .btn-magic-primary {
+      background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      color: #1E1B4B;
+      font-weight: 900;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+      transition: all 0.2s;
+    }
+
+    .btn-magic-primary:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
+      background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
+    }
+
+    /* SLIDE 1: PORTADA */
+    .slide-intro-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 12px;
+      position: relative;
+    }
+
+    .magical-book-glow {
+      font-size: 64px;
+      animation: floatBook 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 25px rgba(245, 158, 11, 0.7));
+    }
+
+    @keyframes floatBook {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    .story-main-title {
+      font-size: 30px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #FFFBEB 0%, #FCD34D 50%, #F472B6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .story-subtitle {
+      font-size: 14px;
+      color: #BAE6FD;
+      max-width: 650px;
+      line-height: 1.5;
+    }
+
+    .intro-badges-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .intro-badge {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid #38BDF8;
+      color: #E0F2FE;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* SLIDE 2: SELECCIÓN DE PERSONAJES AMIGABLES */
+    .animals-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+      width: 100%;
+      max-width: 950px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .animal-card {
+      background: rgba(30, 41, 59, 0.85);
+      border: 2px solid #334155;
+      border-radius: 16px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .animal-card:hover {
+      border-color: #38BDF8;
+      transform: translateY(-4px);
+      background: rgba(51, 65, 85, 0.95);
+    }
+
+    .animal-card.selected {
+      border-color: #F59E0B;
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.15) 0%, rgba(30, 41, 59, 0.95) 100%);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+      transform: scale(1.04);
+    }
+
+    .animal-avatar {
+      font-size: 44px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+    }
+
+    .animal-name {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #FFFBEB;
+    }
+
+    .animal-skill {
+      font-size: 11px;
+      color: #93C5FD;
+      line-height: 1.3;
+    }
+
+    /* SLIDE 3: EL COFRE MÁGICO DE LOS VALORES */
+    .chest-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .magic-chest-icon {
+      font-size: 70px;
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: chestPulse 2.5s infinite;
+    }
+
+    .magic-chest-icon:hover {
+      transform: scale(1.15) rotate(-3deg);
+    }
+
+    @keyframes chestPulse {
+      0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px #F59E0B); }
+      50% { transform: scale(1.06); filter: drop-shadow(0 0 30px #FBBF24); }
+    }
+
+    .objects-unlocked-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      width: 100%;
+      max-width: 900px;
+      margin-top: 10px;
+    }
+
+    .object-pill {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid #475569;
+      border-radius: 14px;
+      padding: 10px 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+
+    .object-pill.revealed {
+      border-color: #38BDF8;
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.2) 0%, rgba(30, 41, 59, 0.9) 100%);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+    }
+
+    /* SLIDE 4 & 5: ESTACIONES DE LOS CUENTOS */
+    .station-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      flex: 1;
+      margin-top: 10px;
+    }
+
+    .station-box {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid #475569;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .station-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .story-emoji-badge {
+      font-size: 28px;
+      background: #1E293B;
+      padding: 6px;
+      border-radius: 10px;
+    }
+
+    .story-tag-val {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #F59E0B;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .story-prompt-text {
+      font-size: 12px;
+      color: #E2E8F0;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+
+    .station-choices {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .station-btn {
+      background: #1E293B;
+      border: 1px solid #475569;
+      color: #F8FAFC;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .station-btn:hover {
+      background: #334155;
+      border-color: #38BDF8;
+      transform: translateX(4px);
+    }
+
+    .station-btn.correct {
+      background: #065F46;
+      border-color: #10B981;
+      color: #A7F3D0;
+    }
+
+    .station-btn.incorrect {
+      background: #7F1D1D;
+      border-color: #EF4444;
+      color: #FECACA;
+      opacity: 0.6;
+    }
+
+    /* PUERTA INCLUSIVA ANIMADA (SLIDE 4) */
+    .door-demo-container {
+      margin-top: 10px;
+      background: #0F172A;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .interactive-door {
+      width: 45px;
+      height: 70px;
+      background: #92400E;
+      border: 3px solid #F59E0B;
+      border-radius: 6px;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFF;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .interactive-door.expanded {
+      width: 100px;
+      background: #166534;
+      border-color: #22C55E;
+    }
+
+    /* RED DEL OVILLO (SLIDE 5) */
+    .yarn-net-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .yarn-node {
+      background: #1E293B;
+      border: 2px dashed #475569;
+      border-radius: 12px;
+      padding: 10px 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .yarn-node.connected {
+      border-color: #38BDF8;
+      border-style: solid;
+      background: rgba(56, 189, 248, 0.2);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+    }
+
+    /* SLIDE 6: EL HUEVO DE MIS TALENTOS */
+    .talents-workshop-wrap {
+      display: flex;
+      gap: 20px;
+      flex: 1;
+      margin-top: 10px;
+      align-items: center;
+    }
+
+    .egg-preview-box {
+      flex: 0 0 280px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 2px solid #F59E0B;
+      border-radius: 20px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.25);
+    }
+
+    .golden-egg-big {
+      width: 130px;
+      height: 170px;
+      background: radial-gradient(circle at 40% 30%, #FDE68A 0%, #F59E0B 60%, #B45309 100%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.3s;
+    }
+
+    .talents-picker-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .talent-card-btn {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid #475569;
+      border-radius: 12px;
+      padding: 12px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .talent-card-btn:hover {
+      background: #334155;
+      border-color: #F59E0B;
+      transform: translateY(-2px);
+    }
+
+    .talent-card-btn.active {
+      border-color: #F59E0B;
+      background: linear-gradient(180deg, rgba(245, 158, 11, 0.2) 0%, rgba(30, 41, 59, 0.9) 100%);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+    }
+
+    /* SLIDE 7: LA GRAN CONSTITUCIÓN DE AULA */
+    .big-book-wrapper {
+      background: #FFFBEB;
+      color: #1E293B;
+      border-radius: 16px;
+      padding: 18px 24px;
+      border: 4px solid #D97706;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .book-title-header {
+      text-align: center;
+      border-bottom: 2px dashed #D97706;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .stamps-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .book-stamp-card {
+      background: #FEF3C7;
+      border: 2px solid #F59E0B;
+      border-radius: 12px;
+      padding: 10px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .book-stamp-card.stamped {
+      background: #DCFCE7;
+      border-color: #16A34A;
+      box-shadow: 0 4px 10px rgba(22, 163, 74, 0.25);
+    }
+
+    /* SLIDE 8: DIPLOMA INFANTIL ILUSTRADO */
+    .diploma-infantil-canvas {
+      width: 100%;
+      max-width: 820px;
+      background: #FFFDF9;
+      color: #1E293B;
+      border: 6px solid #F59E0B;
+      border-radius: 18px;
+      padding: 18px 24px;
+      margin: 0 auto;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      position: relative;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .diploma-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #FDE68A;
+      padding-bottom: 8px;
+    }
+
+    .diploma-title {
+      font-size: 20px;
+      font-weight: 900;
+      color: #B45309;
+      letter-spacing: 0.5px;
+    }
+
+    .five-story-icons-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 6px 0;
+    }
+
+    .story-draw-item {
+      background: #FEF3C7;
+      border: 1px solid #FCD34D;
+      border-radius: 10px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #78350F;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* MODAL INFORMATIVO */
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-window {
+      background: #1E293B;
+      border: 2px solid #38BDF8;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 580px;
+      padding: 22px;
+      color: #F8FAFC;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: #334155;
+      color: #FFF;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* ESTILOS PARA IMPRESIÓN DIRECTA DEL DIPLOMA INFANTIL */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+
+      body, html {
+        background: #FFFFFF !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      .genially-stage-wrapper,
+      .genially-container,
+      .game-viewport,
+      #slide-8,
+      .diploma-infantil-canvas,
+      .diploma-infantil-canvas * {
+        visibility: visible !important;
+        display: block !important;
+      }
+
+      .genially-container {
+        border: none !important;
+        box-shadow: none !important;
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: auto !important;
+      }
+
+      .genially-hud-top,
+      .genially-toolbar-bottom,
+      .modal-backdrop,
+      .no-print {
+        display: none !important;
+      }
+
+      .diploma-infantil-canvas {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        border: 5px solid #F59E0B !important;
+        padding: 24px !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+      }
+
+      @page {
+        size: landscape A4;
+        margin: 8mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="genially-stage-wrapper">
+    <main class="genially-container" id="game-container">
+      
+      <!-- HUD SUPERIOR -->
+      <header class="genially-hud-top">
+        <div class="hud-left">
+          <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" class="hud-logo" onerror="this.style.display='none'">
+          <div class="hud-game-title">
+            <span>Reto 3: Nuestra Constitución, cuento a cuento</span>
+            <span class="hud-tag">Infantil & 1.º Primaria</span>
+          </div>
+        </div>
+
+        <div class="hud-center">
+          <div class="hud-stat-item stat-stars">
+            <span>⭐</span>
+            <span id="hud-stars-count">0 / 5 estrellas</span>
+          </div>
+          <div class="hud-stat-item" id="hud-char-badge" style="color: #67E8F9;">
+            <span>🦉 Boli</span>
+          </div>
+        </div>
+
+        <div class="hud-right">
+          <button class="hud-btn" id="btn-bgm" onclick="toggleBgm()" title="Música de cuento">🎵 Música: OFF</button>
+          <button class="hud-btn active" id="btn-sound" onclick="toggleSound()" title="Efectos de sonido">🔊 Sonido: ON</button>
+          <button class="hud-btn" onclick="toggleFullScreen()" title="Pantalla completa para pizarra digital">⛶</button>
+        </div>
+      </header>
+
+      <!-- VIEWPORT DE DIAPOSITIVAS (8 SLIDES) -->
+      <section class="game-viewport">
+
+        <!-- SLIDE 1: PORTADA MÁGICA -->
+        <section class="game-slide active" id="slide-1">
+          <div class="slide-intro-content">
+            <div class="magical-book-glow">📖✨</div>
+            <h1 class="story-main-title">Nuestra Constitución, cuento a cuento</h1>
+            <p class="story-subtitle">
+              Descubre el gran cofre mágico de la convivencia. Cinco cuentos entrañables, cinco objetos simbólicos y cinco valores para aprender a cuidarnos y vivir en paz.
+            </p>
+            <div class="intro-badges-row">
+              <span class="intro-badge">✨ Preámbulo y art. 10 de la Constitución</span>
+              <span class="intro-badge">🎒 Infantil (5 años) y 1.º Primaria</span>
+              <span class="intro-badge">📜 Creación del Gran Libro de Aula</span>
+            </div>
+            <div style="margin-top: 14px; display: flex; gap: 12px; align-items: center; justify-content: center;">
+              <button class="btn-magic-primary" onclick="goToSlide(2)">
+                <span>¡ABRIR EL LIBRO MÁGICO!</span>
+                <span>➔</span>
+              </button>
+              <button class="hud-btn" onclick="openModal('guia')" style="padding: 10px 16px; border-radius: 20px;">
+                📖 Guía didáctica
+              </button>
+              <button class="hud-btn" onclick="openModal('pdf')" style="padding: 10px 16px; border-radius: 20px;">
+                📂 PDF imprimible
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 2: SELECCIÓN DE MASCOTA GUARDIANA Y AULA -->
+        <section class="game-slide" id="slide-2">
+          <div style="text-align: center;">
+            <h2 style="font-size: 19px; color: var(--madrid-gold);">Elige a tu guardián o guardiana y tu aula</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">Selecciona al animalito que guiará los cuentos y escribe el nombre de tu clase o colegio:</p>
+          </div>
+
+          <div class="animals-grid">
+            <div class="animal-card selected" id="char-1" onclick="selectChar('Boli', '🦉 Boli', 'Sabio y atento. Ama escuchar y leer cuentos.')">
+              <div class="animal-avatar">🦉</div>
+              <div class="animal-name">Boli el Búho</div>
+              <div class="animal-skill">Sabio y atento.<br>Escucha con el corazón.</div>
+            </div>
+            <div class="animal-card" id="char-2" onclick="selectChar('Lúa', '🐸 Lúa', 'Alegre y saltarina. Ayuda a cruzar a todos.')">
+              <div class="animal-avatar">🐸</div>
+              <div class="animal-name">Lúa la Ranita</div>
+              <div class="animal-skill">Alegre y solidaria.<br>Ayuda a todos a saltar.</div>
+            </div>
+            <div class="animal-card" id="char-3" onclick="selectChar('Pipo', '🦔 Pipo', 'Tierno y cuidadoso. Abraza sin pinchar.')">
+              <div class="animal-avatar">🦔</div>
+              <div class="animal-name">Pipo el Erizo</div>
+              <div class="animal-skill">Tierno y paciente.<br>Cuida a sus amigos.</div>
+            </div>
+            <div class="animal-card" id="char-4" onclick="selectChar('Nora', '🐿️ Nora', 'Generosa y veloz. Comparte con el grupo.')">
+              <div class="animal-avatar">🐿️</div>
+              <div class="animal-name">Nora la Ardilla</div>
+              <div class="animal-skill">Generosa y curiosa.<br>Comparte sus tesoros.</div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; max-width: 600px; margin: 16px auto 0 auto; width: 100%;">
+            <input type="text" id="player-name-input" placeholder="Nombre del aula o alumno/a (ej. Aula 5 Años - Los Guardianes)" 
+                   value="Aula de 5 Años" 
+                   style="flex: 1; padding: 10px 14px; border-radius: 10px; border: 1px solid #475569; background: #0F172A; color: #FFF; font-size: 12.5px;">
+            <button class="btn-magic-primary" onclick="confirmCharacterAndProceed()">
+              <span>¡ENTRAR AL BOSQUE MÁGICO!</span>
+              <span>➔</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- SLIDE 3: EL COFRE DE LA CONVIVENCIA -->
+        <section class="game-slide" id="slide-3">
+          <div style="text-align: center;">
+            <h2 style="font-size: 19px; color: var(--madrid-gold);">El misterio del cofre de la convivencia</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">¡Toca el gran cofre mágico para abrirlo y liberar los 5 tesoros de la Constitución!</p>
+          </div>
+
+          <div class="chest-container">
+            <div class="magic-chest-icon" id="magic-chest-btn" onclick="openMagicChest()">
+              🎁
+            </div>
+            <p id="chest-instruction" style="font-size: 13px; font-weight: 800; color: #FBBF24;">
+              ✨ Toca el cofre para que salgan los cinco objetos mágicos
+            </p>
+
+            <div class="objects-unlocked-grid">
+              <div class="object-pill" id="obj-1">
+                <span style="font-size: 24px;">🥣</span>
+                <strong style="font-size: 11px; color:#F8FAFC;">El cazo</strong>
+                <span style="font-size: 9.5px; color:#93C5FD;">Justicia e inclusión</span>
+              </div>
+              <div class="object-pill" id="obj-2">
+                <span style="font-size: 24px;">🟩⚪</span>
+                <strong style="font-size: 11px; color:#F8FAFC;">Las figuras</strong>
+                <span style="font-size: 9.5px; color:#93C5FD;">Igualdad real</span>
+              </div>
+              <div class="object-pill" id="obj-3">
+                <span style="font-size: 24px;">🧶</span>
+                <strong style="font-size: 11px; color:#F8FAFC;">El ovillo</strong>
+                <span style="font-size: 9.5px; color:#93C5FD;">Paz y cooperación</span>
+              </div>
+              <div class="object-pill" id="obj-4">
+                <span style="font-size: 24px;">🕊️</span>
+                <strong style="font-size: 11px; color:#F8FAFC;">La paloma</strong>
+                <span style="font-size: 9.5px; color:#93C5FD;">Diálogo y paz</span>
+              </div>
+              <div class="object-pill" id="obj-5">
+                <span style="font-size: 24px;">🥚</span>
+                <strong style="font-size: 11px; color:#F8FAFC;">El huevo</strong>
+                <span style="font-size: 9.5px; color:#93C5FD;">Ser uno mismo</span>
+              </div>
+            </div>
+
+            <button class="btn-magic-primary" id="btn-chest-continue" onclick="goToSlide(4)" style="display: none; margin-top: 8px;">
+              <span>¡IR A LA ESTACIÓN DE LOS CUENTOS!</span>
+              <span>➔</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- SLIDE 4: ESTACIÓN 1 (LORENZO Y CUADRADITO) -->
+        <section class="game-slide" id="slide-4">
+          <div style="text-align: center;">
+            <h2 style="font-size: 18px; color: var(--madrid-gold);">Estación 1: La ayuda mutua y la igualdad real</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">Resuelve los dos primeros cuentos para ganar las estrellas 1 y 2:</p>
+          </div>
+
+          <div class="station-split-grid">
+            <!-- Cuento 1: El cazo de Lorenzo -->
+            <div class="station-box">
+              <div>
+                <div class="station-header">
+                  <div class="story-emoji-badge">🥣</div>
+                  <div>
+                    <h3 style="font-size: 14px; color: #FFF;">El cazo de Lorenzo</h3>
+                    <div class="story-tag-val">Preámbulo: Justicia e inclusión</div>
+                  </div>
+                </div>
+                <p class="story-prompt-text">
+                  A veces un compañero lleva una carga pesada que le cuesta arrastrar. ¿Qué hacemos para ayudarle?
+                </p>
+                <div class="station-choices">
+                  <button class="station-btn" id="s1-opt-1" onclick="answerStory(1, true, this)">
+                    <span>🤝 Darle la mano con una sonrisa y esperarle</span>
+                  </button>
+                  <button class="station-btn" id="s1-opt-2" onclick="answerStory(1, false, this)">
+                    <span>🏃 Salir corriendo sin esperarle</span>
+                  </button>
+                </div>
+              </div>
+              <div id="feedback-story-1" style="font-size: 11px; color: #34D399; font-weight: 700; margin-top: 8px; min-height: 18px;"></div>
+            </div>
+
+            <!-- Cuento 2: Por cuatro esquinitas de nada -->
+            <div class="station-box">
+              <div>
+                <div class="station-header">
+                  <div class="story-emoji-badge">🚪</div>
+                  <div>
+                    <h3 style="font-size: 14px; color: #FFF;">Por cuatro esquinitas de nada</h3>
+                    <div class="story-tag-val">Art. 14: Igualdad y no discriminación</div>
+                  </div>
+                </div>
+                <p class="story-prompt-text">
+                  Cuadradito quiere jugar en la casa grande, pero la puerta es redonda. ¿Cuál es la solución más justa?
+                </p>
+                <div class="station-choices">
+                  <button class="station-btn" id="s2-opt-1" onclick="answerStory(2, false, this)">
+                    <span>✂️ Cortarle las esquinas a Cuadradito con tijeras</span>
+                  </button>
+                  <button class="station-btn" id="s2-opt-2" onclick="answerStory(2, true, this)">
+                    <span>🚪 Recortar la puerta para hacerla más grande</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="door-demo-container">
+                <span style="font-size: 26px;">🟦</span>
+                <div class="interactive-door" id="demo-door">Puerta</div>
+                <span style="font-size: 26px;">🔴</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 5: ESTACIÓN 2 (EL OVILLO Y LA PALOMA) -->
+        <section class="game-slide" id="slide-5">
+          <div style="text-align: center;">
+            <h2 style="font-size: 18px; color: var(--madrid-gold);">Estación 2: La red de la paz y el diálogo</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">Teje la red de la convivencia y aprende las palabras de paz:</p>
+          </div>
+
+          <div class="station-split-grid">
+            <!-- Cuento 3: ¿Qué hace falta? (Gianni Rodari) -->
+            <div class="station-box">
+              <div>
+                <div class="station-header">
+                  <div class="story-emoji-badge">🧶</div>
+                  <div>
+                    <h3 style="font-size: 14px; color: #FFF;">El ovillo de la cooperación</h3>
+                    <div class="story-tag-val">Preámbulo: Paz y cooperación</div>
+                  </div>
+                </div>
+                <p class="story-prompt-text">
+                  Toca los 4 elementos de la escuela para unirlos con el hilo azul de la ayuda mutua:
+                </p>
+                <div class="yarn-net-grid">
+                  <div class="yarn-node" id="yarn-1" onclick="toggleYarn(1)">
+                    <span style="font-size: 20px;">👦👧</span><br>
+                    <span style="font-size: 10px; color:#CBD5E1;">Alumnado</span>
+                  </div>
+                  <div class="yarn-node" id="yarn-2" onclick="toggleYarn(2)">
+                    <span style="font-size: 20px;">👩‍🏫</span><br>
+                    <span style="font-size: 10px; color:#CBD5E1;">Maestros</span>
+                  </div>
+                  <div class="yarn-node" id="yarn-3" onclick="toggleYarn(3)">
+                    <span style="font-size: 20px;">🍲</span><br>
+                    <span style="font-size: 10px; color:#CBD5E1;">Comedor</span>
+                  </div>
+                  <div class="yarn-node" id="yarn-4" onclick="toggleYarn(4)">
+                    <span style="font-size: 20px;">🌳</span><br>
+                    <span style="font-size: 10px; color:#CBD5E1;">Naturaleza</span>
+                  </div>
+                </div>
+              </div>
+              <div id="yarn-feedback" style="font-size: 11px; color: #38BDF8; font-weight: 700; margin-top: 8px;">
+                Toca cada casilla para unir la red escolar.
+              </div>
+            </div>
+
+            <!-- Cuento 4: El enemigo (Davide Cali) -->
+            <div class="station-box">
+              <div>
+                <div class="station-header">
+                  <div class="story-emoji-badge">🕊️</div>
+                  <div>
+                    <h3 style="font-size: 14px; color: #FFF;">La paloma de la concordia</h3>
+                    <div class="story-tag-val">Preámbulo: Resolución pacífica</div>
+                  </div>
+                </div>
+                <p class="story-prompt-text">
+                  Ha surgido un roce en el recreo por una pelota. ¿Qué palabra mágica nos ayuda a resolverlo?
+                </p>
+                <div class="station-choices">
+                  <button class="station-btn" id="s4-opt-1" onclick="answerStory(4, true, this)">
+                    <span>🗣️ «Hablemos tranquilos y compartamos el juego»</span>
+                  </button>
+                  <button class="station-btn" id="s4-opt-2" onclick="answerStory(4, false, this)">
+                    <span>😡 «Gritar y esconder la pelota»</span>
+                  </button>
+                </div>
+              </div>
+              <div id="feedback-story-4" style="font-size: 11px; color: #34D399; font-weight: 700; margin-top: 8px; min-height: 18px;"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 6: ESTACIÓN 3 (LA VACA QUE PUSO UN HUEVO) -->
+        <section class="game-slide" id="slide-6">
+          <div style="text-align: center;">
+            <h2 style="font-size: 18px; color: var(--madrid-gold);">Estación 3: El huevo de mis talentos y la diversidad</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">La vaca Macarena nos enseña que todos somos únicos y valiosos (Art. 10 de la Constitución):</p>
+          </div>
+
+          <div class="talents-workshop-wrap">
+            <div class="egg-preview-box">
+              <div class="golden-egg-big" id="magic-egg-display">
+                <span id="egg-icon-preview" style="font-size: 34px;">✨</span>
+                <span id="egg-label-preview" style="font-size: 11px; font-weight: 800; color: #78350F;">¡Soy único!</span>
+              </div>
+              <span style="font-size: 11px; color: #FDE68A; margin-top: 10px; font-weight: 700;">El huevo de nuestros talentos</span>
+            </div>
+
+            <div class="talents-picker-grid">
+              <div class="talent-card-btn active" onclick="pickTalent('🎨', 'Pintar y crear')">
+                <span style="font-size: 24px;">🎨</span>
+                <strong style="font-size: 11px;">Pintar y crear</strong>
+              </div>
+              <div class="talent-card-btn" onclick="pickTalent('🫂', 'Dar abrazos')">
+                <span style="font-size: 24px;">🫂</span>
+                <strong style="font-size: 11px;">Dar abrazos</strong>
+              </div>
+              <div class="talent-card-btn" onclick="pickTalent('🏃', 'Correr y jugar limpio')">
+                <span style="font-size: 24px;">🏃</span>
+                <strong style="font-size: 11px;">Jugar limpio</strong>
+              </div>
+              <div class="talent-card-btn" onclick="pickTalent('🎵', 'Cantar y reír')">
+                <span style="font-size: 24px;">🎵</span>
+                <strong style="font-size: 11px;">Cantar y reír</strong>
+              </div>
+              <div class="talent-card-btn" onclick="pickTalent('🌱', 'Cuidar la naturaleza')">
+                <span style="font-size: 24px;">🌱</span>
+                <strong style="font-size: 11px;">Cuidar plantas</strong>
+              </div>
+              <div class="talent-card-btn" onclick="pickTalent('🧩', 'Resolver acertijos')">
+                <span style="font-size: 24px;">🧩</span>
+                <strong style="font-size: 11px;">Resolver dudas</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 7: LA GRAN CONSTITUCIÓN DE NUESTRA CLASE -->
+        <section class="game-slide" id="slide-7">
+          <div style="text-align: center;">
+            <h2 style="font-size: 18px; color: var(--madrid-gold);">La gran constitución de nuestra clase</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">Estampa los 5 sellos de honor en el gran libro abierto de la convivencia:</p>
+          </div>
+
+          <div class="big-book-wrapper">
+            <div class="book-title-header">
+              <h3 style="font-size: 16px; font-weight: 900; color: #B45309;">
+                📜 LIBRO DE LA CONCORDIA DEL COLEGIO
+              </h3>
+              <p style="font-size: 11.5px; color: #475569;" id="book-class-sub">
+                Grupo: Aula de 5 Años · Comunidad de Madrid
+              </p>
+            </div>
+
+            <div class="stamps-row">
+              <div class="book-stamp-card" id="stamp-1" onclick="applyStamp(1)">
+                <span style="font-size: 22px;">🥣</span>
+                <strong style="font-size: 10px;">1. Inclusión</strong>
+                <span style="font-size: 9px; color:#475569;">«Ayudamos siempre»</span>
+              </div>
+              <div class="book-stamp-card" id="stamp-2" onclick="applyStamp(2)">
+                <span style="font-size: 22px;">🚪</span>
+                <strong style="font-size: 10px;">2. Igualdad</strong>
+                <span style="font-size: 9px; color:#475569;">«Puerta grande»</span>
+              </div>
+              <div class="book-stamp-card" id="stamp-3" onclick="applyStamp(3)">
+                <span style="font-size: 22px;">🧶</span>
+                <strong style="font-size: 10px;">3. Red de paz</strong>
+                <span style="font-size: 9px; color:#475569;">«Estamos unidos»</span>
+              </div>
+              <div class="book-stamp-card" id="stamp-4" onclick="applyStamp(4)">
+                <span style="font-size: 22px;">🕊️</span>
+                <strong style="font-size: 10px;">4. Diálogo</strong>
+                <span style="font-size: 9px; color:#475569;">«Hablamos en paz»</span>
+              </div>
+              <div class="book-stamp-card" id="stamp-5" onclick="applyStamp(5)">
+                <span style="font-size: 22px;">🥚</span>
+                <strong style="font-size: 10px;">5. Diversidad</strong>
+                <span style="font-size: 9px; color:#475569;">«Cada uno es único»</span>
+              </div>
+            </div>
+
+            <div style="text-align: center;">
+              <button class="btn-magic-primary" id="btn-unlock-diploma" onclick="goToSlide(8)">
+                <span>¡ABRIR SALÓN DE DIPLOMAS Y FIESTA!</span>
+                <span>🏆</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 8: DIPLOMA INFANTIL ILUSTRADO -->
+        <section class="game-slide" id="slide-8">
+          <div class="no-print" style="text-align: center; margin-bottom: 8px;">
+            <h2 style="font-size: 18px; color: var(--madrid-gold);">¡Enhorabuena, pequeños guardianes! 🎉</h2>
+            <p style="font-size: 12px; color: #CBD5E1;">Habéis descubierto los 5 tesoros de la convivencia. Aquí tenéis vuestro diploma oficial:</p>
+          </div>
+
+          <div class="diploma-infantil-canvas" id="print-diploma-area">
+            <div class="diploma-header-row">
+              <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" style="height: 28px;" onerror="this.style.display='none'">
+              <div class="diploma-title">DIPLOMA DE SUPERGUARDIÁN O SUPERGUARDIANA</div>
+              <span style="font-size: 24px;">⭐📜⭐</span>
+            </div>
+
+            <p style="font-size: 12.5px; color: #475569; margin: 4px 0;">
+              Por haber descubierto con alegría los <strong>5 valores de la Constitución</strong> a través de los cuentos mágicos:
+            </p>
+
+            <div class="five-story-icons-row">
+              <div class="story-draw-item">🥣 Empatía</div>
+              <div class="story-draw-item">🚪 Puertas abiertas</div>
+              <div class="story-draw-item">🧶 Red de ayuda</div>
+              <div class="story-draw-item">🕊️ Paz y diálogo</div>
+              <div class="story-draw-item">🥚 Respeto mutuo</div>
+            </div>
+
+            <div style="background: #FEF3C7; border: 2px dashed #F59E0B; border-radius: 12px; padding: 10px; margin: 6px 0;">
+              <div style="font-size: 11px; color: #92400E; font-weight: 700;">OTORGADO CON CARIÑO A:</div>
+              <div style="font-size: 20px; font-weight: 900; color: #B45309; text-transform: uppercase;" id="diploma-child-name">
+                Aula de 5 Años
+              </div>
+              <div style="font-size: 11px; color: #475569;" id="diploma-school-name">
+                Colegio de la Comunidad de Madrid · 6 de Diciembre de 2026
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; padding: 0 20px;">
+              <div style="text-align: center; font-size: 10px; color: #475569;">
+                <div style="border-top: 1px solid #78350F; width: 140px; margin-bottom: 2px;"></div>
+                El maestro o maestra
+              </div>
+              <div style="font-size: 32px;">🌟</div>
+              <div style="text-align: center; font-size: 10px; color: #475569;">
+                <div style="border-top: 1px solid #78350F; width: 140px; margin-bottom: 2px;"></div>
+                Comisión de Convivencia
+              </div>
+            </div>
+          </div>
+
+          <div class="no-print" style="margin-top: 12px; display: flex; gap: 12px; justify-content: center;">
+            <button class="btn-magic-primary" onclick="printDiplomaInfantil()">
+              <span>🖨️ IMPRIMIR DIPLOMA DE LA CLASE</span>
+            </button>
+            <button class="hud-btn" onclick="goToSlide(1)">
+              <span>🔄 Volver al inicio</span>
+            </button>
+          </div>
+        </section>
+
+      </section>
+
+      <!-- BARRA INFERIOR DE NAVEGACIÓN -->
+      <footer class="genially-toolbar-bottom">
+        <div class="toolbar-left">
+          <button class="nav-arrow-btn" id="btn-prev-slide" onclick="changeSlide(-1)" title="Anterior">◀</button>
+          <span class="slide-page-badge" id="slide-page-indicator">1 / 8</span>
+          <button class="nav-arrow-btn" id="btn-next-slide" onclick="changeSlide(1)" title="Siguiente">▶</button>
+        </div>
+
+        <div class="toolbar-center">
+          <div class="slide-dots">
+            <div class="slide-dot active" onclick="goToSlide(1)" title="Portada"></div>
+            <div class="slide-dot" onclick="goToSlide(2)" title="Personajes"></div>
+            <div class="slide-dot" onclick="goToSlide(3)" title="El cofre"></div>
+            <div class="slide-dot" onclick="goToSlide(4)" title="Estación 1"></div>
+            <div class="slide-dot" onclick="goToSlide(5)" title="Estación 2"></div>
+            <div class="slide-dot" onclick="goToSlide(6)" title="Estación 3"></div>
+            <div class="slide-dot" onclick="goToSlide(7)" title="Mural"></div>
+            <div class="slide-dot" onclick="goToSlide(8)" title="Diploma"></div>
+          </div>
+        </div>
+
+        <div class="toolbar-right">
+          <button class="hud-btn" onclick="openModal('interactivos')" style="font-size: 11px;">
+            👁️ Interactivos
+          </button>
+        </div>
+      </footer>
+
+      <!-- MODAL DIDÁCTICO -->
+      <div class="modal-backdrop" id="modal-info">
+        <div class="modal-window">
+          <button class="modal-close-btn" onclick="closeModal()">✕</button>
+          <div id="modal-info-content"></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- CONFETI PARA CELEBRACIÓN -->
+  <canvas id="confetti-canvas" style="position:fixed; inset:0; pointer-events:none; z-index:999; display:none;"></canvas>
+
+  <script>
+    /* ==========================================================================
+       LÓGICA DEL VIDEOJUEGO INFANTIL (RETO 3)
+       ========================================================================== */
+    (function() {
+      let currentSlide = 1;
+      const totalSlides = 8;
+      let starsCount = 0;
+      let audioCtx = null;
+      let soundEnabled = true;
+      let bgmEnabled = false;
+      let bgmTimer = null;
+
+      let selectedCharName = 'Aula de 5 Años';
+      let selectedCharIcon = '🦉 Boli';
+
+      // AUDIO CHIPTUNE
+      function initAudio() {
+        if (!audioCtx) {
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+      }
+
+      window.toggleSound = function() {
+        soundEnabled = !soundEnabled;
+        const btn = document.getElementById('btn-sound');
+        btn.innerText = soundEnabled ? '🔊 Sonido: ON' : '🔇 Sonido: OFF';
+        btn.classList.toggle('active', soundEnabled);
+        if (soundEnabled) playSound('click');
+      };
+
+      window.toggleBgm = function() {
+        initAudio();
+        bgmEnabled = !bgmEnabled;
+        const btn = document.getElementById('btn-bgm');
+        if (bgmEnabled) {
+          btn.classList.add('active');
+          btn.innerText = '🎵 Música: ON';
+          startFairyLoop();
+        } else {
+          btn.classList.remove('active');
+          btn.innerText = '🎵 Música: OFF';
+          stopFairyLoop();
+        }
+      };
+
+      function stopFairyLoop() {
+        if (bgmTimer) {
+          clearInterval(bgmTimer);
+          bgmTimer = null;
+        }
+      }
+
+      function startFairyLoop() {
+        stopFairyLoop();
+        const notes = [523.25, 659.25, 783.99, 1046.50, 783.99, 659.25]; // C5, E5, G5, C6
+        let step = 0;
+        bgmTimer = setInterval(() => {
+          if (!bgmEnabled || !soundEnabled) return;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(notes[step % notes.length], audioCtx.currentTime);
+          gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+          gain.gain.linearRampToValueAtTime(0.005, audioCtx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 0.38);
+          step++;
+        }, 400);
+      }
+
+      function playSound(type) {
+        if (!soundEnabled) return;
+        initAudio();
+        const now = audioCtx.currentTime;
+
+        if (type === 'click') {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(500, now);
+          osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.08);
+        } else if (type === 'star') {
+          const freqs = [783.99, 1046.50, 1318.51];
+          freqs.forEach((f, idx) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, now + idx * 0.07);
+            gain.gain.setValueAtTime(0.2, now + idx * 0.07);
+            gain.gain.linearRampToValueAtTime(0.01, now + idx * 0.07 + 0.2);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now + idx * 0.07);
+            osc.stop(now + idx * 0.07 + 0.22);
+          });
+        } else if (type === 'magic') {
+          [440, 554.37, 659.25, 880, 1108.73].forEach((f, idx) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(f, now + idx * 0.06);
+            gain.gain.setValueAtTime(0.18, now + idx * 0.06);
+            gain.gain.linearRampToValueAtTime(0.01, now + idx * 0.06 + 0.25);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(now + idx * 0.06);
+            osc.stop(now + idx * 0.06 + 0.28);
+          });
+        }
+      }
+
+      // NAVEGACIÓN
+      window.goToSlide = function(num) {
+        if (num < 1 || num > totalSlides) return;
+        playSound('click');
+        document.querySelectorAll('.game-slide').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.slide-dot').forEach(d => d.classList.remove('active'));
+
+        const target = document.getElementById(`slide-${num}`);
+        if (target) target.classList.add('active');
+
+        const dot = document.querySelectorAll('.slide-dot')[num - 1];
+        if (dot) dot.classList.add('active');
+
+        currentSlide = num;
+        document.getElementById('slide-page-indicator').innerText = `${num} / ${totalSlides}`;
+        document.getElementById('btn-prev-slide').disabled = (num === 1);
+        document.getElementById('btn-next-slide').disabled = (num === totalSlides);
+
+        if (num === 8) {
+          triggerConfetti();
+        }
+      };
+
+      window.changeSlide = function(delta) {
+        goToSlide(currentSlide + delta);
+      };
+
+      // SELECCIÓN DE PERSONAJE
+      window.selectChar = function(code, label, skill) {
+        playSound('click');
+        document.querySelectorAll('.animal-card').forEach(c => c.classList.remove('selected'));
+        if (code === 'Boli') document.getElementById('char-1').classList.add('selected');
+        if (code === 'Lúa') document.getElementById('char-2').classList.add('selected');
+        if (code === 'Pipo') document.getElementById('char-3').classList.add('selected');
+        if (code === 'Nora') document.getElementById('char-4').classList.add('selected');
+
+        selectedCharIcon = label;
+        document.getElementById('hud-char-badge').innerText = label;
+      };
+
+      window.confirmCharacterAndProceed = function() {
+        const input = document.getElementById('player-name-input');
+        if (input && input.value.trim() !== '') {
+          selectedCharName = input.value.trim();
+        }
+        document.getElementById('diploma-child-name').innerText = selectedCharName;
+        document.getElementById('book-class-sub').innerText = `Grupo: ${selectedCharName} · Comunidad de Madrid`;
+        goToSlide(3);
+      };
+
+      // COFRE MÁGICO
+      window.openMagicChest = function() {
+        playSound('magic');
+        const chest = document.getElementById('magic-chest-btn');
+        chest.innerText = '✨🎁✨';
+        document.getElementById('chest-instruction').innerText = '¡Tesoros liberados! Cinco valores para vivir en paz:';
+
+        for (let i = 1; i <= 5; i++) {
+          setTimeout(() => {
+            document.getElementById(`obj-${i}`).classList.add('revealed');
+            playSound('star');
+          }, i * 200);
+        }
+
+        setTimeout(() => {
+          document.getElementById('btn-chest-continue').style.display = 'inline-flex';
+          addStars(1);
+        }, 1300);
+      };
+
+      function addStars(num) {
+        starsCount = Math.min(5, starsCount + num);
+        document.getElementById('hud-stars-count').innerText = `${starsCount} / 5 estrellas`;
+      }
+
+      // RESPUESTAS DE CUENTOS
+      window.answerStory = function(storyNum, isCorrect, btnElem) {
+        if (isCorrect) {
+          playSound('star');
+          btnElem.classList.add('correct');
+          addStars(1);
+
+          if (storyNum === 1) {
+            document.getElementById('feedback-story-1').innerText = '¡Muy bien! Ayudar a quien lleva una carga es ser justos.';
+          } else if (storyNum === 2) {
+            document.getElementById('demo-door').classList.add('expanded');
+            document.getElementById('demo-door').innerText = '¡Grande!';
+          } else if (storyNum === 4) {
+            document.getElementById('feedback-story-4').innerText = '¡Bravo! Hablar con el corazón aleja cualquier enfado.';
+          }
+        } else {
+          playSound('click');
+          btnElem.classList.add('incorrect');
+        }
+      };
+
+      // LA RED DEL OVILLO
+      let yarnConnected = 0;
+      window.toggleYarn = function(id) {
+        const node = document.getElementById(`yarn-${id}`);
+        if (!node.classList.contains('connected')) {
+          node.classList.add('connected');
+          playSound('star');
+          yarnConnected++;
+          if (yarnConnected >= 4) {
+            document.getElementById('yarn-feedback').innerText = '¡Maravilloso! Habéis tejido la red de cariño del colegio.';
+            addStars(1);
+          }
+        }
+      };
+
+      // TALLER DE TALENTOS
+      window.pickTalent = function(icon, text) {
+        playSound('star');
+        document.querySelectorAll('.talent-card-btn').forEach(b => b.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        document.getElementById('egg-icon-preview').innerText = icon;
+        document.getElementById('egg-label-preview').innerText = text;
+        addStars(1);
+      };
+
+      // ESTAMPAR SELLOS EN EL MURAL
+      let stampedCount = 0;
+      window.applyStamp = function(id) {
+        const stamp = document.getElementById(`stamp-${id}`);
+        if (!stamp.classList.contains('stamped')) {
+          stamp.classList.add('stamped');
+          playSound('star');
+          stampedCount++;
+        }
+      };
+
+      // IMPRESIÓN DEL DIPLOMA
+      window.printDiplomaInfantil = function() {
+        playSound('click');
+        window.print();
+      };
+
+      // MODAL
+      window.openModal = function(type) {
+        playSound('click');
+        const modal = document.getElementById('modal-info');
+        const box = document.getElementById('modal-info-content');
+
+        if (type === 'guia') {
+          box.innerHTML = `
+            <h3 style="color:var(--madrid-gold); margin-bottom:8px;">📖 Guía didáctica para Infantil y 1.º Primaria</h3>
+            <p style="font-size:12.5px; line-height:1.5; color:#CBD5E1;">
+              Esta propuesta traslada el <strong>Preámbulo y el art. 10 de la Constitución Española</strong> al lenguaje infantil mediante 5 cuentos de literatura de calidad.
+            </p>
+            <ul style="font-size:12px; line-height:1.6; color:#CBD5E1; padding-left:18px; margin-top:8px;">
+              <li><strong>El cazo de Lorenzo:</strong> Justicia e inclusión ante la dificultad.</li>
+              <li><strong>Por cuatro esquinitas de nada:</strong> Adaptar los entornos para que quepamos todos.</li>
+              <li><strong>¿Qué hace falta?:</strong> Cooperación comunitaria y respeto mutuo.</li>
+              <li><strong>El enemigo:</strong> Diálogo empático para resolver conflictos en el patio.</li>
+              <li><strong>La vaca que puso un huevo:</strong> Libertad y aprecio por la diversidad.</li>
+            </ul>
+          `;
+        } else if (type === 'pdf') {
+          const base = (window.location.pathname.toLowerCase().indexOf('entrega_educamadrid') !== -1) ? 'PDFs_Imprimibles_Aula/' : 'ENTREGA_EDUCAMADRID_RETO_3/PDFs_Imprimibles_Aula/';
+          box.innerHTML = `
+            <h3 style="color:var(--madrid-gold); margin-bottom:8px;">📂 Cuadernos imprimibles de aula</h3>
+            <div style="display:flex; flex-direction:column; gap:8px; font-size:12px; margin-top:8px;">
+              <a href="${base}RETO 3_ ACTIVIDADES_NUESTRA CONSTITUCIÓN, CUENTO A CUENTO.pdf" target="_blank" style="color:#38BDF8;">📄 Cuaderno de Actividades (PDF)</a>
+              <a href="${base}RETO 3_INSTRUCCIONES GENERALES_NUESTRA CONSTITUCIÓN, CUENTO A CUENTO.pdf" target="_blank" style="color:#38BDF8;">📄 Guía Docente de Aula (PDF)</a>
+            </div>
+          `;
+        } else if (type === 'interactivos') {
+          box.innerHTML = `
+            <h3 style="color:var(--madrid-gold); margin-bottom:8px;">👁️ Elementos interactivos de aula</h3>
+            <p style="font-size:12px; line-height:1.5; color:#CBD5E1;">
+              Todos los botones y tarjetas han sido diseñados con tipografías legibles y áreas táctiles grandes, óptimas para trabajar en <strong>PDI (Pizarra Digital Interactiva)</strong> con todo el grupo reunido en asamblea.
+            </p>
+          `;
+        }
+        modal.classList.add('open');
+      };
+
+      window.closeModal = function() {
+        document.getElementById('modal-info').classList.remove('open');
+      };
+
+      window.toggleFullScreen = function() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      };
+
+      // CONFETI
+      function triggerConfetti() {
+        const canvas = document.getElementById('confetti-canvas');
+        if (!canvas) return;
+        canvas.style.display = 'block';
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const pieces = [];
+        const colors = ['#F59E0B', '#10B981', '#3B82F6', '#EC4899', '#8B5CF6'];
+        for (let i = 0; i < 90; i++) {
+          pieces.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * -canvas.height,
+            size: Math.random() * 8 + 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            speedY: Math.random() * 3 + 2,
+            rot: Math.random() * 360
+          });
+        }
+
+        let animFrame;
+        function update() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          pieces.forEach(p => {
+            p.y += p.speedY;
+            p.rot += 2;
+            ctx.fillStyle = p.color;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot * Math.PI / 180);
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.restore();
+          });
+          animFrame = requestAnimationFrame(update);
+        }
+        update();
+
+        setTimeout(() => {
+          cancelAnimationFrame(animFrame);
+          canvas.style.display = 'none';
+        }, 5000);
+      }
+
+      // ATAJOS DE TECLADO
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') changeSlide(1);
+        if (e.key === 'ArrowLeft') changeSlide(-1);
+        if (e.key === 'm' || e.key === 'M') toggleBgm();
+        if (e.key === 'f' || e.key === 'F') toggleFullScreen();
+      });
+
+    })();
+  </script>
+</body>
+</html>

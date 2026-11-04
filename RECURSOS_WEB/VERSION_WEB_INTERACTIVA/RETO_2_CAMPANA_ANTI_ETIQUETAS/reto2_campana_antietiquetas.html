@@ -1,0 +1,2847 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 2: Campaña Exprés Anti-Etiquetas | Día de la Constitución 2026</title>
+  <style>
+    :root {
+      --madrid-red: #C7082A;
+      --madrid-darkred: #94041C;
+      --madrid-gold: #D4AF37;
+      --primary-color: #4F46E5;
+      --primary-dark: #3730A3;
+      --primary-light: #EEF2FF;
+      --teal-accent: #0D9488;
+      --amber-accent: #D97706;
+      --text-dark: #1E293B;
+      --text-muted: #64748B;
+      --bg-cream: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.12);
+      --radius: 14px;
+    }
+
+    html {
+      overflow-y: scroll;
+      scrollbar-gutter: stable;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--bg-cream);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* BARRA INSTITUCIONAL SUPERIOR */
+    .gov-bar {
+      background: #FFFFFF;
+      border-bottom: 3px solid var(--madrid-red);
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      min-height: 60px;
+    }
+    .gov-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .gov-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+      display: block;
+    }
+    .gov-title-block {
+      border-left: 2px solid #CBD5E1;
+      padding-left: 14px;
+    }
+    .gov-title-block h1 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--madrid-red);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .gov-title-block p {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin: 0;
+    }
+    .gov-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-tool {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-tool:hover {
+      background: #E2E8F0;
+      transform: translateY(-1px);
+    }
+    .btn-tool.active {
+      background: var(--madrid-red);
+      color: white;
+      border-color: var(--madrid-red);
+    }
+    .btn-sound, .btn-print-top {
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-sound:hover, .btn-print-top:hover {
+      background: #E2E8F0;
+      transform: translateY(-1px);
+    }
+    .btn-sound.active {
+      background: #DCFCE7;
+      color: #15803D;
+      border-color: #86EFAC;
+    }
+    .btn-lang {
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #1D4ED8;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-lang:hover {
+      background: #DBEAFE;
+      transform: translateY(-1px);
+    }
+
+    /* HERO HEADER */
+    .hero {
+      background: linear-gradient(135deg, #1E1B4B 0%, #312E81 50%, #4338CA 100%);
+      color: #FFFFFF;
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-info {
+      flex: 1;
+    }
+    .hero-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 4px 14px;
+      border-radius: 30px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .hero h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      color: #FFFFFF;
+    }
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #E0E7FF;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.85rem;
+    }
+    .meta-tag {
+      background: rgba(0, 0, 0, 0.25);
+      padding: 4px 12px;
+      border-radius: 8px;
+      border-left: 3px solid var(--madrid-gold);
+    }
+    .hero-badge-preview {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+      min-width: 170px;
+    }
+    .hero-badge-img {
+      width: 85px;
+      height: 85px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+    .hero-badge-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--madrid-gold);
+      text-transform: uppercase;
+    }
+    .hero-badge-status {
+      font-size: 0.72rem;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    /* GLOBAL PROGRESS BAR */
+    .progress-bar-container {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 24px;
+    }
+    .progress-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .progress-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      white-space: nowrap;
+    }
+    .progress-track {
+      flex: 1;
+      height: 10px;
+      background: #E2E8F0;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4F46E5, #0D9488);
+      border-radius: 20px;
+      transition: width 0.5s ease;
+    }
+    .progress-percent {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      min-width: 42px;
+      text-align: right;
+    }
+
+    /* NAVIGATION TABS EN DOS FILAS (2x2) */
+    .tabs-nav {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+      padding: 6px 0;
+    }
+    .tabs-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      padding: 4px 16px;
+    }
+    .tab-btn {
+      padding: 12px 18px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid #CBD5E1;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      white-space: normal;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .tab-btn:hover {
+      color: var(--primary-color);
+      background: #FFFFFF;
+      border-color: #94A3B8;
+      transform: translateY(-1px);
+    }
+    .tab-btn.active {
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+      border-left: 4px solid var(--primary-color);
+      background: var(--primary-light);
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15);
+    }
+    .tab-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      background: #E2E8F0;
+      color: var(--text-dark);
+      flex-shrink: 0;
+    }
+    .tab-btn.active .tab-badge {
+      background: var(--primary-color);
+      color: #FFFFFF;
+    }
+    @media (max-width: 640px) {
+      .tabs-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* MAIN CONTENT */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .phase-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .phase-section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* CARDS & CONTAINERS */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* FASE 1: MARCO LEGAL Y ROLES */
+    .legal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+    .legal-box {
+      border: 2px solid #E0E7FF;
+      border-radius: 12px;
+      padding: 20px;
+      background: #FAF5FF;
+      position: relative;
+    }
+    .legal-box.art14 {
+      background: #F0FDF4;
+      border-color: #BBF7D0;
+    }
+    .legal-box.art20 {
+      background: #EFF6FF;
+      border-color: #BFDBFE;
+    }
+    .legal-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .art14 .legal-badge {
+      background: #15803D;
+      color: white;
+    }
+    .art20 .legal-badge {
+      background: #1D4ED8;
+      color: white;
+    }
+    .legal-quote {
+      font-style: italic;
+      font-size: 0.92rem;
+      color: #334155;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      padding-left: 12px;
+      border-left: 3px solid #94A3B8;
+    }
+    .legal-explanation {
+      font-size: 0.85rem;
+      color: var(--text-dark);
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    /* ROLES COOPERATIVOS */
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .role-card {
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      background: #FFFFFF;
+      transition: all 0.2s;
+      cursor: pointer;
+      position: relative;
+    }
+    .role-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .role-card.assigned {
+      border-color: #10B981;
+      background: #F0FDF4;
+    }
+    .role-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .role-icon {
+      font-size: 1.6rem;
+    }
+    .role-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .role-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    .role-input {
+      width: 100%;
+      padding: 6px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    /* FASE 2: SITUACIONES REALES & DETECTOR */
+    .situations-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .situation-btn {
+      padding: 14px 12px;
+      background: #F8FAFC;
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .situation-btn:hover {
+      border-color: var(--primary-color);
+      background: #FFFFFF;
+    }
+    .situation-btn.active {
+      border-color: var(--primary-color);
+      background: var(--primary-light);
+      box-shadow: var(--shadow-sm);
+    }
+    .situation-tag {
+      font-size: 0.68rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #E2E8F0;
+      color: #334155;
+      width: fit-content;
+    }
+    .situation-btn.active .situation-tag {
+      background: var(--primary-color);
+      color: #FFFFFF;
+    }
+    .situation-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.3;
+    }
+
+    .situation-detail-box {
+      background: #FFFFFF;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-md);
+    }
+    .case-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .case-category {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .case-legal-badge {
+      font-size: 0.75rem;
+      background: #FEF3C7;
+      color: #92400E;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 700;
+      border: 1px solid #FCD34D;
+    }
+    .case-scenario {
+      background: #F8FAFC;
+      border-left: 4px solid var(--madrid-red);
+      padding: 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      color: #1E293B;
+    }
+    .case-mission {
+      background: #F0FDF4;
+      border: 1px solid #BBF7D0;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      color: #166534;
+    }
+
+    .analysis-questions {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .question-item {
+      background: #F1F5F9;
+      padding: 14px;
+      border-radius: 8px;
+    }
+    .question-label {
+      font-weight: 700;
+      font-size: 0.88rem;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .option-btn {
+      padding: 10px 14px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .option-btn:hover {
+      border-color: var(--primary-color);
+      background: #FAFAFA;
+    }
+    .option-btn.selected-correct {
+      background: #DCFCE7;
+      border-color: #22C55E;
+      color: #15803D;
+      font-weight: 600;
+    }
+    .option-btn.selected-wrong {
+      background: #FEE2E2;
+      border-color: #EF4444;
+      color: #991B1B;
+    }
+    .case-feedback {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      display: none;
+    }
+    .case-feedback.show {
+      display: block;
+    }
+
+    /* FASE 3: ESTUDIO DE DISEÑO DE PANCARTAS */
+    .studio-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .studio-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .studio-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .form-hint {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--text-muted);
+    }
+    .form-input, .form-textarea, .form-select {
+      padding: 10px 12px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      width: 100%;
+      background: #FFFFFF;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    }
+    .word-counter {
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .word-counter.valid {
+      color: #16A34A;
+    }
+    .word-counter.warning {
+      color: #DC2626;
+    }
+
+    .preset-slogans {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .preset-pill {
+      font-size: 0.72rem;
+      padding: 4px 8px;
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .preset-pill:hover {
+      background: var(--primary-light);
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .style-pickers {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .style-option {
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .style-option.active {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px var(--primary-color);
+    }
+
+    .theme-urban {
+      background: #0F172A;
+      color: #F8FAFC;
+    }
+    .theme-neon {
+      background: #4F46E5;
+      color: #FACC15;
+    }
+    .theme-editorial {
+      background: #FFFBEB;
+      color: #78350F;
+      border-color: #FDE68A;
+    }
+    .theme-madrid {
+      background: #C7082A;
+      color: #FFFFFF;
+    }
+
+    .sticker-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .sticker-item {
+      font-size: 1.5rem;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sticker-item:hover, .sticker-item.active {
+      border-color: var(--primary-color);
+      background: var(--primary-light);
+      transform: scale(1.1);
+    }
+
+    /* VISTA PREVIA DEL CARTEL */
+    .poster-preview-container {
+      position: sticky;
+      top: 80px;
+    }
+    .poster-canvas {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 12px;
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .poster-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.9;
+      font-weight: 700;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 8px;
+    }
+    .poster-badge-top {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .poster-body {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 16px 0;
+    }
+    .poster-sticker-large {
+      font-size: 4rem;
+      margin-bottom: 16px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+      transition: transform 0.2s;
+    }
+    .poster-slogan-text {
+      font-size: 2.1rem;
+      font-weight: 900;
+      line-height: 1.15;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      word-break: break-word;
+    }
+    .poster-sub-commitment {
+      font-size: 0.95rem;
+      font-style: italic;
+      opacity: 0.92;
+      max-width: 90%;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 8px 14px;
+      border-radius: 8px;
+    }
+    .poster-article-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid currentColor;
+      margin-top: 8px;
+    }
+    .poster-footer {
+      border-top: 1px solid currentColor;
+      padding-top: 8px;
+      font-size: 0.7rem;
+      display: flex;
+      justify-content: space-between;
+      opacity: 0.85;
+      line-height: 1.3;
+    }
+    .poster-footer-roles {
+      text-align: left;
+    }
+    .poster-footer-center {
+      text-align: right;
+    }
+
+    .poster-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .btn-action {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-action-primary {
+      background: var(--madrid-red);
+      color: #FFFFFF;
+    }
+    .btn-action-primary:hover {
+      background: var(--madrid-darkred);
+      transform: translateY(-1px);
+    }
+    .btn-action-secondary {
+      background: #F1F5F9;
+      color: var(--text-dark);
+      border: 1px solid var(--border-color);
+    }
+    .btn-action-secondary:hover {
+      background: #E2E8F0;
+    }
+
+    /* FASE 4: GALERÍA, RÚBRICA Y DIPLOMA */
+    .rubric-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 0.85rem;
+    }
+    .rubric-table th, .rubric-table td {
+      border: 1px solid var(--border-color);
+      padding: 12px;
+      text-align: left;
+    }
+    .rubric-table th {
+      background: #F8FAFC;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+    .rubric-level {
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 6px;
+    }
+    .rubric-level:hover {
+      background: #F1F5F9;
+    }
+    .rubric-level.active {
+      background: #DCFCE7;
+      border-color: #22C55E;
+      font-weight: 600;
+      position: relative;
+    }
+    .rubric-level.active::after {
+      content: " ✓";
+      color: #15803D;
+      font-weight: 900;
+    }
+    .rubric-total-box {
+      margin-top: 16px;
+      background: #F0FDF4;
+      border: 1px solid #86EFAC;
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .rubric-score {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #15803D;
+    }
+
+    /* PACTO DE AULA */
+    .pact-box {
+      background: #FFFBEB;
+      border: 2px dashed #F59E0B;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 24px;
+    }
+    .pact-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #B45309;
+      margin-bottom: 8px;
+    }
+    .pact-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #78350F;
+      max-width: 800px;
+      margin: 0 auto 16px;
+    }
+    .pact-sign-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .pact-sign-input {
+      padding: 8px 12px;
+      border: 1px solid #FCD34D;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      background: #FFFFFF;
+      text-align: center;
+    }
+    .btn-sign {
+      background: #D97706;
+      color: #FFFFFF;
+      border: none;
+      padding: 12px 28px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);
+      transition: all 0.2s;
+    }
+    .btn-sign:hover {
+      background: #B45309;
+      transform: translateY(-2px);
+    }
+
+    /* DIPLOMA / CERTIFICADO */
+    .certificate-wrap {
+      display: none;
+      margin-top: 30px;
+      animation: fadeIn 0.5s ease;
+    }
+    .certificate-wrap.show {
+      display: block;
+    }
+    .certificate {
+      background: #FFFFFF;
+      border: 8px double #C7082A;
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .cert-corner {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 3px solid #D4AF37;
+    }
+    .cert-corner-tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+    .cert-corner-tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+    .cert-corner-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+    .cert-corner-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+    .cert-badge-img {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+      margin-bottom: 12px;
+    }
+    .cert-inst {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--madrid-red);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+    .cert-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #1E293B;
+      margin-bottom: 12px;
+      font-family: Georgia, serif;
+    }
+    .cert-recipient {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      border-bottom: 2px solid #CBD5E1;
+      display: inline-block;
+      padding: 4px 30px;
+      margin-bottom: 16px;
+    }
+    .cert-text {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #475569;
+      max-width: 650px;
+      margin: 0 auto 24px;
+    }
+    .cert-signatures {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px dashed #CBD5E1;
+    }
+    .cert-sig-block {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .cert-sig-line {
+      width: 160px;
+      height: 1px;
+      background: #94A3B8;
+      margin: 30px auto 6px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 20px 24px;
+      margin-top: auto;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer.gov-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 18px 24px;
+      margin-top: 40px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    footer.gov-footer strong {
+      color: var(--madrid-red);
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 6mm;
+      }
+      *, *::before, *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body {
+        background: #FFFFFF !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      header.gov-bar, .hero, .tabs-nav, .progress-bar-container, .studio-form,
+      .poster-actions, footer, .gov-footer, .pact-box, .situations-selector, .rubric-table,
+      .card-title, .card-subtitle, .btn-action, .preset-slogans, #gallery-container,
+      #rubric-table-container, .rubric-total-box, #sec-1, #sec-2 {
+        display: none !important;
+      }
+      main {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        display: block !important;
+      }
+
+      /* Modo por defecto o diploma oficial */
+      body:not(.printing-poster) #sec-3 {
+        display: none !important;
+      }
+      body:not(.printing-poster) #sec-4 {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      body:not(.printing-poster) .certificate-wrap {
+        display: block !important;
+        visibility: visible !important;
+        margin: 10mm auto !important;
+        page-break-inside: avoid !important;
+      }
+      body:not(.printing-poster) .certificate {
+        display: block !important;
+        visibility: visible !important;
+        box-shadow: none !important;
+        border: 4px solid #D4AF37 !important;
+        margin: 10mm auto !important;
+        max-width: 190mm !important;
+        page-break-inside: avoid !important;
+      }
+
+      /* Modo impresión de cartel */
+      body.printing-poster #sec-4 {
+        display: none !important;
+      }
+      body.printing-poster #sec-3 {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      body.printing-poster .studio-layout {
+        display: block !important;
+      }
+      body.printing-poster .poster-preview-container {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+      }
+      body.printing-poster .poster-canvas {
+        display: flex !important;
+        visibility: visible !important;
+        box-shadow: none !important;
+        border: 3px solid #000 !important;
+        width: 100% !important;
+        max-width: 190mm !important;
+        height: 250mm !important;
+        max-height: 260mm !important;
+        margin: 0 auto !important;
+        page-break-inside: avoid !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA INSTITUCIONAL OFICIAL -->
+  <header class="gov-bar">
+    <div class="gov-brand">
+      <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" class="gov-logo" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'180\' height=\'48\' viewBox=\'0 0 180 48\'><rect width=\'48\' height=\'48\' fill=\'%23C7082A\'/><text x=\'56\' y=\'20\' font-family=\'sans-serif\' font-size=\'11\' font-weight=\'bold\' fill=\'%23000\'>Comunidad</text><text x=\'56\' y=\'34\' font-family=\'sans-serif\' font-size=\'11\' font-weight=\'bold\' fill=\'%23000\'>de Madrid</text></svg>';">
+      <div class="gov-title-block">
+        <h1 id="gov-title">Semanas Temáticas</h1>
+        <p id="gov-sub">Semana de la Constitución 2026 | Recursos Digitales Interactivos</p>
+      </div>
+    </div>
+    <div class="gov-actions">
+      <button class="btn-tool active" id="btn-sound" onclick="toggleSound()">
+        <span id="sound-icon">🔊</span> <span id="label-sound">Sonido: ON</span>
+      </button>
+      <button class="btn-tool" id="btn-lang" onclick="toggleLanguage()">
+        🌐 Idioma: <strong id="lang-label">ES</strong>
+      </button>
+      <button class="btn-tool btn-print-top" id="btn-print-top" onclick="printReto2()" title="Imprimir cartel o diploma">
+        🖨️ <span id="label-print">Imprimir</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO HEADER -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-info">
+        <div class="hero-badge-pill" id="hero-badge-pill">
+          ⚖️ Artículos 14 y 20 CE &bull; El Templo de la Responsabilidad
+        </div>
+        <h1 id="hero-title">Reto 2: Campaña exprés antietiquetas</h1>
+        <p class="hero-subtitle" id="hero-subtitle">
+          Transforma prejuicios cotidianos en derechos. Diseña una campaña visual rompedora que defienda la igualdad real y la libertad de expresión sin discriminación.
+        </p>
+        <div class="hero-meta">
+          <span class="meta-tag" id="meta-dest">🎯 Destinatarios: ESO, 5.º-6.º Primaria y Bachillerato</span>
+          <span class="meta-tag" id="meta-dur">⏱️ Duración: 50 minutos (Taller exprés)</span>
+          <span class="meta-tag" id="meta-mod">👥 Modalidad: Equipos cooperativos (4-5 alumnos)</span>
+        </div>
+      </div>
+      <div class="hero-badge-preview">
+        <img src="Artefactos/insignia_reto2.png" alt="Insignia Reto 2" class="hero-badge-img" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'85\' height=\'85\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%234F46E5\' stroke=\'%23D4AF37\' stroke-width=\'4\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>⚖️</text></svg>';">
+        <div class="hero-badge-title" id="badge-title-top">Insignia oficial</div>
+        <div class="hero-badge-status" id="badge-status-top">Reto 2: en proceso</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BARRA DE PROGRESO GLOBAL -->
+  <div class="progress-bar-container">
+    <div class="progress-wrap">
+      <span class="progress-label" id="progress-label">Progreso de la campaña:</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <span class="progress-percent" id="progress-percent">0%</span>
+    </div>
+  </div>
+
+  <!-- NAVEGACIÓN POR FASES -->
+  <nav class="tabs-nav">
+    <div class="tabs-container">
+      <button class="tab-btn active" id="tab-1" onclick="switchPhase(1)">
+        <span id="tab-label-1">🏛️ Fase 1: Marco legal y roles</span>
+        <span class="tab-badge" id="badge-tab-1">Paso 1</span>
+      </button>
+      <button class="tab-btn" id="tab-2" onclick="switchPhase(2)">
+        <span id="tab-label-2">🔍 Fase 2: Detector de situaciones</span>
+        <span class="tab-badge" id="badge-tab-2">Paso 2</span>
+      </button>
+      <button class="tab-btn" id="tab-3" onclick="switchPhase(3)">
+        <span id="tab-label-3">🎨 Fase 3: Estudio de carteles</span>
+        <span class="tab-badge" id="badge-tab-3">Paso 3</span>
+      </button>
+      <button class="tab-btn" id="tab-4" onclick="switchPhase(4)">
+        <span id="tab-label-4">📢 Fase 4: Impacto, rúbrica y diploma</span>
+        <span class="tab-badge" id="badge-tab-4">Paso 4</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main>
+
+    <!-- ==========================================
+         FASE 1: MARCO LEGAL Y REPARTO DE ROLES
+         ========================================== -->
+    <section class="phase-section active" id="sec-1">
+      <div class="card">
+        <h2 class="card-title" id="legal-title">📜 1. Marco legal constitucional (lectura fácil)</h2>
+        <p class="card-subtitle" id="legal-desc">
+          La Constitución Española de 1978 establece las bases para convivir en paz, con igualdad y respeto absoluto por la dignidad humana.
+        </p>
+
+        <div class="legal-grid">
+          <div class="legal-box art14">
+            <span class="legal-badge" id="art14-badge">Artículo 14 CE &bull; Principio de igualdad</span>
+            <div class="legal-quote" id="art14-quote">
+              «Los españoles son iguales ante la ley, sin que pueda prevalecer discriminación alguna por razón de nacimiento, raza, sexo, religión, opinión o cualquier otra condición o circunstancia personal o social.»
+            </div>
+            <div class="legal-explanation" id="art14-expl">
+              <strong>En el aula:</strong> Nadie puede ser tratado peor ni excluido por su origen, acento, aspecto o forma de aprender. Todos tenemos el mismo valor y los mismos derechos.
+            </div>
+          </div>
+
+          <div class="legal-box art20">
+            <span class="legal-badge" id="art20-badge">Artículo 20 CE &bull; Libertad de expresión y sus límites</span>
+            <div class="legal-quote" id="art20-quote">
+              «Se reconocen y protegen los derechos a expresar y difundir libremente los pensamientos, ideas y opiniones... Estas libertades tienen su límite en el respeto a los derechos y a la dignidad de los demás.»
+            </div>
+            <div class="legal-explanation" id="art20-expl">
+              <strong>En el aula:</strong> Eres libre de opinar y expresarte, pero tu libertad termina cuando daña, humilla o difama a otra persona. La burla o el acoso no están amparados por el humor ni la libertad de expresión.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title" id="roles-title">👥 2. Reparto exprés de roles cooperativos</h2>
+        <p class="card-subtitle" id="roles-desc">
+          Para que vuestra campaña tenga impacto en 50 minutos, cada miembro del equipo asume una responsabilidad clave. Asignad los nombres:
+        </p>
+
+        <div class="roles-grid">
+          <div class="role-card" id="card-role-1">
+            <div class="role-header">
+              <span class="role-icon">⏱️</span>
+              <div class="role-name" id="role-title-1">Coordinador/a del Tiempo</div>
+            </div>
+            <div class="role-desc" id="role-desc-1">
+              Controla el reloj de los 50 minutos, modera las intervenciones del equipo y asegura que se cumplan las 3 fases del reto.
+            </div>
+            <input type="text" class="role-input" id="input-role-coord" placeholder="Nombre del alumno/a..." oninput="updateRolesData()">
+          </div>
+
+          <div class="role-card" id="card-role-2">
+            <div class="role-header">
+              <span class="role-icon">✍️</span>
+              <div class="role-name" id="role-title-2">Redactor/a de Eslogan</div>
+            </div>
+            <div class="role-desc" id="role-desc-2">
+              Lidera la lluvia de ideas del lema rompedor (máximo 10 palabras) y redacta la frase de compromiso del aula.
+            </div>
+            <input type="text" class="role-input" id="input-role-copy" placeholder="Nombre del alumno/a..." oninput="updateRolesData()">
+          </div>
+
+          <div class="role-card" id="card-role-3">
+            <div class="role-header">
+              <span class="role-icon">🎨</span>
+              <div class="role-name" id="role-title-3">Diseñador/a Visual</div>
+            </div>
+            <div class="role-desc" id="role-desc-3">
+              Elige los colores, tipografías e iconos del cartel digital o físico para lograr un contraste de alto impacto visual.
+            </div>
+            <input type="text" class="role-input" id="input-role-design" placeholder="Nombre del alumno/a..." oninput="updateRolesData()">
+          </div>
+
+          <div class="role-card" id="card-role-4">
+            <div class="role-header">
+              <span class="role-icon">📢</span>
+              <div class="role-name" id="role-title-4">Portavoz Constitucional</div>
+            </div>
+            <div class="role-desc" id="role-desc-4">
+              Presentará el cartel en la Galería de Impacto, defenderá el vínculo con los Arts. 14 y 20 y leerá el compromiso de aula.
+            </div>
+            <input type="text" class="role-input" id="input-role-speaker" placeholder="Nombre del alumno/a..." oninput="updateRolesData()">
+          </div>
+        </div>
+
+        <div style="margin-top: 24px; text-align: right;">
+          <button class="btn-action btn-action-primary" id="btn-next-roles" style="display: inline-flex; width: auto; padding: 12px 24px;" onclick="switchPhase(2)">
+            Avanzar a Selección de Caso ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         FASE 2: DETECTOR DE SITUACIONES REALES
+         ========================================== -->
+    <section class="phase-section" id="sec-2">
+      <div class="card">
+        <h2 class="card-title" id="sit-title">🔍 Tarjetas de situaciones reales y fórmulas antietiquetas</h2>
+        <p class="card-subtitle" id="sit-desc">
+          Elegid una tarjeta oficial para analizar en vuestro equipo. Cada tarjeta presenta un reto ético y constitucional cotidiano:
+        </p>
+
+        <!-- SELECTOR DE LAS 6 TARJETAS OFICIALES -->
+        <div class="situations-selector" id="situations-selector-container">
+          <!-- Inyectado dinámicamente por JS con bilingüismo -->
+        </div>
+
+        <!-- DETALLE DINÁMICO DE LA SITUACIÓN SELECCIONADA -->
+        <div class="situation-detail-box" id="situation-detail-box">
+          <!-- Inyectado por JS -->
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <button class="btn-action btn-action-secondary" id="btn-back-roles" style="width: auto; padding: 10px 20px;" onclick="switchPhase(1)">
+            ⬅ Volver a roles
+          </button>
+          <button class="btn-action btn-action-primary" id="btn-to-studio" style="width: auto; padding: 12px 24px;" onclick="transferToStudio()">
+            Ir al estudio de diseño con este caso ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         FASE 3: ESTUDIO DE DISEÑO DE CARTELES
+         ========================================== -->
+    <section class="phase-section" id="sec-3">
+      <div class="card">
+        <h2 class="card-title" id="studio-title">🎨 Estudio exprés de diseño de carteles antietiquetas</h2>
+        <p class="card-subtitle" id="studio-desc">
+          Cread un cartel de impacto visual para proyectar o imprimir. Combinad un lema conciso (máximo 10 palabras), vuestro compromiso de aula y el artículo constitucional de respaldo.
+        </p>
+
+        <div class="studio-layout">
+          <!-- PANEL DE CONTROL / FORMULARIO -->
+          <div class="studio-form">
+            
+            <div class="form-group">
+              <label class="form-label">
+                <span id="lbl-slogan">1. Eslogan rompedor (máximo 10 palabras)</span>
+                <span class="word-counter valid" id="word-count-indicator">0 / 10 palabras</span>
+              </label>
+              <input type="text" class="form-input" id="poster-slogan-input" placeholder="Escribe aquí tu lema rompedor..." value="Su perspectiva me enriquece" oninput="updatePosterLive()">
+              
+              <div class="preset-slogans" id="preset-slogans-container">
+                <!-- Inyectado dinámicamente según idioma -->
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">
+                <span id="lbl-commit">2. Compromiso de aula (llamada a la acción)</span>
+                <span class="form-hint" id="lbl-commit-hint">¿Qué haréis vosotros cada día?</span>
+              </label>
+              <textarea class="form-textarea" id="poster-commit-input" rows="2" placeholder="En nuestra clase nos comprometemos a..." oninput="updatePosterLive()">Nos comprometemos a escuchar sin juzgar y a frenar cualquier burla antes de que haga daño.</textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" id="lbl-article">
+                <span>3. Vinculación constitucional</span>
+              </label>
+              <select class="form-select" id="poster-article-select" onchange="updatePosterLive()">
+                <option value="Artículo 14 C.E.: Igualdad y no discriminación">Artículo 14 C.E.: Igualdad y no discriminación</option>
+                <option value="Artículo 20 C.E.: Libertad de expresión con respeto a la dignidad">Artículo 20 C.E.: Libertad de expresión con respeto a la dignidad</option>
+                <option value="Artículos 10 y 14 C.E.: Dignidad de la persona y derechos inviolables">Artículos 10 y 14 C.E.: Dignidad de la persona y derechos inviolables</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" id="lbl-style">4. Estilo visual del cartel</label>
+              <div class="style-pickers">
+                <div class="style-option theme-neon active" id="style-neon" onclick="setPosterTheme('neon')">
+                  <span id="style-neon-lbl">⚡ Impacto neón</span>
+                </div>
+                <div class="style-option theme-urban" id="style-urban" onclick="setPosterTheme('urban')">
+                  <span id="style-urban-lbl">🏙️ Protesta urbana</span>
+                </div>
+                <div class="style-option theme-editorial" id="style-editorial" onclick="setPosterTheme('editorial')">
+                  <span id="style-editorial-lbl">📜 Editorial cálido</span>
+                </div>
+                <div class="style-option theme-madrid" id="style-madrid" onclick="setPosterTheme('madrid')">
+                  <span id="style-madrid-lbl">⭐ Rojo institucional</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" id="lbl-emblem">5. Emblema o icono de impacto</label>
+              <div class="sticker-grid">
+                <button type="button" class="sticker-item active" onclick="setPosterSticker('⚖️')">⚖️</button>
+                <button type="button" class="sticker-item" onclick="setPosterSticker('📢')">📢</button>
+                <button type="button" class="sticker-item" onclick="setPosterSticker('🤝')">🤝</button>
+                <button type="button" class="sticker-item" onclick="setPosterSticker('🛡️')">🛡️</button>
+                <button type="button" class="sticker-item" onclick="setPosterSticker('🧩')">🧩</button>
+                <button type="button" class="sticker-item" onclick="setPosterSticker('🕊️')">🕊️</button>
+                <button type="button" class="sticker-item" onclick="setPosterSticker('🛑')">🛑</button>
+                <button type="button" class="sticker-item" onclick="setPosterSticker('❤️')">❤️</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" id="lbl-school">6. Centro educativo / grupo</label>
+              <input type="text" class="form-input" id="poster-school-input" placeholder="Ej: IES Juan de Herrera &bull; 2.º ESO B" value="Comisión constitucional de aula &bull; ESO" oninput="updatePosterLive()">
+            </div>
+
+          </div>
+
+          <!-- VISTA PREVIA EN VIVO -->
+          <div class="poster-preview-container">
+            <div class="poster-canvas theme-neon" id="poster-canvas">
+              <div class="poster-header-bar">
+                <div class="poster-badge-top">
+                  <span>★</span>
+                  <span id="canvas-header-tag">Campaña exprés antietiquetas</span>
+                </div>
+                <div id="canvas-date-tag">6 de diciembre &bull; CE 1978</div>
+              </div>
+
+              <div class="poster-body">
+                <div class="poster-sticker-large" id="canvas-sticker">⚖️</div>
+                <div class="poster-slogan-text" id="canvas-slogan">SU PERSPECTIVA ME ENRIQUECE</div>
+                <div class="poster-sub-commitment" id="canvas-commitment">
+                  «Nos comprometemos a escuchar sin juzgar y a frenar cualquier burla antes de que haga daño.»
+                </div>
+                <div class="poster-article-tag" id="canvas-article">
+                  Artículo 14 C.E.: Igualdad y no discriminación
+                </div>
+              </div>
+
+              <div class="poster-footer">
+                <div class="poster-footer-roles" id="canvas-roles">
+                  Equipo: Creadores de Impacto
+                </div>
+                <div class="poster-footer-center" id="canvas-school">
+                  Comisión Constitucional de Aula &bull; ESO
+                </div>
+              </div>
+            </div>
+
+            <div class="poster-actions">
+              <button class="btn-action btn-action-primary" id="btn-print-poster" onclick="printPoster()">
+                🖨️ Imprimir / Guardar Cartel
+              </button>
+              <button class="btn-action btn-action-secondary" id="btn-save-gallery" onclick="saveToGallery()">
+                💾 Publicar en Galería
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 30px; text-align: right;">
+          <button class="btn-action btn-action-primary" id="btn-to-rubric" style="display: inline-flex; width: auto; padding: 12px 24px;" onclick="switchPhase(4)">
+            Avanzar a Galería, Rúbrica y Diploma ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         FASE 4: IMPACTO, RÚBRICA Y DIPLOMA
+         ========================================== -->
+    <section class="phase-section" id="sec-4">
+      
+      <!-- EXPOSICIÓN DE LA GALERÍA -->
+      <div class="card">
+        <h2 class="card-title" id="gallery-title">📢 Galería de impacto del aula</h2>
+        <p class="card-subtitle" id="gallery-desc">
+          Aquí se reúnen los carteles creados por los distintos equipos cooperativos para proyectar en la PDI o compartir en la web del centro:
+        </p>
+        <div id="gallery-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+          <!-- Inyectado por JS -->
+        </div>
+      </div>
+
+      <!-- RÚBRICA RÁPIDA DE AUTOEVALUACIÓN -->
+      <div class="card">
+        <h2 class="card-title" id="rubric-title">📊 Rúbrica exprés de autoevaluación (reverso del cartel)</h2>
+        <p class="card-subtitle" id="rubric-desc">
+          Marcad el nivel alcanzado por vuestro equipo según los criterios oficiales del Reto 2:
+        </p>
+
+        <div id="rubric-table-container">
+          <!-- Inyectado dinámicamente según idioma -->
+        </div>
+
+        <div class="rubric-total-box">
+          <div>
+            <div style="font-weight: 700; font-size: 1.05rem; color: #15803D;" id="rubric-score-title">Puntuación de la comisión:</div>
+            <div style="font-size: 0.85rem; color: #166534;" id="rubric-status-desc">¡Nivel sobresaliente! Vuestra campaña tiene calidad profesional.</div>
+          </div>
+          <div class="rubric-score" id="rubric-total-score">10 / 10 pts</div>
+        </div>
+      </div>
+
+      <!-- PACTO DE AULA Y FIRMA -->
+      <div class="pact-box">
+        <div class="pact-title" id="pact-title">✍️ Gran pacto constitucional contra las etiquetas</div>
+        <p class="pact-text" id="pact-text">
+          «Nos comprometemos solemnemente a hacer de nuestra aula y de nuestro centro un espacio seguro, donde nadie sea juzgado por su procedencia, su ritmo o su identidad, y donde la libertad de expresión sea siempre el puente para enriquecernos juntos y jamás un arma para herir a nadie.»
+        </p>
+
+        <div class="pact-sign-grid">
+          <input type="text" class="pact-sign-input" id="sign-1" placeholder="Firma: Coordinador/a">
+          <input type="text" class="pact-sign-input" id="sign-2" placeholder="Firma: Redactor/a">
+          <input type="text" class="pact-sign-input" id="sign-3" placeholder="Firma: Diseñador/a">
+          <input type="text" class="pact-sign-input" id="sign-4" placeholder="Firma: Portavoz">
+        </div>
+
+        <button class="btn-sign" id="btn-sign-pact" onclick="signPactAndUnlock()">
+          🖋️ Firmar pacto y desbloquear insignia oficial
+        </button>
+      </div>
+
+      <!-- DIPLOMA / CERTIFICADO DESCARGABLE -->
+      <div class="certificate-wrap" id="certificate-wrap">
+        <div class="certificate">
+          <div class="cert-corner cert-corner-tl"></div>
+          <div class="cert-corner cert-corner-tr"></div>
+          <div class="cert-corner cert-corner-bl"></div>
+          <div class="cert-corner cert-corner-br"></div>
+
+          <img src="Artefactos/insignia_reto2.png" alt="Insignia Reto 2" class="cert-badge-img" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'110\' height=\'110\' viewBox=\'0 0 100 100\'><circle cx=\'50\' cy=\'50\' r=\'45\' fill=\'%234F46E5\' stroke=\'%23D4AF37\' stroke-width=\'4\'/><text x=\'50\' y=\'58\' font-size=\'36\' text-anchor=\'middle\'>⚖️</text></svg>';">
+          
+          <div class="cert-inst" id="cert-inst">Comunidad de Madrid</div>
+          <h3 class="cert-title" id="cert-title">Certificado de impacto constitucional</h3>
+
+          <div style="font-size: 0.95rem; color: #64748B; margin-bottom: 6px;" id="cert-given-to-lbl">Se otorga con distinción al equipo de aula:</div>
+          <div class="cert-recipient" id="cert-team-name">EQUIPO CREADORES DE IMPACTO</div>
+
+          <p class="cert-text" id="cert-desc">
+            Por haber superado con éxito el <strong>Reto 2: Campaña exprés antietiquetas</strong>, aplicando con rigor crítico y creatividad los <strong>Artículos 14 y 20 de la Constitución Española</strong>, demostrando un compromiso ejemplar con la igualdad, la inclusión y la convivencia escolar libre de prejuicios.
+          </p>
+
+          <div class="cert-signatures">
+            <div class="cert-sig-block">
+              <div class="cert-sig-line"></div>
+              <strong id="cert-sig-title-1">Comisión constitucional de aula</strong><br>
+              <span id="cert-sig-sub-1">Día de la Constitución 2026</span>
+            </div>
+            <div class="cert-sig-block">
+              <div class="cert-sig-line"></div>
+              <strong id="cert-sig-title-2">Comunidad de Madrid</strong><br>
+              <span id="cert-sig-sub-2">Semana de la Constitución 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+          <button class="btn-action btn-action-primary" id="btn-print-cert" style="display: inline-flex; width: auto; padding: 12px 28px;" onclick="printDiplomaOficial()">
+            🖨️ Imprimir diploma oficial
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA INSTITUCIONAL -->
+  <footer class="gov-footer">
+    <p id="gov-footer-inst">
+      <strong>Comunidad de Madrid</strong> — Dirección General de Bilingüismo y Calidad de la Enseñanza.
+    </p>
+    <p style="margin-top: 4px; font-size: 11.5px;" id="gov-footer-sub">
+      Recursos educativos para las Semanas Temáticas — Celebración del Día de la Constitución Española 2026.
+    </p>
+  </footer>
+
+  <!-- ========================================================
+       SCRIPTS Y LÓGICA INTERACTIVA COMPLETA
+       ======================================================== -->
+  <script>
+    /* ========================================================
+       1. SISTEMA DE AUDIO (WEB AUDIO API NATIVO)
+       ======================================================== */
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playSound(type) {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+
+        if (type === 'click') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(580, now);
+          osc.frequency.exponentialRampToValueAtTime(320, now + 0.05);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        } else if (type === 'success') {
+          [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'triangle';
+            osc.frequency.value = freq;
+            const t = now + idx * 0.08;
+            gain.gain.setValueAtTime(0.14, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+            osc.start(t);
+            osc.stop(t + 0.22);
+          });
+        } else if (type === 'fanfare') {
+          const notes = [
+            { f: 523.25, d: 0.15 },
+            { f: 659.25, d: 0.15 },
+            { f: 783.99, d: 0.15 },
+            { f: 1046.50, d: 0.45 }
+          ];
+          let curTime = now;
+          notes.forEach(n => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(n.f, curTime);
+            gain.gain.setValueAtTime(0.2, curTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, curTime + n.d);
+            osc.start(curTime);
+            osc.stop(curTime + n.d);
+            curTime += n.d * 0.85;
+          });
+        }
+      } catch (e) {
+        console.warn('Audio not initialized', e);
+      }
+    }
+
+    let currentLanguage = 'ES';
+
+    function toggleSound() {
+      soundEnabled = !soundEnabled;
+      const btn = document.getElementById('btn-sound');
+      const isEn = (currentLanguage === 'EN');
+      if (soundEnabled) {
+        btn.classList.add('active');
+        btn.innerHTML = isEn ? '🔊 Sound: ON' : '🔊 Sonido: ON';
+        playSound('click');
+      } else {
+        btn.classList.remove('active');
+        btn.innerHTML = isEn ? '🔇 Sound: OFF' : '🔇 Sonido: OFF';
+      }
+    }
+
+    /* ========================================================
+       2. DICCIONARIO BILINGÜE (ES / EN)
+       ======================================================== */
+    const TRANSLATIONS_R2 = {
+      ES: {
+        langLabel: 'ES',
+        btnLang: '🌐 Idioma: <strong id="lang-label">ES</strong>',
+        soundOn: '<span id="sound-icon">🔊</span> <span id="label-sound">Sonido: ON</span>',
+        soundOff: '<span id="sound-icon">🔇</span> <span id="label-sound">Sonido: OFF</span>',
+        govTitle: 'Semanas Temáticas',
+        govSub: 'Semana de la Constitución 2026 | Recursos Digitales Interactivos',
+        footerInst: '<strong>Comunidad de Madrid</strong> — Dirección General de Bilingüismo y Calidad de la Enseñanza.',
+        footerSub: 'Recursos educativos para las Semanas Temáticas — Celebración del Día de la Constitución Española 2026.',
+        labelPrint: 'Imprimir',
+        heroBadgePill: '⚖️ Artículos 14 y 20 CE &bull; El Templo de la Responsabilidad',
+        heroTitle: 'Reto 2: Campaña exprés antietiquetas',
+        heroSubtitle: 'Transforma prejuicios cotidianos en derechos. Diseña una campaña visual rompedora que defienda la igualdad real y la libertad de expresión sin discriminación.',
+        metaDest: '🎯 Destinatarios: ESO, 5.º-6.º Primaria y Bachillerato',
+        metaDur: '⏱️ Duración: 50 minutos (Taller exprés)',
+        metaMod: '👥 Modalidad: Equipos cooperativos (4-5 alumnos)',
+        badgeTitleTop: 'Insignia oficial',
+        badgeStatusInProcess: 'Reto 2: en proceso',
+        badgeStatusCompleted: '¡RETO 2 SUPERADO! 🏅',
+        progressLabel: 'Progreso de la campaña:',
+        tab1: '🏛️ Fase 1: Marco legal y roles',
+        badgeTab1: 'Paso 1',
+        tab2: '🔍 Fase 2: Detector de situaciones',
+        badgeTab2: 'Paso 2',
+        tab3: '🎨 Fase 3: Estudio de carteles',
+        badgeTab3: 'Paso 3',
+        tab4: '📢 Fase 4: Impacto, rúbrica y diploma',
+        badgeTab4: 'Paso 4',
+        legalTitle: '📜 1. Marco legal constitucional (lectura fácil)',
+        legalDesc: 'La Constitución Española de 1978 establece las bases para convivir en paz, con igualdad y respeto absoluto por la dignidad humana.',
+        art14Badge: 'Artículo 14 CE &bull; Principio de igualdad',
+        art14Quote: '«Los españoles son iguales ante la ley, sin que pueda prevalecer discriminación alguna por razón de nacimiento, raza, sexo, religión, opinión o cualquier otra condición o circunstancia personal o social.»',
+        art14Expl: '<strong>En el aula:</strong> Nadie puede ser tratado peor ni excluido por su origen, acento, aspecto o forma de aprender. Todos tenemos el mismo valor y los mismos derechos.',
+        art20Badge: 'Artículo 20 CE &bull; Libertad de expresión y sus límites',
+        art20Quote: '«Se reconocen y protegen los derechos a expresar y difundir libremente los pensamientos, ideas y opiniones... Estas libertades tienen su límite en el respeto a los derechos y a la dignidad de los demás.»',
+        art20Expl: '<strong>En el aula:</strong> Eres libre de opinar y expresarte, pero tu libertad termina cuando daña, humilla o difama a otra persona. La burla o el acoso no están amparados por el humor ni la libertad de expresión.',
+        rolesTitle: '👥 2. Reparto exprés de roles cooperativos',
+        rolesDesc: 'Para que vuestra campaña tenga impacto en 50 minutos, cada miembro del equipo asume una responsabilidad clave. Asignad los nombres:',
+        roleTitle1: 'Coordinador/a del tiempo',
+        roleDesc1: 'Controla el reloj de los 50 minutos, modera las intervenciones del equipo y asegura que se cumplan las 3 fases del reto.',
+        roleTitle2: 'Redactor/a del eslogan',
+        roleDesc2: 'Lidera la lluvia de ideas del lema rompedor (máximo 10 palabras) y redacta la frase de compromiso del aula.',
+        roleTitle3: 'Diseñador/a visual',
+        roleDesc3: 'Elige los colores, tipografías e iconos del cartel digital o físico para lograr un contraste de alto impacto visual.',
+        roleTitle4: 'Portavoz constitucional',
+        roleDesc4: 'Presentará el cartel en la Galería de Impacto, defenderá el vínculo con los Arts. 14 y 20 y leerá el compromiso de aula.',
+        rolePlaceholder: 'Nombre del alumno/a...',
+        btnNextRoles: 'Avanzar a selección de caso ➔',
+        sitTitle: '🔍 Tarjetas de situaciones reales y fórmulas antietiquetas',
+        sitDesc: 'Elegid una tarjeta oficial para analizar en vuestro equipo. Cada tarjeta presenta un reto ético y constitucional cotidiano:',
+        btnBackRoles: '⬅ Volver a roles',
+        btnToStudio: 'Ir al estudio de diseño con este caso ➔',
+        studioTitle: '🎨 Estudio exprés de diseño de carteles antietiquetas',
+        studioDesc: 'Cread un cartel de impacto visual para proyectar o imprimir. Combinad un lema conciso (máximo 10 palabras), vuestro compromiso de aula y el artículo constitucional de respaldo.',
+        lblSlogan: '1. Eslogan rompedor (máximo 10 palabras)',
+        lblCommit: '2. Compromiso de aula (llamada a la acción)',
+        lblCommitHint: '¿Qué haréis vosotros cada día?',
+        lblArticle: '3. Vinculación constitucional',
+        lblStyle: '4. Estilo visual del cartel',
+        styleNeon: '⚡ Impacto neón',
+        styleUrban: '🏙️ Protesta urbana',
+        styleEditorial: '📜 Editorial cálido',
+        styleMadrid: '⭐ Rojo institucional',
+        lblEmblem: '5. Emblema o icono de impacto',
+        lblSchool: '6. Centro educativo / grupo',
+        btnPrintPoster: '🖨️ Imprimir / guardar cartel',
+        btnSaveGallery: '💾 Publicar en galería',
+        btnToRubric: 'Avanzar a galería, rúbrica y diploma ➔',
+        galleryTitle: '📢 Galería de impacto del aula',
+        galleryDesc: 'Aquí se reúnen los carteles creados por los distintos equipos cooperativos para proyectar en la PDI o compartir en la web del centro:',
+        rubricTitle: '📊 Rúbrica exprés de autoevaluación (reverso del cartel)',
+        rubricDesc: 'Marcad el nivel alcanzado por vuestro equipo según los criterios oficiales del Reto 2:',
+        rubricScoreTitle: 'Puntuación de la comisión:',
+        pactTitle: '✍️ Gran pacto constitucional contra las etiquetas',
+        pactText: '«Nos comprometemos solemnemente a hacer de nuestra aula y de nuestro centro un espacio seguro, donde nadie sea juzgado por su procedencia, su ritmo o su identidad, y donde la libertad de expresión sea siempre el puente para enriquecernos juntos y jamás un arma para herir a nadie.»',
+        btnSignPact: '🖋️ Firmar pacto y desbloquear insignia oficial',
+        certInst: 'Comunidad de Madrid',
+        certTitle: 'Certificado de impacto constitucional',
+        certGivenTo: 'Se otorga con distinción al equipo de aula:',
+        certDesc: 'Por haber superado con éxito el <strong>Reto 2: Campaña exprés antietiquetas</strong>, aplicando con rigor crítico y creatividad los <strong>Artículos 14 y 20 de la Constitución Española</strong>, demostrando un compromiso ejemplar con la igualdad, la inclusión y la convivencia escolar libre de prejuicios.',
+        certSigTitle1: 'Comisión constitucional de aula',
+        certSigSub1: 'Día de la Constitución 2026',
+        certSigTitle2: 'Comunidad de Madrid',
+        certSigSub2: 'Semana de la Constitución 2026',
+        btnPrintCert: '🖨️ Imprimir diploma oficial',
+        footerCopy1: 'Semanas Temáticas 2026',
+        footerCopy2: 'Comunidad de Madrid',
+        footerCopy3: 'Marco Legal: Artículos 14 y 20 CE &bull; Proyecto Digital Educativo',
+        canvasHeader: 'Campaña exprés antietiquetas',
+        canvasDate: '6 de diciembre &bull; CE 1978'
+      },
+      EN: {
+        langLabel: 'EN',
+        btnLang: '🌐 Language: <strong id="lang-label">EN</strong>',
+        soundOn: '<span id="sound-icon">🔊</span> <span id="label-sound">Sound: ON</span>',
+        soundOff: '<span id="sound-icon">🔇</span> <span id="label-sound">Sound: OFF</span>',
+        govTitle: 'Thematic Weeks',
+        govSub: 'Constitution Week 2026 | Interactive Digital Resources',
+        footerInst: '<strong>Community of Madrid</strong> — Directorate General for Bilingualism and Quality of Education.',
+        footerSub: 'Educational resources for Thematic Weeks — Spanish Constitution Day 2026 Celebration.',
+        labelPrint: 'Print',
+        heroBadgePill: '⚖️ Articles 14 & 20 SC &bull; The Temple of Responsibility',
+        heroTitle: 'Challenge 2: Express Anti-Stereotype Campaign',
+        heroSubtitle: 'Transform everyday prejudices into rights. Design a striking visual campaign championing real equality and freedom of speech without discrimination.',
+        metaDest: '🎯 Audience: Secondary (ESO), 5th-6th Primary & Baccalaureate',
+        metaDur: '⏱️ Duration: 50 minutes (Express Workshop)',
+        metaMod: '👥 Format: Cooperative Teams (4-5 students)',
+        badgeTitleTop: 'Official Badge',
+        badgeStatusInProcess: 'Challenge 2: In Progress',
+        badgeStatusCompleted: 'CHALLENGE 2 COMPLETED! 🏅',
+        progressLabel: 'Campaign Progress:',
+        tab1: '🏛️ Phase 1: Legal Framework & Roles',
+        badgeTab1: 'Step 1',
+        tab2: '🔍 Phase 2: Situation Detector',
+        badgeTab2: 'Step 2',
+        tab3: '🎨 Phase 3: Poster Studio',
+        badgeTab3: 'Step 3',
+        tab4: '📢 Phase 4: Impact, Rubric & Diploma',
+        badgeTab4: 'Step 4',
+        legalTitle: '📜 1. Constitutional Legal Framework (Easy Read)',
+        legalDesc: 'The Spanish Constitution of 1978 establishes the foundation for living in peace, with equality and absolute respect for human dignity.',
+        art14Badge: 'Article 14 SC &bull; Principle of Equality',
+        art14Quote: '«All Spaniards are equal before the law, without any discrimination prevailing on grounds of birth, race, sex, religion, opinion, or any other personal or social condition or circumstance.»',
+        art14Expl: '<strong>In the classroom:</strong> Nobody may be treated worse or excluded because of origin, accent, appearance, or learning pace. We all share equal worth and equal rights.',
+        art20Badge: 'Article 20 SC &bull; Freedom of Expression & Its Limits',
+        art20Quote: '«The rights to freely express and disseminate thoughts, ideas, and opinions are recognized and protected... These freedoms have their limits in the respect for the rights and dignity of others.»',
+        art20Expl: '<strong>In the classroom:</strong> You are free to speak your mind, but your freedom ends when it harms, humiliates, or defames someone else. Bullying and insults are never protected by humor or free speech.',
+        rolesTitle: '👥 2. Cooperative Roles Distribution',
+        rolesDesc: 'For your campaign to have maximum impact in 50 minutes, each team member assumes a key responsibility. Assign your names:',
+        roleTitle1: 'Time Coordinator',
+        roleDesc1: 'Manages the 50-minute clock, moderates team discussions, and ensures all challenge phases are achieved.',
+        roleTitle2: 'Slogan Copywriter',
+        roleDesc2: 'Leads the brainstorming for the striking slogan (max 10 words) and drafts the classroom pledge sentence.',
+        roleTitle3: 'Visual Designer',
+        roleDesc3: 'Chooses colors, typography, and icons for the poster to achieve high visual impact and contrast.',
+        roleTitle4: 'Constitutional Spokesperson',
+        roleDesc4: 'Presents the poster in the Impact Gallery, explains its connection to Arts. 14 & 20, and recites the classroom pledge.',
+        rolePlaceholder: 'Student name...',
+        btnNextRoles: 'Advance to Case Selection ➔',
+        sitTitle: '🔍 Real-Life Situation Cards & Anti-Stereotype Formulas',
+        sitDesc: 'Choose an official case card to analyze in your team. Each card presents an everyday ethical and constitutional dilemma:',
+        btnBackRoles: '⬅ Back to Roles',
+        btnToStudio: 'Go to Design Studio with this Case ➔',
+        studioTitle: '🎨 Express Anti-Stereotype Poster Design Studio',
+        studioDesc: 'Create a high-impact poster to display or print. Combine a punchy slogan (max 10 words), your classroom pledge, and the supporting constitutional article.',
+        lblSlogan: '1. Striking Slogan (Max 10 words)',
+        lblCommit: '2. Classroom Commitment (Call to action)',
+        lblCommitHint: 'What will you do each day?',
+        lblArticle: '3. Constitutional Link',
+        lblStyle: '4. Poster Visual Style',
+        styleNeon: '⚡ Neon Impact',
+        styleUrban: '🏙️ Urban Protest',
+        styleEditorial: '📜 Warm Editorial',
+        styleMadrid: '⭐ Institutional Red',
+        lblEmblem: '5. Impact Emblem / Icon',
+        lblSchool: '6. Educational Center / Group',
+        btnPrintPoster: '🖨️ Print / Save Poster',
+        btnSaveGallery: '💾 Publish to Gallery',
+        btnToRubric: 'Advance to Gallery, Rubric & Diploma ➔',
+        galleryTitle: '📢 Classroom Impact Gallery',
+        galleryDesc: 'Here are the posters created by cooperative teams to project on the interactive board or share on the school website:',
+        rubricTitle: '📊 Express Self-Assessment Rubric (Poster Back)',
+        rubricDesc: 'Mark the level achieved by your team according to official Challenge 2 criteria:',
+        rubricScoreTitle: 'Commission Score:',
+        pactTitle: '✍️ Great Constitutional Anti-Stereotype Pledge',
+        pactText: '«We solemnly pledge to make our classroom and school a safe space, where no one is judged by their background, learning pace, or identity, and where freedom of speech is always a bridge to enrich each other and never a weapon to harm anyone.»',
+        btnSignPact: '🖋️ Sign Pledge & Unlock Official Badge',
+        certInst: 'Community of Madrid',
+        certTitle: 'Constitutional Impact Certificate',
+        certGivenTo: 'Awarded with distinction to the classroom team:',
+        certDesc: 'For successfully completing <strong>Challenge 2: Express Anti-Stereotype Campaign</strong>, applying with critical rigor and creativity <strong>Articles 14 and 20 of the Spanish Constitution</strong>, demonstrating exemplary commitment to equality, inclusion, and a prejudice-free school community.',
+        certSigTitle1: 'Classroom Constitutional Commission',
+        certSigSub1: 'Constitution Day 2026',
+        certSigTitle2: 'Community of Madrid',
+        certSigSub2: 'Constitution Week 2026',
+        btnPrintCert: '🖨️ Print Official Diploma',
+        footerCopy1: 'Thematic Weeks 2026',
+        footerCopy2: 'Community of Madrid',
+        footerCopy3: 'Legal Framework: Articles 14 & 20 SC &bull; Educational Digital Project',
+        canvasHeader: 'Express Anti-Stereotype Campaign',
+        canvasDate: 'December 6 &bull; SC 1978'
+      }
+    };
+
+    /* ========================================================
+       3. DATOS BILINGÜES DE LAS 6 TARJETAS OFICIALES
+       ======================================================== */
+    const SITUATIONS = [
+      {
+        id: 1,
+        title: "Inclusión Cultural y Acogida",
+        titleEn: "Cultural Inclusion & Welcoming",
+        category: "Diversidad Lingüística y Convivencia",
+        categoryEn: "Linguistic Diversity & Coexistence",
+        articleBadge: "Artículo 14 C.E. (Igualdad y No Discriminación)",
+        articleBadgeEn: "Article 14 SC (Equality & Non-Discrimination)",
+        scenario: "Un compañero recién llegado al instituto habla con un acento diferente y aún comete algunos errores al expresarse. Durante un trabajo en grupo, algunos compañeros evitan ponerse con él o ponen gestos de impaciencia cuando interviene en clase.",
+        scenarioEn: "A classmate newly arrived at the school speaks with a different accent and still makes minor mistakes when expressing himself. During group work, some peers avoid working with him or make impatient gestures when he speaks up in class.",
+        mission: "El reto de vuestro equipo: Diseñad una campaña exprés de impacto que desmonte el prejuicio hacia la diversidad lingüística o cultural y promueva una cultura de acogida e inclusión real en el aula.",
+        missionEn: "Your team's challenge: Design an express impact campaign that dismantles prejudice towards linguistic or cultural diversity and promotes a culture of authentic welcoming and real inclusion.",
+        formulaFrom: "«Habla raro, no nos vamos a entender»",
+        formulaFromEn: "«He speaks funny, we won't understand each other»",
+        formulaTo: "«Cada lengua y acento amplía nuestro mundo»",
+        formulaToEn: "«Every language and accent widens our world»",
+        question: "¿Qué principio constitucional se vulnera cuando se aísla a un compañero por su acento u origen?",
+        questionEn: "Which constitutional principle is violated when a peer is isolated because of their accent or origin?",
+        options: [
+          { text: "El Artículo 14 C.E.: Nadie puede ser discriminado por origen, idioma o condición personal.", textEn: "Article 14 SC: Nobody can be discriminated against on grounds of origin, language, or personal condition.", correct: true },
+          { text: "Ninguno, porque cada uno es libre de elegir a quién escucha.", textEn: "None, because everyone is free to choose who they listen to.", correct: false },
+          { text: "Solamente una norma de cortesía que no tiene rango legal.", textEn: "Only a rule of politeness that has no legal standing.", correct: false }
+        ],
+        feedback: "¡Exacto! El Artículo 14 garantiza que ninguna circunstancia personal, social o de origen sea motivo de discriminación.",
+        feedbackEn: "Exactly! Article 14 guarantees that no personal, social, or origin circumstance may be grounds for discrimination."
+      },
+      {
+        id: 2,
+        title: "Acoso y Ciberbullying",
+        titleEn: "Bullying & Cyberbullying",
+        category: "Redes Sociales y Respeto Digital",
+        categoryEn: "Social Media & Digital Respect",
+        articleBadge: "Artículos 14 y 20 C.E. (Igualdad y Libertad de Expresión)",
+        articleBadgeEn: "Articles 14 & 20 SC (Equality & Freedom of Expression)",
+        scenario: "En el grupo de WhatsApp de la clase se reenvían memes y pegatinas burlándose de la forma de vestir, el peinado o las fotos que sube a sus redes un compañero. Algunos dicen que «solo es humor y no hay que tomárselo tan en serio».",
+        scenarioEn: "In the class WhatsApp group, memes and stickers are forwarded mocking the way a classmate dresses, their hairstyle, or the photos they post online. Some say 'it is just humor and you should not take it so seriously'.",
+        mission: "El reto de vuestro equipo: Diseñad una campaña exprés que diferencie la libertad de expresión del acoso, desmontando la excusa del «es solo una broma» cuando hay sufrimiento de por medio.",
+        missionEn: "Your team's challenge: Design an express campaign that distinguishes free speech from harassment, debunking the 'it is just a joke' excuse when there is emotional harm involved.",
+        formulaFrom: "«Es solo un chiste, no te rayes»",
+        formulaFromEn: "«It is just a joke, don't get upset»",
+        formulaTo: "«Si humilla o hace daño, nunca es una broma»",
+        formulaToEn: "«If it humiliates or hurts, it is never a joke»",
+        question: "¿Cuál es el límite que impone la Constitución a la libertad de expresión (Art. 20)?",
+        questionEn: "What limit does the Constitution impose on freedom of expression (Art. 20)?",
+        options: [
+          { text: "La libertad de expresión es absoluta y se puede decir cualquier cosa en un chat.", textEn: "Freedom of expression is absolute and anything can be said in a chat.", correct: false },
+          { text: "El respeto a los derechos de los demás y, especialmente, a la dignidad personal.", textEn: "Respect for the rights of others and, especially, personal dignity.", correct: true },
+          { text: "Solo los límites que marque el administrador del grupo de WhatsApp.", textEn: "Only the limits set by the WhatsApp group administrator.", correct: false }
+        ],
+        feedback: "¡Brillante! El Artículo 20.4 establece con total claridad que las libertades de expresión tienen su límite infranqueable en la dignidad y los derechos fundamentales.",
+        feedbackEn: "Brilliant! Article 20.4 clearly establishes that freedom of expression has its insurmountable limit in human dignity and fundamental rights."
+      },
+      {
+        id: 3,
+        title: "Neurodiversidad y Ritmos",
+        titleEn: "Neurodiversity & Learning Paces",
+        category: "Capacitismo y Diversidad Funcional",
+        categoryEn: "Inclusion & Diverse Learning Paces",
+        articleBadge: "Artículos 10 y 14 C.E. (Dignidad Humana e Igualdad)",
+        articleBadgeEn: "Articles 10 & 14 SC (Human Dignity & Equality)",
+        scenario: "Cuando un compañero que tiene necesidades específicas de aprendizaje o neurodivergencia tarda más tiempo en responder a las preguntas del profesor, algunos alumnos murmuran o ponen caras de frustración porque «la clase se frena».",
+        scenarioEn: "When a classmate with specific learning needs or neurodiversity takes longer to answer questions, some students murmur or make frustrated faces because 'the class is slowed down'.",
+        mission: "El reto de vuestro equipo: Diseñad una campaña exprés que ponga en valor la diversidad de ritmos de aprendizaje y defienda el derecho de todas las personas a participar sin sentirse juzgadas.",
+        missionEn: "Your team's challenge: Design an express campaign valuing diverse learning paces and upholding everyone's right to participate without feeling judged.",
+        formulaFrom: "«Va muy lento y nos frena a todos»",
+        formulaFromEn: "«They go too slow and hold everyone back»",
+        formulaTo: "«Caminar a ritmos distintos nos enseña a avanzar juntos»",
+        formulaToEn: "«Walking at different paces teaches us to advance together»",
+        question: "¿Por qué respetar los diferentes tiempos de aprendizaje es un derecho constitucional?",
+        questionEn: "Why is respecting different learning paces a constitutional right?",
+        options: [
+          { text: "Porque el Artículo 10 garantiza la dignidad de la persona y el libre desarrollo de su personalidad.", textEn: "Because Article 10 guarantees personal dignity and the free development of personality.", correct: true },
+          { text: "Porque así la clase termina antes y no hay deberes.", textEn: "Because that way class ends sooner and there is no homework.", correct: false },
+          { text: "Porque está prohibido hacer preguntas difíciles en el aula.", textEn: "Because asking difficult questions in the classroom is prohibited.", correct: false }
+        ],
+        feedback: "¡Excelente! La dignidad personal (Art. 10) exige respetar y adaptar el entorno para que todas las capacidades brillen sin marginación.",
+        feedbackEn: "Excellent! Personal dignity (Art. 10) requires respecting and adapting the environment so all talents can shine without marginalization."
+      },
+      {
+        id: 4,
+        title: "Respeto a la Identidad",
+        titleEn: "Respect for Identity",
+        category: "Aceptación de la Diferencia",
+        categoryEn: "Acceptance of Differences",
+        articleBadge: "Artículos 10 y 14 C.E.",
+        articleBadgeEn: "Articles 10 & 14 SC",
+        scenario: "A veces etiquetamos a las personas por sus gustos musicales, su ropa o su forma de ser: «es un friki», «es rarito», etc., construyendo muros que impiden conocer a la persona real.",
+        scenarioEn: "Sometimes we label people based on musical tastes, clothing, or personality: 'geek', 'weirdo', etc., building barriers that prevent getting to know the real person.",
+        mission: "El reto de vuestro equipo: Cread un eslogan y diseño visual rompedor que transforme la diferencia en un valor positivo que aporta riqueza al grupo.",
+        missionEn: "Your team's challenge: Create a punchy slogan and visual design that transforms difference into a positive asset enriching the entire group.",
+        formulaFrom: "«Es diferente a mí, no encaja»",
+        formulaFromEn: "«They are different from me, they don't fit in»",
+        formulaTo: "«Su perspectiva enriquece a todo el grupo»",
+        formulaToEn: "«Their perspective enriches the whole group»",
+        question: "¿Qué valor cívico aporta la diversidad al centro educativo?",
+        questionEn: "What civic value does diversity bring to a school community?",
+        options: [
+          { text: "Convierte al instituto en una comunidad plural, creativa y tolerante.", textEn: "It turns the school into a plural, creative, and tolerant community.", correct: true },
+          { text: "Crea grupos separados que no necesitan relacionarse entre sí.", textEn: "It creates separated groups that don't need to interact.", correct: false },
+          { text: "Ninguno, lo mejor es que todos piensen y vistan igual.", textEn: "None, it is best if everyone thinks and dresses identically.", correct: false }
+        ],
+        feedback: "¡Totalmente de acuerdo! La pluralidad es el motor del progreso social protegido por nuestra Carta Magna.",
+        feedbackEn: "Completely agreed! Pluralism is the engine of social progress protected by our Constitution."
+      },
+      {
+        id: 5,
+        title: "Micro-discriminaciones",
+        titleEn: "Micro-discriminations",
+        category: "Prevención del Daño Emocional",
+        categoryEn: "Preventing Emotional Harm",
+        articleBadge: "Artículo 14 C.E.",
+        articleBadgeEn: "Article 14 SC",
+        scenario: "Comentarios machistas, microrracismos y motes despectivos que se repiten en pasillos o patios bajo la apariencia de «gracias inocentes».",
+        scenarioEn: "Sexist remarks, micro-racisms, and derogatory nicknames repeated in corridors or schoolyards under the guise of 'innocent jokes'.",
+        mission: "El reto de vuestro equipo: Visibilizar cómo las micro-discriminaciones dañan la salud emocional y la convivencia, y sustituirlas por empatía activa.",
+        missionEn: "Your team's challenge: Make visible how micro-discriminations harm emotional well-being and coexistence, replacing them with active empathy.",
+        formulaFrom: "«Son cosas que siempre se han dicho»",
+        formulaFromEn: "«These are things people have always said»",
+        formulaTo: "«Si hiere a una persona, nos degrada a todos»",
+        formulaToEn: "«If it hurts one person, it degrades us all»",
+        question: "¿Qué consecuencia tienen las burlas continuadas en el clima del centro?",
+        questionEn: "What consequence does continuous teasing have on the school climate?",
+        options: [
+          { text: "Normalizan la intolerancia y erosionan la seguridad psicológica del alumnado.", textEn: "It normalizes intolerance and erodes students' psychological safety.", correct: true },
+          { text: "Hacen que la gente sea más fuerte y no tiene importancia.", textEn: "It toughens people up and does not matter.", correct: false },
+          { text: "Solo afectan a quien no tiene sentido del humor.", textEn: "It only affects those without a sense of humor.", correct: false }
+        ],
+        feedback: "¡Exacto! La reiteración de pequeñas conductas discriminatorias deteriora el derecho constitucional a un entorno seguro y digno.",
+        feedbackEn: "Exactly! Repetition of small discriminatory acts harms the constitutional right to a safe and dignified environment."
+      },
+      {
+        id: 6,
+        title: "Límites de la Expresión",
+        titleEn: "Limits of Expression",
+        category: "Diálogo Democrático Constructivo",
+        categoryEn: "Constructive Democratic Dialogue",
+        articleBadge: "Artículos 14 y 20 C.E.",
+        articleBadgeEn: "Articles 14 & 20 SC",
+        scenario: "Discusiones acaloradas en debates de clase o en redes que degeneran en insultos personales y cancelaciones en lugar de contraste de argumentos.",
+        scenarioEn: "Heated arguments in class debates or online that turn into personal insults and cancellations rather than debating arguments.",
+        mission: "El reto de vuestro equipo: Recordar que la libertad de expresión termina donde empiezan los derechos y el honor de las demás personas.",
+        missionEn: "Your team's challenge: Remind everyone that freedom of expression ends where the rights and honor of others begin.",
+        formulaFrom: "«Se mosquea por nada, yo digo lo que quiero»",
+        formulaFromEn: "«They get offended by nothing, I say whatever I want»",
+        formulaTo: "«Convivir es debatir con argumentos y respetar a las personas»",
+        formulaToEn: "«Coexistence means debating with arguments and respecting people»",
+        question: "¿Cuál es la base de un debate democrático sano según la Constitución?",
+        questionEn: "What is the basis of healthy democratic debate according to the Constitution?",
+        options: [
+          { text: "El diálogo constructivo fundamentado en el respeto mutuo a la dignidad inviolable.", textEn: "Constructive dialogue grounded in mutual respect for inviolable dignity.", correct: true },
+          { text: "Gritar más fuerte para imponer la opinión propia.", textEn: "Shouting louder to impose one's own opinion.", correct: false },
+          { text: "Prohibir todas las opiniones que no nos gusten.", textEn: "Banning any opinions we dislike.", correct: false }
+        ],
+        feedback: "¡Perfecto! La Constitución ampara la discrepancia ideológica siempre que se ejerza desde el reconocimiento ético del otro.",
+        feedbackEn: "Perfect! The Constitution protects ideological disagreement as long as it is exercised from ethical recognition of others."
+      }
+    ];
+
+    let currentSituationId = 1;
+    let selectedSituationData = SITUATIONS[0];
+
+    function toggleLanguage() {
+      currentLanguage = (currentLanguage === 'ES') ? 'EN' : 'ES';
+      playSound('click');
+      applyLanguage();
+    }
+
+    function applyLanguage() {
+      const isEn = (currentLanguage === 'EN');
+      const t = TRANSLATIONS_R2[currentLanguage];
+
+      // Botón idioma y sonido
+      document.getElementById('btn-lang').innerHTML = t.btnLang;
+      const soundBtn = document.getElementById('btn-sound');
+      soundBtn.innerHTML = soundEnabled ? t.soundOn : t.soundOff;
+
+      // Cabecera institucional y hero
+      if (document.getElementById('gov-title')) document.getElementById('gov-title').innerText = t.govTitle;
+      if (document.getElementById('gov-sub')) document.getElementById('gov-sub').innerText = t.govSub;
+      if (document.getElementById('label-print')) document.getElementById('label-print').innerText = t.labelPrint;
+      if (document.getElementById('gov-footer-inst')) document.getElementById('gov-footer-inst').innerHTML = t.footerInst;
+      if (document.getElementById('gov-footer-sub')) document.getElementById('gov-footer-sub').innerText = t.footerSub;
+      document.getElementById('hero-badge-pill').innerHTML = t.heroBadgePill;
+      document.getElementById('hero-title').innerText = t.heroTitle;
+      document.getElementById('hero-subtitle').innerText = t.heroSubtitle;
+      document.getElementById('meta-dest').innerText = t.metaDest;
+      document.getElementById('meta-dur').innerText = t.metaDur;
+      document.getElementById('meta-mod').innerText = t.metaMod;
+      document.getElementById('badge-title-top').innerText = t.badgeTitleTop;
+      document.getElementById('badge-status-top').innerText = pactSigned ? t.badgeStatusCompleted : t.badgeStatusInProcess;
+      document.getElementById('progress-label').innerText = t.progressLabel;
+
+      // Pestañas (2x2 grid)
+      document.getElementById('tab-label-1').innerText = t.tab1;
+      document.getElementById('badge-tab-1').innerText = t.badgeTab1;
+      document.getElementById('tab-label-2').innerText = t.tab2;
+      document.getElementById('badge-tab-2').innerText = t.badgeTab2;
+      document.getElementById('tab-label-3').innerText = t.tab3;
+      document.getElementById('badge-tab-3').innerText = t.badgeTab3;
+      document.getElementById('tab-label-4').innerText = t.tab4;
+      document.getElementById('badge-tab-4').innerText = t.badgeTab4;
+
+      // Fase 1
+      document.getElementById('legal-title').innerText = t.legalTitle;
+      document.getElementById('legal-desc').innerText = t.legalDesc;
+      document.getElementById('art14-badge').innerHTML = t.art14Badge;
+      document.getElementById('art14-quote').innerHTML = t.art14Quote;
+      document.getElementById('art14-expl').innerHTML = t.art14Expl;
+      document.getElementById('art20-badge').innerHTML = t.art20Badge;
+      document.getElementById('art20-quote').innerHTML = t.art20Quote;
+      document.getElementById('art20-expl').innerHTML = t.art20Expl;
+
+      document.getElementById('roles-title').innerText = t.rolesTitle;
+      document.getElementById('roles-desc').innerText = t.rolesDesc;
+      document.getElementById('role-title-1').innerText = t.roleTitle1;
+      document.getElementById('role-desc-1').innerText = t.roleDesc1;
+      document.getElementById('role-title-2').innerText = t.roleTitle2;
+      document.getElementById('role-desc-2').innerText = t.roleDesc2;
+      document.getElementById('role-title-3').innerText = t.roleTitle3;
+      document.getElementById('role-desc-3').innerText = t.roleDesc3;
+      document.getElementById('role-title-4').innerText = t.roleTitle4;
+      document.getElementById('role-desc-4').innerText = t.roleDesc4;
+      ['input-role-coord', 'input-role-copy', 'input-role-design', 'input-role-speaker'].forEach(id => {
+        document.getElementById(id).placeholder = t.rolePlaceholder;
+      });
+      document.getElementById('btn-next-roles').innerText = t.btnNextRoles;
+
+      // Fase 2
+      document.getElementById('sit-title').innerText = t.sitTitle;
+      document.getElementById('sit-desc').innerText = t.sitDesc;
+      document.getElementById('btn-back-roles').innerText = t.btnBackRoles;
+      document.getElementById('btn-to-studio').innerText = t.btnToStudio;
+      renderSituationsSelector();
+      renderSituationDetail();
+
+      // Fase 3
+      document.getElementById('studio-title').innerText = t.studioTitle;
+      document.getElementById('studio-desc').innerText = t.studioDesc;
+      document.getElementById('lbl-slogan').innerText = t.lblSlogan;
+      document.getElementById('lbl-commit').innerText = t.lblCommit;
+      document.getElementById('lbl-commit-hint').innerText = t.lblCommitHint;
+      document.getElementById('lbl-article').innerText = t.lblArticle;
+      document.getElementById('lbl-style').innerText = t.lblStyle;
+      document.getElementById('style-neon-lbl').innerText = t.styleNeon;
+      document.getElementById('style-urban-lbl').innerText = t.styleUrban;
+      document.getElementById('style-editorial-lbl').innerText = t.styleEditorial;
+      document.getElementById('style-madrid-lbl').innerText = t.styleMadrid;
+      document.getElementById('lbl-emblem').innerText = t.lblEmblem;
+      document.getElementById('lbl-school').innerText = t.lblSchool;
+      document.getElementById('btn-print-poster').innerText = t.btnPrintPoster;
+      document.getElementById('btn-save-gallery').innerText = t.btnSaveGallery;
+      document.getElementById('btn-to-rubric').innerText = t.btnToRubric;
+      document.getElementById('canvas-header-tag').innerText = t.canvasHeader;
+      document.getElementById('canvas-date-tag').innerHTML = t.canvasDate;
+
+      renderPresetSlogans();
+      renderArticleSelect();
+
+      // Fase 4
+      document.getElementById('gallery-title').innerText = t.galleryTitle;
+      document.getElementById('gallery-desc').innerText = t.galleryDesc;
+      document.getElementById('rubric-title').innerText = t.rubricTitle;
+      document.getElementById('rubric-desc').innerText = t.rubricDesc;
+      document.getElementById('rubric-score-title').innerText = t.rubricScoreTitle;
+      renderRubricTable();
+
+      document.getElementById('pact-title').innerText = t.pactTitle;
+      document.getElementById('pact-text').innerText = t.pactText;
+      document.getElementById('sign-1').placeholder = isEn ? 'Sign: Coordinator' : 'Firma: Coordinador/a';
+      document.getElementById('sign-2').placeholder = isEn ? 'Sign: Copywriter' : 'Firma: Redactor/a';
+      document.getElementById('sign-3').placeholder = isEn ? 'Sign: Designer' : 'Firma: Diseñador/a';
+      document.getElementById('sign-4').placeholder = isEn ? 'Sign: Spokesperson' : 'Firma: Portavoz';
+      document.getElementById('btn-sign-pact').innerText = t.btnSignPact;
+
+      document.getElementById('cert-inst').innerHTML = t.certInst;
+      document.getElementById('cert-title').innerText = t.certTitle;
+      document.getElementById('cert-given-to-lbl').innerText = t.certGivenTo;
+      document.getElementById('cert-desc').innerHTML = t.certDesc;
+      document.getElementById('cert-sig-title-1').innerText = t.certSigTitle1;
+      document.getElementById('cert-sig-sub-1').innerText = t.certSigSub1;
+      document.getElementById('cert-sig-title-2').innerText = t.certSigTitle2;
+      document.getElementById('cert-sig-sub-2').innerText = t.certSigSub2;
+      document.getElementById('btn-print-cert').innerText = t.btnPrintCert;
+
+      // Footer
+      document.getElementById('footer-copy-1').innerText = t.footerCopy1;
+      document.getElementById('footer-copy-2').innerText = t.footerCopy2;
+      document.getElementById('footer-copy-3').innerHTML = t.footerCopy3;
+
+      updatePosterLive();
+    }
+
+    function renderSituationsSelector() {
+      const isEn = (currentLanguage === 'EN');
+      const container = document.getElementById('situations-selector-container');
+      container.innerHTML = SITUATIONS.map(s => {
+        const title = isEn ? s.titleEn : s.title;
+        const tag = isEn
+          ? `Card ${s.id} &bull; ${s.articleBadgeEn.split('(')[0].trim()}`
+          : `Tarjeta ${s.id} &bull; ${s.articleBadge.split('(')[0].trim()}`;
+        const activeClass = (s.id === currentSituationId) ? 'active' : '';
+        return `
+          <button class="situation-btn ${activeClass}" id="btn-sit-${s.id}" onclick="selectSituation(${s.id})">
+            <span class="situation-tag">${tag}</span>
+            <span class="situation-title">${title}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderPresetSlogans() {
+      const isEn = (currentLanguage === 'EN');
+      const container = document.getElementById('preset-slogans-container');
+      const presets = isEn ? [
+        '«Their perspective enriches me»',
+        '«If it hurts: it is discrimination»',
+        '«Coexistence means respect»',
+        '«Your accent enriches the class»',
+        '«Differences unite us»'
+      ] : [
+        '«Su perspectiva me enriquece»',
+        '«Si duele: es discriminación»',
+        '«Convivir es respetar»',
+        '«Tu acento enriquece la clase»',
+        '«Las diferencias suman»'
+      ];
+
+      container.innerHTML = presets.map(p => {
+        const clean = p.replace(/«|»/g, '');
+        return `<span class="preset-pill" onclick="setSloganPreset('${clean}')">${p}</span>`;
+      }).join('');
+    }
+
+    function renderArticleSelect() {
+      const isEn = (currentLanguage === 'EN');
+      const select = document.getElementById('poster-article-select');
+      const curVal = select.value;
+      const opts = isEn ? [
+        { val: "Article 14 SC: Equality and non-discrimination", text: "Article 14 SC: Equality and non-discrimination" },
+        { val: "Article 20 SC: Freedom of expression with respect for dignity", text: "Article 20 SC: Freedom of expression with respect for dignity" },
+        { val: "Articles 10 & 14 SC: Human dignity and inviolable rights", text: "Articles 10 & 14 SC: Human dignity and inviolable rights" }
+      ] : [
+        { val: "Artículo 14 C.E.: Igualdad y no discriminación", text: "Artículo 14 C.E.: Igualdad y no discriminación" },
+        { val: "Artículo 20 C.E.: Libertad de expresión con respeto a la dignidad", text: "Artículo 20 C.E.: Libertad de expresión con respeto a la dignidad" },
+        { val: "Artículos 10 y 14 C.E.: Dignidad de la persona y derechos inviolables", text: "Artículos 10 y 14 C.E.: Dignidad de la persona y derechos inviolables" }
+      ];
+
+      select.innerHTML = opts.map(o => `<option value="${o.val}">${o.text}</option>`).join('');
+    }
+
+    function renderRubricTable() {
+      const isEn = (currentLanguage === 'EN');
+      const container = document.getElementById('rubric-table-container');
+      const r = isEn ? {
+        headers: ['Criterion', 'Initial Level (1 pt)', 'Good Level (2.5 pts)', 'Excellent Level (3.5 - 4 pts)'],
+        c1: { title: '1. Slogan and Message', sub: 'Clarity, impact and length (≤10 words)', l1: 'Long or confusing slogan. Low visual impact.', l2: 'Clear slogan conveying an idea of mutual respect.', l3: 'Striking, memorable, direct (≤10 words) and positive slogan.' },
+        c2: { title: '2. Constitutional Link', sub: 'Articles 14 and 20 SC', l1: 'Article named but without explaining its relation to the case.', l2: 'Connects equality or freedom with classroom coexistence.', l3: 'Accurately differentiates between freedom of speech and discrimination.' },
+        c3: { title: '3. Cooperation and Pledge', sub: 'Role distribution and call to action', l1: 'Vaguely defined roles. Vague commitment.', l2: 'Roles assumed. Group commitment achieved.', l3: 'Exemplary distribution. Concrete, viable, and transformative pledge.' }
+      } : {
+        headers: ['Criterio', 'Nivel Inicial (1 pt)', 'Nivel Bueno (2.5 pts)', 'Nivel Excelente (3.5 - 4 pts)'],
+        c1: { title: '1. Eslogan y Mensaje', sub: 'Claridad, impacto y longitud (≤10 palabras)', l1: 'Eslogan largo o confuso. Poco impacto visual.', l2: 'Eslogan claro que transmite una idea de respeto.', l3: 'Eslogan rompedor, memorable, directo (≤10 palabras) y positivo.' },
+        c2: { title: '2. Vínculo Constitucional', sub: 'Artículos 14 y 20 C.E.', l1: 'Se nombra el artículo pero sin explicar su relación con el caso.', l2: 'Relaciona la igualdad o la libertad con la convivencia del aula.', l3: 'Diferencia con precisión entre libertad de expresión y discriminación.' },
+        c3: { title: '3. Cooperación y Compromiso', sub: 'Reparto de roles y llamada a la acción', l1: 'Roles poco definidos. Compromiso vago.', l2: 'Roles asumidos. Compromiso grupal alcanzado.', l3: 'Reparto ejemplar. Compromiso concreto, viable y transformador.' }
+      };
+
+      container.innerHTML = `
+        <table class="rubric-table">
+          <thead>
+            <tr>
+              <th style="width: 25%;">${r.headers[0]}</th>
+              <th style="width: 25%;">${r.headers[1]}</th>
+              <th style="width: 25%;">${r.headers[2]}</th>
+              <th style="width: 25%;">${r.headers[3]}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>${r.c1.title}</strong><br><small>${r.c1.sub}</small></td>
+              <td class="rubric-level ${rubricScores[1] === 1 ? 'active' : ''}" onclick="setRubricScore(1, 1, this)">${r.c1.l1}</td>
+              <td class="rubric-level ${rubricScores[1] === 2.5 ? 'active' : ''}" onclick="setRubricScore(1, 2.5, this)">${r.c1.l2}</td>
+              <td class="rubric-level ${rubricScores[1] === 3.5 ? 'active' : ''}" onclick="setRubricScore(1, 3.5, this)">${r.c1.l3}</td>
+            </tr>
+            <tr>
+              <td><strong>${r.c2.title}</strong><br><small>${r.c2.sub}</small></td>
+              <td class="rubric-level ${rubricScores[2] === 1 ? 'active' : ''}" onclick="setRubricScore(2, 1, this)">${r.c2.l1}</td>
+              <td class="rubric-level ${rubricScores[2] === 2.5 ? 'active' : ''}" onclick="setRubricScore(2, 2.5, this)">${r.c2.l2}</td>
+              <td class="rubric-level ${rubricScores[2] === 3.5 ? 'active' : ''}" onclick="setRubricScore(2, 3.5, this)">${r.c2.l3}</td>
+            </tr>
+            <tr>
+              <td><strong>${r.c3.title}</strong><br><small>${r.c3.sub}</small></td>
+              <td class="rubric-level ${rubricScores[3] === 1 ? 'active' : ''}" onclick="setRubricScore(3, 1, this)">${r.c3.l1}</td>
+              <td class="rubric-level ${rubricScores[3] === 2 ? 'active' : ''}" onclick="setRubricScore(3, 2, this)">${r.c3.l2}</td>
+              <td class="rubric-level ${rubricScores[3] === 3 ? 'active' : ''}" onclick="setRubricScore(3, 3, this)">${r.c3.l3}</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+    }
+
+    function selectSituation(id) {
+      playSound('click');
+      currentSituationId = id;
+      selectedSituationData = SITUATIONS.find(s => s.id === id);
+
+      document.querySelectorAll('.situation-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`btn-sit-${id}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      renderSituationDetail();
+      updateGlobalProgress();
+    }
+
+    function renderSituationDetail() {
+      const isEn = (currentLanguage === 'EN');
+      const s = selectedSituationData;
+      const box = document.getElementById('situation-detail-box');
+
+      const cat = isEn ? s.categoryEn : s.category;
+      const badge = isEn ? s.articleBadgeEn : s.articleBadge;
+      const scenario = isEn ? s.scenarioEn : s.scenario;
+      const mission = isEn ? s.missionEn : s.mission;
+      const from = isEn ? s.formulaFromEn : s.formulaFrom;
+      const to = isEn ? s.formulaToEn : s.formulaTo;
+      const q = isEn ? s.questionEn : s.question;
+
+      const caseLbl = isEn ? '🎯 <strong>Selected Case:</strong>' : '🎯 <strong>Caso Seleccionado:</strong>';
+      const sitLbl = isEn ? 'School Situation:' : 'Situación en el centro:';
+      const misLbl = isEn ? "Your Commission's Mission:" : 'Misión de vuestra Comisión:';
+      const formLbl = isEn ? '🔄 Anti-Stereotype Transformation Formula:' : '🔄 Fórmula de Transformación Anti-Etiquetas:';
+      const qLbl = isEn ? '🤔 Constitutional Reflection Question:' : '🤔 Pregunta de Reflexión Constitucional:';
+
+      box.innerHTML = `
+        <div class="case-badge-row">
+          <div class="case-category">${caseLbl} ${cat}</div>
+          <div class="case-legal-badge">⚖️ ${badge}</div>
+        </div>
+
+        <div class="case-scenario">
+          <strong>${sitLbl}</strong><br>
+          ${scenario}
+        </div>
+
+        <div class="case-mission">
+          <strong>${misLbl}</strong><br>
+          ${mission}
+        </div>
+
+        <div style="background: #F8FAFC; border: 1px dashed #CBD5E1; border-radius: 8px; padding: 14px; margin-bottom: 20px;">
+          <div style="font-weight: 700; font-size: 0.85rem; color: #475569; margin-bottom: 6px;">
+            ${formLbl}
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 0.95rem;">
+            <span style="color: #DC2626; text-decoration: line-through;">${from}</span>
+            <span style="font-size: 1.2rem; color: #10B981;">➔</span>
+            <span style="color: #15803D; font-weight: 700;">${to}</span>
+          </div>
+        </div>
+
+        <div class="question-item">
+          <div class="question-label">${qLbl}</div>
+          <div style="font-size: 0.9rem; margin-bottom: 10px; color: #334155;">${q}</div>
+          <div class="options-grid">
+            ${s.options.map((opt, i) => `
+              <button class="option-btn" onclick="checkOption(${i}, ${opt.correct}, this)">
+                ${isEn ? opt.textEn : opt.text}
+              </button>
+            `).join('')}
+          </div>
+          <div class="case-feedback" id="case-feedback-box"></div>
+        </div>
+      `;
+    }
+
+    let situationAnsweredCorrect = false;
+
+    function checkOption(idx, isCorrect, btnElement) {
+      const isEn = (currentLanguage === 'EN');
+      const parent = btnElement.closest('.options-grid');
+      parent.querySelectorAll('.option-btn').forEach(b => {
+        b.classList.remove('selected-correct', 'selected-wrong');
+      });
+
+      const fb = document.getElementById('case-feedback-box');
+      fb.classList.add('show');
+
+      if (isCorrect) {
+        playSound('success');
+        btnElement.classList.add('selected-correct');
+        fb.style.background = '#DCFCE7';
+        fb.style.color = '#15803D';
+        fb.style.border = '1px solid #86EFAC';
+        const fbText = isEn ? selectedSituationData.feedbackEn : selectedSituationData.feedback;
+        fb.innerHTML = `<strong>${isEn ? 'Correct!' : '¡Correcto!'}</strong> ${fbText}`;
+        situationAnsweredCorrect = true;
+      } else {
+        playSound('click');
+        btnElement.classList.add('selected-wrong');
+        fb.style.background = '#FEE2E2';
+        fb.style.color = '#991B1B';
+        fb.style.border = '1px solid #FCA5A5';
+        fb.innerHTML = isEn
+          ? `<strong>Think again:</strong> Analyze how constitutional fundamental rights protect the individual above conveniences or jokes.`
+          : `<strong>Piénsalo de nuevo:</strong> Analiza cómo los derechos fundamentales de la Constitución protegen a la persona por encima de conveniencias o bromas.`;
+      }
+      updateGlobalProgress();
+    }
+
+    function transferToStudio() {
+      const isEn = (currentLanguage === 'EN');
+      const formula = isEn ? selectedSituationData.formulaToEn : selectedSituationData.formulaTo;
+      document.getElementById('poster-slogan-input').value = formula.replace(/«|»/g, '');
+      
+      const badge = selectedSituationData.articleBadge;
+      if (isEn) {
+        document.getElementById('poster-article-select').value = badge.includes('14') && badge.includes('20')
+          ? "Article 20 SC: Freedom of expression with respect for dignity"
+          : (badge.includes('10')
+            ? "Articles 10 & 14 SC: Human dignity and inviolable rights"
+            : "Article 14 SC: Equality and non-discrimination");
+      } else {
+        document.getElementById('poster-article-select').value = badge.includes('14') && badge.includes('20')
+          ? "Artículo 20 C.E.: Libertad de expresión con respeto a la dignidad"
+          : (badge.includes('10')
+            ? "Artículos 10 y 14 C.E.: Dignidad de la persona y derechos inviolables"
+            : "Artículo 14 C.E.: Igualdad y no discriminación");
+      }
+      
+      updatePosterLive();
+      switchPhase(3);
+    }
+
+    /* ========================================================
+       4. ESTUDIO DE DISEÑO DE CARTELES EN VIVO
+       ======================================================== */
+    let currentTheme = 'neon';
+    let currentSticker = '⚖️';
+
+    function setSloganPreset(text) {
+      playSound('click');
+      document.getElementById('poster-slogan-input').value = text;
+      updatePosterLive();
+    }
+
+    function setPosterTheme(theme) {
+      playSound('click');
+      currentTheme = theme;
+      document.querySelectorAll('.style-option').forEach(el => el.classList.remove('active'));
+      const activeEl = document.getElementById(`style-${theme}`);
+      if (activeEl) activeEl.classList.add('active');
+
+      const canvas = document.getElementById('poster-canvas');
+      canvas.className = `poster-canvas theme-${theme}`;
+      updatePosterLive();
+    }
+
+    function setPosterSticker(stk) {
+      playSound('click');
+      currentSticker = stk;
+      document.querySelectorAll('.sticker-item').forEach(b => {
+        b.classList.toggle('active', b.innerText === stk);
+      });
+      document.getElementById('canvas-sticker').innerText = stk;
+    }
+
+    function updatePosterLive() {
+      const isEn = (currentLanguage === 'EN');
+      const defaultSlogan = isEn ? 'STRIKING SLOGAN' : 'LEMA ROMPEDOR';
+      const defaultCommit = isEn ? 'Our classroom pledge.' : 'Nuestro compromiso de aula.';
+      const defaultSchool = isEn ? 'Constitutional Commission' : 'Comisión Constitucional';
+
+      const slogan = document.getElementById('poster-slogan-input').value.trim() || defaultSlogan;
+      const commit = document.getElementById('poster-commit-input').value.trim() || defaultCommit;
+      const article = document.getElementById('poster-article-select').value;
+      const school = document.getElementById('poster-school-input').value.trim() || defaultSchool;
+
+      // Contador de palabras
+      const words = slogan.split(/\s+/).filter(w => w.length > 0);
+      const count = words.length;
+      const countIndicator = document.getElementById('word-count-indicator');
+      countIndicator.innerText = isEn ? `${count} / 10 words` : `${count} / 10 palabras`;
+      if (count > 10) {
+        countIndicator.className = 'word-counter warning';
+      } else {
+        countIndicator.className = 'word-counter valid';
+      }
+
+      // Actualizar vista previa
+      document.getElementById('canvas-slogan').innerText = slogan.toUpperCase();
+      document.getElementById('canvas-commitment').innerText = `«${commit}»`;
+      document.getElementById('canvas-article').innerText = article;
+      document.getElementById('canvas-school').innerText = school;
+
+      // Roles en el footer del cartel
+      const copy = document.getElementById('input-role-copy').value.trim();
+      const coord = document.getElementById('input-role-coord').value.trim();
+      const teamPrefix = isEn ? 'Team:' : 'Equipo:';
+      if (copy || coord) {
+        document.getElementById('canvas-roles').innerText = `${teamPrefix} ${coord || 'Coord.'} &bull; ${copy || (isEn ? 'Copy' : 'Lema')}`;
+      }
+
+      updateGlobalProgress();
+    }
+
+    function printPoster() {
+      playSound('fanfare');
+      document.body.classList.remove('printing-diploma');
+      document.body.classList.add('printing-poster');
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => {
+          document.body.classList.remove('printing-poster');
+        }, 1000);
+      }, 120);
+    }
+
+    function printDiplomaOficial() {
+      playSound('fanfare');
+      const certWrap = document.getElementById('certificate-wrap');
+      if (certWrap) certWrap.classList.add('show');
+      
+      const teamEl = document.getElementById('cert-team-name');
+      if (teamEl && (!teamEl.innerText || teamEl.innerText.trim() === '')) {
+        teamEl.innerText = (currentLanguage === 'EN') ? 'CLASS TEAM · CONSTITUTION DAY 2026' : 'EQUIPO DE AULA · DÍA DE LA CONSTITUCIÓN 2026';
+      }
+
+      document.body.classList.remove('printing-poster');
+      document.body.classList.add('printing-diploma');
+      
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => {
+          document.body.classList.remove('printing-diploma');
+        }, 1000);
+      }, 120);
+    }
+
+    function printReto2() {
+      if (currentPhase === 3) {
+        printPoster();
+      } else {
+        switchPhase(4);
+        printDiplomaOficial();
+      }
+    }
+
+    let galleryItems = [
+      {
+        theme: 'theme-neon',
+        sticker: '⚖️',
+        slogan: 'SU PERSPECTIVA ME ENRIQUECE',
+        commitment: 'Aprenderemos a escuchar antes de juzgar.',
+        article: 'Artículo 14 C.E.',
+        team: 'Equipo Los Justos (2º ESO A)'
+      },
+      {
+        theme: 'theme-madrid',
+        sticker: '📢',
+        slogan: 'SI DUELE, NO ES BROMA: ES DISCRIMINACIÓN',
+        commitment: 'No seremos cómplices del silencio en las redes.',
+        article: 'Artículos 14 y 20 C.E.',
+        team: 'Comisión Convivencia (3º ESO B)'
+      }
+    ];
+
+    function saveToGallery() {
+      playSound('success');
+      const isEn = (currentLanguage === 'EN');
+      const slogan = document.getElementById('poster-slogan-input').value.trim() || (isEn ? 'IMPACT SLOGAN' : 'LEMA DE IMPACTO');
+      const commit = document.getElementById('poster-commit-input').value.trim();
+      const article = document.getElementById('poster-article-select').value;
+      const school = document.getElementById('poster-school-input').value.trim();
+
+      galleryItems.unshift({
+        theme: `theme-${currentTheme}`,
+        sticker: currentSticker,
+        slogan: slogan.toUpperCase(),
+        commitment: commit,
+        article: article.split(':')[0],
+        team: school
+      });
+
+      renderGallery();
+      alert(isEn ? '✅ Poster successfully added to the Classroom Impact Gallery!' : '✅ ¡Pancarta añadida con éxito a la Galería de Impacto del aula!');
+      switchPhase(4);
+    }
+
+    function renderGallery() {
+      const isEn = (currentLanguage === 'EN');
+      const tagText = isEn ? 'EXPRESS CAMPAIGN' : 'CAMPAÑA EXPRÉS';
+      const container = document.getElementById('gallery-container');
+      container.innerHTML = galleryItems.map(item => `
+        <div style="border-radius: 10px; padding: 18px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; min-height: 220px;" class="${item.theme}">
+          <div style="display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 700; opacity: 0.85; border-bottom: 1px solid currentColor; padding-bottom: 4px;">
+            <span>${item.sticker} ${tagText}</span>
+            <span>${item.article}</span>
+          </div>
+          <div style="text-align: center; padding: 12px 0;">
+            <div style="font-size: 1.25rem; font-weight: 900; line-height: 1.2; margin-bottom: 8px;">${item.slogan}</div>
+            <div style="font-size: 0.8rem; font-style: italic; opacity: 0.9;">«${item.commitment}»</div>
+          </div>
+          <div style="font-size: 0.7rem; opacity: 0.85; border-top: 1px solid currentColor; padding-top: 4px; text-align: right;">
+            ${item.team}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* ========================================================
+       5. RÚBRICA Y PACTO CONSTITUCIONAL
+       ======================================================== */
+    let rubricScores = { 1: 3.5, 2: 3.5, 3: 3.0 };
+
+    function setRubricScore(criterion, score, cell) {
+      playSound('click');
+      rubricScores[criterion] = score;
+
+      const row = cell.closest('tr');
+      row.querySelectorAll('.rubric-level').forEach(c => c.classList.remove('active'));
+      cell.classList.add('active');
+
+      const total = Object.values(rubricScores).reduce((a, b) => a + b, 0);
+      document.getElementById('rubric-total-score').innerText = `${total.toFixed(1)} / 10 pts`;
+
+      const desc = document.getElementById('rubric-status-desc');
+      const isEn = (currentLanguage === 'EN');
+      if (total >= 9) {
+        desc.innerText = isEn
+          ? 'Outstanding Level! Your campaign has professional quality and constitutional rigor.'
+          : '¡Nivel Sobresaliente! Vuestra campaña tiene calidad profesional y rigor constitucional.';
+      } else if (total >= 7) {
+        desc.innerText = isEn
+          ? 'Remarkable Level! Strong message and community commitment.'
+          : '¡Nivel Notable! Buen mensaje y compromiso de convivencia.';
+      } else {
+        desc.innerText = isEn
+          ? 'Acceptable Level. Review slogan conciseness or constitutional justification.'
+          : 'Nivel Aceptable. Revisad la concisión del lema o la justificación de los Arts. 14 y 20.';
+      }
+
+      updateGlobalProgress();
+    }
+
+    function signPactAndUnlock() {
+      const isEn = (currentLanguage === 'EN');
+      const coord = document.getElementById('sign-1').value.trim() || document.getElementById('input-role-coord').value.trim();
+      const copy = document.getElementById('sign-2').value.trim() || document.getElementById('input-role-copy').value.trim();
+      const design = document.getElementById('sign-3').value.trim() || document.getElementById('input-role-design').value.trim();
+      const speaker = document.getElementById('sign-4').value.trim() || document.getElementById('input-role-speaker').value.trim();
+
+      playSound('fanfare');
+
+      const certWrap = document.getElementById('certificate-wrap');
+      certWrap.classList.add('show');
+
+      const defaultTeam = isEn ? 'IMPACT CREATORS TEAM' : 'EQUIPO CREADORES DE IMPACTO';
+      const teamName = [coord, copy, design, speaker].filter(Boolean).join(', ') || defaultTeam;
+      document.getElementById('cert-team-name').innerText = teamName.toUpperCase();
+
+      document.getElementById('badge-status-top').innerText = isEn ? 'CHALLENGE 2 COMPLETED! 🏅' : '¡RETO 2 SUPERADO! 🏅';
+      document.getElementById('badge-status-top').style.background = '#10B981';
+
+      updateGlobalProgress(true);
+      certWrap.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function updateRolesData() {
+      const coord = document.getElementById('input-role-coord').value.trim();
+      const copy = document.getElementById('input-role-copy').value.trim();
+      const design = document.getElementById('input-role-design').value.trim();
+      const speaker = document.getElementById('input-role-speaker').value.trim();
+
+      document.getElementById('card-role-1').classList.toggle('assigned', !!coord);
+      document.getElementById('card-role-2').classList.toggle('assigned', !!copy);
+      document.getElementById('card-role-3').classList.toggle('assigned', !!design);
+      document.getElementById('card-role-4').classList.toggle('assigned', !!speaker);
+
+      document.getElementById('sign-1').value = coord;
+      document.getElementById('sign-2').value = copy;
+      document.getElementById('sign-3').value = design;
+      document.getElementById('sign-4').value = speaker;
+
+      updateGlobalProgress();
+    }
+
+    /* ========================================================
+       6. NAVEGACIÓN Y PROGRESO GLOBAL
+       ======================================================== */
+    let pactSigned = false;
+
+    function switchPhase(num) {
+      playSound('click');
+      for (let i = 1; i <= 4; i++) {
+        const tab = document.getElementById(`tab-${i}`);
+        const sec = document.getElementById(`sec-${i}`);
+        if (i === num) {
+          tab.classList.add('active');
+          sec.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+          sec.classList.remove('active');
+        }
+      }
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+      updateGlobalProgress();
+    }
+
+    function updateGlobalProgress(forceComplete = false) {
+      if (forceComplete) pactSigned = true;
+
+      let pts = 0;
+      const rolesCount = [
+        document.getElementById('input-role-coord')?.value.trim(),
+        document.getElementById('input-role-copy')?.value.trim(),
+        document.getElementById('input-role-design')?.value.trim(),
+        document.getElementById('input-role-speaker')?.value.trim()
+      ].filter(Boolean).length;
+      pts += rolesCount * 5;
+
+      if (situationAnsweredCorrect) pts += 25;
+      if (document.getElementById('poster-slogan-input')?.value.trim().length > 3) pts += 30;
+      if (pactSigned) pts += 25;
+
+      const total = Math.min(100, pts);
+      document.getElementById('progress-fill').style.width = `${total}%`;
+      document.getElementById('progress-percent').innerText = `${total}%`;
+    }
+
+    /* INICIALIZACIÓN */
+    window.addEventListener('DOMContentLoaded', () => {
+      applyLanguage();
+      renderGallery();
+      updateGlobalProgress();
+    });
+  </script>
+</body>
+</html>

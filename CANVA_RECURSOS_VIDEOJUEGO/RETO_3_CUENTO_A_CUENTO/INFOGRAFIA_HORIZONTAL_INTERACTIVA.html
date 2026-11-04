@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 3: Nuestra Constitución, Cuento a Cuento & Dilemas del Preámbulo - Suite Interactiva 16:9</title>
+  <style>
+    :root {
+      --madrid-red: #C7082A;
+      --gold: #FFD166;
+      --cyan: #00F0FF;
+      --green: #10B981;
+      --pink: #EC4899;
+      --purple: #8B5CF6;
+      --indigo: #6366F1;
+      --dark-bg: #090D16;
+      --card-bg: rgba(30, 27, 75, 0.92);
+      --card-sec-bg: rgba(15, 23, 42, 0.94);
+      --border: rgba(236, 72, 153, 0.35);
+      --border-sec: rgba(99, 102, 241, 0.45);
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 10%, #2A103C 0%, #050811 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+
+    .master-container {
+      width: 100%;
+      max-width: 1320px;
+      aspect-ratio: 16 / 9;
+      min-height: 640px;
+      background: #0B1120;
+      border: 3px solid rgba(236, 72, 153, 0.5);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 35px rgba(236, 72, 153, 0.25);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .master-container.theme-secundaria {
+      border-color: rgba(99, 102, 241, 0.6);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 35px rgba(99, 102, 241, 0.3);
+    }
+
+    .view-infographic {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px 28px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.94), rgba(5, 8, 17, 0.97)),
+                  url('Artefactos/Reto 3_El valle de las voces.jpg') center/cover no-repeat;
+      background-blend-mode: overlay;
+    }
+
+    /* CABECERA */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 10px;
+      transition: border-color 0.3s ease;
+    }
+    .header-branding {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      font-size: 28px;
+      background: var(--madrid-red);
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--gold);
+      box-shadow: 0 4px 15px rgba(199, 8, 42, 0.5);
+    }
+    .brand-title {
+      background: rgba(4, 9, 20, 0.88);
+      padding: 5px 14px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(255, 215, 0, 0.45);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+    }
+    .brand-title h1 {
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      color: #FFE600;
+      text-shadow: 0 2px 6px #000, 0 0 14px rgba(0,0,0,0.9);
+    }
+    .brand-title h1 span {
+      color: #F472B6;
+      text-shadow: 0 2px 6px #000;
+      transition: color 0.3s ease;
+    }
+    .top-badges {
+      display: flex;
+      gap: 8px;
+    }
+    .badge-ce {
+      background: rgba(236, 72, 153, 0.2);
+      border: 1px solid var(--pink);
+      color: #FBCFE8;
+      padding: 4px 10px;
+      border-radius: 14px;
+      font-size: 11px;
+      font-weight: 800;
+      transition: all 0.3s ease;
+    }
+
+    /* BARRA SELECTORA DE ETAPA DUAL */
+    .stage-nav-canva {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1.5px solid rgba(236, 72, 153, 0.4);
+      border-radius: 14px;
+      padding: 6px 16px;
+      margin: 8px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      transition: border-color 0.3s ease;
+    }
+    .stage-nav-label {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #F8FAFC;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .stage-nav-btns {
+      display: flex;
+      gap: 10px;
+    }
+    .stage-pill-btn {
+      background: rgba(30, 41, 59, 0.9);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      color: #94A3B8;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+    }
+    .stage-pill-btn:hover {
+      border-color: #EC4899;
+      color: #FFF;
+      transform: translateY(-2px);
+    }
+    .stage-pill-btn.active {
+      background: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%);
+      border-color: #FFE600;
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(236, 72, 153, 0.45);
+    }
+    .stage-pill-btn.sec-active {
+      background: linear-gradient(135deg, #6366F1 0%, #3B82F6 100%);
+      border-color: #38BDF8;
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.45);
+    }
+
+    /* BARRA DE PISTA / ACCESO */
+    .hero-hint {
+      background: rgba(4, 9, 20, 0.94);
+      border: 2px solid #FFE600;
+      border-radius: 12px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 6px 0 10px 0;
+      font-size: 13px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.85);
+    }
+    .hero-hint span {
+      color: #FFFFFF;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .hero-hint strong {
+      color: #FFE600;
+      font-weight: 900;
+      text-shadow: 0 0 10px rgba(255, 230, 0, 0.7);
+    }
+
+    /* GRIDS DE ESTACIONES */
+    .stages-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      position: relative;
+      margin: 4px 0 10px 0;
+      flex: 1;
+      align-items: stretch;
+    }
+    .stage-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .stage-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: #F472B6;
+      box-shadow: 0 14px 30px rgba(244, 114, 182, 0.35);
+    }
+    .stage-card.card-sec {
+      background: var(--card-sec-bg);
+      border-color: var(--border-sec);
+    }
+    .stage-card.card-sec:hover {
+      border-color: #818CF8;
+      box-shadow: 0 14px 30px rgba(99, 102, 241, 0.4);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .card-badge {
+      font-size: 10px;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFF;
+    }
+    .card-art {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .card-icon {
+      font-size: 34px;
+      text-align: center;
+      margin: 2px 0 6px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 900;
+      color: #FFF;
+      margin-bottom: 5px;
+      line-height: 1.25;
+    }
+    .card-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    .btn-play-level {
+      width: 100%;
+      background: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%);
+      color: white;
+      border: none;
+      padding: 9px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+      transition: all 0.2s ease;
+    }
+    .btn-play-level:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
+    }
+    .btn-play-level.btn-sec {
+      background: linear-gradient(135deg, #6366F1 0%, #3B82F6 100%);
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+    .btn-play-level.btn-sec:hover {
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+    }
+
+    /* FOOTER */
+    .infographic-footer {
+      border-top: 2px solid var(--border);
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      transition: border-color 0.3s ease;
+    }
+    .footer-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-subtle {
+      background: rgba(255, 255, 255, 0.08);
+      color: #FFF;
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-subtle:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(11, 17, 32, 0.96);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      padding: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-box {
+      width: 100%;
+      max-width: 1080px;
+      max-height: 94%;
+      background: #0F172A;
+      border: 2px solid #F472B6;
+      border-radius: 20px;
+      padding: 20px 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      animation: popIn 0.2s ease-out;
+      transition: border-color 0.3s ease;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 10px;
+      flex-shrink: 0;
+    }
+    .modal-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #FFE600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-close {
+      background: #334155;
+      color: white;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-weight: 900;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .modal-close:hover {
+      background: #EF4444;
+    }
+    .modal-body {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #E2E8F0;
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+    }
+
+    /* ESTILOS DE IMPRESIÓN PROFESIONAL (DIPLOMAS Y CERTIFICADOS) */
+    @media print {
+      body {
+        background: #FFF !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .master-container {
+        border: none !important;
+        box-shadow: none !important;
+        aspect-ratio: auto !important;
+        width: 100% !important;
+        background: transparent !important;
+      }
+      .view-infographic > *:not(.modal-overlay) {
+        display: none !important;
+      }
+      .modal-overlay {
+        position: static !important;
+        background: #FFF !important;
+        backdrop-filter: none !important;
+        padding: 0 !important;
+        display: block !important;
+      }
+      .modal-box {
+        max-width: 100% !important;
+        max-height: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+      }
+      .modal-header, .modal-footer, .no-print, button {
+        display: none !important;
+      }
+      .printable-card {
+        box-shadow: none !important;
+        border-color: #000 !important;
+        page-break-inside: avoid !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="master-container" id="master-box">
+
+    <div class="view-infographic" id="view-info">
+      
+      <!-- CABECERA PRINCIPAL -->
+      <header class="header-bar" id="main-header">
+        <div class="header-branding">
+          <div class="brand-icon" id="brand-icon">📖</div>
+          <div class="brand-title">
+            <h1 id="brand-title-text">RETO 3: NUESTRA CONSTITUCIÓN, <span id="brand-subtitle-text">CUENTO A CUENTO</span></h1>
+          </div>
+        </div>
+        <div class="top-badges" id="top-badges">
+          <span class="badge-ce" id="b-art1">Art. 10 (Dignidad Humana)</span>
+          <span class="badge-ce" id="b-art2">Art. 14 (Igualdad)</span>
+          <span class="badge-ce" id="b-art3">Art. 27 (Educación)</span>
+        </div>
+      </header>
+
+      <!-- BARRA SELECTORA DE ETAPA EDUCATIVA -->
+      <nav class="stage-nav-canva" id="stage-nav-canva">
+        <div class="stage-nav-label">
+          <span>🧭</span> Selecciona la Etapa Educativa:
+        </div>
+        <div class="stage-nav-btns">
+          <button class="stage-pill-btn active" id="btn-tab-infantil" onclick="setCanvaStage('infantil')">
+            <span>👶</span> Infantil y 1.º Ciclo Primaria
+          </button>
+          <button class="stage-pill-btn" id="btn-tab-secundaria" onclick="setCanvaStage('secundaria')">
+            <span>🎓</span> Educación Secundaria (1.º y 2.º ESO)
+          </button>
+        </div>
+      </nav>
+
+      <!-- BARRA DE PISTA Y ACCIÓN DIRECTA -->
+      <div class="hero-hint" id="hero-hint-bar">
+        <div>
+          <span id="hint-text">👶 <strong>Haz clic en cualquier estación</strong> para explorar el cofre de cuentos y actividades vivenciales:</span>
+        </div>
+        <div>
+          <button class="btn-subtle" id="btn-quick-open" onclick="openModal(1)" style="background: rgba(244, 114, 182, 0.2); border-color: #F472B6; color: #F472B6; font-weight: 800;">
+            📖 Abrir Cuentos
+          </button>
+        </div>
+      </div>
+
+      <!-- ==============================================
+           GRID 1: INFANTIL Y 1.º CICLO DE PRIMARIA
+           ============================================== -->
+      <section class="stages-grid" id="grid-infantil">
+        
+        <!-- ESTACIÓN 1 INFANTIL -->
+        <article class="stage-card" onclick="openModal(1)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge">ESTACIÓN 1</span>
+              <span class="card-art">Preámbulo CE</span>
+            </div>
+            <div class="card-icon">🎁</div>
+            <h2 class="card-title">El Cofre Mágico</h2>
+            <p class="card-desc">
+              Descubre los 5 objetos secretos del Preámbulo Constitucional: el gran libro de la paz, el ovillo de lana, la llave de la igualdad, el espejo y la semilla.
+            </p>
+          </div>
+          <button class="btn-play-level" onclick="event.stopPropagation(); openModal(1)">
+            <span>🎁 ABRIR EL COFRE</span>
+          </button>
+        </article>
+
+        <!-- ESTACIÓN 2 INFANTIL -->
+        <article class="stage-card" onclick="openModal(2)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(16, 185, 129, 0.2); color: var(--green);">ESTACIÓN 2</span>
+              <span class="card-art">5 Cuentos</span>
+            </div>
+            <div class="card-icon">📖</div>
+            <h2 class="card-title">Cuentos Vivenciales</h2>
+            <p class="card-desc">
+              Guía de lectura dialógica con los 5 cuentos: Lorenzo (diversidad), Esquinitas (inclusión), ¿Qué hace falta?, El enemigo (paz) y La vaca Macarena (libre desarrollo).
+            </p>
+          </div>
+          <button class="btn-play-level" style="background: linear-gradient(135deg, #10B981 0%, #047857 100%);" onclick="event.stopPropagation(); openModal(2)">
+            <span>📖 LEER CUENTOS</span>
+          </button>
+        </article>
+
+        <!-- ESTACIÓN 3 INFANTIL -->
+        <article class="stage-card" onclick="openModal(3)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(139, 92, 246, 0.2); color: #C084FC;">ESTACIÓN 3</span>
+              <span class="card-art">Mural Colectivo</span>
+            </div>
+            <div class="card-icon">🎨</div>
+            <h2 class="card-title">El Gran Libro Escolar</h2>
+            <p class="card-desc">
+              Cada valor superado en los cuentos coloca un sello de honor en la gran constitución abierta de nuestra aula. Compromiso participativo de convivencia.
+            </p>
+          </div>
+          <button class="btn-play-level" style="background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);" onclick="event.stopPropagation(); openModal(3)">
+            <span>🎨 VER GRAN LIBRO</span>
+          </button>
+        </article>
+
+        <!-- ESTACIÓN 4 INFANTIL -->
+        <article class="stage-card" onclick="openModal(4)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(255, 209, 102, 0.2); color: var(--gold);">ESTACIÓN 4</span>
+              <span class="card-art">Diploma Oficial</span>
+            </div>
+            <div class="card-icon">📜</div>
+            <h2 class="card-title">Diploma de Convivencia</h2>
+            <p class="card-desc">
+              Expedición del Diploma Ilustrado Infantil con banderines, sol sonriente y sellos de la Comunidad de Madrid para cada estudiante.
+            </p>
+          </div>
+          <button class="btn-play-level" style="background: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);" onclick="event.stopPropagation(); openModal(4)">
+            <span>📜 EXPEDIR DIPLOMA</span>
+          </button>
+        </article>
+
+      </section>
+
+      <!-- ==============================================
+           GRID 2: EDUCACIÓN SECUNDARIA (1.º Y 2.º ESO)
+           ============================================== -->
+      <section class="stages-grid" id="grid-secundaria" style="display: none;">
+        
+        <!-- ESTACIÓN 1 SECUNDARIA -->
+        <article class="stage-card card-sec" onclick="openModal(1)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(56, 189, 248, 0.2); color: #38BDF8;">ESTACIÓN 1</span>
+              <span class="card-art">Marco Jurídico</span>
+            </div>
+            <div class="card-icon">🏛️</div>
+            <h2 class="card-title">Cofre de la Ciudadanía</h2>
+            <p class="card-desc">
+              Los 5 pilares del Estado de Derecho: el Código de Convivencia (Art. 9.1), la Cohesión Social (Art. 9.2), la Equidad (Art. 14), el Voto (Art. 23) y el Ágora (Art. 20).
+            </p>
+          </div>
+          <button class="btn-play-level btn-sec" onclick="event.stopPropagation(); openModal(1)">
+            <span>🏛️ EXPLORAR PILARES</span>
+          </button>
+        </article>
+
+        <!-- ESTACIÓN 2 SECUNDARIA -->
+        <article class="stage-card card-sec" onclick="openModal(2)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(129, 140, 248, 0.2); color: #818CF8;">ESTACIÓN 2</span>
+              <span class="card-art">5 Dilemas Morales</span>
+            </div>
+            <div class="card-icon">⚖️</div>
+            <h2 class="card-title">Dilemas del Preámbulo</h2>
+            <p class="card-desc">
+              Lecturas éticas universales: *Omelas* (Le Guin), *El arenque rojo*, Borges, *La Rosa Blanca* (Sophie Scholl) y *Fahrenheit 451* (Bradbury).
+            </p>
+          </div>
+          <button class="btn-play-level btn-sec" style="background: linear-gradient(135deg, #4F46E5 0%, #2563EB 100%);" onclick="event.stopPropagation(); openModal(2)">
+            <span>⚖️ DEBATIR DILEMAS</span>
+          </button>
+        </article>
+
+        <!-- ESTACIÓN 3 SECUNDARIA -->
+        <article class="stage-card card-sec" onclick="openModal(3)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(16, 185, 129, 0.2); color: #34D399;">ESTACIÓN 3</span>
+              <span class="card-art">Taller de Escritura</span>
+            </div>
+            <div class="card-icon">✍️</div>
+            <h2 class="card-title">Manifiesto Constitucional</h2>
+            <p class="card-desc">
+              Taller cívico de deliberación: redacción de un Manifiesto Democrático, Decálogo de Derechos o Editorial Crítico con compromisos para el instituto.
+            </p>
+          </div>
+          <button class="btn-play-level btn-sec" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%);" onclick="event.stopPropagation(); openModal(3)">
+            <span>✍️ REDACTAR MANIFIESTO</span>
+          </button>
+        </article>
+
+        <!-- ESTACIÓN 4 SECUNDARIA -->
+        <article class="stage-card card-sec" onclick="openModal(4)">
+          <div>
+            <div class="card-top">
+              <span class="card-badge" style="background: rgba(245, 158, 11, 0.2); color: #FBBF24;">ESTACIÓN 4</span>
+              <span class="card-art">Acreditación Oficial</span>
+            </div>
+            <div class="card-icon">🏆</div>
+            <h2 class="card-title">Ciudadanía Activa</h2>
+            <p class="card-desc">
+              Certificación institucional oficial de Educación Secundaria de la Comunidad de Madrid en competencia cívica y deliberación democrática.
+            </p>
+          </div>
+          <button class="btn-play-level btn-sec" style="background: linear-gradient(135deg, #D97706 0%, #B45309 100%);" onclick="event.stopPropagation(); openModal(4)">
+            <span>🏆 EMITIR CERTIFICADO</span>
+          </button>
+        </article>
+
+      </section>
+
+      <!-- PIE DE LA INFOGRAFÍA -->
+      <footer class="infographic-footer" id="main-footer">
+        <div>
+          <span><strong>Comunidad de Madrid</strong> — Semana de la Constitución 2026</span>
+          <span style="margin: 0 8px;">•</span>
+          <span id="footer-tagline" style="color: #F472B6;">Pizarra Digital (PDI) & Tablets</span>
+        </div>
+        <div class="footer-actions">
+          <button class="btn-subtle" id="btn-footer-cert" onclick="openModal(4)">📜 Ver Diploma Infantil</button>
+          <button class="btn-subtle" onclick="toggleContainerFullscreen()">⛶ Pantalla Completa</button>
+        </div>
+      </footer>
+
+      <!-- MODAL UNIVERSAL DE CONTENIDO -->
+      <div class="modal-overlay" id="modal-box-overlay">
+        <div class="modal-box" id="inner-modal-box">
+          <div class="modal-header">
+            <h3 class="modal-title" id="m-modal-title">Detalles de la Estación</h3>
+            <button class="modal-close" onclick="closeModal()">✕</button>
+          </div>
+          <div class="modal-body" id="m-modal-body"></div>
+          <div class="modal-footer">
+            <button class="btn-subtle" onclick="closeModal()">Cerrar</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    let currentStage = 'infantil';
+
+    function setCanvaStage(stage) {
+      currentStage = stage;
+      const master = document.getElementById('master-box');
+      const gridInf = document.getElementById('grid-infantil');
+      const gridSec = document.getElementById('grid-secundaria');
+      const btnTabInf = document.getElementById('btn-tab-infantil');
+      const btnTabSec = document.getElementById('btn-tab-secundaria');
+      const subtitle = document.getElementById('brand-subtitle-text');
+      const brandIcon = document.getElementById('brand-icon');
+      const topBadges = document.getElementById('top-badges');
+      const hintText = document.getElementById('hint-text');
+      const btnQuick = document.getElementById('btn-quick-open');
+      const footerTagline = document.getElementById('footer-tagline');
+      const btnFooterCert = document.getElementById('btn-footer-cert');
+      const innerModal = document.getElementById('inner-modal-box');
+
+      if (stage === 'secundaria') {
+        master.classList.add('theme-secundaria');
+        gridInf.style.display = 'none';
+        gridSec.style.display = 'grid';
+
+        btnTabInf.className = 'stage-pill-btn';
+        btnTabSec.className = 'stage-pill-btn sec-active';
+
+        brandIcon.innerText = '🏛️';
+        subtitle.innerText = 'EL CASTILLO DE LAS PALABRAS & DILEMAS';
+        subtitle.style.color = '#818CF8';
+
+        topBadges.innerHTML = `
+          <span class="badge-ce" style="background: rgba(99, 102, 241, 0.2); border-color: #818CF8; color: #C7D2FE;">Preámbulo CE</span>
+          <span class="badge-ce" style="background: rgba(99, 102, 241, 0.2); border-color: #818CF8; color: #C7D2FE;">Art. 10.1 (Dignidad)</span>
+          <span class="badge-ce" style="background: rgba(99, 102, 241, 0.2); border-color: #818CF8; color: #C7D2FE;">Art. 14 (Equidad)</span>
+          <span class="badge-ce" style="background: rgba(99, 102, 241, 0.2); border-color: #818CF8; color: #C7D2FE;">Art. 20 (Libertad)</span>
+        `;
+
+        hintText.innerHTML = `🎓 <strong>Etapa Secundaria (1.º y 2.º ESO):</strong> Haz clic en cualquier estación para debatir dilemas éticos, crear el manifiesto y certificar la ciudadanía activa:`;
+        btnQuick.innerHTML = `⚖️ Ver Dilemas Éticos`;
+        btnQuick.style.background = 'rgba(99, 102, 241, 0.25)';
+        btnQuick.style.borderColor = '#818CF8';
+        btnQuick.style.color = '#A5B4FC';
+        btnQuick.onclick = () => openModal(2);
+
+        footerTagline.innerText = 'Educación Secundaria Obligatoria';
+        footerTagline.style.color = '#818CF8';
+        btnFooterCert.innerText = '🏆 Ver Certificado Secundaria';
+        btnFooterCert.onclick = () => openModal(4);
+
+        if (innerModal) innerModal.style.borderColor = '#818CF8';
+      } else {
+        master.classList.remove('theme-secundaria');
+        gridInf.style.display = 'grid';
+        gridSec.style.display = 'none';
+
+        btnTabInf.className = 'stage-pill-btn active';
+        btnTabSec.className = 'stage-pill-btn';
+
+        brandIcon.innerText = '📖';
+        subtitle.innerText = 'CUENTO A CUENTO';
+        subtitle.style.color = '#F472B6';
+
+        topBadges.innerHTML = `
+          <span class="badge-ce">Art. 10 (Dignidad Humana)</span>
+          <span class="badge-ce">Art. 14 (Igualdad)</span>
+          <span class="badge-ce">Art. 27 (Educación)</span>
+        `;
+
+        hintText.innerHTML = `👶 <strong>Etapa Infantil y 1.º Ciclo:</strong> Haz clic en cualquier estación para explorar el cofre de cuentos y actividades vivenciales:`;
+        btnQuick.innerHTML = `📖 Abrir Cuentos`;
+        btnQuick.style.background = 'rgba(244, 114, 182, 0.2)';
+        btnQuick.style.borderColor = '#F472B6';
+        btnQuick.style.color = '#F472B6';
+        btnQuick.onclick = () => openModal(1);
+
+        footerTagline.innerText = 'Pizarra Digital (PDI) & Tablets';
+        footerTagline.style.color = '#F472B6';
+        btnFooterCert.innerText = '📜 Ver Diploma Infantil';
+        btnFooterCert.onclick = () => openModal(4);
+
+        if (innerModal) innerModal.style.borderColor = '#F472B6';
+      }
+    }
+
+    /* CONTENIDOS INFANTIL */
+    const STORIES_INFANTIL = [
+      { id: 1, title: "1. El cazo de Lorenzo (Isabelle Carrier)", art: "Art. 14 CE (Atención a la diversidad)", desc: "Lorenzo arrastra un cazo que a veces le atasca, pero con cariño y adaptaciones aprende a superarlo.", reflex: "Todos tenemos 'cazos' o dificultades. La Constitución nos garantiza apoyo y respeto sin discriminación." },
+      { id: 2, title: "2. Por cuatro esquinitas de nada (Jérôme Ruillier)", art: "Art. 14 CE (Inclusión y accesibilidad)", desc: "Cuadradito quiere entrar en la casa redonda, pero no cabe por la puerta. ¿Hay que cortarle las esquinas o cambiar la puerta?", reflex: "Es el entorno el que debe adaptarse para incluir a todos, nunca recortar la identidad de nadie." },
+      { id: 3, title: "3. ¿Qué hace falta? (Gianni Rodari)", art: "Art. 45 CE (Medio ambiente)", desc: "Para hacer una mesa hace falta madera, para la madera un árbol, para el árbol una semilla... para todo hace falta una flor.", reflex: "El cuidado del planeta y de los recursos naturales es el corazón de nuestra convivencia pacífica." },
+      { id: 4, title: "4. El enemigo (Davide Cali y Serge Bloch)", art: "Art. 10 y Preámbulo CE (Paz y resolución de conflictos)", desc: "Dos soldados en trincheras descubren que el 'otro' tiene familia, miedos y deseos de paz exactamente iguales.", reflex: "El diálogo y el respeto mutuo superan el miedo y evitan los conflictos." },
+      { id: 5, title: "5. La vaca que puso un huevo (Andy Cutbill)", art: "Art. 10.1 CE (Libre desarrollo de la personalidad)", desc: "Macarena se siente poco especial hasta que sus amigas le demuestran que ser diferente es un orgullo.", reflex: "Cada niño y niña es único y tiene derecho a crecer con libertad y dignidad inviolable." }
+    ];
+
+    /* CONTENIDOS SECUNDARIA */
+    const STORIES_SECUNDARIA = [
+      {
+        id: 1,
+        obra: "Los que se alejan de Omelas",
+        autor: "Ursula K. Le Guin",
+        art: "Art. 10.1 CE (Dignidad de la persona)",
+        dilema: "En la ciudad ideal de Omelas reina una felicidad absoluta, pero su prosperidad exige que un niño inocente viva encerrado en la más absoluta miseria. Quienes no lo toleran, deciden marcharse en silencio hacia lo desconocido.",
+        pregunta: "¿Es lícito el bienestar de la inmensa mayoría si se cimenta en la injusticia flagrante hacia una sola persona vulnerable?",
+        solucion: "La Constitución Española declara que la dignidad de toda persona es inviolable; ningún fin utilitarista justifica pisotear los derechos de una minoría."
+      },
+      {
+        id: 2,
+        obra: "El arenque rojo",
+        autor: "Gonzalo Moure y Alicia Varela",
+        art: "Art. 14 CE (Igualdad y no discriminación)",
+        dilema: "En una plaza concurrida transitan decenas de vidas anónimas. Nos fijamos en un arenque rojo que distrae nuestra atención mientras ignoramos las historias profundas de soledad, lucha y migración que nos rodean.",
+        pregunta: "¿Cómo podemos transformar la indiferencia urbana en empatía activa y reconocimiento mutuo en nuestro centro educativo?",
+        solucion: "El artículo 14 nos exige mirar más allá de los prejuicios, reconociendo el valor intrínseco de cada historia humana sin discriminación."
+      },
+      {
+        id: 3,
+        obra: "El jardín de senderos que se bifurcan / El Aleph",
+        autor: "Jorge Luis Borges",
+        art: "Art. 16 y 20 CE (Pluralismo y libertad de pensamiento)",
+        dilema: "Un universo donde conviven infinitos tiempos y puntos de vista divergentes. Ninguna voz posee el monopolio de la verdad absoluta.",
+        pregunta: "¿De qué forma un Estado democrático asegura la coexistencia armónica de visiones ideológicas encontradas?",
+        solucion: "Mediante el pluralismo político, la libertad de cátedra y las garantías constitucionales de libre expresión y creencia."
+      },
+      {
+        id: 4,
+        obra: "La Rosa Blanca: El desafío ético de Sophie Scholl",
+        autor: "Inge Scholl (Crónica histórica)",
+        art: "Art. 1.1 y 9.1 CE (Estado social y democrático de Derecho)",
+        dilema: "Estudiantes universitarios en Munich desafían clandestinamente un régimen totalitario distribuyendo octavillas por la justicia y la libertad, a sabiendas de las consecuencias letales.",
+        pregunta: "¿Qué responsabilidad cívica tiene cada generación para proteger activamente los valores democráticos frente a la intolerancia?",
+        solucion: "La Constitución no es solo un texto escrito, sino un compromiso vivo que demanda valentía cívica, pensamiento crítico y defensa del Estado de Derecho."
+      },
+      {
+        id: 5,
+        obra: "Fahrenheit 451",
+        autor: "Ray Bradbury",
+        art: "Art. 20 y 27 CE (Libertad de expresión y derecho a la cultura)",
+        dilema: "En una sociedad distópica los bomberos queman libros para impedir que la ciudadanía piense y cuestione. Un grupo clandestino memoriza cada libro para que la memoria colectiva sobreviva.",
+        pregunta: "¿Por qué el acceso libre a los libros, las artes y la información veraz es el mayor escudo frente a la manipulación social?",
+        solucion: "El artículo 20 prohíbe la censura previa y el artículo 27 consagra la educación integral como pilar de seres humanos libres y conscientes."
+      }
+    ];
+
+    function openModal(stationNum) {
+      const titleElem = document.getElementById('m-modal-title');
+      const bodyElem = document.getElementById('m-modal-body');
+
+      if (currentStage === 'infantil') {
+        openModalInfantil(stationNum, titleElem, bodyElem);
+      } else {
+        openModalSecundaria(stationNum, titleElem, bodyElem);
+      }
+
+      document.getElementById('modal-box-overlay').style.display = 'flex';
+    }
+
+    function openModalInfantil(stationNum, titleElem, bodyElem) {
+      if (stationNum === 1) {
+        titleElem.innerHTML = "🎁 Estación 1: Los 5 Secretos del Preámbulo Constitucional";
+        bodyElem.innerHTML = `
+          <div style="background: rgba(236, 72, 153, 0.15); border: 1.5px solid var(--pink); padding: 12px 16px; border-radius: 12px; margin-bottom: 14px;">
+            <p style="font-size: 13px; color: #FFF; font-weight: 600;">
+              El cofre de nuestra Constitución guarda 5 tesoros simbólicos para explicar a los más pequeños el valor de la ley y el pacto de convivencia:
+            </p>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+            <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #38BDF8; padding: 12px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 32px; margin-bottom: 4px;">📖</div>
+              <h5 style="color: #FFE600; margin-bottom: 4px; font-size: 13px;">El Gran Libro</h5>
+              <p style="font-size: 11px; color: #CBD5E1;">La Constitución como el libro que escribimos entre todos para vivir en paz y protegernos.</p>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #10B981; padding: 12px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 32px; margin-bottom: 4px;">🧶</div>
+              <h5 style="color: #A7F3D0; margin-bottom: 4px; font-size: 13px;">El Ovillo de Lana</h5>
+              <p style="font-size: 11px; color: #CBD5E1;">El tejido de la comunidad: si tiramos todos del mismo hilo con cuidado, nadie queda suelto.</p>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #F59E0B; padding: 12px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 32px; margin-bottom: 4px;">🔑</div>
+              <h5 style="color: #FDE68A; margin-bottom: 4px; font-size: 13px;">La Llave de la Igualdad</h5>
+              <p style="font-size: 11px; color: #CBD5E1;">Abre las puertas para todos los niños y niñas sin importar su procedencia ni capacidades.</p>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #EC4899; padding: 12px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 32px; margin-bottom: 4px;">🪞</div>
+              <h5 style="color: #FBCFE8; margin-bottom: 4px; font-size: 13px;">El Espejo Mágico</h5>
+              <p style="font-size: 11px; color: #CBD5E1;">Muestra la dignidad de cada rostro: todos somos diferentes, valiosos y únicos (Art. 10 CE).</p>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #8B5CF6; padding: 12px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 32px; margin-bottom: 4px;">🌱</div>
+              <h5 style="color: #DDD6FE; margin-bottom: 4px; font-size: 13px;">La Semilla del Futuro</h5>
+              <p style="font-size: 11px; color: #CBD5E1;">El cuidado de la naturaleza y del medio ambiente para que las futuras generaciones crezcan felices.</p>
+            </div>
+          </div>
+        `;
+      } else if (stationNum === 2) {
+        titleElem.innerHTML = "📖 Estación 2: Los 5 Cuentos Dialógicos de la Constitución";
+        bodyElem.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            ${STORIES_INFANTIL.map(s => `
+              <div style="background: rgba(30, 41, 59, 0.85); border-left: 4px solid var(--pink); border-radius: 10px; padding: 12px 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <h4 style="color: #FFE600; font-size: 14px; font-weight: 800;">${s.title}</h4>
+                  <span style="font-size: 11px; background: rgba(236,72,153,0.25); color: #FBCFE8; padding: 2px 8px; border-radius: 6px; font-weight: 700;">${s.art}</span>
+                </div>
+                <p style="font-size: 12px; color: #E2E8F0; margin-bottom: 6px;"><strong>Trama:</strong> ${s.desc}</p>
+                <div style="background: rgba(15, 23, 42, 0.7); border-radius: 8px; padding: 6px 10px; font-size: 11.5px; color: #6EE7B7;">
+                  <strong>💡 Diálogo en el aula:</strong> ${s.reflex}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (stationNum === 3) {
+        titleElem.innerHTML = "🎨 Estación 3: El Gran Libro Escolar & Mural de Sellos";
+        bodyElem.innerHTML = `
+          <div style="background: rgba(139, 92, 246, 0.15); border: 1.5px solid #8B5CF6; border-radius: 12px; padding: 14px; margin-bottom: 14px;">
+            <h4 style="color: #C084FC; margin-bottom: 6px; font-size: 14px;">Mural Abierto de la Convivencia del Aula</h4>
+            <p style="font-size: 12px; color: #E2E8F0;">
+              Cada vez que el grupo lee uno de los cuentos y reflexiona sobre el valor constitucional, estampa su sello en el mural del aula. Al reunir los 5 sellos, redactan su pacto escolar:
+            </p>
+          </div>
+          <div style="background: #FFFBEB; color: #78350F; border-radius: 12px; padding: 14px; border: 2px dashed #F59E0B;">
+            <h4 style="text-align: center; font-size: 15px; font-weight: 900; margin-bottom: 10px; color: #92400E;">📜 NUESTRO PACTO CONSTITUCIONAL DE CLASE</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 11.5px;">
+              <div style="background: #FFFFFF; border: 1px solid #FCD34D; border-radius: 8px; padding: 10px;">
+                <h5 style="color: #B45309; font-size: 12px; margin-bottom: 3px;">Artículo 1: Jugar juntos</h5>
+                <p>Nadie juega solo si no lo desea. Invitamos a todos a participar en los recreos y actividades.</p>
+              </div>
+              <div style="background: #FFFFFF; border: 1px solid #FCD34D; border-radius: 8px; padding: 10px;">
+                <h5 style="color: #B45309; font-size: 12px; margin-bottom: 3px;">Artículo 2: Respetar las diferencias</h5>
+                <p>Cada persona tiene sus gustos y ritmos. Las diferencias nos enriquecen y nos hacen más sabios.</p>
+              </div>
+              <div style="background: #FFFFFF; border: 1px solid #FCD34D; border-radius: 8px; padding: 10px;">
+                <h5 style="color: #B45309; font-size: 12px; margin-bottom: 3px;">Artículo 3: Hablar para resolver</h5>
+                <p>Cuando surge un enfado o conflicto, usamos las palabras amables y la escucha para llegar a un acuerdo.</p>
+              </div>
+              <div style="background: #FFFFFF; border: 1px solid #FCD34D; border-radius: 8px; padding: 10px;">
+                <h5 style="color: #B45309; font-size: 12px; margin-bottom: 3px;">Artículo 4: Cuidar nuestro cole</h5>
+                <p>Cuidamos los libros, el material y las plantas del patio como tesoros de todos (Art. 45 CE).</p>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (stationNum === 4) {
+        titleElem.innerHTML = "📜 Estación 4: Gran Diploma Ilustrado de Convivencia";
+        bodyElem.innerHTML = `
+          <div class="printable-card" style="max-width: 680px; margin: 0 auto; background: #FFFFFF; color: #0F172A; border-radius: 16px; padding: 20px; border: 4px solid var(--madrid-red); box-shadow: 0 10px 30px rgba(0,0,0,0.6); position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 8px; margin-bottom: 12px;">
+              <div style="font-size: 15px; font-weight: 900; color: var(--madrid-red); text-transform: uppercase; letter-spacing: 0.5px;">Comunidad de Madrid</div>
+              <div style="font-size: 22px;">⭐🌈🌞</div>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 12px;">
+              <h3 style="font-size: 18px; font-weight: 900; color: #1E3A8A; margin-bottom: 3px;">DIPLOMA DE GUARDIÁN/A DE LA CONVIVENCIA</h3>
+              <p style="font-size: 11.5px; color: #64748B;">Semana de la Constitución Española 2026</p>
+            </div>
+
+            <div style="background: #FEF3C7; border: 1px solid #FCD34D; border-radius: 10px; padding: 10px; margin-bottom: 12px; text-align: center;">
+              <p style="font-size: 12px; color: #92400E; font-weight: 600;">
+                Se otorga este diploma por saber escuchar, compartir, resolver los conflictos con palabras amables y defender los Artículos 10, 14 y 27 de la Constitución Española.
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+              <div>
+                <label style="font-size: 11px; font-weight: 700; color: #475569; display: block; margin-bottom: 2px;">Nombre del alumno/a:</label>
+                <input type="text" value="Amigo/a de la Convivencia" style="width: 100%; border: 1.5px solid #CBD5E1; border-radius: 8px; padding: 6px 10px; font-size: 12.5px; font-weight: 700;">
+              </div>
+              <div>
+                <label style="font-size: 11px; font-weight: 700; color: #475569; display: block; margin-bottom: 2px;">Colegio / Aula:</label>
+                <input type="text" value="Educación Infantil y Primaria" style="width: 100%; border: 1.5px solid #CBD5E1; border-radius: 8px; padding: 6px 10px; font-size: 12.5px; font-weight: 700;">
+              </div>
+            </div>
+
+            <div style="text-align: center;">
+              <button class="btn-play-level" style="max-width: 260px; margin: 0 auto; background: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);" onclick="window.print()">
+                <span>🖨️ Imprimir Diploma Infantil</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function openModalSecundaria(stationNum, titleElem, bodyElem) {
+      if (stationNum === 1) {
+        titleElem.innerHTML = "🏛️ Estación 1: Los 5 Pilares del Cofre de la Ciudadanía";
+        bodyElem.innerHTML = `
+          <div style="background: rgba(99, 102, 241, 0.15); border: 1.5px solid #818CF8; padding: 12px 16px; border-radius: 12px; margin-bottom: 14px;">
+            <p style="font-size: 13px; color: #FFF; font-weight: 600;">
+              En Educación Secundaria, el cofre se transforma en los 5 pilares institucionales del Estado social y democrático de Derecho:
+            </p>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+            <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #38BDF8; padding: 12px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 32px; margin-bottom: 4px;">📜</div>
+              <h5 style="color: #38BDF8; margin-bottom: 4px; font-size: 13px;">Código de Convivencia</h5>
+              <span style="font-size: 10px; background: rgba(56,189,248,0.2); color: #BAE6FD; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Art. 9.1 CE</span>
+              <p style="font-size: 11px; color: #CBD5E1; margin-top: 6px;">Primacía de la Constitución como norma suprema que vincula a ciudadanos y poderes públicos.</p>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #10B981; padding: 12px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 32px; margin-bottom: 4px;">🤝</div>
+              <h5 style="color: #34D399; margin-bottom: 4px; font-size: 13px;">Red de Cohesión</h5>
+              <span style="font-size: 10px; background: rgba(16,185,129,0.2); color: #A7F3D0; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Art. 9.2 CE</span>
+              <p style="font-size: 11px; color: #CBD5E1; margin-top: 6px;">Obligación del Estado de remover obstáculos para que la libertad e igualdad sean reales y efectivas.</p>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #F59E0B; padding: 12px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 32px; margin-bottom: 4px;">⚖️</div>
+              <h5 style="color: #FBBF24; margin-bottom: 4px; font-size: 13px;">Tribunal de Equidad</h5>
+              <span style="font-size: 10px; background: rgba(245,158,11,0.2); color: #FDE68A; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Art. 14 CE</span>
+              <p style="font-size: 11px; color: #CBD5E1; margin-top: 6px;">Garantía judicial de no discriminación y tutela judicial efectiva para toda persona.</p>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #A855F7; padding: 12px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 32px; margin-bottom: 4px;">🗳️</div>
+              <h5 style="color: #C084FC; margin-bottom: 4px; font-size: 13px;">Voto Democrático</h5>
+              <span style="font-size: 10px; background: rgba(168,85,247,0.2); color: #E9D5FF; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Art. 23 CE</span>
+              <p style="font-size: 11px; color: #CBD5E1; margin-top: 6px;">Soberanía popular y derecho fundamental de la ciudadanía a participar en asuntos públicos.</p>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.9); border: 1px solid #EC4899; padding: 12px; border-radius: 12px; text-align: center;">
+              <div style="font-size: 32px; margin-bottom: 4px;">🗣️</div>
+              <h5 style="color: #F472B6; margin-bottom: 4px; font-size: 13px;">Ágora Pública</h5>
+              <span style="font-size: 10px; background: rgba(236,72,153,0.2); color: #FBCFE8; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Art. 20 CE</span>
+              <p style="font-size: 11px; color: #CBD5E1; margin-top: 6px;">Libertad de expresión, información veraz, pensamiento crítico y deliberación respetuosa.</p>
+            </div>
+          </div>
+        `;
+      } else if (stationNum === 2) {
+        titleElem.innerHTML = "⚖️ Estación 2: Dilemas Éticos del Preámbulo Constitucional";
+        bodyElem.innerHTML = `
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            ${STORIES_SECUNDARIA.map(s => `
+              <div style="background: rgba(15, 23, 42, 0.88); border-left: 4px solid #6366F1; border-radius: 10px; padding: 12px 14px; border: 1px solid rgba(99,102,241,0.25); border-left-width: 4px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                  <div>
+                    <h4 style="color: #FFE600; font-size: 14px; font-weight: 800;">${s.obra}</h4>
+                    <span style="font-size: 11px; color: #94A3B8;">${s.autor}</span>
+                  </div>
+                  <span style="font-size: 11px; background: rgba(99,102,241,0.25); color: #C7D2FE; padding: 2px 8px; border-radius: 6px; font-weight: 700;">${s.art}</span>
+                </div>
+                <p style="font-size: 12px; color: #E2E8F0; margin-bottom: 6px;"><strong>Dilema ético:</strong> ${s.dilema}</p>
+                <div style="background: rgba(30, 41, 59, 0.85); border-radius: 8px; padding: 8px 10px; font-size: 11.5px; margin-bottom: 6px;">
+                  <strong style="color: #F59E0B;">❓ Pregunta para debatir en clase:</strong> <span style="color: #FFF;">${s.pregunta}</span>
+                </div>
+                <div style="font-size: 11.5px; color: #34D399;">
+                  <strong>⚖️ Fundamento constitucional:</strong> ${s.solucion}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      } else if (stationNum === 3) {
+        titleElem.innerHTML = "✍️ Estación 3: Taller Interactivo de Manifiesto Cívico";
+        bodyElem.innerHTML = `
+          <div style="background: rgba(15, 23, 42, 0.9); border: 1.5px solid #10B981; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+            <h4 style="color: #34D399; margin-bottom: 4px; font-size: 14px;">Generador de Manifiesto Constitucional del Aula</h4>
+            <p style="font-size: 12px; color: #CBD5E1;">
+              Como agentes activos de la democracia, redactad vuestro propio documento cívico para el centro escolar:
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div style="background: rgba(30, 41, 59, 0.8); padding: 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1);">
+              <div style="margin-bottom: 10px;">
+                <label style="font-size: 11px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 2px;">Formato del documento:</label>
+                <select id="m-doc-type" onchange="updateCanvaManifestoPreview()" style="width: 100%; background: #0F172A; color: #FFF; border: 1px solid #334155; border-radius: 6px; padding: 6px; font-size: 12px;">
+                  <option value="Manifiesto">Manifiesto Democrático del Aula</option>
+                  <option value="Decálogo">Decálogo de Convivencia y Derechos</option>
+                  <option value="Editorial">Editorial Crítico Escolar</option>
+                </select>
+              </div>
+              <div style="margin-bottom: 10px;">
+                <label style="font-size: 11px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 2px;">Título:</label>
+                <input id="m-doc-title" type="text" value="Por una convivencia digna y libre de prejuicios" oninput="updateCanvaManifestoPreview()" style="width: 100%; background: #0F172A; color: #FFF; border: 1px solid #334155; border-radius: 6px; padding: 6px; font-size: 12px;">
+              </div>
+              <div style="margin-bottom: 10px;">
+                <label style="font-size: 11px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 2px;">Grupo / IES:</label>
+                <input id="m-doc-group" type="text" value="1.º ESO A — Equipo Ciudadano" oninput="updateCanvaManifestoPreview()" style="width: 100%; background: #0F172A; color: #FFF; border: 1px solid #334155; border-radius: 6px; padding: 6px; font-size: 12px;">
+              </div>
+              <div>
+                <label style="font-size: 11px; font-weight: 700; color: #94A3B8; display: block; margin-bottom: 2px;">Compromiso principal del grupo:</label>
+                <textarea id="m-doc-text" rows="3" oninput="updateCanvaManifestoPreview()" style="width: 100%; background: #0F172A; color: #FFF; border: 1px solid #334155; border-radius: 6px; padding: 6px; font-size: 12px;">Nos comprometemos a intervenir ante cualquier burla o exclusión en las aulas y redes, defendiendo la dignidad del Artículo 10 de la Constitución Española.</textarea>
+              </div>
+            </div>
+
+            <!-- PREVISUALIZACIÓN -->
+            <div id="manifesto-preview-box" class="printable-card" style="background: #FFF; color: #0F172A; border-radius: 10px; padding: 14px; border: 2px solid #6366F1; box-shadow: 0 4px 15px rgba(0,0,0,0.5); display: flex; flex-direction: column; justify-content: space-between;">
+              <div>
+                <div style="font-size: 11px; font-weight: 900; color: var(--madrid-red); text-transform: uppercase; border-bottom: 1px solid #E2E8F0; padding-bottom: 4px; margin-bottom: 8px;">
+                  Comunidad de Madrid — Manifiesto Cívico 2026
+                </div>
+                <h4 id="prev-title" style="font-size: 14px; font-weight: 900; color: #1E3A8A; margin-bottom: 4px;">Por una convivencia digna y libre de prejuicios</h4>
+                <p id="prev-group" style="font-size: 11px; color: #64748B; margin-bottom: 8px; font-style: italic;">1.º ESO A — Equipo Ciudadano</p>
+                <div style="background: #F1F5F9; border-left: 3px solid #6366F1; padding: 8px; border-radius: 6px; font-size: 11.5px; line-height: 1.4;" id="prev-body">
+                  Nos comprometemos a intervenir ante cualquier burla o exclusión en las aulas y redes, defendiendo la dignidad del Artículo 10 de la Constitución Española.
+                </div>
+              </div>
+              <div style="margin-top: 12px; text-align: center;">
+                <button class="btn-play-level btn-sec" style="font-size: 11.5px; padding: 7px 12px;" onclick="window.print()">
+                  🖨️ Imprimir Manifiesto del Aula
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (stationNum === 4) {
+        titleElem.innerHTML = "🏆 Estación 4: Certificado Oficial de Ciudadanía Activa (Secundaria)";
+        bodyElem.innerHTML = `
+          <div class="printable-card" style="max-width: 720px; margin: 0 auto; background: #FFFFFF; color: #0F172A; border-radius: 16px; padding: 22px; border: 4px solid #1E3A8A; box-shadow: 0 10px 30px rgba(0,0,0,0.6); position: relative;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #E2E8F0; padding-bottom: 8px; margin-bottom: 12px;">
+              <div style="font-size: 15px; font-weight: 900; color: var(--madrid-red); text-transform: uppercase; letter-spacing: 0.5px;">Comunidad de Madrid</div>
+              <div style="font-size: 11px; font-weight: 800; color: #1E3A8A; text-align: right;">PROGRAMA DE FORMACIÓN CÍVICA Y CONSTITUCIONAL</div>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 14px;">
+              <h3 style="font-size: 17px; font-weight: 900; color: #1E3A8A; margin-bottom: 3px;">CERTIFICACIÓN OFICIAL DE CIUDADANÍA ACTIVA</h3>
+              <p style="font-size: 11.5px; color: #64748B;">Educación Secundaria Obligatoria (1.º y 2.º ESO) — Diciembre 2026</p>
+            </div>
+
+            <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 10px; padding: 12px; margin-bottom: 14px; text-align: center;">
+              <p style="font-size: 12px; color: #1E40AF; line-height: 1.45; font-weight: 600;">
+                Se acredita que el/la estudiante ha completado con solvencia el análisis crítico del Preámbulo y los Artículos 1, 9, 10, 14 y 20 de la Constitución Española de 1978, demostrando competencia en el debate ético, la deliberación democrática y la defensa de los derechos fundamentales.
+              </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+              <div>
+                <label style="font-size: 11px; font-weight: 700; color: #475569; display: block; margin-bottom: 2px;">Nombre del alumno/a:</label>
+                <input type="text" value="Estudiante de Educación Secundaria" style="width: 100%; border: 1.5px solid #CBD5E1; border-radius: 8px; padding: 6px 10px; font-size: 12.5px; font-weight: 700;">
+              </div>
+              <div>
+                <label style="font-size: 11px; font-weight: 700; color: #475569; display: block; margin-bottom: 2px;">Instituto de Educación Secundaria (IES):</label>
+                <input type="text" value="IES Comunidad de Madrid — 1.º/2.º ESO" style="width: 100%; border: 1.5px solid #CBD5E1; border-radius: 8px; padding: 6px 10px; font-size: 12.5px; font-weight: 700;">
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #E2E8F0; padding-top: 12px; margin-top: 10px; font-size: 11px; color: #64748B;">
+              <div style="text-align: center;">
+                <div style="font-weight: 800; color: #1E293B;">Equipo Docente del Centro</div>
+                <div style="margin-top: 2px;">Firma y Validación Pedagógica</div>
+              </div>
+              <div style="text-align: center; border: 1.5px solid #CBD5E1; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                ⚖️
+              </div>
+              <div style="text-align: center;">
+                <div style="font-weight: 800; color: #1E293B;">Comunidad de Madrid</div>
+                <div style="margin-top: 2px;">Día de la Constitución 2026</div>
+              </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 14px;">
+              <button class="btn-play-level btn-sec" style="max-width: 280px; margin: 0 auto;" onclick="window.print()">
+                <span>🖨️ Imprimir Certificado Secundaria</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function updateCanvaManifestoPreview() {
+      const title = document.getElementById('m-doc-title')?.value || 'Manifiesto del Aula';
+      const group = document.getElementById('m-doc-group')?.value || 'Grupo Escolar';
+      const body = document.getElementById('m-doc-text')?.value || '';
+
+      const prevTitle = document.getElementById('prev-title');
+      const prevGroup = document.getElementById('prev-group');
+      const prevBody = document.getElementById('prev-body');
+
+      if (prevTitle) prevTitle.innerText = title;
+      if (prevGroup) prevGroup.innerText = group;
+      if (prevBody) prevBody.innerText = body;
+    }
+
+    function closeModal() {
+      document.getElementById('modal-box-overlay').style.display = 'none';
+    }
+
+    function toggleContainerFullscreen() {
+      const elem = document.getElementById('master-box');
+      if (!document.fullscreenElement) elem.requestFullscreen().catch(() => {});
+      else document.exitFullscreen().catch(() => {});
+    }
+  </script>
+</body>
+</html>
