@@ -10,6 +10,21 @@ Este repositorio reúne las versiones web interactivas, los tableros visuales in
 
 ---
 
+
+---
+
+## 🧬 Espacio Destacado: Atlas Anatómico y Biomecánico (Ejercicios con Gomas)
+**Educación Física, Biomecánica y Salud Activa**
+
+Accede a la suite interactiva de movimiento humano con 24 ejercicios técnicos con bandas elásticas y 11 módulos de biomecánica, osteopatía y control motor:
+- 🌐 **Acceso Web Interactivo (GitHub Pages)**: [https://elenabenitocases.github.io/Ejercicios-gomas/](https://elenabenitocases.github.io/Ejercicios-gomas/)
+- 📂 **Repositorio del Proyecto**: [https://github.com/elenabenitocases/Ejercicios-gomas](https://github.com/elenabenitocases/Ejercicios-gomas)
+- 🎬 **Vídeos Biomecánicos 60 FPS**: Modelos anatómicos de Atleta Mujer 👩 y Hombre 👨 con mapas de calor muscular dinámico, HUD articular y exportación WebM.
+- 📐 **Láminas Técnicas SVG**: Ilustraciones vectoriales de dos fases con click-to-zoom.
+- 🖨️ **Fichas Técnicas Imprimibles en PDF**: Descarga de fichas individuales de cada ejercicio o del Atlas completo para el aula.
+
+---
+
 ## 🎯 Acceso Rápido a los Retos
 
 | Reto | Nivel Educativo | Recurso Canva (16:9) | Web Interactiva | Videojuego Genially |
