@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 1: Los Guardianes del Juego · Versión 100% HTML5 y CSS3 (Sin JavaScript)</title>
+  <style>
+    /* ==========================================================================
+       RETO 1: LOS GUARDIANES DEL JUEGO · VERSIÓN NATIVA LIFERAY (100% SIN JAVASCRIPT)
+       Día de la Constitución Española 2026 · Comunidad de Madrid
+       Interactividad pura con HTML5 nativo y CSS3 (Checkbox / Radio Hack)
+       ========================================================================== */
+
+    :root {
+      --madrid-red: #C7082A;
+      --madrid-dark: #8F0018;
+      --gold: #D4AF37;
+      --gold-light: #FFFBEB;
+      --forest-green: #107E54;
+      --forest-dark: #0A4F34;
+      --forest-light: #ECFDF5;
+      --blue-accent: #1E40AF;
+      --text-dark: #0F172A;
+      --text-muted: #64748B;
+      --bg-cream: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --radius: 14px;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 6px 18px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--bg-cream);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* RADIOS OCULTOS DE NAVEGACIÓN ENTRE MISIONES */
+    .tab-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* BARRA INSTITUCIONAL SUPERIOR */
+    .gov-bar {
+      background: #FFFFFF;
+      border-bottom: 3px solid var(--madrid-red);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+    .gov-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .gov-logo {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+    .gov-brand-titles {
+      border-left: 2px solid #CBD5E1;
+      padding-left: 12px;
+    }
+    .gov-brand-titles h1 {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--madrid-red);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .gov-brand-titles p {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .gov-notice-badge {
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      color: #1D4ED8;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* HERO NARRATIVO DEL RETO 1 */
+    .reto-hero {
+      background: linear-gradient(135deg, #0A4F34 0%, #15803D 50%, #047857 100%);
+      color: #FFFFFF;
+      padding: 32px 24px;
+      box-shadow: inset 0 -4px 12px rgba(0,0,0,0.15);
+    }
+    .hero-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .hero-text {
+      max-width: 780px;
+    }
+    .hero-kicker {
+      display: inline-block;
+      background: rgba(255, 230, 0, 0.22);
+      border: 1px solid #FFE600;
+      color: #FFE600;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+    .hero-text h2 {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .hero-text p {
+      font-size: 14px;
+      opacity: 0.95;
+      line-height: 1.5;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .hero-tag {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* PESTAÑAS DE NAVEGACIÓN EN CUADRÍCULA 2x2 / 4 COLUMNAS */
+    .tabs-bar {
+      background: #FFFFFF;
+      border-bottom: 2px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .tabs-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 8px 16px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    @media (max-width: 900px) {
+      .tabs-inner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 540px) {
+      .tabs-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+    .tab-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .tab-btn:hover {
+      background: #F1F5F9;
+      color: var(--text-dark);
+      border-color: #94A3B8;
+    }
+
+    /* ESTILO DE LA PESTAÑA ACTIVA SEGÚN EL RADIO MARCADO (CSS PURO) */
+    #tab-r1:checked ~ .tabs-bar label[for="tab-r1"],
+    #tab-r2:checked ~ .tabs-bar label[for="tab-r2"],
+    #tab-r3:checked ~ .tabs-bar label[for="tab-r3"],
+    #tab-r4:checked ~ .tabs-bar label[for="tab-r4"] {
+      background: var(--forest-light);
+      color: var(--forest-green);
+      border-color: var(--forest-green);
+      box-shadow: inset 0 -3px 0 var(--forest-green), 0 2px 6px rgba(16, 126, 84, 0.15);
+    }
+
+    /* VISIBILIDAD DE LAS SECCIONES SEGÚN EL RADIO ACTIVO (CSS PURO) */
+    .mission-section {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    #tab-r1:checked ~ main #section-mision1 { display: block; }
+    #tab-r2:checked ~ main #section-mision2 { display: block; }
+    #tab-r3:checked ~ main #section-mision3 { display: block; }
+    #tab-r4:checked ~ main #section-mision4 { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    main.main-content {
+      max-width: 1280px;
+      width: 100%;
+      margin: 24px auto 60px;
+      padding: 0 16px;
+      flex: 1;
+    }
+
+    /* TARJETA NARRATIVA INTRODUCTORIA */
+    .intro-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-left: 5px solid var(--forest-green);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .intro-card h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--forest-dark);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .intro-card p {
+      font-size: 13.5px;
+      color: #334155;
+    }
+
+    /* ==========================================================================
+       MISIÓN 1: MAPA DEL PATRIMONIO LÚDICO (19 COMUNIDADES Y CIUDADES AUTÓNOMAS)
+       ========================================================================== */
+    .filter-hint-bar {
+      background: #FEF3C7;
+      border: 1.5px solid #FCD34D;
+      border-radius: 10px;
+      padding: 12px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+      color: #92400E;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 16px;
+    }
+    @media (max-width: 480px) {
+      .games-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* DETALLES NATIVOS DE CADA JUEGO (HTML5 PURO, SIN JAVASCRIPT) */
+    details.game-accordion {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+    details.game-accordion:hover {
+      border-color: #94A3B8;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    details.game-accordion[open] {
+      border-color: var(--forest-green);
+      box-shadow: var(--shadow-md);
+    }
+
+    summary.game-summary {
+      list-style: none;
+      padding: 16px 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      user-select: none;
+      background: #FFFFFF;
+    }
+    summary.game-summary::-webkit-details-marker {
+      display: none;
+    }
+    .game-sum-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+    }
+    .game-icon-box {
+      font-size: 28px;
+      width: 46px;
+      height: 46px;
+      background: var(--forest-light);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .game-sum-meta h4 {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 2px;
+    }
+    .game-sum-meta p {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .game-sum-badge {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      border: 1px solid #BFDBFE;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .game-toggle-icon {
+      font-size: 12px;
+      color: #94A3B8;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+    details.game-accordion[open] .game-toggle-icon {
+      transform: rotate(180deg);
+      color: var(--forest-green);
+    }
+
+    .game-details-content {
+      padding: 16px 18px;
+      border-top: 1px solid var(--border-color);
+      background: #FAFAFA;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 12.5px;
+    }
+    .info-pane {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+    .info-pane h5 {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--forest-dark);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-pane.green {
+      background: #F0FDF4;
+      border-color: #BBF7D0;
+    }
+    .info-pane.green h5 {
+      color: #15803D;
+    }
+    .info-pane.amber {
+      background: #FFFBEB;
+      border-color: #FDE68A;
+    }
+    .info-pane.amber h5 {
+      color: #B45309;
+    }
+
+    /* ==========================================================================
+       MISIÓN 2: LABORATORIO INCLUSIVO Y ECODISEÑO (INTERACTIVO EN CSS PURO)
+       ========================================================================== */
+    .lab-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      gap: 24px;
+    }
+    @media (max-width: 500px) {
+      .lab-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    .lab-box {
+      background: #FFFFFF;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .lab-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .lab-badge.b-blue {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      border: 1px solid #BFDBFE;
+    }
+    .lab-badge.b-green {
+      background: #ECFDF5;
+      color: #047857;
+      border: 1px solid #A7F3D0;
+    }
+    .lab-box h4 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .lab-question {
+      font-size: 13.5px;
+      color: #334155;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+
+    .options-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .option-item {
+      position: relative;
+    }
+    .option-item input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .option-label:hover {
+      background: #F1F5F9;
+      border-color: #94A3B8;
+    }
+
+    /* ESTILOS Y FEEDBACK AL MARCAR LA RESPUESTA EN CSS PURO */
+    .option-item input[type="radio"]:checked + .option-label {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      box-shadow: 0 0 0 1px #3B82F6;
+    }
+
+    .feedback-alert {
+      display: none;
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      animation: fadeIn 0.3s ease;
+    }
+    .feedback-alert.success {
+      background: #ECFDF5;
+      border: 1.5px solid #10B981;
+      color: #065F46;
+    }
+    .feedback-alert.wrong {
+      background: #FEF2F2;
+      border: 1.5px solid #EF4444;
+      color: #991B1B;
+    }
+
+    /* Reglas CSS para activar los avisos de feedback */
+    #c1_opt_bad1:checked ~ .alert-c1-wrong,
+    #c1_opt_bad2:checked ~ .alert-c1-wrong { display: block; }
+    #c1_opt_ok:checked ~ .alert-c1-ok { display: block; }
+
+    #c2_opt_bad1:checked ~ .alert-c2-wrong,
+    #c2_opt_bad2:checked ~ .alert-c2-wrong { display: block; }
+    #c2_opt_ok:checked ~ .alert-c2-ok { display: block; }
+
+    /* ==========================================================================
+       MISIÓN 3: MURDOKU CONSTITUCIONAL (DEDUCCIÓN LÓGICA EN CSS PURO)
+       ========================================================================== */
+    .murdoku-card {
+      background: #FFFFFF;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .murdoku-clues-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+      margin: 16px 0 20px;
+    }
+    .clue-pill {
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      border-left: 4px solid var(--gold);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      color: #334155;
+    }
+    .clue-pill strong {
+      color: #92400E;
+    }
+
+    .murdoku-solve-panel {
+      background: #FFFBEB;
+      border: 2px dashed #F59E0B;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .murdoku-solve-panel h4 {
+      font-size: 16px;
+      font-weight: 800;
+      color: #92400E;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Reglas CSS para Murdoku */
+    #mur_bad1:checked ~ .mur-alert-wrong,
+    #mur_bad2:checked ~ .mur-alert-wrong { display: block; }
+    #mur_ok:checked ~ .mur-alert-ok { display: block; }
+
+    /* ==========================================================================
+       MISIÓN 4: CARNET Y CONSAGRACIÓN OFICIAL (DIPLOMA OFICIAL IMPRIMIBLE)
+       ========================================================================== */
+    .carnet-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 4px solid var(--madrid-red);
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    .carnet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #E2E8F0;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+    }
+    .carnet-logo {
+      height: 48px;
+      width: auto;
+    }
+    .carnet-title-wrap {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .carnet-title-wrap h3 {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--madrid-red);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .carnet-title-wrap p {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+    .carnet-statement {
+      background: #FFFBEB;
+      border: 1px solid #FCD34D;
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      color: #92400E;
+      text-align: center;
+      line-height: 1.5;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .carnet-fields-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .carnet-field-box {
+      border: 1.5px dashed #CBD5E1;
+      border-radius: 10px;
+      padding: 10px 14px;
+      background: #F8FAFC;
+    }
+    .carnet-field-box label {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #64748B;
+      margin-bottom: 4px;
+    }
+    .carnet-field-box .field-line {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+      border-bottom: 1.5px solid #94A3B8;
+      min-height: 24px;
+      padding-top: 2px;
+    }
+
+    .seals-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 600px) {
+      .seals-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .seal-box {
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+    }
+    .seal-icon {
+      font-size: 26px;
+      margin-bottom: 4px;
+    }
+    .seal-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--forest-dark);
+    }
+    .seal-art {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .carnet-signatures {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1.5px solid #E2E8F0;
+      padding-top: 16px;
+      margin-top: 10px;
+    }
+    .sig-col {
+      text-align: center;
+      font-size: 11.5px;
+      color: #64748B;
+    }
+    .sig-col strong {
+      color: var(--text-dark);
+      display: block;
+      margin-bottom: 2px;
+    }
+    .sig-stamp {
+      width: 52px;
+      height: 52px;
+      border: 2px dashed #94A3B8;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin: 0 auto;
+    }
+
+    /* INSTRUCCIÓN DE IMPRESIÓN DIRECTA SIN JAVASCRIPT */
+    .print-instruction-box {
+      background: #EFF6FF;
+      border: 1.5px solid #93C5FD;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 24px;
+      text-align: center;
+    }
+    .print-instruction-box h5 {
+      font-size: 14px;
+      font-weight: 800;
+      color: #1E40AF;
+      margin-bottom: 4px;
+    }
+    .print-instruction-box p {
+      font-size: 12.5px;
+      color: #1E3A8A;
+    }
+    .kbd-btn {
+      display: inline-block;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-bottom: 2px solid #94A3B8;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #0F172A;
+      margin: 0 2px;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-color);
+      padding: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+
+    /* ==========================================================================
+       REGLAS DE IMPRESIÓN (@media print): PERFECTO PARA A4 HORIZONTAL
+       Al pulsar Ctrl + P en el navegador, se imprime SOLO el carnet/diploma
+       ========================================================================== */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .gov-bar,
+      .reto-hero,
+      .tabs-bar,
+      .intro-card,
+      .print-instruction-box,
+      .site-footer,
+      #section-mision1,
+      #section-mision2,
+      #section-mision3 {
+        display: none !important;
+      }
+      main.main-content {
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+      #section-mision4 {
+        display: block !important;
+      }
+      .carnet-wrapper {
+        border: 3px solid #C7082A !important;
+        box-shadow: none !important;
+        border-radius: 12px !important;
+        padding: 20px !important;
+        max-width: 100% !important;
+        page-break-inside: avoid !important;
+      }
+      @page {
+        size: A4 landscape;
+        margin: 10mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INPUTS DE RADIO OCULTOS (CONTROLADORES DE PESTAÑAS EN CSS PURO) -->
+  <input type="radio" name="mision_nav" id="tab-r1" class="tab-radio" checked>
+  <input type="radio" name="mision_nav" id="tab-r2" class="tab-radio">
+  <input type="radio" name="mision_nav" id="tab-r3" class="tab-radio">
+  <input type="radio" name="mision_nav" id="tab-r4" class="tab-radio">
+
+  <!-- CABECERA INSTITUCIONAL DE LA COMUNIDAD DE MADRID -->
+  <header class="gov-bar">
+    <div class="gov-brand">
+      <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" class="gov-logo" onerror="this.style.display='none'">
+      <div class="gov-brand-titles">
+        <h1>Comunidad de Madrid</h1>
+        <p>Recursos educativos para las Semanas Temáticas — Día de la Constitución 2026</p>
+      </div>
+    </div>
+    <div class="gov-notice-badge">
+      🔒 Versión 100% nativa para EducaMadrid (HTML5 + CSS3 puro)
+    </div>
+  </header>
+
+  <!-- HERO NARRATIVO DEL RETO 1 -->
+  <section class="reto-hero">
+    <div class="hero-container">
+      <div class="hero-text">
+        <span class="hero-kicker">Reto 1 · Educación Primaria y Secundaria</span>
+        <h2>Los Guardianes del Juego: Custodios de la Tradición y el Derecho</h2>
+        <p>
+          Un viaje pedagógico por las 17 Comunidades Autónomas, Ceuta y Melilla para rescatar 19 joyas de nuestro patrimonio cultural inmaterial (Art. 46 CE), adaptarlas con accesibilidad universal (Art. 14 CE) y fabricarlas con materiales sostenibles de economía circular (Art. 45 CE).
+        </p>
+        <div class="hero-badges">
+          <span class="hero-tag">🏛️ Art. 46 CE (Patrimonio cultural)</span>
+          <span class="hero-tag">⚖️ Art. 14 CE (Igualdad e inclusión)</span>
+          <span class="hero-tag">🏃 Art. 43.3 CE (Salud y deporte)</span>
+          <span class="hero-tag">🌱 Art. 45 CE (Medio ambiente)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BARRA DE PESTAÑAS NATIVAS DE NAVEGACIÓN -->
+  <nav class="tabs-bar">
+    <div class="tabs-inner">
+      <label for="tab-r1" class="tab-btn" id="lbl-r1">
+        <span>🧭</span> 1. Mapa del patrimonio (19 juegos)
+      </label>
+      <label for="tab-r2" class="tab-btn" id="lbl-r2">
+        <span>🔬</span> 2. Laboratorio inclusivo y ecodiseño
+      </label>
+      <label for="tab-r3" class="tab-btn" id="lbl-r3">
+        <span>🧩</span> 3. Murdoku constitucional
+      </label>
+      <label for="tab-r4" class="tab-btn" id="lbl-r4">
+        <span>🏅</span> 4. Carnet y diploma oficial
+      </label>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO PRINCIPAL DE LAS 4 MISIONES -->
+  <main class="main-content">
+
+    <!-- ======================================================================
+         MISIÓN 1: MAPA DEL PATRIMONIO LÚDICO (19 JUEGOS TRADICIONALES)
+         ====================================================================== -->
+    <section class="mission-section" id="section-mision1">
+      <div class="intro-card">
+        <h3>🧭 Misión 1: Las 19 joyas lúdicas de España</h3>
+        <p>
+          Explora los juegos tradicionales de las 17 Comunidades Autónomas y las 2 Ciudades Autónomas. <strong>Haz clic en cualquier tarjeta</strong> para desplegar sus reglas tradicionales, los materiales de ecodiseño para construirlo en clase y su adaptación inclusiva.
+        </p>
+      </div>
+
+      <div class="filter-hint-bar">
+        <span>💡 <strong>Interacción nativa:</strong> Pulsa sobre cualquier juego para desplegar o plegar su guía completa sin recargar la página.</span>
+        <span><strong>19 juegos disponibles</strong></span>
+      </div>
+
+      <div class="games-grid">
+
+        <!-- 1. MADRID -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🪵</div>
+              <div class="game-sum-meta">
+                <h4>La Calva / Chito madrileño</h4>
+                <p>Comunidad de Madrid · Puntería y destreza</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Madrid</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 46 CE:</strong> Protección del patrimonio histórico y folclórico tradicional de los pueblos de España.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Se coloca una pieza de madera en forma de ángulo obtuso (la calva) en el suelo. Desde una distancia marcada, se lanza una pieza cilíndrica de madera o piedra para impactar directamente en ella sin que toque antes el suelo.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Reutilizar ramas caídas o troncos de poda local lijados y barnizados con cera vegetal, evitando plásticos de un solo uso.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Ajustar la línea de tiro y permitir el uso de una rampa canalizadora o sacos de arena sensoriales para alumnado con movilidad reducida.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 2. ANDALUCÍA -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🧣</div>
+              <div class="game-sum-meta">
+                <h4>El Pañuelo andaluz</h4>
+                <p>Andalucía · Velocidad y agilidad cooperativa</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Andalucía</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 43.3 CE:</strong> Fomento de la educación física, la salud corporal y el ocio constructivo.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Dos equipos enfrentados con números asignados. La persona mediadora sostiene un pañuelo en el centro y grita un número; ambos corredores deben atraparlo y regresar a su campo sin ser tocados.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Elaborar el pañuelo con retales de tela o camisetas viejas recicladas, decoradas con tintes naturales de remolacha o cúrcuma.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Sustituir los números por colores con tarjetas de alto contraste visual o sonidos de campana para compañeros con baja visión.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 3. ARAGÓN -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">✊</div>
+              <div class="game-sum-meta">
+                <h4>La Morra aragonesa</h4>
+                <p>Aragón · Reflejos mentales y cálculo rápido</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Aragón</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 46 CE:</strong> Memoria comunitaria viva transmitida de generación en generación en los valles pirenaicos.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Dos jugadores muestran simultáneamente un número de dedos de su mano mientras cantan a viva voz la suma total que creen que saldrá entre los dos. Quien acierta se anota un punto.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Marcador de puntos fabricado con piedrecitas del río o piñas recolectadas de forma respetuosa con el bosque.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Permitir el uso de tarjetas con pictogramas o lenguaje de signos para compañeros con dificultades en el habla o audición.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 4. ASTURIAS -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🎳</div>
+              <div class="game-sum-meta">
+                <h4>Bolos de cuera</h4>
+                <p>Principado de Asturias · Precisión y tradición rural</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Asturias</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 46 CE:</strong> Catalogado como Bien de Interés Cultural inmaterial de la tradición asturiana.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Se disponen 9 bolos de madera sobre una losa. Se lanza una bola esférica de madera pesada desde la línea de tiro para derribar el mayor número posible de bolos y desplazar el bolo pequeño (el biche).</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Fabricar los bolos con botellas de cartón o botes metálicos de conservas lastrados con arena para el patio del colegio.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Canaletas o rampas de madera suave para deslizar la bola cómodamente en silla de ruedas.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 5. ISLAS BALEARES -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🎯</div>
+              <div class="game-sum-meta">
+                <h4>El Trec balear</h4>
+                <p>Illes Balears · Estrategia sobre tablero de arena</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Baleares</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 10.1 CE:</strong> Libre desarrollo de la personalidad mediante el pensamiento táctico y la paciencia.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Juego milenario de alineación tipo tres en raya sobre un tablero concéntrico dibujado en el suelo, utilizando conchas marinas o piedras lisas como fichas para bloquear al rival.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Pintar piedras de playa o cantos rodados de dos colores diferentes con tintes biodegradables al agua.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Fichas con texturas rugosas y lisas identificables al tacto para personas con discapacidad visual.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 6. CANARIAS -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🏑</div>
+              <div class="game-sum-meta">
+                <h4>Palo tradicional canario</h4>
+                <p>Canarias · Destreza, respeto y caballerosidad</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Canarias</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 46 CE:</strong> Arte y tradición defensiva pastoril prehispánica de gran valor identitario.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Juego de esgrima tradicional sin contacto físico lesivo: los participantes 'marcan' los movimientos y esquivas rítmicas con varas de madera, priorizando la elegancia y la defensa.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Varas acolchadas con cilindros de cartón reciclado y tela suave rellena de lana recuperada.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Modalidad de juego sentado en círculo con sincronización motriz al ritmo de palmas y tambores.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 7. CANTABRIA -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🌲</div>
+              <div class="game-sum-meta">
+                <h4>Pasabolo tablonado</h4>
+                <p>Cantabria · Fuerza y cálculo de trayectoria</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Cantabria</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 43.3 CE:</strong> Fomento del ocio activo y la convivencia en plazas y boleras populares.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Lanzar la bola por un tablón de madera estrecho para que salga despedida hacia tres bolos ligeros, intentando enviarlos lo más lejos posible dentro de la raya de puntuación.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Tablón de palé recuperado y bolos hechos de tubos de cartón grueso prensado.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Línea de lanzamiento adaptada para propulsar la bola con bastón ergonómico o impulso adaptado.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 8. CASTILLA-LA MANCHA -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🔘</div>
+              <div class="game-sum-meta">
+                <h4>La Petanca castellana</h4>
+                <p>Castilla-La Mancha · Puntería y estrategia comunitaria</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Castilla-La Mancha</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 14 CE:</strong> Deporte intergeneracional donde comparten juego niños, jóvenes y abuelos en absoluta igualdad.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Se lanza un boliche pequeño y los jugadores, por turnos, intentan dejar sus bolas lo más cerca posible de él o apartar las del rival.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Bolas de tela pesada rellenas de arroz o legumbres recicladas para jugar de forma silenciosa y segura en clase.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Bolas blandas de fácil agarre manual (boccia adaptada) con asistente de canaleta si se precisa.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 9. CASTILLA Y LEÓN -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🐸</div>
+              <div class="game-sum-meta">
+                <h4>El Juego de la Rana</h4>
+                <p>Castilla y León · Precisión clásica de taberna y plaza</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Castilla y León</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 46 CE:</strong> Memoria cultural secular reflejada en ferias y fiestas patronales.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Lanzar diez fichas metálicas o tejos hacia una mesa con una figura de rana con la boca abierta y varios agujeros con molinetes de puntuación.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Construir una rana de cartón con cajas de embalaje recuperadas y fichas hechas con tapas de botes de mermelada.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Puntos de contraste visual en los orificios y campana sonora cuando la ficha entra en la rana.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 10. CATALUÑA -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🪵</div>
+              <div class="game-sum-meta">
+                <h4>Bitlles catalanes</h4>
+                <p>Cataluña · Puntería y coordinación de grupo</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Cataluña</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 46 CE:</strong> Fomento del rico acervo cultural y deportivo tradicional catalán.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Se plantan seis bolos de madera cilíndricos. El reto es derribar exactamente 5 bolos de una tirada, dejando uno solo en pie (hacer 'bitlla').</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Elaborar los bolos con rollos de cartón grueso de cocina rellenos de papel periódico comprimido.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Lanzamiento rodado por el suelo facilitado con una cinta guía para orientación espacial.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 11. COMUNIDAD VALENCIANA -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">✋</div>
+              <div class="game-sum-meta">
+                <h4>Pilota valenciana</h4>
+                <p>Comunitat Valenciana · Respeto y tradición de calle</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">C. Valenciana</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 46 CE:</strong> Deporte autóctono protegido y valor patrimonial lingüístico y comunitario.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Golpear con la palma de la mano una pequeña pelota de vaqueta para enviarla por encima de una cuerda o pared delimitada sin que dé dos botes.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Pelotas de trapo rellenas de lana y forradas con retales de tela cosida a mano por el alumnado.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Pelota con cascabel interior para seguimiento sonoro y palas adaptadas de mano de espuma blanda.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 12. EXTREMADURA -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🪜</div>
+              <div class="game-sum-meta">
+                <h4>La Rayuela extremeña</h4>
+                <p>Extremadura · Equilibrio y ritmo motriz</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Extremadura</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 14 CE:</strong> Juego universal presente en todos los patios escolares como símbolo de inclusión.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Se dibuja un esquema con casillas numeradas del 1 al 10 en el suelo. Se arroja una piedra a la casilla correspondiente y se recorre a la pata coja sin pisar las líneas.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Tizas naturales de yeso ecológico lavable o cintas de tela en desuso para marcar el suelo sin manchar.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Anchura de casillas ampliada para paso en silla de ruedas o apoyo de dos pies para compañeros con dificultades de equilibrio.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 13. GALICIA -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🗝️</div>
+              <div class="game-sum-meta">
+                <h4>A Chave gallega</h4>
+                <p>Galicia · Puntería y destreza metálica tradicional</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Galicia</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 46 CE:</strong> Riqueza cultural tradicional vinculada a las romerías populares gallegas.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Lanzar unas fichas redondas (pellos) hacia una estructura vertical de hierro rematada en aspas giratorias (a chave) para hacerlas rotar al impactar.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Molinetes de cartón reciclado sujetos con un eje de madera reutilizada y discos de corcho.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Acercar la distancia de tiro e incorporar colores fosforescentes en las aspas para fácil visualización.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 14. LA RIOJA -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🧱</div>
+              <div class="game-sum-meta">
+                <h4>Pelota mano riojana</h4>
+                <p>La Rioja · Energía y nobleza en el frontón</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">La Rioja</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 43.3 CE:</strong> Promoción de hábitos saludables y espíritu deportivo de respeto entre contrincantes.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Hacer rebotar la pelota contra el frontis con la palma protegida, manteniendo turnos alternos de juego sin cometer faltas de altura.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Pelotas de tenis viejas 'despellejadas' y forradas con esparadrapo reciclado para reducir el impacto en las manos escolares.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Permitir dos botes antes del golpeo o jugar en parejas mixtas coordinadas.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 15. NAVARRA -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🌾</div>
+              <div class="game-sum-meta">
+                <h4>Lanzamiento de fardo (Lasto altxatzea)</h4>
+                <p>Comunidad Foral de Navarra · Fuerza rural tradicional</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Navarra</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 46 CE:</strong> Deportes rurales que transforman las faenas del campo en juegos de celebración pacífica.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Elevar o lanzar un saco relleno de paja por encima de un listón colocado a cierta altura con ayuda de una horca o con los brazos.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Sacos de arpillera rellenos de hojas secas de otoño o virutas de serrín procedentes del taller de carpintería escolar.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Ajuste de la altura del listón a diferentes niveles y sacos ultraligeros para trabajo de psicomotricidad.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 16. PAÍS VASCO -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🪨</div>
+              <div class="game-sum-meta">
+                <h4>Herri Kirolak escolar</h4>
+                <p>País Vasco · Trabajo cooperativo y respeto mutuo</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">País Vasco</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 46 CE:</strong> Riqueza cultural tradicional de los deportes tradicionales vascos.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Pruebas de relevos por equipos combinando sokatira (tiro de cuerda), carreras de txingas (pesas adaptadas) y relevos de mazorcas.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Garrafas de agua vacías llenas de tierra o arena para crear pesas ergonómicas reutilizadas.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>En la sokatira, distribución de puestos inclusivos con anclajes adaptados y roles de motivación táctica.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 17. REGIÓN DE MURCIA -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🎳</div>
+              <div class="game-sum-meta">
+                <h4>Bolos cartageneros</h4>
+                <p>Región de Murcia · Puntería y cálculo en la huerta</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Murcia</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 46 CE:</strong> Juego patrimonial protegido típico del Campo de Cartagena y la comarca del Mar Menor.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Derribar nueve bolos estilizados colocados sobre una cancha de tierra (el cuadro) con bolas que deben pasar por unos 'chirlos' reglamentarios.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Bolos construidos con conos de hilo industrial reciclados y bolas de corcho o cuerda prensada.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Distancias graduadas con marcas de colores en el suelo para fomentar el progreso de cada participante.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 18. CIUDAD AUTÓNOMA DE CEUTA -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">⭕</div>
+              <div class="game-sum-meta">
+                <h4>La Carrera de aros ceutí</h4>
+                <p>Ceuta · Equilibrio dinámico y destreza motriz</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Ceuta</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 14 CE:</strong> Tradición de convivencia intercultural y encuentro infantil en las plazas.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Guiar un aro metálico o de madera haciéndolo rodar a gran velocidad mediante una varilla o guía en forma de gancho sin que se caiga.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Aros reciclados de llantas de bicicleta en desuso y guías de perchas de alambre adaptadas con mango de corcho.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Aros más anchos o rodadura en pistas lisas de pabellón accesible para todo tipo de marcha.</p>
+            </div>
+          </div>
+        </details>
+
+        <!-- 19. CIUDAD AUTÓNOMA DE MELILLA -->
+        <details class="game-accordion">
+          <summary class="game-summary">
+            <div class="game-sum-left">
+              <div class="game-icon-box">🪙</div>
+              <div class="game-sum-meta">
+                <h4>Las Chapas de la convivencia</h4>
+                <p>Melilla · Habilidad táctica y circuito de carreras</p>
+              </div>
+            </div>
+            <span class="game-sum-badge">Melilla</span>
+            <span class="game-toggle-icon">▼</span>
+          </summary>
+          <div class="game-details-content">
+            <div class="info-pane">
+              <h5>📜 Fundamento constitucional</h5>
+              <p><strong>Art. 10 y 14 CE:</strong> Diálogo intercultural y respeto a las reglas acordadas colectivamente.</p>
+            </div>
+            <div class="info-pane">
+              <h5>🎯 Cómo se juega</h5>
+              <p>Se traza un circuito con curvas y puentes en el suelo. Cada jugador impulsa su chapa con el dedo índice; si sale del circuito, vuelve a la posición anterior.</p>
+            </div>
+            <div class="info-pane green">
+              <h5>🌱 Taller de ecodiseño (Art. 45 CE)</h5>
+              <p>Chapas metálicas de botellas de vidrio rellenas de cera o plastilina y decoradas con dibujos cívicos de la Constitución.</p>
+            </div>
+            <div class="info-pane amber">
+              <h5>⚖️ Adaptación inclusiva (Art. 14 CE)</h5>
+              <p>Circuito elevado en mesa para juego a la altura de silla de ruedas o uso de pulsadores adaptados.</p>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         MISIÓN 2: LABORATORIO INCLUSIVO Y ECODISEÑO (INTERACTIVO EN CSS PURO)
+         ====================================================================== -->
+    <section class="mission-section" id="section-mision2">
+      <div class="intro-card">
+        <h3>🔬 Misión 2: Laboratorio de inclusión y ecodiseño</h3>
+        <p>
+          Resuelve los dos dilemas prácticos de accesibilidad y economía circular. <strong>Marca tu respuesta</strong> para comprobar al instante la justificación constitucional mediante selectores nativos de CSS.
+        </p>
+      </div>
+
+      <div class="lab-container">
+
+        <!-- CASO 1: ACCESIBILIDAD UNIVERSAL -->
+        <div class="lab-box">
+          <div>
+            <span class="lab-badge b-blue">Caso 1 · Accesibilidad universal</span>
+            <h4>Taller de inclusión motriz y sensorial</h4>
+            <p class="lab-question">
+              En el recreo, la clase va a jugar a <em>La Rayuela</em> y a <em>Los Bolos</em>, pero dos compañeros tienen movilidad reducida y baja visión. Según el <strong>Artículo 14 de la Constitución (Igualdad de derechos sin discriminación)</strong>, ¿cuál es la actuación pedagógica correcta?
+            </p>
+
+            <div class="options-stack">
+              <!-- Opción A (Incorrecta) -->
+              <div class="option-item">
+                <input type="radio" name="caso1_choice" id="c1_opt_bad1">
+                <label for="c1_opt_bad1" class="option-label">
+                  <span>❌ A)</span> Pedirles que solo lleven la puntuación en la libreta sin participar físicamente en los lanzamientos.
+                </label>
+              </div>
+
+              <!-- Opción B (CORRECTA) -->
+              <div class="option-item">
+                <input type="radio" name="caso1_choice" id="c1_opt_ok">
+                <label for="c1_opt_ok" class="option-label">
+                  <span>✨ B)</span> Trazar una rayuela ancha con contrastes visuales táctiles y habilitar rampas de deslizamiento y bolos con cascabel sonoro para que jueguen todos juntos.
+                </label>
+              </div>
+
+              <!-- Opción C (Incorrecta) -->
+              <div class="option-item">
+                <input type="radio" name="caso1_choice" id="c1_opt_bad2">
+                <label for="c1_opt_bad2" class="option-label">
+                  <span>❌ C)</span> Suspender los juegos tradicionales y hacer que todos se queden sentados en silencio.
+                </label>
+              </div>
+
+              <!-- FEEDBACKS VISUALES INSTANTÁNEOS EN CSS PURO -->
+              <div class="feedback-alert wrong alert-c1-wrong">
+                <strong>⚠️ Reflexión constitucional:</strong> El Art. 14 y el Art. 9.2 exigen remover los obstáculos que impidan la participación real y efectiva de todas las personas. No basta con observar o cancelar: ¡el entorno escolar debe adaptarse para acoger la diversidad!
+              </div>
+              <div class="feedback-alert success alert-c1-ok">
+                <strong>🎉 ¡Respuesta excelente y democrática!</strong> Has aplicado el <strong>Artículo 14 de la Constitución</strong>: adaptar las reglas y materiales garantiza la igualdad de oportunidades y la plena dignidad de cada estudiante. ¡Obtienes el <strong>Sello de Accesibilidad Universal</strong>!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CASO 2: ECONOMÍA CIRCULAR Y MATERIALES -->
+        <div class="lab-box">
+          <div>
+            <span class="lab-badge b-green">Caso 2 · Economía circular</span>
+            <h4>Taller de materiales y ecodiseño</h4>
+            <p class="lab-question">
+              Para construir las piezas de <em>La Calva</em>, las chapas y las peonzas escolares, el equipo de aula debe elegir los materiales. Según el <strong>Artículo 45 de la Constitución (Derecho y deber de proteger el medio ambiente)</strong>, ¿cuál es la decisión sostenible?
+            </p>
+
+            <div class="options-stack">
+              <!-- Opción A (Incorrecta) -->
+              <div class="option-item">
+                <input type="radio" name="caso2_choice" id="c2_opt_bad1">
+                <label for="c2_opt_bad1" class="option-label">
+                  <span>❌ A)</span> Comprar juegos nuevos de plástico desechable no reciclable envueltos en envases de un solo uso.
+                </label>
+              </div>
+
+              <!-- Opción B (CORRECTA) -->
+              <div class="option-item">
+                <input type="radio" name="caso2_choice" id="c2_opt_ok">
+                <label for="c2_opt_ok" class="option-label">
+                  <span>🌱 B)</span> Recuperar restos de madera de poda, cartón prensado, telas en desuso y chapas metálicas, dándoles una segunda vida útil y creativa.
+                </label>
+              </div>
+
+              <!-- Opción C (Incorrecta) -->
+              <div class="option-item">
+                <input type="radio" name="caso2_choice" id="c2_opt_bad2">
+                <label for="c2_opt_bad2" class="option-label">
+                  <span>❌ C)</span> Cortar ramas verdes de los árboles del patio escolar sin permiso para usarlas directamente.
+                </label>
+              </div>
+
+              <!-- FEEDBACKS VISUALES INSTANTÁNEOS EN CSS PURO -->
+              <div class="feedback-alert wrong alert-c2-wrong">
+                <strong>⚠️ Reflexión constitucional:</strong> El Art. 45 CE señala el deber cívico de conservar los recursos naturales y evitar residuos contaminantes. Destruir vegetación viva o abusar del plástico daña nuestro entorno común.
+              </div>
+              <div class="feedback-alert success alert-c2-ok">
+                <strong>🌟 ¡Perfecto compromiso ecológico!</strong> Cumples con el <strong>Artículo 45 CE</strong>: el ecodiseño transforma residuos en recursos lúdicos duraderos y educa en la responsabilidad ecológica compartida. ¡Obtienes el <strong>Sello de Ecodiseño Sostenible</strong>!
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         MISIÓN 3: MURDOKU CONSTITUCIONAL (DEDUCCIÓN LÓGICA EN CSS PURO)
+         ====================================================================== -->
+    <section class="mission-section" id="section-mision3">
+      <div class="intro-card">
+        <h3>🧩 Misión 3: El Murdoku de las leyes del juego</h3>
+        <p>
+          En la biblioteca del colegio se ha abierto el viejo cofre de los Guardianes y se han mezclado cuatro expedientes cívicos. Usa las pistas lógicas para asociar cada juego con su artículo constitucional correspondiente y desbloquea el enigma.
+        </p>
+      </div>
+
+      <div class="murdoku-card">
+        <h4 style="font-size: 16px; font-weight: 800; color: var(--forest-dark); margin-bottom: 10px;">
+          🔍 Pistas lógicas descifradas:
+        </h4>
+
+        <div class="murdoku-clues-grid">
+          <div class="clue-pill">
+            <strong>Pista 1:</strong> El juego de <em>La Rana</em> de madera recuperada defiende la custodia del patrimonio histórico (<strong>Art. 46 CE</strong>).
+          </div>
+          <div class="clue-pill">
+            <strong>Pista 2:</strong> <em>La Rayuela adaptada</em> con rampas y alto contraste garantiza la no discriminación (<strong>Art. 14 CE</strong>).
+          </div>
+          <div class="clue-pill">
+            <strong>Pista 3:</strong> El fomento de la actividad física y el ocio saludable con <em>El Pañuelo</em> se fundamenta en el <strong>Art. 43.3 CE</strong>.
+          </div>
+          <div class="clue-pill">
+            <strong>Pista 4:</strong> La fabricación de <em>Chitos</em> con ramas de poda caída promueve la economía circular y el medio ambiente (<strong>Art. 45 CE</strong>).
+          </div>
+        </div>
+
+        <div class="murdoku-solve-panel">
+          <h4>⚖️ ¿Cuál es la combinación constitucional armónica y correcta?</h4>
+
+          <div class="options-stack">
+            <!-- Opción A -->
+            <div class="option-item">
+              <input type="radio" name="mur_choice" id="mur_bad1">
+              <label for="mur_bad1" class="option-label">
+                <span>⚪ Opción 1:</span> La Rana protege el Art. 45, La Rayuela el Art. 43.3, El Pañuelo el Art. 46 y el Chito el Art. 14.
+              </label>
+            </div>
+
+            <!-- Opción B (CORRECTA) -->
+            <div class="option-item">
+              <input type="radio" name="mur_choice" id="mur_ok">
+              <label for="mur_ok" class="option-label">
+                <span>⭐ Opción 2:</span> La Rana = Art. 46 (Patrimonio) • Rayuela = Art. 14 (Inclusión) • Pañuelo = Art. 43.3 (Deporte) • Chito = Art. 45 (Medio ambiente).
+              </label>
+            </div>
+
+            <!-- Opción C -->
+            <div class="option-item">
+              <input type="radio" name="mur_choice" id="mur_bad2">
+              <label for="mur_bad2" class="option-label">
+                <span>⚪ Opción 3:</span> Ningún juego tradicional tiene relación con los artículos de la Constitución.
+              </label>
+            </div>
+
+            <!-- FEEDBACKS EN CSS PURO -->
+            <div class="feedback-alert wrong mur-alert-wrong">
+              <strong>⚠️ Pista de lógica:</strong> Revisa las pistas 1 a 4. Cada artículo protege un ámbito concreto de la vida en comunidad y los derechos fundamentales.
+            </div>
+            <div class="feedback-alert success mur-alert-ok">
+              <strong>🏆 ¡Misterio del Murdoku resuelto!</strong> Has alineado con rigor la cultura popular y los mandatos de la Constitución Española de 1978. ¡La asamblea de clase proclama a todos sus miembros como <strong>Guardianes Oficiales del Juego</strong>!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         MISIÓN 4: CARNET Y CONSAGRACIÓN OFICIAL (DIPLOMA OFICIAL IMPRIMIBLE)
+         ====================================================================== -->
+    <section class="mission-section" id="section-mision4">
+      <div class="intro-card">
+        <h3>🏅 Misión 4: Acreditación oficial de Guardián/a del Juego</h3>
+        <p>
+          Diploma y carnet acreditativo oficial expedido para cada alumno/a participante. Puedes rellenar los datos del centro y nombre, e imprimirlo cómodamente en papel o exportarlo a PDF mediante la función de impresión de tu navegador.
+        </p>
+      </div>
+
+      <!-- CARNET OFICIAL CON LOS 4 SELLOS CONSTITUCIONALES -->
+      <article class="carnet-wrapper">
+        <div class="carnet-header">
+          <img src="logo_comunidad_transparente.png" alt="Comunidad de Madrid" class="carnet-logo" onerror="this.style.display='none'">
+          <div style="text-align: right; font-size: 11px; font-weight: 800; color: var(--madrid-red); text-transform: uppercase;">
+            Comunidad de Madrid · Día de la Constitución 2026
+          </div>
+        </div>
+
+        <div class="carnet-title-wrap">
+          <h3>Carnet Oficial de Guardián/a del Juego y del Patrimonio</h3>
+          <p>Acreditación de Ciudadanía Infantil y Juvenil en Valores Constitucionales</p>
+        </div>
+
+        <div class="carnet-statement">
+          Por haber completado con éxito la recuperación de las 19 joyas del patrimonio lúdico de España, resuelto los talleres de ecodiseño sostenible y garantizado la inclusión de todo el alumnado conforme a la Constitución Española de 1978.
+        </div>
+
+        <div class="carnet-fields-grid">
+          <div class="carnet-field-box">
+            <label>Nombre del Guardián / Guardiana:</label>
+            <div class="field-line">Estudiante Custodio/a del Juego</div>
+          </div>
+          <div class="carnet-field-box">
+            <label>Centro Educativo / Aula:</label>
+            <div class="field-line">Colegio de la Comunidad de Madrid</div>
+          </div>
+        </div>
+
+        <!-- 4 SELLOS GANADOS -->
+        <div class="seals-row">
+          <div class="seal-box">
+            <div class="seal-icon">🏛️</div>
+            <div class="seal-title">Patrimonio</div>
+            <div class="seal-art">Art. 46 CE</div>
+          </div>
+          <div class="seal-box">
+            <div class="seal-icon">⚖️</div>
+            <div class="seal-title">Inclusión</div>
+            <div class="seal-art">Art. 14 CE</div>
+          </div>
+          <div class="seal-box">
+            <div class="seal-icon">🏃</div>
+            <div class="seal-title">Salud y Deporte</div>
+            <div class="seal-art">Art. 43.3 CE</div>
+          </div>
+          <div class="seal-box">
+            <div class="seal-icon">🌱</div>
+            <div class="seal-title">Ecodiseño</div>
+            <div class="seal-art">Art. 45 CE</div>
+          </div>
+        </div>
+
+        <div class="carnet-signatures">
+          <div class="sig-col">
+            <strong>Equipo Docente</strong>
+            Coordinación pedagógica
+          </div>
+          <div class="sig-stamp">
+            🛡️
+          </div>
+          <div class="sig-col">
+            <strong>Comunidad de Madrid</strong>
+            Día de la Constitución 2026
+          </div>
+        </div>
+      </article>
+
+      <!-- INSTRUCCIONES DE IMPRESIÓN NATIVAS (CERO JS) -->
+      <div class="print-instruction-box">
+        <h5>🖨️ ¿Cómo imprimir este carnet en papel o guardarlo en PDF?</h5>
+        <p>
+          No necesitas ningún botón de JavaScript. Simplemente pulsa <span class="kbd-btn">Ctrl</span> + <span class="kbd-btn">P</span> en Windows (o <span class="kbd-btn">Cmd</span> + <span class="kbd-btn">P</span> en Mac), o elige <strong>Imprimir</strong> en el menú de tu navegador. La hoja de estilos oculta automáticamente las cabeceras y menús, ajustando el carnet a un folio A4 horizontal perfecto.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE INSTITUCIONAL -->
+  <footer class="site-footer">
+    <p>Comunidad de Madrid · Recursos educativos para las Semanas Temáticas — Celebración del Día de la Constitución Española 2026</p>
+    <p style="margin-top: 4px; font-size: 11px; opacity: 0.8;">Diseño curricular accesible sin dependencias externas · Compatible con EducaMadrid y Liferay</p>
+  </footer>
+
+</body>
+</html>

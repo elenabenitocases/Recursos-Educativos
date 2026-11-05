@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reto 1: Los Guardianes del Juego · Infografía Canva 16:9 (100% Sin JavaScript)</title>
+  <style>
+    /* ==========================================================================
+       RETO 1: LOS GUARDIANES DEL JUEGO · INFOGRAFÍA HORIZONTAL CANVA (16:9)
+       Versión 100% HTML5 y CSS3 puro para Liferay / EducaMadrid (Cero JavaScript)
+       ========================================================================== */
+
+    :root {
+      --madrid-red: #C7082A;
+      --madrid-dark: #8F0018;
+      --gold: #FFD166;
+      --cyan: #00F0FF;
+      --green: #10B981;
+      --purple: #8B5CF6;
+      --dark-bg: #090D16;
+      --card-bg: rgba(26, 36, 56, 0.94);
+      --border: rgba(255, 255, 255, 0.16);
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 10%, #172554 0%, #050811 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+
+    /* RADIOS OCULTOS PARA CONTROLAR LA ESTACIÓN ACTIVA EN CSS PURO */
+    .station-radio {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* CONTENEDOR MAESTRO 16:9 */
+    .master-container {
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16 / 9;
+      min-height: 600px;
+      background: #0B1120;
+      border: 3px solid rgba(0, 240, 255, 0.4);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 35px rgba(0, 240, 255, 0.15);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px 28px;
+    }
+
+    /* CABECERA 16:9 */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+      flex-shrink: 0;
+    }
+    .header-branding {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      font-size: 28px;
+      background: var(--madrid-red);
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--gold);
+      box-shadow: 0 4px 15px rgba(199, 8, 42, 0.5);
+    }
+    .brand-title {
+      background: rgba(4, 9, 20, 0.88);
+      padding: 6px 14px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(255, 215, 0, 0.45);
+    }
+    .brand-title h1 {
+      font-size: 19px;
+      font-weight: 900;
+      color: #FFE600;
+      letter-spacing: 0.5px;
+    }
+    .brand-title h1 span {
+      color: #00F0FF;
+    }
+    .top-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .badge-ce {
+      background: rgba(255, 209, 102, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      padding: 4px 8px;
+      border-radius: 10px;
+      font-size: 10.5px;
+      font-weight: 800;
+    }
+
+    /* BARRA DE BOTONES DE ESTACIÓN EN CSS PURO */
+    .station-nav-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 12px 0;
+      flex-shrink: 0;
+    }
+    .btn-station-nav {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #CBD5E1;
+      cursor: pointer;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .btn-station-nav:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: #38BDF8;
+      color: #FFFFFF;
+    }
+
+    /* ESTADO ACTIVO DE BOTONES DE NAVEGACIÓN EN CSS PURO */
+    #st-home:checked ~ .master-container .station-nav-bar label[for="st-home"],
+    #st-1:checked ~ .master-container .station-nav-bar label[for="st-1"],
+    #st-2:checked ~ .master-container .station-nav-bar label[for="st-2"],
+    #st-3:checked ~ .master-container .station-nav-bar label[for="st-3"],
+    #st-4:checked ~ .master-container .station-nav-bar label[for="st-4"] {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(16, 185, 129, 0.25));
+      border-color: #00F0FF;
+      color: #FFFFFF;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+    }
+
+    /* ÁREA DE CONTENIDO 16:9 */
+    .content-viewport {
+      flex: 1;
+      position: relative;
+      overflow-y: auto;
+      padding-right: 6px;
+      margin-bottom: 8px;
+    }
+
+    /* PANELES DE ESTACIÓN */
+    .station-panel {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    #st-home:checked ~ .master-container .panel-home { display: grid; }
+    #st-1:checked ~ .master-container .panel-st1 { display: block; }
+    #st-2:checked ~ .master-container .panel-st2 { display: block; }
+    #st-3:checked ~ .master-container .panel-st3 { display: block; }
+    #st-4:checked ~ .master-container .panel-st4 { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* PANEL PRINCIPAL: TABLERO DE 4 TARJETAS */
+    .panel-home {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      height: 100%;
+      align-items: stretch;
+    }
+    @media (max-width: 900px) {
+      .panel-home {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    .stage-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+    .stage-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan);
+      box-shadow: 0 10px 25px rgba(0, 240, 255, 0.2);
+    }
+    .card-kicker {
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--cyan);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .card-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #FFE600;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .card-desc {
+      font-size: 11.5px;
+      color: #E2E8F0;
+      line-height: 1.45;
+      margin-bottom: 12px;
+      flex: 1;
+    }
+    .btn-open-stage {
+      display: block;
+      width: 100%;
+      background: linear-gradient(135deg, #10B981, #047857);
+      color: white;
+      text-align: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    /* ESTILOS DE LOS PANELES DETALLADOS */
+    .station-detail-box {
+      background: rgba(15, 23, 42, 0.95);
+      border: 2px solid var(--cyan);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .station-detail-box h3 {
+      font-size: 17px;
+      color: #FFE600;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .station-detail-box p {
+      font-size: 12.5px;
+      color: #E2E8F0;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    /* MINI GRID DE JUEGOS EN ESTACIÓN 1 */
+    .canva-games-subgrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 10px;
+      max-height: 290px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+    .canva-game-item {
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .canva-game-item h5 {
+      font-size: 12.5px;
+      color: #38BDF8;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .canva-game-item p {
+      font-size: 11px;
+      color: #94A3B8;
+      margin-bottom: 0;
+    }
+
+    /* PIE DE LA INFOGRAFÍA */
+    .infographic-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+    .footer-left strong {
+      color: #FFFFFF;
+    }
+    .btn-return-home {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #FFE600;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SELECTORES RADIO DE ESTACIÓN (CSS PURO) -->
+  <input type="radio" name="st_view" id="st-home" class="station-radio" checked>
+  <input type="radio" name="st_view" id="st-1" class="station-radio">
+  <input type="radio" name="st_view" id="st-2" class="station-radio">
+  <input type="radio" name="st_view" id="st-3" class="station-radio">
+  <input type="radio" name="st_view" id="st-4" class="station-radio">
+
+  <!-- CONTENEDOR 16:9 -->
+  <div class="master-container">
+
+    <!-- CABECERA -->
+    <header class="header-bar">
+      <div class="header-branding">
+        <div class="brand-icon">🎮</div>
+        <div class="brand-title">
+          <h1>RETO 1: LOS GUARDIANES DEL JUEGO · <span>SUITE 16:9</span></h1>
+        </div>
+      </div>
+      <div class="top-badges">
+        <span class="badge-ce">Art. 46 (Patrimonio)</span>
+        <span class="badge-ce">Art. 14 (Inclusión)</span>
+        <span class="badge-ce">Art. 43.3 (Deporte)</span>
+        <span class="badge-ce">Art. 45 (Medio ambiente)</span>
+      </div>
+    </header>
+
+    <!-- NAVEGACIÓN RÁPIDA DE ESTACIONES -->
+    <nav class="station-nav-bar">
+      <label for="st-home" class="btn-station-nav">
+        <span>🏠</span> Tablero general
+      </label>
+      <label for="st-1" class="btn-station-nav">
+        <span>🧭</span> Estación 1: 19 Joyas
+      </label>
+      <label for="st-2" class="btn-station-nav">
+        <span>🔬</span> Estación 2: Inclusión
+      </label>
+      <label for="st-3" class="btn-station-nav">
+        <span>🌱</span> Estación 3: Ecodiseño
+      </label>
+      <label for="st-4" class="btn-station-nav">
+        <span>🏅</span> Estación 4: Diploma
+      </label>
+    </nav>
+
+    <!-- VISOR DE CONTENIDO -->
+    <div class="content-viewport">
+
+      <!-- PANTALLA PRINCIPAL: 4 TARJETAS 16:9 -->
+      <div class="station-panel panel-home">
+        
+        <!-- ESTACIÓN 1 -->
+        <article class="stage-card">
+          <div>
+            <div class="card-kicker">Estación 1 · Patrimonio</div>
+            <div class="card-icon">🧭</div>
+            <h2 class="card-title">19 Joyas tradicionales</h2>
+            <p class="card-desc">
+              Un recorrido por las 17 Comunidades Autónomas, Ceuta y Melilla para redescubrir la Calva, los Bolos, el Chito, la Rana y la Pelota vasca.
+            </p>
+          </div>
+          <label for="st-1" class="btn-open-stage">
+            👉 Explorar juegos
+          </label>
+        </article>
+
+        <!-- ESTACIÓN 2 -->
+        <article class="stage-card">
+          <div>
+            <div class="card-kicker">Estación 2 · Igualdad</div>
+            <div class="card-icon">⚖️</div>
+            <h2 class="card-title">Laboratorio inclusivo</h2>
+            <p class="card-desc">
+              Adaptación de reglas, texturas sensoriales y rampas para que todos los alumnos participen en igualdad conforme al Artículo 14 CE.
+            </p>
+          </div>
+          <label for="st-2" class="btn-open-stage" style="background: linear-gradient(135deg, #3B82F6, #1D4ED8);">
+            👉 Ver laboratorio
+          </label>
+        </article>
+
+        <!-- ESTACIÓN 3 -->
+        <article class="stage-card">
+          <div>
+            <div class="card-kicker">Estación 3 · Sostenibilidad</div>
+            <div class="card-icon">🌱</div>
+            <h2 class="card-title">Taller de ecodiseño</h2>
+            <p class="card-desc">
+              Construcción de piezas lúdicas con madera de poda, cartón prensado y telas recicladas, aplicando la economía circular del Artículo 45 CE.
+            </p>
+          </div>
+          <label for="st-3" class="btn-open-stage" style="background: linear-gradient(135deg, #10B981, #047857);">
+            👉 Ver ecodiseño
+          </label>
+        </article>
+
+        <!-- ESTACIÓN 4 -->
+        <article class="stage-card">
+          <div>
+            <div class="card-kicker">Estación 4 · Consagración</div>
+            <div class="card-icon">🏅</div>
+            <h2 class="card-title">Diploma oficial</h2>
+            <p class="card-desc">
+              Acreditación institucional oficial de la Comunidad de Madrid para cada estudiante con los 4 sellos constitucionales de honor.
+            </p>
+          </div>
+          <label for="st-4" class="btn-open-stage" style="background: linear-gradient(135deg, #F59E0B, #B45309);">
+            👉 Ver diploma
+          </label>
+        </article>
+
+      </div>
+
+      <!-- PANEL DETALLE: ESTACIÓN 1 -->
+      <div class="station-panel panel-st1">
+        <div class="station-detail-box">
+          <h3>🧭 Estación 1: Mapa del patrimonio tradicional (19 autonomías)</h3>
+          <p>
+            Muestra representativa de los 19 juegos protegidos por el <strong>Artículo 46 de la Constitución</strong> como patrimonio cultural:
+          </p>
+
+          <div class="canva-games-subgrid">
+            <div class="canva-game-item">
+              <h5>Madrid · La Calva / Chito</h5>
+              <p>Tiro tradicional a madera en ángulo obtuso.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Andalucía · El Pañuelo</h5>
+              <p>Velocidad, reflejos y coordinación en equipo.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Aragón · La Morra</h5>
+              <p>Cálculo mental rápido con sumas de dedos.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Asturias · Bolos de cuera</h5>
+              <p>BIC inmaterial con bola de madera sobre losa.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Baleares · El Trec</h5>
+              <p>Estrategia de alineación con piedras y conchas.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Canarias · Palo tradicional</h5>
+              <p>Esgrima pastoril de destreza sin contacto lesivo.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Cantabria · Pasabolo tablonado</h5>
+              <p>Impulso sobre tablón hacia bolos ligeros.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Castilla-La Mancha · Petanca</h5>
+              <p>Puntería y convivencia intergeneracional.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Castilla y León · La Rana</h5>
+              <p>Lanzamiento de fichas a la boca de la rana.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Cataluña · Bitlles catalanes</h5>
+              <p>Derribar exactamente 5 de los 6 bolos.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>C. Valenciana · Pilota</h5>
+              <p>Golpeo de pelota de vaqueta en calle o trinquete.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Extremadura · La Rayuela</h5>
+              <p>Equilibrio y ritmo en casillas numeradas.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Galicia · A Chave</h5>
+              <p>Puntería hacia aspas giratorias de hierro.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>La Rioja · Pelota mano</h5>
+              <p>Rebote coordinado en el frontón tradicional.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Navarra · Lanzamiento de fardo</h5>
+              <p>Fuerza y técnica sobre listón de altura.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>País Vasco · Herri Kirolak</h5>
+              <p>Sokatira y carreras cooperativas de relevos.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Murcia · Bolos cartageneros</h5>
+              <p>Precisión sobre cuadro de tierra y chirlos.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Ceuta · Carrera de aros</h5>
+              <p>Equilibrio dinámico guiado por varilla.</p>
+            </div>
+            <div class="canva-game-item">
+              <h5>Melilla · Chapas de calle</h5>
+              <p>Circuito cívico de habilidad y compañerismo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL DETALLE: ESTACIÓN 2 -->
+      <div class="station-panel panel-st2">
+        <div class="station-detail-box">
+          <h3>⚖️ Estación 2: Laboratorio de inclusión (Art. 14 CE)</h3>
+          <p>
+            El <strong>Artículo 14 de la Constitución</strong> garantiza que los españoles son iguales ante la ley, sin que pueda prevalecer discriminación alguna. En el aula adaptamos:
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div style="background: rgba(30, 41, 59, 0.8); padding: 12px; border-radius: 10px; border-left: 4px solid #38BDF8;">
+              <h5 style="color: #38BDF8; font-size: 13px; margin-bottom: 4px;">Accesibilidad motriz</h5>
+              <p style="font-size: 11.5px; margin-bottom: 0;">Rampas de lanzamiento de madera, distancias escaladas y líneas de juego elevadas para participantes en silla de ruedas.</p>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.8); padding: 12px; border-radius: 10px; border-left: 4px solid #10B981;">
+              <h5 style="color: #10B981; font-size: 13px; margin-bottom: 4px;">Accesibilidad sensorial</h5>
+              <p style="font-size: 11.5px; margin-bottom: 0;">Bolos con cascabel sonoro, contrastes de color amarillo-negro y texturas táctiles en fichas y suelos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL DETALLE: ESTACIÓN 3 -->
+      <div class="station-panel panel-st3">
+        <div class="station-detail-box">
+          <h3>🌱 Estación 3: Taller de ecodiseño sostenible (Art. 45 CE)</h3>
+          <p>
+            El <strong>Artículo 45 de la Constitución</strong> proclama el derecho y el deber de proteger el medio ambiente. En este taller fabricamos juegos con economía circular:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+            <div style="background: rgba(30, 41, 59, 0.8); padding: 12px; border-radius: 10px; text-align: center;">
+              <div style="font-size: 24px; margin-bottom: 4px;">🪵</div>
+              <h5 style="color: #FDE68A; font-size: 12px; margin-bottom: 2px;">Madera de poda</h5>
+              <p style="font-size: 11px; margin-bottom: 0;">Troncos locales lijados para la Calva, bolos y mangos.</p>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.8); padding: 12px; border-radius: 10px; text-align: center;">
+              <div style="font-size: 24px; margin-bottom: 4px;">📦</div>
+              <h5 style="color: #A7F3D0; font-size: 12px; margin-bottom: 2px;">Cartón prensado</h5>
+              <p style="font-size: 11px; margin-bottom: 0;">Cajas y tubos para construir tableros y dianas de rana.</p>
+            </div>
+            <div style="background: rgba(30, 41, 59, 0.8); padding: 12px; border-radius: 10px; text-align: center;">
+              <div style="font-size: 24px; margin-bottom: 4px;">🧵</div>
+              <h5 style="color: #FBCFE8; font-size: 12px; margin-bottom: 2px;">Retales de tela</h5>
+              <p style="font-size: 11px; margin-bottom: 0;">Bolas sensoriales blandas y sacos de relevos reutilizados.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PANEL DETALLE: ESTACIÓN 4 -->
+      <div class="station-panel panel-st4">
+        <div class="station-detail-box" style="text-align: center;">
+          <h3>🏅 Estación 4: Consagración de los Guardianes del Juego</h3>
+          <p>
+            Diploma Oficial expedido por la Comunidad de Madrid con los 4 sellos cívicos constitucionales de honor:
+          </p>
+          <div style="display: flex; justify-content: center; gap: 14px; margin: 12px 0;">
+            <span style="font-size: 24px;">🏛️</span>
+            <span style="font-size: 24px;">⚖️</span>
+            <span style="font-size: 24px;">🏃</span>
+            <span style="font-size: 24px;">🌱</span>
+          </div>
+          <p style="font-size: 12px; color: #94A3B8;">
+            Para imprimir el diploma oficial individual en tamaño A4, accede a la pestaña de <strong>Carnet y diploma</strong> en la versión web o pulsa <kbd style="background:#0F172A; border:1px solid #334155; padding:2px 6px; border-radius:4px; color:#FFF;">Ctrl + P</kbd>.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PIE -->
+    <footer class="infographic-footer">
+      <div class="footer-left">
+        <strong>Comunidad de Madrid</strong> — Día de la Constitución Española 2026
+      </div>
+      <div>
+        <label for="st-home" class="btn-return-home">
+          ⬅️ Volver al tablero general
+        </label>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
